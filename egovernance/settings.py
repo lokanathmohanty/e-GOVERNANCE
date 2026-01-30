@@ -19,6 +19,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-key-replace-in-pro
 DEBUG = False
 
 ALLOWED_HOSTS = ['.onrender.com']
+CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com']
 
 
 # Application definition

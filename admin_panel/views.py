@@ -3,7 +3,10 @@ from django.contrib.auth.decorators import login_required
 from core.models import Department, Service, User, Application
 from django.contrib import messages
 
+from functools import wraps
+
 def admin_only(view_func):
+    @wraps(view_func)
     def wrapper(request, *args, **kwargs):
         if request.user.is_authenticated and request.user.role == 'admin':
             return view_func(request, *args, **kwargs)
