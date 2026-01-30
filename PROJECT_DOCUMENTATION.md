@@ -32,7 +32,7 @@ The project is built on a robust, scalable **3-Tier Architecture** that strictly
 ### **Technology Stack**
 *   **Backend:** **Django (Python)** - Chosen for its "batteries-included" security, scalability, and rapid development capabilities.
 *   **Frontend:** **Bootstrap 5, HTML5, CSS3, JavaScript** - Ensures a responsive, mobile-first design that works on all devices.
-*   **Database:** **MySQL / SQLite** - Relational data storage for complex citizen and service data.
+*   **Database:** **PostgreSQL (Render Production) / SQLite (Dev)** - Relational data storage for complex citizen and service data.
 *   **Analytics:** **Chart.js** - Interactive visualization for the MIS dashboard.
 
 ### **3-Tier Architecture Design**
@@ -105,7 +105,7 @@ Deadlines are critical in governance. The system enforces time-bound delivery:
 2.  The system calculates `days_remaining` dynamically.
 3.  **Alerts:**
     *   🟢 **Green:** Comfortably on time.
-    *   🟡 **Yellow:** Near deadline (Action required).
+    *   🟡 **Yellow:** Near Deadline (Action required).
     *   🔴 **Red:** Breached (Escalation triggered).
 
 ### **4.3 Integrated Document Locker**
@@ -126,7 +126,7 @@ Upon final approval by an officer:
 The project follows a clean, modular structure for maintainability:
 
 ```plaintext
-smart_odisha/
+egovernance/           # (Formerly Smart Odisha / e-GOVERNANCE)
 │
 ├── accounts/          # User Authentication, Registration, Profiles
 ├── citizen/           # Citizen Dashboard, Application Forms, Locker
