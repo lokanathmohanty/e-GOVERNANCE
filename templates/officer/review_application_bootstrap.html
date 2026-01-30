@@ -1,0 +1,326 @@
+{% extends 'base_bootstrap.html' %}
+
+{% block title %}Review Application {{ application.application_number }} | Officer Portal{% endblock %}
+
+{% block content %}
+<div class="container-fluid bg-light min-vh-100 py-4">
+    <div class="container">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <h2 class="mb-2">Application Review</h2>
+                <p class="text-muted">Application ID: <strong>#{{ application.application_number }}</strong></p>
+            </div>
+            <div class="col-md-4 text-md-end">
+                <a href="{% url 'officer:dashboard' %}" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i> Back to Dashboard
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <!-- Application Details Card -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="bi bi-file-earmark-text"></i> Application Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="small text-muted fw-bold">Service</label>
+                                <p class="mb-0">{{ application.service.service_name }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small text-muted fw-bold">Department</label>
+                                <p class="mb-0">{{ application.service.department.department_name }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small text-muted fw-bold">Citizen Name</label>
+                                <p class="mb-0">{{ application.user.get_full_name|default:application.user.username }}
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small text-muted fw-bold">Contact</label>
+                                <p class="mb-0">{{ application.user.email }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small text-muted fw-bold">Applied Date</label>
+                                <p class="mb-0">{{ application.applied_date|date:"F d, Y h:i A" }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small text-muted fw-bold">SLA Deadline</label>
+                                <p class="mb-0">{{ application.sla_deadline|date:"F d, Y" }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small text-muted fw-bold">Priority</label>
+                                <p>
+                                    {% if application.priority == 'disaster' %}
+                                    <span class="badge bg-danger"><i class="bi bi-lightning-fill"></i> Disaster</span>
+                                    {% elif application.priority == 'emergency' %}
+                                    <span class="badge bg-warning text-dark"><i class="bi bi-exclamation-triangle"></i>
+                                        Emergency</span>
+                                    {% else %}
+                                    <span class="badge bg-secondary">Normal</span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small text-muted fw-bold">Current Status</label>
+                                <p>
+                                    {% if application.status == 'pending' %}
+                                    <span class="badge bg-warning text-dark">Pending Review</span>
+                                    {% elif application.status == 'under_review' %}
+                                    <span class="badge bg-info">Under Review</span>
+                                    {% elif application.status == 'approved' %}
+                                    <span class="badge bg-success">Approved</span>
+                                    {% else %}
+                                    <span class="badge bg-danger">Rejected</span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                            {% if application.remarks %}
+                            <div class="col-12">
+                                <label class="small text-muted fw-bold">Citizen Remarks</label>
+                                <div class="alert alert-light">{{ application.remarks }}</div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Documents Card -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h6 class="mb-0"><i class="bi bi-paperclip"></i> Attached Documents</h6>
+                    </div>
+                    <div class="card-body">
+                        {% if documents %}
+                        <div class="list-group">
+                            {% for doc in documents %}
+                            <div class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <i class="bi bi-file-earmark-pdf text-danger fs-4 me-2"></i>
+                                        <strong>{{ doc.document_type }}</strong>
+                                        <br>
+                                        <small class="text-muted">
+                                            Uploaded: {{ doc.uploaded_at|date:"M d, Y" }} •
+                                            Size: {{ doc.file_size|filesizeformat }}
+                                        </small>
+                                    </div>
+                                    <div>
+                                        <a href="{{ doc.file_path.url }}" target="_blank"
+                                            class="btn btn-sm btn-outline-primary">
+                                            <i class="bi bi-download"></i> Download
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        <p class="text-muted mb-0">No documents attached</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Document Verification Checklist (New Feature) -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-secondary text-white">
+                        <h6 class="mb-0"><i class="bi bi-check2-square"></i> Document Verification Checklist</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-light border small text-muted mb-3">
+                            <i class="bi bi-info-circle"></i> Please verify each document before making a decision.
+                        </div>
+                        <div class="d-flex flex-column gap-2">
+                            {% for doc in documents %}
+                            <div class="form-check p-3 border rounded hover-shadow">
+                                <input class="form-check-input" type="checkbox" id="check_doc_{{ doc.id }}">
+                                <label class="form-check-label d-flex justify-content-between align-items-center w-100"
+                                    for="check_doc_{{ doc.id }}">
+                                    <span>
+                                        <strong>{{ doc.document_type }}</strong>
+                                        <span class="text-muted small ms-2">({{ doc.file_size|filesizeformat }})</span>
+                                    </span>
+                                    <span class="badge bg-success bg-opacity-10 text-success rounded-pill status-badge"
+                                        style="display:none">Verified</span>
+                                </label>
+                            </div>
+                            {% empty %}
+                            <div class="text-muted text-center">No documents to verify.</div>
+                            {% endfor %}
+                        </div>
+                        <script>
+                            // Simple client-side toggle for visual feedback
+                            document.querySelectorAll('.form-check-input').forEach(checkbox => {
+                                checkbox.addEventListener('change', function () {
+                                    const badge = this.nextElementSibling.querySelector('.status-badge');
+                                    if (this.checked) {
+                                        this.parentElement.classList.add('bg-success', 'bg-opacity-10', 'border-success');
+                                        badge.style.display = 'inline-block';
+                                    } else {
+                                        this.parentElement.classList.remove('bg-success', 'bg-opacity-10', 'border-success');
+                                        badge.style.display = 'none';
+                                    }
+                                });
+                            });
+                        </script>
+                    </div>
+                </div>
+
+                <!-- Decision Form -->
+                {% if application.status != 'approved' and application.status != 'rejected' %}
+                <div class="card shadow-sm">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0"><i class="bi bi-clipboard-check"></i> Make Decision</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Decision <span class="text-danger">*</span></label>
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <div class="form-check card p-3 border-success h-100">
+                                            <input class="form-check-input" type="radio" name="decision"
+                                                value="approved" id="approveOption" required>
+                                            <label class="form-check-label w-100" for="approveOption">
+                                                <i class="bi bi-check-circle-fill text-success fs-4"></i>
+                                                <strong class="d-block mt-2">Approve Application</strong>
+                                                <small class="text-muted">Citizen will be notified and can download
+                                                    certificate</small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-check card p-3 border-danger h-100">
+                                            <input class="form-check-input" type="radio" name="decision"
+                                                value="rejected" id="rejectOption" required>
+                                            <label class="form-check-label w-100" for="rejectOption">
+                                                <i class="bi bi-x-circle-fill text-danger fs-4"></i>
+                                                <strong class="d-block mt-2">Reject</strong>
+                                                <small class="text-muted">Requires reason.</small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-check card p-3 border-warning h-100">
+                                            <input class="form-check-input" type="radio" name="decision"
+                                                value="escalate" id="escalateOption" required>
+                                            <label class="form-check-label w-100" for="escalateOption">
+                                                <i class="bi bi-arrow-up-circle-fill text-warning fs-4"></i>
+                                                <strong class="d-block mt-2">Escalate</strong>
+                                                <small class="text-muted">Send to Head.</small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="remarks" class="form-label fw-bold">Officer Remarks <span
+                                        class="text-danger">*</span></label>
+                                <textarea class="form-control" id="remarks" name="officer_remarks" rows="4"
+                                    placeholder="Provide detailed remarks for your decision..." required></textarea>
+                                <small class="form-text text-muted">This will be visible to the citizen</small>
+                            </div>
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a href="{% url 'officer:dashboard' %}" class="btn btn-outline-secondary">
+                                    <i class="bi bi-x-circle"></i> Cancel
+                                </a>
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="bi bi-send-check"></i> Submit Decision
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% else %}
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i> This application has already been processed.
+                    {% if application.approved_by %}
+                    <br><strong>Processed by:</strong> {{
+                    application.approved_by.get_full_name|default:application.approved_by.username }}
+                    <br><strong>Date:</strong> {{ application.approved_date|date:"F d, Y h:i A" }}
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Application History Timeline (New Feature) -->
+            <div class="card shadow-sm mt-4">
+                <div class="card-header bg-white border-bottom">
+                    <h5 class="mb-0"><i class="bi bi-clock-history"></i> Processing History</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="timeline-list list-unstyled" style="border-left: 2px solid #eee; padding-left: 20px;">
+                        {% for log in audit_logs %}
+                        <li class="mb-4 position-relative">
+                            <span
+                                class="position-absolute translate-middle p-2 bg-primary border border-light rounded-circle"
+                                style="left: -25px; top: 0;"></span>
+                            <div class="pb-3 border-bottom">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <strong>{{ log.user.get_full_name|default:log.user.username }}</strong>
+                                    <small class="text-muted">{{ log.timestamp|date:"M d, Y h:i A" }}</small>
+                                </div>
+                                <span class="badge bg-light text-dark border mb-2">{{ log.action }}</span>
+                                <p class="text-muted small mb-0">{{ log.description }}</p>
+                            </div>
+                        </li>
+                        {% empty %}
+                        <li class="text-center text-muted">No history available.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <!-- SLA Alert -->
+            <div
+                class="card shadow-sm mb-3 border-{% if application.sla_status == 'delayed' %}danger{% elif application.sla_status == 'near_deadline' %}warning{% else %}success{% endif %}">
+                <div class="card-body text-center">
+                    <i class="bi bi-clock-history fs-1 mb-2"></i>
+                    <h6>SLA Status</h6>
+                    {% if application.sla_status == 'on_time' %}
+                    <p class="text-success mb-0"><strong>{{ application.days_left }} days remaining</strong></p>
+                    <small class="text-muted">On Track</small>
+                    {% elif application.sla_status == 'near_deadline' %}
+                    <p class="text-warning mb-0"><strong>{{ application.days_left }} days remaining</strong></p>
+                    <small class="text-muted">Near Deadline</small>
+                    {% elif application.sla_status == 'delayed' %}
+                    <p class="text-danger mb-0"><strong>Overdue</strong></p>
+                    <small class="text-muted">{{ application.days_overdue }} days past deadline</small>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h6 class="mb-0"><i class="bi bi-lightning"></i> Quick Actions</h6>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-outline-primary btn-sm" onclick="window.print()">
+                            <i class="bi bi-printer"></i> Print Application
+                        </button>
+                        <a href="#" class="btn btn-outline-secondary btn-sm">
+                            <i class="bi bi-chat-dots"></i> Contact Citizen
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

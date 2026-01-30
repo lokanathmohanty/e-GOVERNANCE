@@ -1,0 +1,198 @@
+{% extends 'base_bootstrap.html' %}
+{% load static %}
+
+{% block title %}Track Application: {{ app.application_number }} | e-Gov Portal{% endblock %}
+
+{% block content %}
+<div class="container-fluid bg-light min-vh-100 py-4">
+    <div class="container">
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'citizen:dashboard' %}">Dashboard</a></li>
+                <li class="breadcrumb-item active">Track Application</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-white border-bottom">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h4 class="mb-1 fw-bold">Application Tracker</h4>
+                                <p class="small text-muted mb-0">Ref: #{{ app.application_number }}</p>
+                            </div>
+                            <div>
+                                {% if app.status == 'approved' %}
+                                <span class="badge bg-success rounded-pill px-3 py-2">Approved</span>
+                                {% elif app.status == 'rejected' %}
+                                <span class="badge bg-danger rounded-pill px-3 py-2">Rejected</span>
+                                {% elif app.status == 'under_review' %}
+                                <span class="badge bg-info rounded-pill px-3 py-2">Under Review</span>
+                                {% else %}
+                                <span class="badge bg-warning text-dark rounded-pill px-3 py-2">Pending</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-5">
+                            <div class="d-flex justify-content-between mb-3">
+                                <!-- Submitted Stage -->
+                                <div class="text-center" style="width: 32%;">
+                                    <div class="mb-2">
+                                        <div class="mx-auto rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
+                                            style="width: 50px; height: 50px;">
+                                            <i class="bi bi-check-lg fs-4"></i>
+                                        </div>
+                                    </div>
+                                    <small class="fw-bold">Submitted</small><br>
+                                    <small class="text-muted">{{ app.applied_date|date:'M d, Y' }}</small>
+                                </div>
+
+                                <!-- Verification Stage -->
+                                <div class="text-center" style="width: 32%;">
+                                    <div class="mb-2">
+                                        <div class="mx-auto rounded-circle {% if app.status != 'pending' %}bg-primary text-white{% else %}bg-light text-muted border{% endif %} d-flex align-items-center justify-content-center"
+                                            style="width: 50px; height: 50px;">
+                                            <i class="bi bi-search fs-4"></i>
+                                        </div>
+                                    </div>
+                                    <small class="fw-bold">Verification</small><br>
+                                    <small class="text-muted">{% if app.status != 'pending' %}In Progress{% else
+                                        %}Waiting{% endif %}</small>
+                                </div>
+
+                                <!-- Completed Stage -->
+                                <div class="text-center" style="width: 32%;">
+                                    <div class="mb-2">
+                                        <div class="mx-auto rounded-circle {% if app.status == 'approved' %}bg-success text-white{% elif app.status == 'rejected' %}bg-danger text-white{% else %}bg-light text-muted border{% endif %} d-flex align-items-center justify-content-center"
+                                            style="width: 50px; height: 50px;">
+                                            {% if app.status == 'approved' %}
+                                            <i class="bi bi-check-all fs-4"></i>
+                                            {% elif app.status == 'rejected' %}
+                                            <i class="bi bi-x-lg fs-4"></i>
+                                            {% else %}
+                                            <i class="bi bi-flag fs-4"></i>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <small class="fw-bold">Completed</small><br>
+                                    <small class="text-muted">
+                                        {% if app.status == 'approved' or app.status == 'rejected' %}
+                                        {{ app.approved_date|date:'M d, Y' }}
+                                        {% else %}
+                                        Pending
+                                        {% endif %}
+                                    </small>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="progress" style="height: 8px;">
+                                {% if app.status == 'pending' %}
+                                <div class="progress-bar" style="width: 33%"></div>
+                                {% elif app.status == 'under_review' %}
+                                <div class="progress-bar" style="width: 66%"></div>
+                                {% else %}
+                                <div class="progress-bar bg-{% if app.status == 'approved' %}success{% else %}danger{% endif %}"
+                                    style="width: 100%"></div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-3">
+                                <h6 class="text-muted small">SERVICE INFORMATION</h6>
+                                <div class="card bg-light border-0 p-3">
+                                    <p class="mb-1 fw-bold">{{ app.service.service_name }}</p>
+                                    <p class="mb-0 small text-muted">{{ app.service.department.department_name }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h6 class="text-muted small">SUPPORTING DOCUMENTS</h6>
+                                <div class="list-group">
+                                    {% for doc in documents %}
+                                    <a href="{{ doc.file_path.url }}" target="_blank"
+                                        class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                        <span><i class="bi bi-file-earmark-pdf text-danger"></i> {{ doc.document_type
+                                            }}</span>
+                                        <i class="bi bi-box-arrow-up-right small"></i>
+                                    </a>
+                                    {% empty %}
+                                    <p class="small text-muted">No documents uploaded.</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
+                        {% if app.remarks %}
+                        <div class="alert alert-info border-start border-4 border-info">
+                            <h6 class="fw-bold"><i class="bi bi-chat-left-text"></i> Officer Remarks</h6>
+                            <p class="mb-0">{{ app.remarks }}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-white">
+                        <h6 class="mb-0"><i class="bi bi-clock-history"></i> SLA Monitoring</h6>
+                    </div>
+                    <div class="card-body text-center">
+                        <h1
+                            class="display-4 fw-bold {% if sla_status == 'overdue' %}text-danger{% elif sla_status == 'near_deadline' %}text-warning{% else %}text-success{% endif %}">
+                            {% if sla_status == 'completed' %}
+                            <i class="bi bi-check-circle-fill"></i>
+                            {% else %}
+                            {{ days_left }}
+                            {% endif %}
+                        </h1>
+                        <p class="small text-muted mb-3">Days Remaining</p>
+                        <div class="d-grid gap-2">
+                            <span
+                                class="badge {% if sla_status == 'on_time' %}bg-success{% elif sla_status == 'near_deadline' %}bg-warning text-dark{% elif sla_status == 'overdue' %}bg-danger{% else %}bg-info{% endif %} p-2">
+                                {% if sla_status == 'on_time' %}On Time
+                                {% elif sla_status == 'near_deadline' %}Approaching Deadline
+                                {% elif sla_status == 'overdue' %}SLA Breached
+                                {% else %}Completed{% endif %}
+                            </span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between small">
+                            <div>
+                                <p class="text-muted mb-0">Filed On</p>
+                                <p class="fw-bold mb-0">{{ app.applied_date|date:'d M, Y' }}</p>
+                            </div>
+                            <div>
+                                <p class="text-muted mb-0">Deadline</p>
+                                <p class="fw-bold mb-0">{{ app.sla_deadline|date:'d M, Y' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% if app.status == 'approved' %}
+                    <div class="card-footer bg-white border-top-0">
+                        <a href="{% url 'citizen:certificate' app.id %}" target="_blank" class="btn btn-success w-100">
+                            <i class="bi bi-download"></i> Download Certificate
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="card shadow-sm bg-primary text-white">
+                    <div class="card-body">
+                        <h6 class="fw-bold"><i class="bi bi-question-circle"></i> Need Support?</h6>
+                        <p class="small mb-3">If your application is exceeding SLA or you have queries, raise a
+                            grievance ticket.</p>
+                        <a href="{% url 'citizen:grievances' %}?app_id={{ app.id }}" class="btn btn-light w-100">
+                            <i class="bi bi-flag"></i> Raise Grievance
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,138 @@
+{% extends 'base_bootstrap.html' %}
+{% load static %}
+
+{% block title %}Digital ID Card | e-Gov Portal{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold">Digital Citizen ID</h2>
+                <p class="text-muted">This card serves as your digital proof of identity verification.</p>
+            </div>
+
+            <!-- ID Card Container -->
+            <div id="idCard" class="card border-0 shadow-lg overflow-hidden position-relative rounded-4"
+                style="background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);">
+                <!-- Header -->
+                <div class="card-header border-0 p-4 text-white text-center"
+                    style="background: linear-gradient(45deg, #185fec, #0f4bc4);">
+                    <div class="d-flex align-items-center justify-content-center gap-2">
+                        <i class="bi bi-bank2 fs-3"></i>
+                        <div class="text-start lh-1">
+                            <div class="fw-bold text-uppercase small" style="letter-spacing: 2px;">Government of State
+                            </div>
+                            <div class="fs-5 fw-bold">Citizen Identity Card</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Body -->
+                <div class="card-body p-4">
+                    <div class="row align-items-center">
+                        <div class="col-4 text-center">
+                            {% if user.profile_picture %}
+                            <img src="{{ user.profile_picture.url }}"
+                                class="rounded shadow border border-3 border-white"
+                                style="width: 100px; height: 100px; object-fit: cover;">
+                            {% else %}
+                            <div class="bg-secondary text-white rounded shadow d-flex align-items-center justify-content-center mx-auto"
+                                style="width: 100px; height: 100px;">
+                                <i class="bi bi-person-fill display-4"></i>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-8">
+                            <h4 class="fw-bold mb-1 text-primary">{{ user.get_full_name|default:user.username }}</h4>
+                            <p class="mb-2 text-muted small fw-bold text-uppercase">Citizen</p>
+
+                            <div class="small">
+                                <div class="row mb-1">
+                                    <div class="col-4 fw-bold text-muted">ID:</div>
+                                    <div class="col-8 fw-bold">{{ user.id|stringformat:"06d" }}</div>
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col-4 fw-bold text-muted">Aadhaar:</div>
+                                    <div class="col-8">{{ user.aadhaar_number|default:"Not Linked" }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 fw-bold text-muted">Phone:</div>
+                                    <div class="col-8">{{ user.phone|default:"-" }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4 border-secondary opacity-25">
+
+                    <div class="d-flex justify-content-between align-items-end">
+                        <div>
+                            <div class="small fw-bold text-muted mb-1">Address:</div>
+                            <p class="small text-dark lh-sm mb-0" style="max-width: 200px;">
+                                {{ user.address|default:"Address not updated"|truncatechars:60 }}
+                            </p>
+                        </div>
+                        <div class="text-center">
+                            <!-- Simple generated QR using Google API for demo -->
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=GOV-ID:{{ user.id }}-{{ user.username }}"
+                                alt="QR Code" style="width: 70px; height: 70px;">
+                            <div class="tiny text-muted mt-1" style="font-size: 0.6rem;">Scan to Verify</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="card-footer bg-transparent border-0 text-center pb-4 pt-0">
+                    <small class="text-muted fw-bold" style="font-size: 0.7rem;">Issued Electronically • Valid
+                        Everywhere</small>
+                </div>
+            </div>
+
+            <div class="text-center mt-4 d-grid gap-2">
+                <button onclick="printCard()" class="btn btn-primary btn-lg rounded-pill shadow-sm">
+                    <i class="bi bi-printer-fill me-2"></i> Print / Download PDF
+                </button>
+                <a href="{% url 'citizen:dashboard' %}" class="btn btn-light rounded-pill">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+
+        #idCard,
+        #idCard * {
+            visibility: visible;
+        }
+
+        #idCard {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            max-width: 400px;
+            box-shadow: none !important;
+            border: 1px solid #ddd !important;
+        }
+
+        .btn,
+        header,
+        footer,
+        .d-flex.justify-content-between.align-items-center {
+            display: none !important;
+        }
+    }
+</style>
+
+<script>
+    function printCard() {
+        window.print();
+    }
+</script>
+{% endblock %}

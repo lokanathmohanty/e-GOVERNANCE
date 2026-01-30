@@ -1,0 +1,75 @@
+{% extends 'base_bootstrap.html' %}
+{% block title %}Manage Services | MIS{% endblock %}
+
+{% block content %}
+<div class="container-fluid bg-light min-vh-100 py-4">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h3><i class="bi bi-gear-wide-connected"></i> Service Management</h3>
+                <p class="text-muted">Add, update, and configure department services.</p>
+            </div>
+            <div>
+                <a href="{% url 'mis:dashboard' %}" class="btn btn-outline-secondary me-2"><i
+                        class="bi bi-arrow-left"></i> Dashboard</a>
+                <a href="{% url 'mis:service_create' %}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Add New
+                    Service</a>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="ps-4">Service Name</th>
+                                <th>Department</th>
+                                <th>Processing Days (SLA)</th>
+                                <th>Fee (₹)</th>
+                                <th>Status</th>
+                                <th class="text-end pe-4">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for service in services %}
+                            <tr>
+                                <td class="ps-4 fw-bold">{{ service.service_name }}</td>
+                                <td><span class="badge bg-secondary">{{ service.department.department_name }}</span>
+                                </td>
+                                <td>{{ service.processing_days }} Days</td>
+                                <td>
+                                    {% if service.fee_amount > 0 %}
+                                    ₹{{ service.fee_amount }}
+                                    {% else %}
+                                    <span class="text-success">Free</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if service.is_active %}
+                                    <span class="badge bg-success">Active</span>
+                                    {% else %}
+                                    <span class="badge bg-danger">Inactive</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-end pe-4">
+                                    <a href="{% url 'mis:service_edit' service.id %}"
+                                        class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i> Edit</a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center py-5 text-muted">
+                                    <i class="bi bi-layers fs-1 d-block mb-3"></i>
+                                    No services found. Click "Add New Service" to create one.
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

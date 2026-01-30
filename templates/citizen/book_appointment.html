@@ -1,0 +1,95 @@
+{% extends 'base_bootstrap.html' %}
+{% block title %}Book Appointment | e-Gov{% endblock %}
+{% block content %}
+<div class="row justify-content-center py-5">
+    <div class="col-md-8">
+        <div class="card shadow rounded-4">
+            <div class="card-header bg-primary text-white p-4">
+                <h4 class="mb-0">Book an Appointment</h4>
+                <p class="mb-0 text-white-50">Select your preferred slot to visit a government office.</p>
+            </div>
+            <div class="card-body p-4">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Department</label>
+                        <select name="department" id="deptSelect" class="form-select" required
+                            onchange="filterCenters()">
+                            <option value="">Select Department</option>
+                            {% for d in departments %}
+                            <option value="{{ d.id }}">{{ d.department_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Select Center</label>
+                        <select name="center" id="centerSelect" class="form-select" required>
+                            <option value="">Select Department First</option>
+                            {% for c in centers %}
+                            <option value="{{ c.id }}" data-dept="{{ c.department.id }}">{{ c.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Service (Optional)</label>
+                        <select name="service" class="form-select">
+                            <option value="">General Inquiry</option>
+                            {% for s in services %}
+                            <option value="{{ s.id }}">{{ s.service_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Date</label>
+                            <input type="date" name="date" class="form-control" required min="2024-01-01">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Time Slot</label>
+                            <select name="time_slot" class="form-select" required>
+                                <option value="10:00 AM - 10:30 AM">10:00 AM - 10:30 AM</option>
+                                <option value="10:30 AM - 11:00 AM">10:30 AM - 11:00 AM</option>
+                                <option value="11:00 AM - 11:30 AM">11:00 AM - 11:30 AM</option>
+                                <option value="11:30 AM - 12:00 PM">11:30 AM - 12:00 PM</option>
+                                <option value="02:00 PM - 02:30 PM">02:00 PM - 02:30 PM</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg">Confirm Booking</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function filterCenters() {
+        const deptId = document.getElementById('deptSelect').value;
+        const centerSelect = document.getElementById('centerSelect');
+        const options = centerSelect.querySelectorAll('option');
+
+        // Hide/Show logic
+        let count = 0;
+        options.forEach(opt => {
+            if (!opt.value) return;
+            if (opt.getAttribute('data-dept') === deptId) {
+                opt.hidden = false;
+                count++;
+            } else {
+                opt.hidden = true;
+            }
+        });
+
+        // Reset selection
+        centerSelect.value = "";
+    }
+    // Set min date to today
+    document.querySelector('input[name="date"]').min = new Date().toISOString().split("T")[0];
+</script>
+{% endblock %}

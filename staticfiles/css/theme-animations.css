@@ -1,0 +1,796 @@
+/* ========================================
+   GOVERNMENT E-GOVERNANCE PLATFORM
+   PROFESSIONAL ANIMATIONS & TRANSITIONS
+   Theme: Warm Premium Government Gold
+   ======================================== */
+
+/* ========================================
+   ACCESSIBILITY & PERFORMANCE
+   ======================================== */
+
+/* Respect user preferences for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ========================================
+   CSS CUSTOM PROPERTIES
+   ======================================== */
+
+:root {
+    --govt-gold: #D97706;
+    --govt-gold-dark: #B45309;
+    --govt-gold-light: #FBBF24;
+    --transition-smooth: all 300ms ease;
+    --transition-fast: all 200ms ease;
+    --shadow-subtle: 0 2px 8px rgba(217, 119, 6, 0.08);
+    --shadow-hover: 0 6px 20px rgba(217, 119, 6, 0.15);
+    --shadow-glow: 0 0 0 3px rgba(217, 119, 6, 0.12);
+}
+
+/* ========================================
+   GLOBAL PAGE LOAD ANIMATIONS
+   ======================================== */
+
+/* Page fade-in with upward motion */
+body {
+    animation: pageLoad 600ms ease-out;
+}
+
+@keyframes pageLoad {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Main content smooth entry */
+main {
+    animation: contentFadeIn 500ms ease-out 100ms both;
+}
+
+@keyframes contentFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   NAVBAR ANIMATIONS
+   ======================================== */
+
+/* Sticky navbar smooth transition */
+.navbar {
+    transition: background-color 300ms ease, box-shadow 300ms ease, backdrop-filter 300ms ease;
+}
+
+.navbar.scrolled {
+    background-color: rgba(13, 110, 253, 0.95) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Navbar links smooth hover */
+.navbar .nav-link {
+    position: relative;
+    transition: var(--transition-fast);
+}
+
+.navbar .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--govt-gold);
+    transition: width 250ms ease, left 250ms ease;
+}
+
+.navbar .nav-link:hover::after,
+.navbar .nav-link.active::after {
+    width: 80%;
+    left: 10%;
+}
+
+/* Dropdown smooth animation */
+.navbar .dropdown-menu {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 250ms ease, transform 250ms ease;
+    display: block;
+    visibility: hidden;
+    margin-top: 0 !important;
+}
+
+.navbar .dropdown-menu.show {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+}
+
+/* Notification bell pulse for new notifications */
+.navbar .bi-bell {
+    transition: transform 200ms ease;
+}
+
+.navbar .bi-bell:hover {
+    animation: bellRing 500ms ease;
+}
+
+@keyframes bellRing {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(-10deg);
+    }
+
+    75% {
+        transform: rotate(10deg);
+    }
+}
+
+/* ========================================
+   CARD ANIMATIONS
+   ======================================== */
+
+/* All cards base transition */
+.card {
+    transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+    will-change: transform;
+}
+
+/* Card hover - subtle lift effect */
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--govt-gold) !important;
+}
+
+/* Card click/tap micro-interaction */
+.card:active {
+    transform: translateY(-3px) scale(0.98);
+    transition: transform 150ms ease;
+}
+
+/* Card icon animation on hover */
+.card:hover i,
+.card:hover .bi {
+    transform: scale(1.1);
+    transition: transform 250ms ease;
+}
+
+.card i,
+.card .bi {
+    transition: transform 250ms ease;
+}
+
+/* Staggered card entrance (for lists) */
+.card-animate {
+    opacity: 0;
+    animation: cardSlideIn 400ms ease-out forwards;
+}
+
+@keyframes cardSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Stagger delay for multiple cards */
+.card-animate:nth-child(1) {
+    animation-delay: 0ms;
+}
+
+.card-animate:nth-child(2) {
+    animation-delay: 60ms;
+}
+
+.card-animate:nth-child(3) {
+    animation-delay: 120ms;
+}
+
+.card-animate:nth-child(4) {
+    animation-delay: 180ms;
+}
+
+.card-animate:nth-child(5) {
+    animation-delay: 240ms;
+}
+
+.card-animate:nth-child(6) {
+    animation-delay: 300ms;
+}
+
+.card-animate:nth-child(n+7) {
+    animation-delay: 360ms;
+}
+
+/* ========================================
+   BUTTON MICRO-INTERACTIONS
+   ======================================== */
+
+/* Primary buttons (Government Gold) */
+.btn-primary,
+.btn-warning {
+    transition: background-color 200ms ease, transform 150ms ease, box-shadow 200ms ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary:hover,
+.btn-warning:hover {
+    background-color: var(--govt-gold-dark);
+    box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
+    transform: translateY(-1px);
+}
+
+.btn-primary:active,
+.btn-warning:active {
+    transform: translateY(0) scale(0.97);
+}
+
+/* Secondary and outline buttons */
+.btn-secondary,
+.btn-outline-primary,
+.btn-outline-secondary {
+    transition: var(--transition-fast);
+}
+
+.btn-outline-primary:hover {
+    border-color: var(--govt-gold);
+    background-color: var(--govt-gold);
+    transform: translateY(-1px);
+}
+
+/* Button ripple effect on click */
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    transform: translate(-50%, -50%);
+    transition: width 400ms ease, height 400ms ease;
+}
+
+.btn:active::after {
+    width: 200px;
+    height: 200px;
+}
+
+/* ========================================
+   FORM & INPUT ANIMATIONS
+   ======================================== */
+
+/* Search bar modern experience */
+.form-control,
+.form-select,
+input[type="search"],
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+    transition: border-color 250ms ease, box-shadow 250ms ease, width 300ms ease;
+}
+
+/* Search input focus - pill shape with glow */
+input[type="search"]:focus,
+.search-input:focus {
+    border-color: var(--govt-gold) !important;
+    box-shadow: var(--shadow-glow) !important;
+    outline: none;
+}
+
+/* Desktop search bar expansion */
+@media (min-width: 768px) {
+
+    input[type="search"]:focus,
+    .search-input:focus {
+        width: 110% !important;
+        transition: width 300ms ease;
+    }
+}
+
+/* Input focus gold ring */
+.form-control:focus,
+.form-select:focus,
+input:focus,
+textarea:focus {
+    border-color: var(--govt-gold);
+    box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1);
+    outline: none;
+}
+
+/* Input validation - error shake */
+.form-control.is-invalid,
+input.is-invalid {
+    animation: inputShake 400ms ease;
+}
+
+@keyframes inputShake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-8px);
+    }
+
+    75% {
+        transform: translateX(8px);
+    }
+}
+
+/* Success checkmark fade-in */
+.form-control.is-valid::after,
+input.is-valid::after {
+    animation: checkmarkFade 300ms ease;
+}
+
+@keyframes checkmarkFade {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Placeholder smooth transition */
+::placeholder {
+    transition: opacity 250ms ease;
+}
+
+input:focus::placeholder,
+textarea:focus::placeholder {
+    opacity: 0.5;
+}
+
+/* ========================================
+   BADGE & STATUS ANIMATIONS
+   ======================================== */
+
+/* Status badges smooth color transition */
+.badge {
+    transition: background-color 250ms ease, transform 200ms ease;
+}
+
+.badge:hover {
+    transform: scale(1.05);
+}
+
+/* Badge count-up animation */
+.badge-count {
+    animation: countPulse 500ms ease;
+}
+
+@keyframes countPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+/* ========================================
+   ALERT & MESSAGE ANIMATIONS
+   ======================================== */
+
+/* Alert smooth entry */
+.alert {
+    animation: alertSlideDown 400ms ease-out;
+}
+
+@keyframes alertSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Alert dismissal */
+.alert.fade {
+    transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.alert.fade:not(.show) {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+/* ========================================
+   MODAL ANIMATIONS
+   ======================================== */
+
+/* Modal smooth backdrop */
+.modal.fade .modal-dialog {
+    transition: transform 300ms ease-out, opacity 300ms ease-out;
+    transform: scale(0.95) translateY(-20px);
+}
+
+.modal.show .modal-dialog {
+    transform: scale(1) translateY(0);
+}
+
+/* Modal backdrop fade */
+.modal-backdrop.fade {
+    transition: opacity 300ms ease;
+}
+
+/* ========================================
+   TABLE & LIST ANIMATIONS
+   ======================================== */
+
+/* Table row hover */
+.table tbody tr {
+    transition: background-color 200ms ease, transform 150ms ease;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(217, 119, 6, 0.04);
+    transform: translateX(2px);
+}
+
+/* List group items */
+.list-group-item {
+    transition: background-color 200ms ease, border-color 200ms ease, transform 200ms ease;
+}
+
+.list-group-item:hover {
+    background-color: rgba(217, 119, 6, 0.05);
+    border-left: 3px solid var(--govt-gold);
+    transform: translateX(3px);
+}
+
+/* ========================================
+   DASHBOARD STAT CARDS
+   ======================================== */
+
+/* Stat card number count-up (see JavaScript section below) */
+.stat-number {
+    transition: color 300ms ease;
+}
+
+/* Stat card icon pulse on hover */
+.stat-icon {
+    transition: transform 300ms ease;
+}
+
+.card:hover .stat-icon {
+    animation: iconPulse 600ms ease;
+}
+
+@keyframes iconPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+/* Progress bars smooth animation */
+.progress-bar {
+    transition: width 800ms ease, background-color 300ms ease;
+}
+
+/* ========================================
+   SCROLL ANIMATIONS (Intersection Observer)
+   ======================================== */
+
+/* Sections fade in on scroll */
+.scroll-fade {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.scroll-fade.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Scroll reveal from left */
+.scroll-left {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.scroll-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Scroll reveal from right */
+.scroll-right {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.scroll-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ========================================
+   ICON ANIMATIONS
+   ======================================== */
+
+/* Icon smooth scale on parent hover */
+a:hover i,
+button:hover i,
+.icon-hover:hover i {
+    transform: scale(1.1);
+    transition: transform 250ms ease;
+}
+
+i,
+.bi {
+    transition: transform 250ms ease, color 250ms ease;
+}
+
+/* Rotating icon (for loading states) */
+.icon-spin {
+    animation: iconSpin 1s linear infinite;
+}
+
+@keyframes iconSpin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========================================
+   DROPDOWN & MEGA MENU
+   ======================================== */
+
+/* Dropdown fade + slight scale */
+.dropdown-menu {
+    opacity: 0;
+    transform: scale(0.95) translateY(-5px);
+    transition: opacity 250ms ease, transform 250ms ease;
+    display: block !important;
+    visibility: hidden;
+}
+
+.dropdown-menu.show {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    visibility: visible;
+}
+
+/* Dropdown item hover */
+.dropdown-item {
+    transition: background-color 200ms ease, padding-left 200ms ease;
+}
+
+.dropdown-item:hover {
+    padding-left: 1.5rem;
+}
+
+/* ========================================
+   FOOTER ANIMATIONS
+   ======================================== */
+
+/* Footer links smooth hover */
+footer a {
+    transition: color 250ms ease, padding-left 200ms ease;
+}
+
+footer a:hover {
+    color: var(--govt-gold) !important;
+    padding-left: 0.25rem;
+}
+
+/* ========================================
+   LOADING & SKELETON STATES
+   ======================================== */
+
+/* Shimmer effect for loading cards */
+.skeleton {
+    background: linear-gradient(90deg,
+            #f0f0f0 25%,
+            #e0e0e0 50%,
+            #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Spinner animation */
+.spinner-border {
+    animation: spinnerRotate 0.75s linear infinite;
+}
+
+@keyframes spinnerRotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========================================
+   FLOATING ACTION BUTTON
+   ======================================== */
+
+/* Help chat button pulse */
+.position-fixed button {
+    animation: fabPulse 2s ease-in-out infinite;
+}
+
+@keyframes fabPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 4px 12px rgba(13, 110, 253, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 6px 20px rgba(13, 110, 253, 0.6);
+    }
+}
+
+.position-fixed button:hover {
+    transform: scale(1.1) rotate(5deg);
+    transition: transform 250ms ease;
+}
+
+/* ========================================
+   BREADCRUMB ANIMATIONS
+   ======================================== */
+
+.breadcrumb-item {
+    transition: color 200ms ease;
+}
+
+.breadcrumb-item:hover {
+    color: var(--govt-gold);
+}
+
+/* ========================================
+   TOOLTIP & POPOVER
+   ======================================== */
+
+.tooltip {
+    animation: tooltipFade 200ms ease;
+}
+
+@keyframes tooltipFade {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY FEATURES
+   ======================================== */
+
+/* Focus visible for keyboard navigation */
+*:focus-visible {
+    outline: 2px solid var(--govt-gold);
+    outline-offset: 2px;
+    transition: outline-offset 150ms ease;
+}
+
+/* Skip to main content link */
+.skip-to-main {
+    transition: top 200ms ease, opacity 200ms ease;
+}
+
+.skip-to-main:focus {
+    top: 10px;
+    opacity: 1;
+}
+
+/* ========================================
+   RESPONSIVE ADJUSTMENTS
+   ======================================== */
+
+/* Disable heavy animations on mobile */
+@media (max-width: 768px) {
+    .card:hover {
+        transform: translateY(-3px);
+    }
+
+    .scroll-fade,
+    .scroll-left,
+    .scroll-right {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* Disable animations on low-end devices */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+
+@media print {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}

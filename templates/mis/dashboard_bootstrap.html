@@ -1,0 +1,354 @@
+{% extends 'base_bootstrap.html' %}
+{% load static %}
+
+{% block title %}MIS Dashboard | Department Head Portal{% endblock %}
+
+{% block extra_css %}
+<style>
+    .stat-card {
+        transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .chart-container {
+        position: relative;
+        height: 300px;
+    }
+
+    .fw-black {
+        font-weight: 900;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid bg-light min-vh-100 py-4">
+    <div class="container-fluid page-load-animation">
+        <!-- Header -->
+        <div class="row mb-4 align-items-center">
+            <div class="col-xl-6 col-lg-5 mb-3 mb-lg-0">
+                <h2 class="mb-1 fw-black"><i class="bi bi-graph-up-arrow"></i> Management Information System</h2>
+                <p class="text-muted mb-0">Department-wise analytics and performance monitoring</p>
+            </div>
+            <div class="col-xl-6 col-lg-7">
+                <div class="d-flex flex-wrap justify-content-lg-end gap-2 align-items-center">
+                    <a href="{% url 'mis:export_reports' %}" class="btn btn-success shadow-sm">
+                        <i class="bi bi-file-earmark-spreadsheet"></i> Report
+                    </a>
+                    <a href="{% url 'mis:service_list' %}" class="btn btn-info shadow-sm text-white">
+                        <i class="bi bi-gear-wide-connected"></i> Services
+                    </a>
+                    <a href="{% url 'mis:contact_inbox' %}" class="btn btn-primary shadow-sm">
+                        <i class="bi bi-inbox-fill"></i> Inbox
+                    </a>
+                    <span class="badge bg-danger p-2 fs-6 shadow-sm">
+                        <i class="bi bi-person-badge"></i> DEPT HEAD
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overview Stats -->
+        <div class="row g-3 mb-4 stagger-container">
+            <div class="col-6 col-md-3 stagger-item">
+                <div class="card stat-card border-0 shadow-sm"
+                    style="background: linear-gradient(135deg, #0d6efd, #0a58ca);">
+                    <div class="card-body text-white">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-1 opacity-75">Total Applications</h6>
+                                <h2 class="mb-0 fw-bold count-up" data-value="{{ stats.total }}">{{ stats.total }}</h2>
+                            </div>
+                            <div class="bg-white bg-opacity-25 rounded-circle p-3 d-none d-lg-block">
+                                <i class="bi bi-folder fs-2"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 stagger-item">
+                <div class="card stat-card border-0 shadow-sm"
+                    style="background: linear-gradient(135deg, #ffc107, #e0a800);">
+                    <div class="card-body text-dark">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-1 opacity-75">Pending</h6>
+                                <h2 class="mb-0 fw-bold count-up" data-value="{{ stats.pending }}">{{ stats.pending }}
+                                </h2>
+                            </div>
+                            <div class="bg-white bg-opacity-25 rounded-circle p-3 d-none d-lg-block">
+                                <i class="bi bi-hourglass-split fs-2"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 stagger-item">
+                <div class="card stat-card border-0 shadow-sm"
+                    style="background: linear-gradient(135deg, #198754, #146c43);">
+                    <div class="card-body text-white">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-1 opacity-75">Approved</h6>
+                                <h2 class="mb-0 fw-bold count-up" data-value="{{ stats.approved }}">{{ stats.approved }}
+                                </h2>
+                            </div>
+                            <div class="bg-white bg-opacity-25 rounded-circle p-3 d-none d-lg-block">
+                                <i class="bi bi-check-circle fs-2"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 stagger-item">
+                <div class="card stat-card border-0 shadow-sm"
+                    style="background: linear-gradient(135deg, #dc3545, #b02a37);">
+                    <div class="card-body text-white">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-1 opacity-75">SLA Delayed</h6>
+                                <h2 class="mb-0 fw-bold count-up" data-value="{{ stats.delayed }}">{{ stats.delayed }}
+                                </h2>
+                            </div>
+                            <div class="bg-white bg-opacity-25 rounded-circle p-3 d-none d-lg-block">
+                                <i class="bi bi-exclamation-triangle fs-2"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="row g-4 mb-4">
+            <div class="col-lg-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-white border-bottom">
+                        <h5 class="mb-0"><i class="bi bi-pie-chart text-primary"></i> Service-wise Applications</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="serviceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-white border-bottom">
+                        <h5 class="mb-0"><i class="bi bi-bar-chart text-success"></i> Application Status</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="statusChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Monthly Trend -->
+        <div class="row g-4 mb-4">
+            <div class="col-12">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white border-bottom">
+                        <h5 class="mb-0"><i class="bi bi-graph-up text-info"></i> Monthly Application Trends</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container" style="height: 200px;">
+                            <canvas id="trendChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Officer Performance & SLA Compliance -->
+        <div class="row g-4">
+            <!-- Officer Performance -->
+            <div class="col-lg-7">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-white border-bottom">
+                        <h5 class="mb-0"><i class="bi bi-people text-warning"></i> Officer Performance</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Officer Name</th>
+                                        <th class="text-center">Assigned</th>
+                                        <th class="text-center">Completed</th>
+                                        <th class="text-center">Pending</th>
+                                        <th class="text-center">Avg. Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for off_stat in officer_stats %}
+                                    <tr class="align-middle">
+                                        <td>
+                                            <i class="bi bi-person-circle text-primary me-2"></i>
+                                            <strong>{{ off_stat.name }}</strong>
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="badge bg-primary px-3 rounded-pill">{{ off_stat.assigned
+                                                }}</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="badge bg-success px-3 rounded-pill">{{ off_stat.completed
+                                                }}</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="badge bg-warning text-dark px-3 rounded-pill">{{
+                                                off_stat.pending }}</span>
+                                        </td>
+                                        <td class="text-center fw-bold text-muted">
+                                            {{ off_stat.avg_days|default:"0.0" }} days
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="5" class="text-center text-muted py-5">
+                                            <i class="bi bi-inbox fs-1 d-block mb-2 opacity-25"></i>
+                                            No officer performance data available
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLA Compliance -->
+            <div class="col-lg-5">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-white border-bottom">
+                        <h5 class="mb-0"><i class="bi bi-speedometer2 text-danger"></i> SLA Compliance</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="slaChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<!-- Context Data -->
+{{ service_labels|json_script:"service-labels-data" }}
+{{ service_data|json_script:"service-data-data" }}
+{{ monthly_labels|json_script:"monthly-labels-data" }}
+{{ monthly_data|json_script:"monthly-data-data" }}
+{{ sla_data|json_script:"sla-data-data" }}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Parse data
+        const serviceLabels = JSON.parse(document.getElementById('service-labels-data').textContent);
+        const serviceData = JSON.parse(document.getElementById('service-data-data').textContent);
+        const monthlyLabels = JSON.parse(document.getElementById('monthly-labels-data').textContent);
+        const monthlyData = JSON.parse(document.getElementById('monthly-data-data').textContent);
+        const slaData = JSON.parse(document.getElementById('sla-data-data').textContent);
+
+        const statsData = {
+            pending: parseInt('{{ stats.pending|default:0 }}'),
+            in_progress: parseInt('{{ stats.in_progress|default:0 }}'),
+            approved: parseInt('{{ stats.approved|default:0 }}'),
+            rejected: parseInt('{{ stats.rejected|default:0 }}')
+        };
+
+        // Charts
+        const commonOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, padding: 20 } } }
+        };
+
+        // Service Pie
+        new Chart(document.getElementById('serviceChart'), {
+            type: 'pie',
+            data: {
+                labels: serviceLabels,
+                datasets: [{
+                    data: serviceData,
+                    backgroundColor: ['#D97706', '#0d6efd', '#198754', '#dc3545', '#0dcaf0', '#6610f2', '#fd7e14']
+                }]
+            },
+            options: commonOptions
+        });
+
+        // Status Bar
+        new Chart(document.getElementById('statusChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Pending', 'Review', 'Approved', 'Rejected'],
+                datasets: [{
+                    label: 'Applications',
+                    data: [statsData.pending, statsData.in_progress, statsData.approved, statsData.rejected],
+                    backgroundColor: ['#ffc107', '#0dcaf0', '#198754', '#dc3545']
+                }]
+            },
+            options: { ...commonOptions, plugins: { legend: { display: false } } }
+        });
+
+        // Trend Line
+        new Chart(document.getElementById('trendChart'), {
+            type: 'line',
+            data: {
+                labels: monthlyLabels,
+                datasets: [{
+                    label: 'Submission Trend',
+                    data: monthlyData,
+                    borderColor: '#D97706',
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: 'rgba(217, 119, 6, 0.1)'
+                }]
+            },
+            options: { ...commonOptions, plugins: { legend: { display: false } } }
+        });
+
+        // SLA Doughnut
+        new Chart(document.getElementById('slaChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['On Time', 'Warning', 'Delayed'],
+                datasets: [{
+                    data: slaData,
+                    backgroundColor: ['#198754', '#ffc107', '#dc3545']
+                }]
+            },
+            options: { ...commonOptions, cutout: '70%' }
+        });
+
+        // Count-up
+        const animateValue = (obj, start, end, duration) => {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start);
+                if (progress < 1) window.requestAnimationFrame(step);
+            };
+            window.requestAnimationFrame(step);
+        };
+
+        const counters = document.querySelectorAll('.count-up');
+        setTimeout(() => {
+            counters.forEach(c => animateValue(c, 0, parseInt(c.dataset.value), 1500));
+        }, 500);
+    });
+</script>
+{% endblock %}

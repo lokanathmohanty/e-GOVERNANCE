@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}MIS Analytics | e-Gov Portal{% endblock %}
+
+{% block extra_css %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-[1280px] mx-auto px-4 md:px-10 py-10 space-y-10">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div>
+            <h2 class="text-3xl font-black text-gray-900 dark:text-white tracking-tight">MIS Analytics Dashboard</h2>
+            <p class="text-gray-500 dark:text-gray-400">Real-time monitoring of service delivery and departmental
+                performance</p>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="hidden md:flex flex-col items-end">
+                <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Next Refresh</span>
+                <span class="text-sm font-bold text-primary"><strong id="timer">60</strong> Seconds</span>
+            </div>
+            <button
+                class="flex items-center gap-2 py-3 px-6 bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 transition-all shadow-sm">
+                <span class="material-symbols-outlined text-[20px]">download</span> Export Reports
+            </button>
+        </div>
+    </div>
+
+    <!-- Key Metrics Grid -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <div
+            class="bg-white dark:bg-surface-dark p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm relative overflow-hidden group">
+            <div
+                class="absolute right-[-10px] top-[-10px] size-24 bg-primary/5 rounded-full blur-2xl group-hover:scale-150 transition-transform">
+            </div>
+            <div class="relative z-10">
+                <div class="text-4xl font-black text-gray-900 dark:text-white mb-2">{{ total_apps }}</div>
+                <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Total Applications</div>
+            </div>
+        </div>
+        <div
+            class="bg-white dark:bg-surface-dark p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm relative overflow-hidden group">
+            <div
+                class="absolute right-[-10px] top-[-10px] size-24 bg-emerald-500/5 rounded-full blur-2xl group-hover:scale-150 transition-transform">
+            </div>
+            <div class="relative z-10">
+                <div class="text-4xl font-black text-emerald-600 dark:text-emerald-400 mb-2">{{ approved_apps }}</div>
+                <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Successfully Approved</div>
+            </div>
+        </div>
+        <div
+            class="bg-white dark:bg-surface-dark p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm relative overflow-hidden group">
+            <div
+                class="absolute right-[-10px] top-[-10px] size-24 bg-amber-500/5 rounded-full blur-2xl group-hover:scale-150 transition-transform">
+            </div>
+            <div class="relative z-10">
+                <div class="text-4xl font-black text-amber-600 dark:text-amber-400 mb-2">{{ pending_apps }}</div>
+                <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Currently Pending</div>
+            </div>
+        </div>
+        <div
+            class="bg-white dark:bg-surface-dark p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm relative overflow-hidden group">
+            <div
+                class="absolute right-[-10px] top-[-10px] size-24 bg-rose-500/5 rounded-full blur-2xl group-hover:scale-150 transition-transform">
+            </div>
+            <div class="relative z-10">
+                <div class="text-4xl font-black text-rose-600 dark:text-rose-400 mb-2">{{ sla_breaches }}</div>
+                <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest">SLA Breaches</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Application Trend Chart -->
+        <div
+            class="lg:col-span-8 bg-white dark:bg-surface-dark rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden h-[450px] flex flex-col">
+            <div class="px-8 py-6 border-b border-gray-50 dark:border-gray-800 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Submission Trends</h3>
+                <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Last 7 Days</span>
+            </div>
+            <div class="p-8 flex-1">
+                <canvas id="trendChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Overall Efficiency Card -->
+        <div
+            class="lg:col-span-4 bg-white dark:bg-surface-dark rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col">
+            <div class="px-8 py-6 border-b border-gray-50 dark:border-gray-800">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Platform Efficiency</h3>
+            </div>
+            <div class="p-10 flex flex-col items-center justify-center flex-1 space-y-6">
+                <div class="relative size-48">
+                    <svg class="w-full h-full" viewBox="0 0 100 100">
+                        <circle class="text-gray-100 dark:text-gray-800" stroke-width="8" stroke="currentColor"
+                            fill="transparent" r="40" cx="50" cy="50" />
+                        <circle id="compliance-circle" class="text-emerald-500 transition-all duration-1000"
+                            stroke-width="8" stroke-dasharray="251.2" stroke-dashoffset="251.2" stroke-linecap="round"
+                            stroke="currentColor" fill="transparent" r="40" cx="50" cy="50" />
+                    </svg>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center">
+                        <span class="text-5xl font-black text-gray-900 dark:text-white leading-none">{{ sla_compliance }}%</span>
+                        <span
+                            class="text-[10px] font-black text-gray-400 uppercase tracking-widest mt-2">Compliance</span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <h4 class="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">Operational
+                        Target: 95%</h4>
+                    <p class="text-xs text-gray-500 mt-2 leading-relaxed">System-wide benchmarking for excellence in
+                        service delivery.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Department Performance Table -->
+    <div
+        class="bg-white dark:bg-surface-dark rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
+        <div class="px-8 py-6 border-b border-gray-100 dark:border-gray-800">
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white">Departmental Performance Matrix</h3>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
+                <thead class="bg-gray-50 dark:bg-gray-800/50">
+                    <tr>
+                        <th class="px-8 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">Department
+                        </th>
+                        <th
+                            class="px-6 py-4 text-center text-[10px] font-black text-gray-500 uppercase tracking-widest">
+                            Total Apps</th>
+                        <th
+                            class="px-6 py-4 text-center text-[10px] font-black text-gray-500 uppercase tracking-widest">
+                            Approved</th>
+                        <th
+                            class="px-6 py-4 text-center text-[10px] font-black text-gray-500 uppercase tracking-widest">
+                            Pending</th>
+                        <th class="px-6 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">Efficiency
+                            Rating</th>
+                        <th class="px-8 py-4 text-right text-[10px] font-black text-gray-500 uppercase tracking-widest">
+                            Status</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+                    {% for dept in dept_stats %}
+                    <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/20 transition-colors">
+                        <td class="px-8 py-6">
+                            <div class="text-sm font-bold text-gray-900 dark:text-white">{{ dept.department_name }}
+                            </div>
+                            <div class="text-[10px] text-gray-400 font-medium">Verified Sector</div>
+                        </td>
+                        <td class="px-6 py-6 text-center text-sm font-bold text-gray-700 dark:text-gray-300">{{ dept.app_count }}</td>
+                        <td class="px-6 py-6 text-center text-sm font-bold text-emerald-600 dark:text-emerald-400">{{ dept.approved_count }}</td>
+                        <td class="px-6 py-6 text-center text-sm font-bold text-amber-600 dark:text-amber-400">{{ dept.pending_count }}</td>
+                        <td class="px-6 py-6 min-w-[200px]">
+                            <div class="flex items-center gap-3">
+                                <div class="flex-1 h-1.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-primary rounded-full transition-all duration-1000"
+                                        style="width: 85%"></div>
+                                </div>
+                                <span class="text-xs font-black text-gray-900 dark:text-white">85%</span>
+                            </div>
+                        </td>
+                        <td class="px-8 py-6 text-right">
+                            <span
+                                class="px-3 py-1 bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full">Outstanding</span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Trend Chart Initialization
+    const ctxTrend = document.getElementById('trendChart').getContext('2d');
+    const isDark = document.documentElement.classList.contains('dark');
+
+    new Chart(ctxTrend, {
+        type: 'line',
+        data: {
+            labels: JSON.parse('{{ chart_labels|safe|escapejs }}'),
+            datasets: [{
+                label: 'Applications Filed',
+                data: JSON.parse('{{ chart_data|safe|escapejs }}'),
+                borderColor: '#185fec',
+                backgroundColor: 'rgba(24, 95, 236, 0.05)',
+                borderWidth: 4,
+                fill: true,
+                tension: 0.4,
+                pointRadius: 6,
+                pointBackgroundColor: '#185fec',
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: isDark ? '#1a202c' : '#f3f4f6', drawBorder: false },
+                    ticks: { font: { weight: 'bold', size: 10 }, color: '#94a3b8' }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { font: { weight: 'bold', size: 10 }, color: '#94a3b8' }
+                }
+            }
+        }
+    });
+
+    // Circle Progress Animation
+    setTimeout(() => {
+        const compliance = parseFloat("{{ sla_compliance }}");
+        const offset = 251.2 - (251.2 * compliance / 100);
+        const circle = document.getElementById('compliance-circle');
+        if (circle) circle.style.strokeDashoffset = offset;
+    }, 500);
+
+    // Auto-refresh logic
+    let timeLeft = 60;
+    const timerEl = document.getElementById('timer');
+    setInterval(() => {
+        timeLeft--;
+        if (timeLeft <= 0) location.reload();
+        if (timerEl) timerEl.innerText = timeLeft;
+    }, 1000);
+</script>
+{% endblock %}

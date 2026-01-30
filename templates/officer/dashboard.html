@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+{% block title %}Officer Dashboard | e-Gov Portal{% endblock %}
+
+{% block content %}
+<div class="max-w-[1440px] mx-auto px-4 md:px-10 py-8 space-y-8">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/30 mb-2">
+                <span class="material-symbols-outlined text-[16px] text-primary">verified_user</span>
+                <span class="text-[10px] font-bold text-primary uppercase tracking-widest">Official Verification
+                    Channel</span>
+            </div>
+            <h1 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight">Officer Review Dashboard</h1>
+            <p class="text-gray-500 dark:text-gray-400">
+                Logged in as <span class="text-gray-900 dark:text-white font-bold">{{ user.get_full_name|default:user.username }}</span>
+                &bull; <span class="italic text-sm">{{ user.headed_departments.first.department_name|default:"Administrative Division" }}</span>
+            </p>
+        </div>
+        <div class="flex gap-3">
+            <div class="hidden lg:flex flex-col items-end">
+                <span class="text-xs font-bold text-gray-400 uppercase tracking-tighter">System Health</span>
+                <span class="text-xs font-bold text-emerald-500 flex items-center gap-1">
+                    <span class="size-2 rounded-full bg-emerald-500 animate-pulse"></span> Operational
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <div
+            class="bg-white dark:bg-surface-dark p-6 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+                <div
+                    class="size-10 rounded-xl bg-amber-50 dark:bg-amber-900/20 text-amber-600 flex items-center justify-center">
+                    <span class="material-symbols-outlined">pending</span>
+                </div>
+                <span
+                    class="text-[10px] font-black text-amber-600 bg-amber-50 dark:bg-amber-900/10 px-2 py-0.5 rounded uppercase">Attention</span>
+            </div>
+            <div class="text-3xl font-black text-gray-900 dark:text-white">{{ stats.pending }}</div>
+            <div class="text-xs font-bold text-gray-500 uppercase tracking-wider">Pending Review</div>
+        </div>
+        <div
+            class="bg-white dark:bg-surface-dark p-6 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+                <div
+                    class="size-10 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 flex items-center justify-center">
+                    <span class="material-symbols-outlined">check_circle</span>
+                </div>
+                <span
+                    class="text-[10px] font-black text-emerald-600 bg-emerald-50 dark:bg-emerald-900/10 px-2 py-0.5 rounded uppercase">Processed</span>
+            </div>
+            <div class="text-3xl font-black text-gray-900 dark:text-white">{{ stats.approved }}</div>
+            <div class="text-xs font-bold text-gray-500 uppercase tracking-wider">Approved Cases</div>
+        </div>
+        <div
+            class="bg-white dark:bg-surface-dark p-6 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+                <div
+                    class="size-10 rounded-xl bg-rose-50 dark:bg-rose-900/20 text-rose-600 flex items-center justify-center">
+                    <span class="material-symbols-outlined">cancel</span>
+                </div>
+                <span
+                    class="text-[10px] font-black text-rose-600 bg-rose-50 dark:bg-rose-900/10 px-2 py-0.5 rounded uppercase">Rejected</span>
+            </div>
+            <div class="text-3xl font-black text-gray-900 dark:text-white">{{ stats.rejected }}</div>
+            <div class="text-xs font-bold text-gray-500 uppercase tracking-wider">Denied Requests</div>
+        </div>
+        <div class="bg-primary p-6 rounded-2xl shadow-lg shadow-blue-200 dark:shadow-none">
+            <div class="flex items-center justify-between mb-4 text-white/80">
+                <div class="size-10 rounded-xl bg-white/20 text-white flex items-center justify-center">
+                    <span class="material-symbols-outlined">inventory</span>
+                </div>
+                <span class="text-[10px] font-black uppercase">Lifetime</span>
+            </div>
+            <div class="text-3xl font-black text-white">{{ stats.total }}</div>
+            <div class="text-xs font-bold text-white/80 uppercase tracking-wider">Total Assignments</div>
+        </div>
+    </div>
+
+    <!-- Active Queue -->
+    <div
+        class="bg-white dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
+        <div class="px-6 py-5 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <h2 class="text-lg font-bold text-gray-900 dark:text-white">Active Review Queue</h2>
+                <span
+                    class="px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-[10px] font-bold text-gray-500 uppercase">{{ stats.pending }} Tasks Remaining</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                        <span class="material-symbols-outlined text-sm">search</span>
+                    </span>
+                    <input type="text" placeholder="Search reference..."
+                        class="pl-9 pr-4 py-2 bg-gray-50 dark:bg-gray-800 border-none rounded-lg text-xs font-medium focus:ring-2 focus:ring-primary/20 transition-all outline-none">
+                </div>
+            </div>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
+                <thead class="bg-gray-50 dark:bg-gray-800/30">
+                    <tr>
+                        <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Reference</th>
+                        <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Service Category
+                        </th>
+                        <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Citizen Details
+                        </th>
+                        <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Priority</th>
+                        <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">
+                            Processing</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+                    {% for assignment in assignments %}
+                    <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="font-mono text-sm font-bold text-gray-900 dark:text-white">#{{ assignment.application.application_number }}</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900 dark:text-white">{{ assignment.application.service.service_name }}</div>
+                            <div class="text-xs text-gray-500">ID: {{ assignment.application.id|truncatechars:8 }}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="size-8 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 font-bold text-xs uppercase">
+                                    {{ assignment.application.user.username|slice:":2" }}
+                                </div>
+                                <div class="text-sm font-medium text-gray-900 dark:text-white">
+                                    {{ assignment.application.user.get_full_name|default:assignment.application.user.username }}
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            {% if assignment.application.priority == 'urgent' or assignment.application.priority == 'emergency' %}
+                            <span
+                                class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-bold bg-rose-50 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400">
+                                <span class="material-symbols-outlined text-[14px]">priority_high</span> High
+                            </span>
+                            {% else %}
+                            <span
+                                class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-bold bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+                                <span class="material-symbols-outlined text-[14px]">remove</span> Normal
+                            </span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            {% if assignment.application.status == 'pending' %}
+                            <span
+                                class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
+                                Pending Review
+                            </span>
+                            {% elif assignment.application.status == 'under_review' %}
+                            <span
+                                class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+                                Processing...
+                            </span>
+                            {% else %}
+                            <span
+                                class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-gray-50 text-gray-700 dark:bg-gray-800 dark:text-gray-400">
+                                Completed
+                            </span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right">
+                            <a href="{% url 'officer:review' assignment.application.id %}"
+                                class="inline-flex items-center gap-2 bg-primary text-white text-xs font-bold py-2 px-4 rounded-lg hover:bg-primary-dark transition-all no-underline shadow-sm">
+                                Open Case <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="px-6 py-24 text-center">
+                            <div class="flex flex-col items-center gap-4">
+                                <div
+                                    class="size-20 rounded-full bg-emerald-50 dark:bg-emerald-900/10 flex items-center justify-center text-emerald-500">
+                                    <span class="material-symbols-outlined text-5xl">task_alt</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">All caught up!</h3>
+                                    <p class="text-sm text-gray-500">There are no pending applications in your queue.
+                                    </p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

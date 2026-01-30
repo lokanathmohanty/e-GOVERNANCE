@@ -1,0 +1,38 @@
+{% extends 'base_bootstrap.html' %}
+{% block title %}Services List | e-Governance{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <h1 class="mb-4 fw-bold">Available Services</h1>
+    <p class="lead text-muted mb-5">Browse the list of services currently available on our platform.</p>
+    
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold text-primary">Income Certificate</h5>
+                    <p class="card-text text-muted">Apply for income proof for scholarship and subsidy purposes.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold text-primary">Caste Certificate</h5>
+                    <p class="card-text text-muted">Official document certifying caste/community status.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold text-primary">Birth Registration</h5>
+                    <p class="card-text text-muted">Register birth and obtain birth certificate.</p>
+                </div>
+            </div>
+        </div>
+         <div class="col-md-12 mt-4 text-center">
+            <a href="{% url 'citizen:services' %}" class="btn btn-primary btn-lg">Apply Now</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

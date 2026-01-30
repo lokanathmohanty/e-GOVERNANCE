@@ -1,0 +1,105 @@
+{% extends 'base_bootstrap.html' %}
+{% load static %}
+
+{% block title %}Application Receipt - {{ app.application_number }}{% endblock %}
+
+{% block content %}
+<div class='container py-5'>
+    <div class='row justify-content-center'>
+        <div class='col-lg-8'>
+            <div class='card shadow-lg border-0 rounded-4 overflow-hidden'>
+                <div class='card-header bg-success text-white p-4 text-center'>
+                    <div class='mb-2'>
+                        <i class='bi bi-check-circle-fill display-4'></i>
+                    </div>
+                    <h3 class='fw-bold mb-0'>Application Submitted!</h3>
+                    <p class='mb-0 opacity-75'>Your application has been received and is under processing.</p>
+                </div>
+                <div class='card-body p-5'>
+                    <div class='text-center mb-5'>
+                        <h6 class='text-muted text-uppercase tracking-widest mb-2'>Application Number</h6>
+                        <div class='position-relative d-inline-block'>
+                            <h2 class='fw-black text-primary' id='appNumber'>{{ app.application_number }}</h2>
+                            <button type='button' class='btn btn-sm btn-outline-primary mt-2' onclick='copyAppNumber()'>
+                                <i class='bi bi-clipboard'></i> Copy Number
+                            </button>
+                        </div>
+                        <p class='small text-muted mt-3'>Use this number to track your application status.</p>
+                        <a href='{% url 'citizen:public_track' %}?app_number={{ app.application_number }}' class='btn btn-info btn-sm mt-2'>
+                            <i class='bi bi-search'></i> Track Now
+                        </a>
+                    </div>
+
+                    <div class='row mb-5'>
+                        <div class='col-sm-6 mb-4 mb-sm-0'>
+                            <h6 class='fw-bold mb-3 border-bottom pb-2'>Service Details</h6>
+                            <p class='mb-1'><span class='text-muted small'>Service:</span><br><strong>{{ app.service.service_name }}</strong></p>
+                            <p class='mb-1'><span class='text-muted small'>Department:</span><br><strong>{{ app.service.department.department_name }}</strong></p>
+                            <p class='mb-1'><span class='text-muted small'>Priority:</span><br><strong>{{ app.get_priority_display }}</strong></p>
+                        </div>
+                        <div class='col-sm-6'>
+                            <h6 class='fw-bold mb-3 border-bottom pb-2'>Applicant Details</h6>
+                            <p class='mb-1'><span class='text-muted small'>Name:</span><br><strong>{{ app.user.get_full_name|default:app.user.username }}</strong></p>
+                            <p class='mb-1'><span class='text-muted small'>Date:</span><br><strong>{{ app.applied_date|date:'F d, Y H:i' }}</strong></p>
+                            <p class='mb-1'><span class='text-muted small'>SLA Deadline:</span><br><strong>{{ app.sla_deadline|date:'F d, Y' }}</strong></p>
+                        </div>
+                    </div>
+
+                    <div class='bg-light p-4 rounded-3 border mb-5'>
+                        <div class='d-flex align-items-center mb-3'>
+                            <i class='bi bi-shield-check text-success fs-4 me-2'></i>
+                            <h6 class='fw-bold mb-0'>Acknowledgement</h6>
+                        </div>
+                        <p class='small text-muted mb-0'>
+                            This is a system-generated acknowledgement for your application. No physical signature is required.
+                            You will receive updates via SMS and Email as your application progresses.
+                        </p>
+                    </div>
+
+                    <div class='d-flex gap-3 justify-content-center d-print-none'>
+                        <button onclick='window.print()' class='btn btn-outline-dark px-4 rounded-pill'>
+                            <i class='bi bi-printer me-2'></i> Print Receipt
+                        </button>
+                        <a href='{% url 'citizen:dashboard' %}' class='btn btn-primary px-4 rounded-pill'>
+                            Go to Dashboard <i class='bi bi-arrow-right ms-2'></i>
+                        </a>
+                    </div>
+                </div>
+                <div class='card-footer bg-white text-center py-3 border-top-0'>
+                    <small class='text-muted'> 2024 e-Governance Service Management System</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function copyAppNumber() {
+        const appNumber = document.getElementById('appNumber').textContent;
+        navigator.clipboard.writeText(appNumber).then(function () {
+            const btn = event.target.closest('button');
+            if (!btn) return;
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class=\'bi bi-check\'></i> Copied!';
+            btn.classList.remove('btn-outline-primary');
+            btn.classList.add('btn-success');
+            setTimeout(function () {
+                btn.innerHTML = originalHTML;
+                btn.classList.remove('btn-success');
+                btn.classList.add('btn-outline-primary');
+            }, 2000);
+        }).catch(function (err) {
+            alert('Failed to copy: ' + err);
+        });
+    }
+</script>
+
+<style>
+    @media print {
+        body { background-color: white !important; }
+        .container { width: 100% !important; max-width: 100% !important; margin: 0 !important; padding: 0 !important; }
+        .card { box-shadow: none !important; border: 1px solid #ddd !important; }
+        .btn, .d-print-none { display: none !important; }
+    }
+</style>
+{% endblock %}

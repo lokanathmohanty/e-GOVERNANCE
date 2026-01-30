@@ -1,0 +1,2687 @@
+[
+{
+  "model": "core.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$Zvz2CLR1MG8kqYEYpq7m46$Kz5BFSoTzs8WNs1h0NJCtRtPv2htiJYjs843mETElbM=",
+    "last_login": "2026-01-28T05:19:06.229Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@example.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-12-20T05:31:00.537Z",
+    "role": "admin",
+    "phone": null,
+    "address": null,
+    "aadhaar_number": null,
+    "is_verified": false,
+    "profile_picture": "",
+    "created_at": "2025-12-20T05:31:01.130Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$WNbWScVzDNL4MNmddVP0OG$fnm+vUaPzQFQQr3rR1IcjGvTXCkq0CF7Eaxk5T42wYs=",
+    "last_login": "2026-01-28T04:06:52.191Z",
+    "is_superuser": false,
+    "username": "officer1",
+    "first_name": "Rajesh",
+    "last_name": "Kumar",
+    "email": "officer@revenue.gov.in",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-20T05:31:15.008Z",
+    "role": "officer",
+    "phone": null,
+    "address": null,
+    "aadhaar_number": null,
+    "is_verified": false,
+    "profile_picture": "",
+    "created_at": "2025-12-20T05:31:15.009Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$giAxnT60YT5qpkcLtdOBW0$F2//XhbtLS4RPg5z2SoHNHChJjLXXPCCjT/LdnBK3ew=",
+    "last_login": "2025-12-20T06:36:38.910Z",
+    "is_superuser": false,
+    "username": "citizen1",
+    "first_name": "Priya",
+    "last_name": "Sharma",
+    "email": "citizen@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-20T05:31:15.705Z",
+    "role": "citizen",
+    "phone": "9876543210",
+    "address": null,
+    "aadhaar_number": null,
+    "is_verified": false,
+    "profile_picture": "",
+    "created_at": "2025-12-20T05:31:15.705Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$IxBFTkLBeGzeIl2bMmUZWS$YnGuc6DY+TGWmaJITG02C7SUkrEyMiUlTUxx1+z8t3s=",
+    "last_login": "2026-01-28T04:13:07.167Z",
+    "is_superuser": false,
+    "username": "head1",
+    "first_name": "Suresh",
+    "last_name": "Raina",
+    "email": "head@revenue.gov.in",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-20T05:55:30.915Z",
+    "role": "department_head",
+    "phone": null,
+    "address": null,
+    "aadhaar_number": null,
+    "is_verified": false,
+    "profile_picture": "",
+    "created_at": "2025-12-20T05:55:30.916Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$RHvUnfvu4l4SjU82tslZVv$RoX+gfuaX7EssZpO2M7vE6NC7DQ0L/jDBXrpIKoWo2E=",
+    "last_login": "2026-01-28T04:04:03.091Z",
+    "is_superuser": false,
+    "username": "final_tester",
+    "first_name": "Priya",
+    "last_name": "Sharma",
+    "email": "citizen@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-20T05:55:30.926Z",
+    "role": "citizen",
+    "phone": "9876543210",
+    "address": null,
+    "aadhaar_number": null,
+    "is_verified": false,
+    "profile_picture": "",
+    "created_at": "2025-12-20T05:55:30.927Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$3FeZl09r7OgxWpiNqYshae$Fyq6p/pVmhcKRSY/eDycbBQkHJ0fAlDsUQC3kxwnzfQ=",
+    "last_login": "2025-12-20T06:03:57.111Z",
+    "is_superuser": false,
+    "username": "test_reg_user",
+    "first_name": "Test User",
+    "last_name": "",
+    "email": "test_reg@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-20T06:03:56.826Z",
+    "role": "citizen",
+    "phone": "1231231234",
+    "address": "123 Test St",
+    "aadhaar_number": "123456789012",
+    "is_verified": false,
+    "profile_picture": "",
+    "created_at": "2025-12-20T06:03:57.096Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.user",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$q17zt1xHJhx8NkBSeIWbyw$1/3tO6EtGXQFpqee1UztNgTWwHxtiRQRxlSD3i16WPo=",
+    "last_login": "2025-12-20T06:10:45.565Z",
+    "is_superuser": false,
+    "username": "debug_reg_user",
+    "first_name": "Debug User",
+    "last_name": "",
+    "email": "debug@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-20T06:10:45.106Z",
+    "role": "citizen",
+    "phone": "9998887776",
+    "address": "Debug St",
+    "aadhaar_number": "999988887777",
+    "is_verified": false,
+    "profile_picture": "",
+    "created_at": "2025-12-20T06:10:45.546Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.user",
+  "pk": 8,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$IgWrzeSCi8dS324uPUe6tl$F2e9kZY+8ocqqkPyMOvy6idKKG7iQuuAthYLy4tSmEA=",
+    "last_login": "2025-12-20T06:29:00.348Z",
+    "is_superuser": false,
+    "username": "debug_reg_user_2",
+    "first_name": "Debug User Two",
+    "last_name": "",
+    "email": "debug2@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-20T06:28:59.880Z",
+    "role": "citizen",
+    "phone": "9998887776",
+    "address": "Debug St",
+    "aadhaar_number": "999988887778",
+    "is_verified": false,
+    "profile_picture": "",
+    "created_at": "2025-12-20T06:29:00.309Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.user",
+  "pk": 22,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$adM6Z2W7K8waIyz9BMtgU0$bPy3ZfMSAVbmKIZjHdcMla5EDp3XMQTclEUv1F8N2ZQ=",
+    "last_login": "2025-12-20T11:02:34.503Z",
+    "is_superuser": false,
+    "username": "final",
+    "first_name": "Lokanath mohanty",
+    "last_name": "",
+    "email": "lokanathmohanty000@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-20T07:10:52.008Z",
+    "role": "citizen",
+    "phone": "07750929056",
+    "address": "Malud,Puri",
+    "aadhaar_number": "123",
+    "is_verified": false,
+    "profile_picture": "profiles/WhatsApp_Image_2025-12-04_at_12.44.55_PM.jpeg",
+    "created_at": "2025-12-20T07:10:52.459Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.user",
+  "pk": 41,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$0cOTv12b8nc0Ssan0ZEPDJ$sNWveLyMGTtBvDbK7Z+B8vsYsn6CG68vdpuns0kLPtA=",
+    "last_login": "2026-01-28T05:19:04.580Z",
+    "is_superuser": false,
+    "username": "final_citizen",
+    "first_name": "",
+    "last_name": "",
+    "email": "c@test.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-28T05:19:02.505Z",
+    "role": "citizen",
+    "phone": null,
+    "address": null,
+    "aadhaar_number": null,
+    "is_verified": false,
+    "profile_picture": "",
+    "created_at": "2026-01-28T05:19:03.090Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.user",
+  "pk": 42,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$eIhAujs9VanKttdt38ujnI$pNZgIfULDcQ27GJ634cPG68BmpdYDhe+fJOL7bF/Lg0=",
+    "last_login": "2026-01-28T05:19:05.473Z",
+    "is_superuser": false,
+    "username": "final_officer",
+    "first_name": "",
+    "last_name": "",
+    "email": "o@test.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-28T05:19:03.162Z",
+    "role": "officer",
+    "phone": null,
+    "address": null,
+    "aadhaar_number": null,
+    "is_verified": false,
+    "profile_picture": "",
+    "created_at": "2026-01-28T05:19:03.760Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.user",
+  "pk": 43,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$tanIZoWwDWsXvi0luQKfCg$3MzZGfqCtE3SkC0xxAAp9YqBATS8CJm8acygT0KiLvQ=",
+    "last_login": "2026-01-28T05:19:27.418Z",
+    "is_superuser": false,
+    "username": "test_citizen",
+    "first_name": "Citizen",
+    "last_name": "User",
+    "email": "citizen@test.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-28T05:19:18.167Z",
+    "role": "citizen",
+    "phone": null,
+    "address": null,
+    "aadhaar_number": null,
+    "is_verified": false,
+    "profile_picture": "",
+    "created_at": "2026-01-28T05:19:18.767Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.user",
+  "pk": 44,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$8o7wlSFcyvvfxsbJS4H5kf$jDQPOx/StSb21SQaqvbXYmQ87FnSecsA7fJQ2zMKYhU=",
+    "last_login": "2026-01-28T05:19:24.890Z",
+    "is_superuser": false,
+    "username": "test_officer",
+    "first_name": "Officer",
+    "last_name": "User",
+    "email": "officer@test.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-28T05:19:18.812Z",
+    "role": "officer",
+    "phone": null,
+    "address": null,
+    "aadhaar_number": null,
+    "is_verified": false,
+    "profile_picture": "",
+    "created_at": "2026-01-28T05:19:19.381Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.user",
+  "pk": 45,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$2J2pcpbCvriHhLDRTt6BMe$Qyf1RcUspZp+YYPbqD9bwtjZo51wtiZFlu4lZw94kSU=",
+    "last_login": "2026-01-28T05:19:25.617Z",
+    "is_superuser": false,
+    "username": "test_department_head",
+    "first_name": "Department_head",
+    "last_name": "User",
+    "email": "department_head@test.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-28T05:19:19.423Z",
+    "role": "department_head",
+    "phone": null,
+    "address": null,
+    "aadhaar_number": null,
+    "is_verified": false,
+    "profile_picture": "",
+    "created_at": "2026-01-28T05:19:19.995Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.user",
+  "pk": 46,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$jbDjYYqEtWqENgQsTkY0o4$eZ0A/S4AnYpGnE6cndWNDGgAi4YXQAdEW3tjDQlVP6M=",
+    "last_login": "2026-01-28T05:19:26.390Z",
+    "is_superuser": false,
+    "username": "test_admin",
+    "first_name": "Admin",
+    "last_name": "User",
+    "email": "admin@test.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-28T05:19:20.095Z",
+    "role": "admin",
+    "phone": null,
+    "address": null,
+    "aadhaar_number": null,
+    "is_verified": false,
+    "profile_picture": "",
+    "created_at": "2026-01-28T05:19:20.677Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.department",
+  "pk": 1,
+  "fields": {
+    "department_name": "Revenue Department",
+    "description": "Handles land records, certificates, and revenue services",
+    "head_officer": null,
+    "contact_email": "contact@revenue.gov.in",
+    "is_active": true,
+    "latitude": 28.6139,
+    "longitude": 77.209,
+    "created_at": "2025-12-20T05:31:13.523Z"
+  }
+},
+{
+  "model": "core.department",
+  "pk": 2,
+  "fields": {
+    "department_name": "Health Department",
+    "description": "Health certificates and medical services",
+    "head_officer": null,
+    "contact_email": "contact@health.gov.in",
+    "is_active": true,
+    "latitude": 28.638,
+    "longitude": 77.238,
+    "created_at": "2025-12-20T05:31:13.531Z"
+  }
+},
+{
+  "model": "core.department",
+  "pk": 3,
+  "fields": {
+    "department_name": "Education Department",
+    "description": "Educational certificates and scholarships",
+    "head_officer": null,
+    "contact_email": "contact@education.gov.in",
+    "is_active": true,
+    "latitude": 28.599999999999998,
+    "longitude": 77.11999999999999,
+    "created_at": "2025-12-20T05:31:13.539Z"
+  }
+},
+{
+  "model": "core.department",
+  "pk": 4,
+  "fields": {
+    "department_name": "Test Department",
+    "description": "Test Department for QA",
+    "head_officer": null,
+    "contact_email": "test@dept.com",
+    "is_active": true,
+    "latitude": 28.53,
+    "longitude": 77.43,
+    "created_at": "2025-12-20T06:48:07.090Z"
+  }
+},
+{
+  "model": "core.service",
+  "pk": 1,
+  "fields": {
+    "service_name": "Birth Certificate",
+    "department": 1,
+    "description": "Application for Birth Certificate",
+    "required_documents": "ID Proof, Address Proof, Hospital Birth Report",
+    "processing_days": 7,
+    "fee_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "core.service",
+  "pk": 2,
+  "fields": {
+    "service_name": "Income Certificate",
+    "department": 1,
+    "description": "Application for Income Certificate",
+    "required_documents": "ID Proof, Address Proof, Income Documents",
+    "processing_days": 10,
+    "fee_amount": "20.00",
+    "is_active": true
+  }
+},
+{
+  "model": "core.service",
+  "pk": 3,
+  "fields": {
+    "service_name": "Caste Certificate",
+    "department": 1,
+    "description": "Application for Caste Certificate",
+    "required_documents": "ID Proof, Address Proof, Community Proof",
+    "processing_days": 15,
+    "fee_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "core.service",
+  "pk": 4,
+  "fields": {
+    "service_name": "Health Card",
+    "department": 2,
+    "description": "Application for Health Card",
+    "required_documents": "ID Proof, Address Proof, Medical History",
+    "processing_days": 5,
+    "fee_amount": "100.00",
+    "is_active": true
+  }
+},
+{
+  "model": "core.service",
+  "pk": 5,
+  "fields": {
+    "service_name": "Test Service",
+    "department": 4,
+    "description": "Test Service for QA",
+    "required_documents": "ID, Address Proof",
+    "processing_days": 5,
+    "fee_amount": "100.00",
+    "is_active": true
+  }
+},
+{
+  "model": "core.application",
+  "pk": 1,
+  "fields": {
+    "application_number": "APP-2025-REV-396D6F",
+    "user": 3,
+    "service": 1,
+    "status": "pending",
+    "applied_date": "2025-12-20T05:31:15.716Z",
+    "priority": "normal",
+    "remarks": "Initial submission",
+    "approved_by": null,
+    "approved_date": null,
+    "sla_deadline": "2025-12-27T05:31:15.715Z"
+  }
+},
+{
+  "model": "core.application",
+  "pk": 2,
+  "fields": {
+    "application_number": "APP-2025-REV-303D06",
+    "user": 5,
+    "service": 1,
+    "status": "approved",
+    "applied_date": "2025-12-20T05:55:30.939Z",
+    "priority": "normal",
+    "remarks": "Initial submission\n\nOfficer Remarks (2025-12-20 07:15): Application looks good, all documents verified.",
+    "approved_by": 2,
+    "approved_date": "2025-12-20T07:15:27.674Z",
+    "sla_deadline": "2025-12-27T05:55:30.939Z"
+  }
+},
+{
+  "model": "core.application",
+  "pk": 3,
+  "fields": {
+    "application_number": "APP-2025-REV-7AC832",
+    "user": 3,
+    "service": 3,
+    "status": "approved",
+    "applied_date": "2025-12-20T06:37:17.969Z",
+    "priority": "normal",
+    "remarks": "Officer Remarks: Approved. All documents are in order.",
+    "approved_by": 2,
+    "approved_date": "2025-12-20T07:04:05.322Z",
+    "sla_deadline": "2026-01-04T06:37:17.969Z"
+  }
+},
+{
+  "model": "core.application",
+  "pk": 4,
+  "fields": {
+    "application_number": "APP-2025-REV-B23D35",
+    "user": 22,
+    "service": 2,
+    "status": "pending",
+    "applied_date": "2025-12-20T07:11:28.355Z",
+    "priority": "normal",
+    "remarks": "",
+    "approved_by": null,
+    "approved_date": null,
+    "sla_deadline": "2025-12-30T07:11:28.354Z"
+  }
+},
+{
+  "model": "core.application",
+  "pk": 5,
+  "fields": {
+    "application_number": "APP-2025-REV-D5FA71",
+    "user": 22,
+    "service": 3,
+    "status": "approved",
+    "applied_date": "2025-12-20T07:34:17.347Z",
+    "priority": "normal",
+    "remarks": "gfdg\n\nOfficer Remarks (2025-12-20 07:37): df",
+    "approved_by": 2,
+    "approved_date": "2025-12-20T07:37:27.039Z",
+    "sla_deadline": "2026-01-04T07:34:17.347Z"
+  }
+},
+{
+  "model": "core.application",
+  "pk": 6,
+  "fields": {
+    "application_number": "APP-2025-REV-E21EF0",
+    "user": 22,
+    "service": 1,
+    "status": "rejected",
+    "applied_date": "2025-12-20T07:58:03.051Z",
+    "priority": "normal",
+    "remarks": "f\n\nOfficer Remarks (2025-12-20 08:23): z",
+    "approved_by": 2,
+    "approved_date": "2025-12-20T08:23:37.410Z",
+    "sla_deadline": "2025-12-27T07:58:03.043Z"
+  }
+},
+{
+  "model": "core.application",
+  "pk": 7,
+  "fields": {
+    "application_number": "APP-2025-REV-A564D8",
+    "user": 22,
+    "service": 1,
+    "status": "pending",
+    "applied_date": "2025-12-20T08:22:00.091Z",
+    "priority": "emergency",
+    "remarks": "ss",
+    "approved_by": null,
+    "approved_date": null,
+    "sla_deadline": "2025-12-27T08:22:00.090Z"
+  }
+},
+{
+  "model": "core.application",
+  "pk": 8,
+  "fields": {
+    "application_number": "APP-2025-REV-7447FE",
+    "user": 22,
+    "service": 2,
+    "status": "approved",
+    "applied_date": "2025-12-20T08:58:13.098Z",
+    "priority": "emergency",
+    "remarks": "ss\n\nOfficer Remarks (2025-12-20 09:01): we",
+    "approved_by": 2,
+    "approved_date": "2025-12-20T09:01:18.325Z",
+    "sla_deadline": "2025-12-30T08:58:13.098Z"
+  }
+},
+{
+  "model": "core.application",
+  "pk": 9,
+  "fields": {
+    "application_number": "APP-2026-REV-98DB30",
+    "user": 5,
+    "service": 1,
+    "status": "pending",
+    "applied_date": "2026-01-28T04:06:23.111Z",
+    "priority": "normal",
+    "remarks": "hf",
+    "approved_by": null,
+    "approved_date": null,
+    "sla_deadline": "2026-02-04T04:06:23.110Z"
+  }
+},
+{
+  "model": "core.application",
+  "pk": 13,
+  "fields": {
+    "application_number": "APP-2026-REV-6E5C41",
+    "user": 41,
+    "service": 1,
+    "status": "approved",
+    "applied_date": "2026-01-28T05:19:04.771Z",
+    "priority": "normal",
+    "remarks": "Final test application\n\nOfficer Remarks (2026-01-28 05:19): Verified for final check",
+    "approved_by": 42,
+    "approved_date": "2026-01-28T05:19:05.545Z",
+    "sla_deadline": "2026-02-04T05:19:04.770Z"
+  }
+},
+{
+  "model": "core.document",
+  "pk": 1,
+  "fields": {
+    "application": 5,
+    "document_type": "rgg",
+    "file_path": "documents/applications/WhatsApp_Image_2025-12-04_at_12.44.55_PM_P3k3RmX.jpeg",
+    "uploaded_at": "2025-12-20T07:34:17.355Z",
+    "file_size": 95738,
+    "is_verified": false
+  }
+},
+{
+  "model": "core.document",
+  "pk": 2,
+  "fields": {
+    "application": 6,
+    "document_type": "ff",
+    "file_path": "documents/applications/WhatsApp_Image_2025-12-04_at_12.44.55_PM_6YFqWjP.jpeg",
+    "uploaded_at": "2025-12-20T07:58:03.101Z",
+    "file_size": 95738,
+    "is_verified": false
+  }
+},
+{
+  "model": "core.document",
+  "pk": 3,
+  "fields": {
+    "application": 7,
+    "document_type": "ss",
+    "file_path": "documents/applications/WhatsApp_Image_2025-12-04_at_12.44.55_PM_dyroDH7.jpeg",
+    "uploaded_at": "2025-12-20T08:22:00.100Z",
+    "file_size": 95738,
+    "is_verified": false
+  }
+},
+{
+  "model": "core.document",
+  "pk": 4,
+  "fields": {
+    "application": 8,
+    "document_type": "ss",
+    "file_path": "documents/applications/WhatsApp_Image_2025-12-04_at_12.44.55_PM_2s608tp.jpeg",
+    "uploaded_at": "2025-12-20T08:58:13.117Z",
+    "file_size": 95738,
+    "is_verified": false
+  }
+},
+{
+  "model": "core.document",
+  "pk": 5,
+  "fields": {
+    "application": 9,
+    "document_type": "gfh",
+    "file_path": "documents/applications/image_5.png",
+    "uploaded_at": "2026-01-28T04:06:23.170Z",
+    "file_size": 3536671,
+    "is_verified": false
+  }
+},
+{
+  "model": "core.officerassignment",
+  "pk": 1,
+  "fields": {
+    "officer": 2,
+    "application": 1,
+    "assigned_date": "2025-12-20T05:31:15.722Z",
+    "workload_at_assignment": 0
+  }
+},
+{
+  "model": "core.officerassignment",
+  "pk": 2,
+  "fields": {
+    "officer": 2,
+    "application": 2,
+    "assigned_date": "2025-12-20T05:55:30.947Z",
+    "workload_at_assignment": 0
+  }
+},
+{
+  "model": "core.officerassignment",
+  "pk": 3,
+  "fields": {
+    "officer": 2,
+    "application": 3,
+    "assigned_date": "2025-12-20T06:37:17.981Z",
+    "workload_at_assignment": 0
+  }
+},
+{
+  "model": "core.officerassignment",
+  "pk": 5,
+  "fields": {
+    "officer": 2,
+    "application": 5,
+    "assigned_date": "2025-12-20T07:34:17.373Z",
+    "workload_at_assignment": 0
+  }
+},
+{
+  "model": "core.officerassignment",
+  "pk": 6,
+  "fields": {
+    "officer": 2,
+    "application": 6,
+    "assigned_date": "2025-12-20T07:58:03.135Z",
+    "workload_at_assignment": 0
+  }
+},
+{
+  "model": "core.officerassignment",
+  "pk": 8,
+  "fields": {
+    "officer": 2,
+    "application": 8,
+    "assigned_date": "2025-12-20T08:58:13.147Z",
+    "workload_at_assignment": 0
+  }
+},
+{
+  "model": "core.officerassignment",
+  "pk": 9,
+  "fields": {
+    "officer": 2,
+    "application": 9,
+    "assigned_date": "2026-01-28T04:06:23.217Z",
+    "workload_at_assignment": 0
+  }
+},
+{
+  "model": "core.officerassignment",
+  "pk": 13,
+  "fields": {
+    "officer": 42,
+    "application": 13,
+    "assigned_date": "2026-01-28T05:19:04.780Z",
+    "workload_at_assignment": 0
+  }
+},
+{
+  "model": "core.citizendocumentlocker",
+  "pk": 2,
+  "fields": {
+    "user": 1,
+    "document_name": "Vehicle Insurance",
+    "document_type": "Insurance",
+    "file_path": "locker/dummy.pdf",
+    "uploaded_at": "2025-12-20T10:16:53.541Z",
+    "expiry_date": "2025-12-30"
+  }
+},
+{
+  "model": "core.citizendocumentlocker",
+  "pk": 3,
+  "fields": {
+    "user": 2,
+    "document_name": "Vehicle Insurance",
+    "document_type": "Insurance",
+    "file_path": "locker/dummy.pdf",
+    "uploaded_at": "2025-12-20T10:16:53.547Z",
+    "expiry_date": "2025-12-30"
+  }
+},
+{
+  "model": "core.citizendocumentlocker",
+  "pk": 4,
+  "fields": {
+    "user": 3,
+    "document_name": "Vehicle Insurance",
+    "document_type": "Insurance",
+    "file_path": "locker/dummy.pdf",
+    "uploaded_at": "2025-12-20T10:16:53.551Z",
+    "expiry_date": "2025-12-30"
+  }
+},
+{
+  "model": "core.citizendocumentlocker",
+  "pk": 5,
+  "fields": {
+    "user": 4,
+    "document_name": "Vehicle Insurance",
+    "document_type": "Insurance",
+    "file_path": "locker/dummy.pdf",
+    "uploaded_at": "2025-12-20T10:16:53.556Z",
+    "expiry_date": "2025-12-30"
+  }
+},
+{
+  "model": "core.citizendocumentlocker",
+  "pk": 7,
+  "fields": {
+    "user": 6,
+    "document_name": "Vehicle Insurance",
+    "document_type": "Insurance",
+    "file_path": "locker/dummy.pdf",
+    "uploaded_at": "2025-12-20T10:16:53.565Z",
+    "expiry_date": "2025-12-30"
+  }
+},
+{
+  "model": "core.citizendocumentlocker",
+  "pk": 8,
+  "fields": {
+    "user": 7,
+    "document_name": "Vehicle Insurance",
+    "document_type": "Insurance",
+    "file_path": "locker/dummy.pdf",
+    "uploaded_at": "2025-12-20T10:16:53.569Z",
+    "expiry_date": "2025-12-30"
+  }
+},
+{
+  "model": "core.citizendocumentlocker",
+  "pk": 9,
+  "fields": {
+    "user": 8,
+    "document_name": "Vehicle Insurance",
+    "document_type": "Insurance",
+    "file_path": "locker/dummy.pdf",
+    "uploaded_at": "2025-12-20T10:16:53.572Z",
+    "expiry_date": "2025-12-30"
+  }
+},
+{
+  "model": "core.citizendocumentlocker",
+  "pk": 14,
+  "fields": {
+    "user": 22,
+    "document_name": "Vehicle Insurance",
+    "document_type": "Insurance",
+    "file_path": "locker/dummy.pdf",
+    "uploaded_at": "2025-12-20T10:16:53.592Z",
+    "expiry_date": "2025-12-30"
+  }
+},
+{
+  "model": "core.citizendocumentlocker",
+  "pk": 15,
+  "fields": {
+    "user": 5,
+    "document_name": "photo",
+    "document_type": "Address Proof",
+    "file_path": "locker/image_4.png",
+    "uploaded_at": "2026-01-27T13:17:26.639Z",
+    "expiry_date": null
+  }
+},
+{
+  "model": "core.grievanceticket",
+  "pk": 1,
+  "fields": {
+    "user": 5,
+    "application": 2,
+    "subject": "yy",
+    "category": "electricity",
+    "description": "grg",
+    "status": "open",
+    "priority": "high",
+    "attachment": "grievance_attachments/WhatsApp_Image_2025-12-04_at_12.44.55_PM.jpeg",
+    "escalation_level": 0,
+    "created_at": "2026-01-27T14:15:08.335Z",
+    "resolved_at": null
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 1,
+  "fields": {
+    "user": 6,
+    "action": "REGISTER",
+    "entity_type": "User",
+    "entity_id": 6,
+    "description": "New citizen account created: test_reg_user",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T06:03:57.100Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 2,
+  "fields": {
+    "user": 2,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 2,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T06:07:27.389Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 3,
+  "fields": {
+    "user": 7,
+    "action": "REGISTER",
+    "entity_type": "User",
+    "entity_id": 7,
+    "description": "New citizen account created: debug_reg_user",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T06:10:45.553Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 4,
+  "fields": {
+    "user": 8,
+    "action": "REGISTER",
+    "entity_type": "User",
+    "entity_id": 8,
+    "description": "New citizen account created: debug_reg_user_2",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T06:29:00.323Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 5,
+  "fields": {
+    "user": 3,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 3,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T06:36:38.917Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 6,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 9,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T06:48:07.464Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 7,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 10,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T06:48:07.797Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 8,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 11,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T06:48:08.171Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 9,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 12,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T06:48:08.476Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 10,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 13,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T06:48:26.134Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 11,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 14,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T06:48:26.483Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 12,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 15,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T06:48:26.977Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 13,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 16,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T06:48:27.432Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 14,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 18,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T06:48:56.312Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 15,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 19,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T06:48:56.632Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 16,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 20,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T06:48:56.953Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 17,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 21,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T06:48:57.402Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 18,
+  "fields": {
+    "user": 5,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 5,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T06:56:38.532Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 19,
+  "fields": {
+    "user": 2,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 2,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T07:03:08.223Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 20,
+  "fields": {
+    "user": 2,
+    "action": "APP_APPROVE",
+    "entity_type": "Application",
+    "entity_id": 3,
+    "description": "Application APP-2025-REV-7AC832 approved. Remarks: Approved. All documents are in order.",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T07:04:05.334Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 21,
+  "fields": {
+    "user": 22,
+    "action": "REGISTER",
+    "entity_type": "User",
+    "entity_id": 22,
+    "description": "New citizen account created: final",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T07:10:52.469Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 22,
+  "fields": {
+    "user": 22,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 22,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T07:12:00.791Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 23,
+  "fields": {
+    "user": 2,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 2,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T07:13:30.675Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 24,
+  "fields": {
+    "user": 4,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 4,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T07:14:15.099Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 25,
+  "fields": {
+    "user": 2,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 2,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T07:14:26.571Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 26,
+  "fields": {
+    "user": 1,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 1,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T07:15:18.452Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 27,
+  "fields": {
+    "user": 2,
+    "action": "APP_APPROVE",
+    "entity_type": "Application",
+    "entity_id": 2,
+    "description": "Application APP-2025-REV-303D06 approved. Remarks: Application looks good, all documents verified.",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T07:15:27.682Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 28,
+  "fields": {
+    "user": 22,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 22,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T07:15:43.431Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 29,
+  "fields": {
+    "user": 2,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 2,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T07:16:19.144Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 30,
+  "fields": {
+    "user": 4,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 4,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T07:17:22.592Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 31,
+  "fields": {
+    "user": 1,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 1,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T07:19:28.018Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 32,
+  "fields": {
+    "user": 2,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 2,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T07:32:34.775Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 33,
+  "fields": {
+    "user": 22,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 22,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T07:33:35.595Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 34,
+  "fields": {
+    "user": 2,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 2,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T07:36:43.289Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 35,
+  "fields": {
+    "user": 2,
+    "action": "APP_APPROVE",
+    "entity_type": "Application",
+    "entity_id": 5,
+    "description": "Application APP-2025-REV-D5FA71 approved. Remarks: df",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T07:37:27.116Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 36,
+  "fields": {
+    "user": 22,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 22,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T07:39:18.629Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 37,
+  "fields": {
+    "user": 22,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 22,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T08:06:35.229Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 38,
+  "fields": {
+    "user": 22,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 22,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T08:12:57.365Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 39,
+  "fields": {
+    "user": 22,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 22,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T08:21:24.099Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 40,
+  "fields": {
+    "user": 2,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 2,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T08:23:17.304Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 41,
+  "fields": {
+    "user": 2,
+    "action": "APP_REJECT",
+    "entity_type": "Application",
+    "entity_id": 6,
+    "description": "Application APP-2025-REV-E21EF0 rejected. Remarks: z",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T08:23:37.419Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 42,
+  "fields": {
+    "user": 22,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 22,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T08:24:01.441Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 43,
+  "fields": {
+    "user": 22,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 22,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T08:32:51.682Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 44,
+  "fields": {
+    "user": 22,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 22,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T08:52:04.257Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 45,
+  "fields": {
+    "user": 22,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 22,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T08:55:34.737Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 46,
+  "fields": {
+    "user": 22,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 22,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T08:57:31.267Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 47,
+  "fields": {
+    "user": 2,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 2,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T09:01:01.574Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 48,
+  "fields": {
+    "user": 2,
+    "action": "APP_APPROVE",
+    "entity_type": "Application",
+    "entity_id": 8,
+    "description": "Application APP-2025-REV-7447FE approved. Remarks: we",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T09:01:18.398Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 49,
+  "fields": {
+    "user": 22,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 22,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T09:01:52.084Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 50,
+  "fields": {
+    "user": 22,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 22,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T09:17:27.736Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 51,
+  "fields": {
+    "user": 22,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 22,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T09:18:26.283Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 52,
+  "fields": {
+    "user": 22,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 22,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T09:56:40.071Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 53,
+  "fields": {
+    "user": 22,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 22,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T10:20:00.208Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 54,
+  "fields": {
+    "user": 22,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 22,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T10:30:05.554Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 55,
+  "fields": {
+    "user": 22,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 22,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2025-12-20T11:02:34.515Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 56,
+  "fields": {
+    "user": 2,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 2,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-27T12:58:48.903Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 57,
+  "fields": {
+    "user": 1,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 1,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-27T12:59:32.885Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 58,
+  "fields": {
+    "user": 4,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 4,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-27T13:00:20.797Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 59,
+  "fields": {
+    "user": 5,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 5,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-27T13:14:12.904Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 60,
+  "fields": {
+    "user": 5,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 5,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-27T14:04:21.976Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 61,
+  "fields": {
+    "user": 4,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 4,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-27T14:20:31.488Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 62,
+  "fields": {
+    "user": 1,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 1,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-27T14:21:15.155Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 63,
+  "fields": {
+    "user": 2,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 2,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-27T14:21:57.679Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 64,
+  "fields": {
+    "user": 4,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 4,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-27T14:22:23.115Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 65,
+  "fields": {
+    "user": 1,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 1,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-27T14:25:27.829Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 66,
+  "fields": {
+    "user": 4,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 4,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-27T14:25:55.155Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 67,
+  "fields": {
+    "user": 4,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 4,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-27T14:40:47.895Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 68,
+  "fields": {
+    "user": 5,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 5,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-27T15:03:39.119Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 69,
+  "fields": {
+    "user": 4,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 4,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-27T15:04:20.599Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 70,
+  "fields": {
+    "user": 5,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 5,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T03:52:09.235Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 71,
+  "fields": {
+    "user": 2,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 2,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T04:03:24.149Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 72,
+  "fields": {
+    "user": 5,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 5,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T04:04:03.099Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 73,
+  "fields": {
+    "user": 2,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 2,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T04:06:52.198Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 74,
+  "fields": {
+    "user": 4,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 4,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T04:13:07.173Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 75,
+  "fields": {
+    "user": 1,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 1,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T04:21:51.902Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 76,
+  "fields": {
+    "user": 1,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 1,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T04:26:09.400Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 77,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 23,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T04:40:37.536Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 78,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 24,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T04:40:38.297Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 79,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 25,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T04:40:39.010Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 80,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 26,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T04:40:39.713Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 81,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 27,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T04:46:47.826Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 82,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 28,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T04:46:48.583Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 83,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 29,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T04:46:49.222Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 84,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 30,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T04:46:49.928Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 85,
+  "fields": {
+    "user": 1,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 1,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T04:49:17.087Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 86,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 31,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T05:07:02.452Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 87,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 32,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T05:07:03.178Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 88,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 33,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T05:07:03.912Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 89,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 34,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T05:07:04.614Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 90,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 35,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T05:07:39.728Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 91,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 37,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T05:08:01.781Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 92,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 39,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T05:08:34.810Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 93,
+  "fields": {
+    "user": null,
+    "action": "APP_SUBMIT",
+    "entity_type": "Application",
+    "entity_id": 12,
+    "description": "Citizen submitted application for Birth Certificate",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T05:08:34.978Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 94,
+  "fields": {
+    "user": null,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 40,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T05:08:35.701Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 95,
+  "fields": {
+    "user": null,
+    "action": "APP_APPROVE",
+    "entity_type": "Application",
+    "entity_id": 12,
+    "description": "Application APP-2026-REV-498FEF approved. Remarks: Verified for final check",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T05:08:35.765Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 96,
+  "fields": {
+    "user": 41,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 41,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T05:19:04.586Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 97,
+  "fields": {
+    "user": 41,
+    "action": "APP_SUBMIT",
+    "entity_type": "Application",
+    "entity_id": 13,
+    "description": "Citizen submitted application for Birth Certificate",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T05:19:04.782Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 98,
+  "fields": {
+    "user": 42,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 42,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T05:19:05.479Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 99,
+  "fields": {
+    "user": 42,
+    "action": "APP_APPROVE",
+    "entity_type": "Application",
+    "entity_id": 13,
+    "description": "Application APP-2026-REV-6E5C41 approved. Remarks: Verified for final check",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T05:19:05.551Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 100,
+  "fields": {
+    "user": 43,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 43,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T05:19:21.405Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 101,
+  "fields": {
+    "user": 44,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 44,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T05:19:22.048Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 102,
+  "fields": {
+    "user": 45,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 45,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T05:19:22.718Z"
+  }
+},
+{
+  "model": "core.auditlog",
+  "pk": 103,
+  "fields": {
+    "user": 46,
+    "action": "LOGIN",
+    "entity_type": "User",
+    "entity_id": 46,
+    "description": "User logged in successfully",
+    "ip_address": "127.0.0.1",
+    "user_agent": "",
+    "timestamp": "2026-01-28T05:19:23.355Z"
+  }
+},
+{
+  "model": "core.contactmessage",
+  "pk": 1,
+  "fields": {
+    "name": "photo",
+    "email": "lokanathmohanty000@gmail.com",
+    "department": null,
+    "subject": "ghj",
+    "message": "yu",
+    "attachment": "",
+    "created_at": "2026-01-27T14:05:28.016Z",
+    "is_resolved": false
+  }
+},
+{
+  "model": "core.contactmessage",
+  "pk": 2,
+  "fields": {
+    "name": "photo",
+    "email": "lokanathmohanty000@gmail.com",
+    "department": 1,
+    "subject": "ghj",
+    "message": "dfsdf",
+    "attachment": "",
+    "created_at": "2026-01-27T14:20:09.699Z",
+    "is_resolved": false
+  }
+},
+{
+  "model": "core.contactmessage",
+  "pk": 3,
+  "fields": {
+    "name": "photo",
+    "email": "lokanathmohanty000@gmail.com",
+    "department": 2,
+    "subject": "ghj",
+    "message": "tryetr",
+    "attachment": "",
+    "created_at": "2026-01-27T14:26:12.620Z",
+    "is_resolved": false
+  }
+},
+{
+  "model": "core.contactmessage",
+  "pk": 4,
+  "fields": {
+    "name": "photo",
+    "email": "lokanathmohanty000@gmail.com",
+    "department": 2,
+    "subject": "ghj",
+    "message": "rr",
+    "attachment": "",
+    "created_at": "2026-01-27T15:03:58.275Z",
+    "is_resolved": false
+  }
+},
+{
+  "model": "core.departmentcenter",
+  "pk": 1,
+  "fields": {
+    "department": 1,
+    "name": "Revenue Department - City Hall",
+    "address": "123 City Hall Street",
+    "contact_number": "1800-123-4567"
+  }
+},
+{
+  "model": "core.departmentcenter",
+  "pk": 2,
+  "fields": {
+    "department": 1,
+    "name": "Revenue Department - North Zone Office",
+    "address": "123 North Zone Office Street",
+    "contact_number": "1800-123-4567"
+  }
+},
+{
+  "model": "core.departmentcenter",
+  "pk": 3,
+  "fields": {
+    "department": 1,
+    "name": "Revenue Department - South Zone Office",
+    "address": "123 South Zone Office Street",
+    "contact_number": "1800-123-4567"
+  }
+},
+{
+  "model": "core.departmentcenter",
+  "pk": 4,
+  "fields": {
+    "department": 2,
+    "name": "Health Department - City Hall",
+    "address": "123 City Hall Street",
+    "contact_number": "1800-123-4567"
+  }
+},
+{
+  "model": "core.departmentcenter",
+  "pk": 5,
+  "fields": {
+    "department": 2,
+    "name": "Health Department - North Zone Office",
+    "address": "123 North Zone Office Street",
+    "contact_number": "1800-123-4567"
+  }
+},
+{
+  "model": "core.departmentcenter",
+  "pk": 6,
+  "fields": {
+    "department": 2,
+    "name": "Health Department - South Zone Office",
+    "address": "123 South Zone Office Street",
+    "contact_number": "1800-123-4567"
+  }
+},
+{
+  "model": "core.departmentcenter",
+  "pk": 7,
+  "fields": {
+    "department": 3,
+    "name": "Education Department - City Hall",
+    "address": "123 City Hall Street",
+    "contact_number": "1800-123-4567"
+  }
+},
+{
+  "model": "core.departmentcenter",
+  "pk": 8,
+  "fields": {
+    "department": 3,
+    "name": "Education Department - North Zone Office",
+    "address": "123 North Zone Office Street",
+    "contact_number": "1800-123-4567"
+  }
+},
+{
+  "model": "core.departmentcenter",
+  "pk": 9,
+  "fields": {
+    "department": 3,
+    "name": "Education Department - South Zone Office",
+    "address": "123 South Zone Office Street",
+    "contact_number": "1800-123-4567"
+  }
+},
+{
+  "model": "core.departmentcenter",
+  "pk": 10,
+  "fields": {
+    "department": 4,
+    "name": "Test Department - City Hall",
+    "address": "123 City Hall Street",
+    "contact_number": "1800-123-4567"
+  }
+},
+{
+  "model": "core.departmentcenter",
+  "pk": 11,
+  "fields": {
+    "department": 4,
+    "name": "Test Department - North Zone Office",
+    "address": "123 North Zone Office Street",
+    "contact_number": "1800-123-4567"
+  }
+},
+{
+  "model": "core.departmentcenter",
+  "pk": 12,
+  "fields": {
+    "department": 4,
+    "name": "Test Department - South Zone Office",
+    "address": "123 South Zone Office Street",
+    "contact_number": "1800-123-4567"
+  }
+},
+{
+  "model": "core.appointment",
+  "pk": 1,
+  "fields": {
+    "user": 22,
+    "department": 1,
+    "center": 1,
+    "service": 5,
+    "date": "2026-01-02",
+    "time_slot": "10:00 AM - 10:30 AM",
+    "status": "scheduled",
+    "token_number": "APT-1212",
+    "created_at": "2025-12-20T10:09:23.854Z"
+  }
+},
+{
+  "model": "core.familymember",
+  "pk": 1,
+  "fields": {
+    "user": 22,
+    "name": "photo",
+    "relation": "Child",
+    "dob": "2025-12-30",
+    "aadhaar_number": "y"
+  }
+},
+{
+  "model": "core.poll",
+  "pk": 1,
+  "fields": {
+    "question": "Which new service do you want next?",
+    "is_active": true,
+    "created_at": "2025-12-20T09:52:53.963Z"
+  }
+},
+{
+  "model": "core.polloption",
+  "pk": 1,
+  "fields": {
+    "poll": 1,
+    "text": "Online Land Registration",
+    "votes": 2
+  }
+},
+{
+  "model": "core.polloption",
+  "pk": 2,
+  "fields": {
+    "poll": 1,
+    "text": "Digital Health Card",
+    "votes": 0
+  }
+},
+{
+  "model": "core.polloption",
+  "pk": 3,
+  "fields": {
+    "poll": 1,
+    "text": "Smart Traffic Management",
+    "votes": 0
+  }
+},
+{
+  "model": "core.pollvote",
+  "pk": 1,
+  "fields": {
+    "user": 22,
+    "poll": 1,
+    "option": 1
+  }
+},
+{
+  "model": "core.pollvote",
+  "pk": 2,
+  "fields": {
+    "user": 5,
+    "poll": 1,
+    "option": 1
+  }
+},
+{
+  "model": "core.announcement",
+  "pk": 1,
+  "fields": {
+    "title": "Heavy Rainfall Alert",
+    "category": "alert",
+    "priority": "high",
+    "target_role": null,
+    "content": "Red alert issued for coastal districts for next 48 hours.",
+    "image": "",
+    "document": "",
+    "is_active": true,
+    "created_at": "2026-01-28T03:41:25.123Z",
+    "expires_at": null
+  }
+},
+{
+  "model": "core.announcement",
+  "pk": 2,
+  "fields": {
+    "title": "New Scholarship Scheme",
+    "category": "news",
+    "priority": "normal",
+    "target_role": null,
+    "content": "Applications open for Merit Scholarship 2026. Apply before 30th Jan.",
+    "image": "",
+    "document": "",
+    "is_active": true,
+    "created_at": "2026-01-28T03:41:25.135Z",
+    "expires_at": null
+  }
+},
+{
+  "model": "core.announcement",
+  "pk": 3,
+  "fields": {
+    "title": "Tender Notice: Road Repair",
+    "category": "tender",
+    "priority": "normal",
+    "target_role": null,
+    "content": "Inviting bids for NH-42 repair works. Download tender doc for details.",
+    "image": "",
+    "document": "",
+    "is_active": true,
+    "created_at": "2026-01-28T03:41:25.139Z",
+    "expires_at": null
+  }
+},
+{
+  "model": "core.systemconfiguration",
+  "pk": 1,
+  "fields": {
+    "environment": "dev",
+    "maintenance_mode": false,
+    "portal_name": "e-Governance Portal",
+    "primary_color": "#007bff",
+    "max_upload_size_mb": 5,
+    "global_sla_days": 7,
+    "enable_grievances": true,
+    "enable_appointments": true,
+    "enable_notifications": true,
+    "updated_at": "2026-01-28T05:07:07.918Z",
+    "system_version": "2.4.0-build.82",
+    "maintenance_end_time": null
+  }
+}
+]

@@ -1,0 +1,40 @@
+{% extends 'base_bootstrap.html' %}
+{% block title %}User Manuals | e-Governance{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <h1 class="mb-4 fw-bold">User Manuals</h1>
+    <p class="lead">Step-by-step guides to using the portal effectively.</p>
+    
+    <div class="row g-4 mt-2">
+        <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-header bg-primary text-white">For Citizens</div>
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">How to Apply for a Service</h5>
+                    <ol class="list-group list-group-numbered list-group-flush">
+                        <li class="list-group-item border-0">Register and Login to the portal.</li>
+                        <li class="list-group-item border-0">Navigate to 'Apply for Services'.</li>
+                        <li class="list-group-item border-0">Select the desired department and service.</li>
+                        <li class="list-group-item border-0">Fill in the required details and upload documents.</li>
+                        <li class="list-group-item border-0">Submit the application and note the Application ID.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+         <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-header bg-success text-white">For Officers</div>
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">Processing Applications</h5>
+                     <ol class="list-group list-group-numbered list-group-flush">
+                         <li class="list-group-item border-0">Login with Officer credentials.</li>
+                        <li class="list-group-item border-0">View 'Pending Applications' in dashboard.</li>
+                        <li class="list-group-item border-0">Verify documents and add remarks.</li>
+                        <li class="list-group-item border-0">Approve or Reject the application.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

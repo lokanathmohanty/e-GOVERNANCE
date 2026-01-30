@@ -1,0 +1,432 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}e-Governance Service Management System{% endblock %}</title>
+
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #D97706;
+            --primary-gold: #D97706;
+            --success-color: #198754;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --dark-bg: #212529;
+            --accent-gold: #D97706;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fff5e6 0%, #ffecd2 100%) !important;
+            background-attachment: fixed !important;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        .status-badge-on-time {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .status-badge-near-deadline {
+            background-color: #fff3cd;
+            color: #664d03;
+        }
+
+        .status-badge-delayed {
+            background-color: #f8d7da;
+            color: #842029;
+        }
+
+        .priority-disaster {
+            border-left: 4px solid var(--danger-color);
+        }
+
+        .priority-emergency {
+            border-left: 4px solid var(--warning-color);
+        }
+
+        .sidebar {
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        .sidebar .nav-link {
+            color: #495057;
+            border-radius: 0.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+    </style>
+
+    <!-- Custom & Animation CSS -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animations.css' %}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'core:home' %}">
+                <i class="bi bi-building"></i> e-Governance MIS
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'citizen:public_track' %}">
+                            <i class="bi bi-search"></i> Track Application
+                        </a>
+                    </li>
+                    <!-- Notifications -->
+                    {% if user.is_authenticated %}
+                    <li class="nav-item dropdown me-3">
+                        <a class="nav-link dropdown-toggle position-relative" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-bell fs-5"></i>
+                            {% if unread_notification_count > 0 %}
+                            <span class="position-absolute top-1 start-90 translate-middle badge rounded-pill bg-danger"
+                                style="font-size: 0.6rem;">
+                                {{ unread_notification_count }}
+                            </span>
+                            {% endif %}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end p-0 shadow border-0"
+                            style="width: 320px; max-height: 400px; overflow-y: auto;">
+                            <li
+                                class="d-flex justify-content-between align-items-center p-3 border-bottom bg-light sticky-top">
+                                <h6 class="mb-0 fw-bold small text-uppercase text-muted">Notifications</h6>
+                                {% if unread_notification_count > 0 %}
+                                <button onclick="markAllRead()"
+                                    class="btn btn-sm btn-link text-decoration-none p-0 small"
+                                    style="font-size: 0.8rem;">Mark all read</button>
+                                {% endif %}
+                            </li>
+                            {% for notif in user_notifications %}
+                            <li>
+                                <a class="dropdown-item p-3 border-bottom {% if not notif.is_read %}bg-primary bg-opacity-10{% endif %}"
+                                    href="#" onclick="markRead('{{ notif.id }}'); return false;">
+                                    <div class="d-flex align-items-start">
+                                        <div class="me-3 mt-1">
+                                            {% if notif.notification_type == 'success' %}<i
+                                                class="bi bi-check-circle-fill text-success"></i>
+                                            {% elif notif.notification_type == 'error' %}<i
+                                                class="bi bi-exclamation-circle-fill text-danger"></i>
+                                            {% elif notif.notification_type == 'warning' %}<i
+                                                class="bi bi-exclamation-triangle-fill text-warning"></i>
+                                            {% else %}<i class="bi bi-info-circle-fill text-primary"></i>{% endif %}
+                                        </div>
+                                        <div>
+                                            <p class="mb-1 small fw-bold text-wrap lh-sm">{{ notif.title }}</p>
+                                            <p class="mb-1 small text-muted text-wrap lh-sm">{{
+                                                notif.message|truncatechars:80 }}</p>
+                                            <small class="text-secondary" style="font-size: 0.7rem;">{{
+                                                notif.created_at|timesince }} ago</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            {% empty %}
+                            <li class="p-4 text-center text-muted small">
+                                <i class="bi bi-bell-slash fs-4 d-block mb-2 text-secondary"></i>
+                                No new notifications
+                            </li>
+                            {% endfor %}
+                            <li class="sticky-bottom bg-white"><a
+                                    class="dropdown-item text-center small text-primary py-2 border-top fw-bold"
+                                    href="{% url 'core:notifications' %}">View Full History</a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
+
+                    {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> {{ user.get_full_name|default:user.username }}
+                            <span class="badge bg-light text-dark">{{ user.get_role_display }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{% url 'accounts:profile' %}"><i
+                                        class="bi bi-person"></i> Profile</a></li>
+                            {% if user.role == 'citizen' %}
+                            <li><a class="dropdown-item" href="{% url 'citizen:dashboard' %}"><i
+                                        class="bi bi-speedometer2"></i> Dashboard</a></li>
+                            <li><a class="dropdown-item" href="{% url 'citizen:locker' %}"><i
+                                        class="bi bi-folder-check"></i> Document Locker</a></li>
+                            {% elif user.role == 'officer' %}
+                            <li><a class="dropdown-item" href="{% url 'officer:dashboard' %}"><i
+                                        class="bi bi-speedometer2"></i> Dashboard</a></li>
+                            {% elif user.role == 'department_head' %}
+                            <li><a class="dropdown-item" href="{% url 'mis:dashboard' %}"><i
+                                        class="bi bi-speedometer2"></i> Dashboard</a></li>
+                            {% elif user.role == 'admin' %}
+                            <li><a class="dropdown-item" href="{% url 'admin_panel:dashboard' %}"><i
+                                        class="bi bi-speedometer2"></i> Dashboard</a></li>
+                            {% endif %}
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item text-danger" href="{% url 'accounts:logout' %}">
+                                    <i class="bi bi-box-arrow-right"></i> Logout
+                                </a></li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:login' %}">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Messages -->
+    {% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {% if message.tags == 'success' %}
+            <i class="bi bi-check-circle-fill"></i>
+            {% elif message.tags == 'error' %}
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            {% else %}
+            <i class="bi bi-info-circle-fill"></i>
+            {% endif %}
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main class="page-load-animation">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <!-- Footer -->
+    <footer class="bg-light text-lg-start mt-auto border-top">
+        <div class="container p-4">
+            <div class="row">
+                <!-- Brand -->
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase fw-bold text-primary mb-3">e-Governance</h5>
+                    <p class="small text-muted">
+                        A secure 3-tier architecture platform for transparent and efficient government services.
+                    </p>
+                </div>
+
+                <!-- Portal -->
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h6 class="text-uppercase fw-bold mb-3">Portal</h6>
+                    <ul class="list-unstyled mb-0 small">
+                        <li class="mb-2"><a href="{% url 'core:about' %}"
+                                class="text-secondary text-decoration-none">About Portal</a></li>
+                        <li class="mb-2"><a href="{% url 'core:services_list' %}"
+                                class="text-secondary text-decoration-none">Services List</a></li>
+                        <li class="mb-2"><a href="{% url 'core:dashboard_info' %}"
+                                class="text-secondary text-decoration-none">Dashboard</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h6 class="text-uppercase fw-bold mb-3">Support</h6>
+                    <ul class="list-unstyled mb-0 small">
+                        <li class="mb-2"><a href="{% url 'core:help' %}"
+                                class="text-secondary text-decoration-none">Help & PDF</a></li>
+                        <li class="mb-2"><a href="{% url 'core:manuals' %}"
+                                class="text-secondary text-decoration-none">User Manuals</a></li>
+                        <li class="mb-2"><a href="{% url 'core:contact' %}"
+                                class="text-secondary text-decoration-none">Contact Support</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h6 class="text-uppercase fw-bold mb-3">Legal</h6>
+                    <ul class="list-unstyled mb-0 small">
+                        <li class="mb-2"><a href="{% url 'core:privacy' %}"
+                                class="text-secondary text-decoration-none">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="{% url 'core:terms' %}"
+                                class="text-secondary text-decoration-none">Terms of Use</a></li>
+                        <li class="mb-2"><a href="{% url 'core:accessibility' %}"
+                                class="text-secondary text-decoration-none">Accessibility</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="text-center p-3 bg-dark text-white small">
+            © 2025 State Government e-Governance Department. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Help Modal -->
+    <div class="modal fade" id="helpModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title"><i class="bi bi-robot"></i> AI Assistant</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex align-items-start mb-4">
+                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 me-2"
+                            style="width: 40px; height: 40px;">
+                            <i class="bi bi-robot"></i>
+                        </div>
+                        <div class="bg-light p-3 rounded-4 rounded-top-0">
+                            <p class="mb-0 small">Hello! I'm here to help. You can ask me about services, status, or
+                                bookings.</p>
+                        </div>
+                    </div>
+
+                    <h6 class="fw-bold small text-uppercase text-muted mb-3">Quick Actions</h6>
+                    <div class="list-group list-group-flush border rounded-3 overflow-hidden">
+                        <a href="{% url 'citizen:services' %}"
+                            class="list-group-item list-group-item-action small py-3">
+                            <i class="bi bi-file-earmark-plus text-primary me-2"></i> Apply for Income Certificate
+                        </a>
+                        <a href="{% url 'citizen:book_appointment' %}"
+                            class="list-group-item list-group-item-action small py-3">
+                            <i class="bi bi-calendar-check text-success me-2"></i> Book an Appointment
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action small py-3"
+                            onclick="alert('Connecting to live agent...')">
+                            <i class="bi bi-headset text-secondary me-2"></i> Talk to Support
+                        </a>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light p-2">
+                    <input type="text" class="form-control form-control-sm border-0 bg-transparent"
+                        placeholder="Type your question...">
+                    <button class="btn btn-sm btn-primary rounded-circle"><i class="bi bi-send"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Help Chat -->
+    <div class="position-fixed bottom-0 end-0 p-4" style="z-index: 1050;">
+        <button
+            class="btn btn-primary rounded-circle shadow-lg d-flex align-items-center justify-content-center hover-scale"
+            style="width: 60px; height: 60px; transition: transform 0.2s;" data-bs-toggle="modal"
+            data-bs-target="#helpModal" title="Chat with AI Helpdesk">
+            <i class="bi bi-chat-dots-fill fs-4"></i>
+        </button>
+    </div>
+
+    <!-- Bootstrap 5.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    {% block extra_js %}{% endblock %}
+    <script>
+        async function markRead(id) {
+            try {
+                await fetch(`/notifications/read/${id}/`, {
+                    method: 'POST',
+                    headers: { 'X-CSRFToken': '{{ csrf_token }}' }
+                });
+                window.location.reload();
+            } catch (e) { console.error(e); }
+        }
+        async function markAllRead() {
+            try {
+                await fetch(`/notifications/read/all/`, {
+                    method: 'POST',
+                    headers: { 'X-CSRFToken': '{{ csrf_token }}' }
+                });
+                window.location.reload();
+            } catch (e) { console.error(e); }
+        }
+
+        // Scroll Reveal Animation
+        const reveal = () => {
+            const reveals = document.querySelectorAll('.reveal');
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        };
+        window.addEventListener('scroll', reveal);
+        window.addEventListener('load', reveal);
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('header') || document.querySelector('.navbar');
+            if (navbar) {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            }
+        });
+
+        // Staggered Animations for containers
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    const children = entry.target.querySelectorAll('.stagger-item');
+                    children.forEach((child, index) => {
+                        child.style.transitionDelay = `${index * 80}ms`;
+                        setTimeout(() => {
+                            child.style.opacity = '1';
+                            child.style.transform = 'translateY(0)';
+                        }, index * 80);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.stagger-container').forEach(container => {
+            observer.observe(container);
+        });
+    </script>
+</body>
+
+</html>

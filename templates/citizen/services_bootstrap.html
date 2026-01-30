@@ -1,0 +1,483 @@
+{% extends 'base_bootstrap.html' %}
+{% load static %}
+
+{% block title %}Citizen Services Portal | SMART ODISHA{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Premium Theme Variables */
+    :root {
+        --konark-gold: #B45309;
+        --soft-gold: #FFF9D0;
+        --accent-orange: #FFB200;
+        --glass-white: rgba(255, 255, 255, 0.85);
+    }
+
+    .hero-section {
+        position: relative;
+        padding: 3rem 0 2rem;
+        background: linear-gradient(135deg, #FFF9D0 0%, #FFEFC6 100%);
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .chakra-watermark {
+        position: absolute;
+        top: 50%;
+        right: -10%;
+        transform: translateY(-50%) rotate(15deg);
+        width: 600px;
+        height: auto;
+        opacity: 0.08;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .branding-main {
+        font-size: 4.5rem;
+        font-weight: 900;
+        color: var(--konark-gold);
+        letter-spacing: -2px;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        line-height: 1;
+    }
+
+    .branding-sub {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #4B5563;
+        margin-bottom: 1rem;
+    }
+
+    .tagline {
+        font-size: 1.1rem;
+        color: #6B7280;
+        font-weight: 500;
+        margin-bottom: 3rem;
+    }
+
+    .premium-search-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 6px;
+        background: white;
+        border-radius: 100px;
+        display: flex;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(180, 83, 9, 0.1);
+    }
+
+    .premium-search-input {
+        border: none;
+        padding: 0.5rem 2rem;
+        font-size: 1.1rem;
+        flex: 1;
+        border-radius: 100px 0 0 100px;
+        outline: none;
+    }
+
+    .explore-btn {
+        background: var(--accent-orange);
+        color: #fff;
+        border: none;
+        padding: 0.8rem 2.5rem;
+        font-weight: 700;
+        border-radius: 100px;
+        transition: all 0.3s ease;
+    }
+
+    .explore-btn:hover {
+        background: var(--konark-gold);
+        transform: scale(1.02);
+    }
+
+    /* Category Cards Grid */
+    .category-grid {
+        margin-top: -2rem;
+        position: relative;
+        z-index: 10;
+        padding-bottom: 1rem;
+    }
+
+    .category-card {
+        background: linear-gradient(135deg, rgba(255, 249, 208, 0.9) 0%, rgba(255, 239, 198, 0.9) 100%);
+        border: 1px solid rgba(180, 83, 9, 0.15);
+        border-radius: 20px;
+        padding: 2rem 1.5rem;
+        text-align: center;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        height: 100%;
+        backdrop-filter: blur(5px);
+    }
+
+    .category-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(180, 83, 9, 0.12);
+        background: linear-gradient(135deg, #FFEFC6 0%, #FFD966 100%);
+    }
+
+    .category-card.active {
+        background: linear-gradient(135deg, #FFB200 0%, #D97706 100%);
+        border-color: #D97706;
+    }
+
+    .category-icon {
+        font-size: 3.5rem;
+        color: var(--konark-gold);
+        transition: all 0.3s ease;
+    }
+
+    .category-card.active .category-icon,
+    .category-card.active .category-title {
+        color: white;
+    }
+
+    .category-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #374151;
+        text-align: left;
+    }
+
+    /* Services Display */
+    .services-header {
+        margin-bottom: 1.5rem;
+        padding-top: 0.5rem;
+    }
+
+    .service-premium-card {
+        border: none;
+        border-radius: 15px;
+        background: white;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+        border-left: 5px solid var(--accent-orange);
+        transition: all 0.3s ease;
+    }
+
+    .service-premium-card:hover {
+        transform: translateX(10px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Info Sections at bottom */
+    .info-section {
+        background: #F9FAFB;
+        padding: 2rem 0;
+        border-top: 1px solid #E5E7EB;
+    }
+
+    .footer-heading {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: #374151;
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+        border-right: 4px solid var(--accent-orange);
+        display: inline-block;
+        padding-right: 1rem;
+    }
+
+    .update-item {
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #E5E7EB;
+        list-style: none;
+        display: flex;
+        gap: 10px;
+        font-size: 0.95rem;
+        color: #4B5563;
+    }
+
+    .step-icon {
+        width: 50px;
+        height: 50px;
+        background: #FFFBEB;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-orange);
+        margin-bottom: 1rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <img src="https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/konark-sun-temple-wheel-anubhav-das.jpg"
+        class="chakra-watermark" alt="Konark Chakra">
+    <div class="container hero-content">
+        <div class="animate-fade-in">
+            <h1 class="branding-main">SMART ODISHA</h1>
+            <h2 class="branding-sub">Citizen Services Portal</h2>
+            <p class="tagline">One Platform, All Services</p>
+        </div>
+
+        <div class="premium-search-container">
+            <input type="text" class="premium-search-input" id="serviceSearch"
+                placeholder="Search for Services (e.g., Birth Certificate, Land Records)">
+            <button class="explore-btn" onclick="filterServices()">Explore All Services</button>
+        </div>
+    </div>
+</section>
+
+<!-- Category Grid -->
+<section class="category-grid">
+    <div class="container">
+        <div class="row g-4">
+            <!-- 1. Certificates -->
+            <div class="col-md-3">
+                <div class="category-card" onclick="filterByCategory('Certificates', this)">
+                    <i class="bi bi-file-earmark-medical-fill category-icon"></i>
+                    <span class="category-title">Certificates</span>
+                </div>
+            </div>
+            <!-- 2. Health -->
+            <div class="col-md-3">
+                <div class="category-card" onclick="filterByCategory('Health', this)">
+                    <i class="bi bi-heart-pulse-fill category-icon"></i>
+                    <span class="category-title">Health</span>
+                </div>
+            </div>
+            <!-- 3. Education -->
+            <div class="col-md-3">
+                <div class="category-card" onclick="filterByCategory('Education', this)">
+                    <i class="bi bi-mortarboard-fill category-icon"></i>
+                    <span class="category-title">Education</span>
+                </div>
+            </div>
+            <!-- 4. Agriculture -->
+            <div class="col-md-3">
+                <div class="category-card" onclick="filterByCategory('Agriculture', this)">
+                    <i class="bi bi-water category-icon"></i> <!-- Wheat icon substitute -->
+                    <span class="category-title">Agriculture</span>
+                </div>
+            </div>
+            <!-- 5. Panchayat & Rural -->
+            <div class="col-md-3">
+                <div class="category-card" onclick="filterByCategory('Revenue', this)">
+                    <!-- Mapping Revenue to Panchayat/Rural for now -->
+                    <i class="bi bi-house-door-fill category-icon"></i>
+                    <span class="category-title">Panchayat & Rural</span>
+                </div>
+            </div>
+            <!-- 6. Pension -->
+            <div class="col-md-3">
+                <div class="category-card" onclick="filterByCategory('Social Welfare', this)">
+                    <i class="bi bi-person-heart category-icon"></i>
+                    <span class="category-title">Pension & Welfare</span>
+                </div>
+            </div>
+            <!-- 7. Police -->
+            <div class="col-md-3">
+                <div class="category-card" onclick="filterByCategory('Home', this)">
+                    <i class="bi bi-shield-lock-fill category-icon"></i>
+                    <span class="category-title">Police Services</span>
+                </div>
+            </div>
+            <!-- 8. Utilities -->
+            <div class="col-md-3">
+                <div class="category-card" onclick="filterByCategory('Utilities', this)">
+                    <i class="bi bi-lightning-charge-fill category-icon"></i>
+                    <span class="category-title">Utilities</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services List -->
+<section class="container mb-3">
+    <div class="services-header d-flex justify-content-between align-items-center">
+        <h4 id="activeCategoryHeading" class="fw-bold">All Services</h4>
+        <div class="text-muted small" id="serviceCount">{{ services.count }} services found</div>
+    </div>
+
+    <div class="row g-4" id="servicesGrid">
+        {% for service in services %}
+        <div class="col-md-6 service-card-container" data-category="{{ service.department.department_name }}"
+            data-name="{{ service.service_name|lower }}">
+            <div class="card service-premium-card">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h5 class="fw-bold mb-1">{{ service.service_name }}</h5>
+                            <span class="text-primary small fw-bold">{{ service.department.department_name }}</span>
+                        </div>
+                        <span class="badge bg-light text-dark border p-2">
+                            <i class="bi bi-clock"></i> {{ service.processing_days }} Days
+                        </span>
+                    </div>
+                    <p class="text-muted small mb-4">Provide essential documentation to process your request for {{
+                        service.service_name }}.</p>
+
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                        <div class="text-muted small">
+                            {% if service.fee_amount > 0 %}
+                            <strong class="text-warning">₹{{ service.fee_amount }} Fee</strong>
+                            {% else %}
+                            <strong class="text-success">Free Service</strong>
+                            {% endif %}
+                        </div>
+                        <a href="{% url 'citizen:apply' service.id %}" class="btn btn-primary btn-sm px-4 rounded-pill">
+                            Apply Now <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Bottom Info Sections -->
+<section class="info-section">
+    <div class="container">
+        <div class="row g-5">
+            <!-- Announcements -->
+            <div class="col-lg-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="footer-heading">Important Updates</h5>
+                    <div class="text-muted">
+                        <i class="bi bi-chevron-left me-2"></i>
+                        <i class="bi bi-chevron-right"></i>
+                    </div>
+                </div>
+                <ul class="p-0">
+                    <li class="update-item">
+                        <i class="bi bi-dot text-warning fs-3"></i>
+                        News Headlines: Income, Birth Certificate Land Records records updated.
+                    </li>
+                    <li class="update-item">
+                        <i class="bi bi-dot text-warning fs-3"></i>
+                        Service Update: New portal for Education scholarships launched.
+                    </li>
+                    <li class="update-item">
+                        <i class="bi bi-dot text-warning fs-3"></i>
+                        Police Verification: Online status tracking enabled for all districts.
+                    </li>
+                </ul>
+            </div>
+
+            <!-- How it works -->
+            <div class="col-lg-4">
+                <h5 class="footer-heading">How it Works</h5>
+                <div class="row g-3">
+                    <div class="col-4 text-center">
+                        <div class="step-icon mx-auto"><i class="bi bi-search"></i></div>
+                        <small class="fw-bold">1. Find</small>
+                    </div>
+                    <div class="col-4 text-center">
+                        <div class="step-icon mx-auto"><i class="bi bi-pencil-square"></i></div>
+                        <small class="fw-bold">2. Apply</small>
+                    </div>
+                    <div class="col-4 text-center">
+                        <div class="step-icon mx-auto"><i class="bi bi-check-circle"></i></div>
+                        <small class="fw-bold">3. Receive</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contacts -->
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-6">
+                        <h5 class="footer-heading">Quick Links</h5>
+                        <ul class="list-unstyled small text-muted">
+                            <li class="mb-1">Home</li>
+                            <li class="mb-1">Contact</li>
+                            <li class="mb-1">Police Services</li>
+                            <li class="mb-1">Utilities & Contact</li>
+                        </ul>
+                    </div>
+                    <div class="col-6">
+                        <h5 class="footer-heading">Contact</h5>
+                        <p class="small text-muted mb-1">Government of Odisha, India</p>
+                        <p class="small text-muted mb-2">+91 991 837 7200</p>
+                        <div class="d-flex gap-2">
+                            <i class="bi bi-facebook"></i>
+                            <i class="bi bi-twitter-x"></i>
+                            <i class="bi bi-instagram"></i>
+                            <i class="bi bi-youtube"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 d-flex align-items-center gap-3">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Seal_of_Odisha.svg/1200px-Seal_of_Odisha.svg.png"
+                        height="50" alt="Odisha Seal">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Digital_India_logo.svg/200px-Digital_India_logo.svg.png"
+                        height="30" alt="Digital India">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function filterServices() {
+        const search = document.getElementById('serviceSearch').value.toLowerCase();
+        const cards = document.querySelectorAll('.service-card-container');
+        let count = 0;
+
+        cards.forEach(card => {
+            const name = card.dataset.name;
+            const matchSearch = !search || name.includes(search);
+
+            if (matchSearch) {
+                card.style.display = '';
+                count++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        document.getElementById('serviceCount').innerText = `${count} services found`;
+    }
+
+    function filterByCategory(category, element) {
+        // Reset category cards UI
+        document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
+
+        // Handle "Explore All" or Clicked Category
+        if (element) element.classList.add('active');
+
+        const heading = document.getElementById('activeCategoryHeading');
+        heading.innerText = category === 'All' ? 'All Services' : category;
+
+        const cards = document.querySelectorAll('.service-card-container');
+        let count = 0;
+
+        cards.forEach(card => {
+            const cardCategory = card.dataset.category;
+            // Flexible matching for demo (usually you'd match on ID)
+            const matchCategory = category === 'All' || cardCategory.includes(category);
+
+            if (matchCategory) {
+                card.style.display = '';
+                count++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        document.getElementById('serviceCount').innerText = `${count} services found`;
+
+        // Scroll to services
+        window.scrollTo({
+            top: document.querySelector('.services-header').offsetTop - 100,
+            behavior: 'smooth'
+        });
+    }
+
+    // Live search
+    document.getElementById('serviceSearch').addEventListener('keyup', filterServices);
+</script>
+{% endblock %}

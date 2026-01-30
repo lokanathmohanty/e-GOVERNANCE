@@ -1,0 +1,15 @@
+{
+  "name": "e-Governance Service Management System",
+  "short_name": "e-Gov",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1e3a8a",
+  "theme_color": "#1e3a8a",
+  "icons": [
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Emblem_of_India.svg/200px-Emblem_of_India.svg.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

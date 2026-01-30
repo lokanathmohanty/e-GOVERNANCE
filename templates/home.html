@@ -1,0 +1,1253 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}e-Governance Service Management System{% endblock %}
+
+{% block content %}
+
+<!-- 1. Emergency Bar -->
+<div
+    class="bg-red-600 text-white text-xs md:text-sm py-2 px-4 shadow-md relative top-0 z-50 flex justify-between items-center font-sans">
+    <div class="flex items-center gap-2 animate-pulse">
+        <span class="material-symbols-outlined text-[18px]">emergency_home</span>
+        <span class="font-bold tracking-wider">EMERGENCY HELPLINES:</span>
+    </div>
+    <div class="flex gap-4 overflow-x-auto whitespace-nowrap scrollbar-hide">
+        <span class="flex items-center gap-1"><i class="bi bi-shield-fill"></i> Police (100)</span> •
+        <span class="flex items-center gap-1"><i class="bi bi-hospital-fill"></i> Ambulance (108)</span> •
+        <span class="flex items-center gap-1"><i class="bi bi-gender-female"></i> Women Safety (1091)</span> •
+        <span class="flex items-center gap-1"><i class="bi bi-cloud-lightning-rain-fill"></i> Disaster Mgmt (108)</span>
+    </div>
+</div>
+
+
+<!-- 2. News Ticker -->
+<div class="bg-gray-900 text-white text-sm py-2.5 overflow-hidden relative border-b border-gray-800 font-sans">
+    <div class="whitespace-nowrap animate-marquee flex gap-16">
+        {% if alerts %}
+        {% for alert in alerts %}
+        <span class="inline-flex items-center gap-2 text-gray-300">
+            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+            <strong class="text-white">{{ alert.title }}:</strong> {{ alert.content }}
+        </span>
+        {% endfor %}
+        {% else %}
+        <!-- Default Fallback Ticker -->
+        <span class="inline-flex items-center gap-2 text-gray-300"><span
+                class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> <strong
+                class="text-white">Welcome</strong> to the new e-Governance Portal.</span>
+        <span class="inline-flex items-center gap-2 text-gray-300"><span
+                class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span> <strong class="text-white">Digital
+                India</strong> campaign is live in all districts.</span>
+        {% endif %}
+    </div>
+</div>
+<style>
+    @keyframes marquee {
+        0% {
+            transform: translateX(100%);
+        }
+
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+
+    .animate-marquee {
+        animation: marquee 25s linear infinite;
+    }
+
+    .animate-marquee:hover {
+        animation-play-state: paused;
+    }
+</style>
+
+
+<!-- 3. Hero Section -->
+<section
+    class="w-full bg-white dark:bg-background-dark py-12 md:py-20 px-4 flex justify-center relative overflow-hidden">
+    <div class="max-w-[1280px] w-full relative z-10">
+        <div class="flex flex-col gap-10 lg:flex-row lg:items-center">
+            <div class="flex flex-col gap-6 lg:w-1/2 lg:pr-10">
+                <div class="flex flex-col gap-4 text-left">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/30 w-fit border border-blue-100 dark:border-blue-800">
+                        <span class="size-2 rounded-full bg-primary animate-pulse"></span>
+                        <span class="text-xs font-bold text-primary uppercase tracking-wide">Official Govt Portal</span>
+                    </div>
+                    <h1
+                        class="text-[#111318] dark:text-white text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] tracking-[-0.033em]">
+                        e-Governance Service Management System
+                    </h1>
+                    <h2
+                        class="text-[#616f89] dark:text-gray-300 text-lg md:text-xl font-normal leading-relaxed max-w-[600px]">
+                        Secure, transparent citizen services. Empowering the state with a robust digital platform for
+                        all administrative needs.
+                    </h2>
+                </div>
+                <div class="flex flex-wrap gap-4 mt-4">
+                    <a href="{% url 'accounts:login' %}"
+                        class="flex min-w-[140px] cursor-pointer items-center justify-center rounded-xl h-14 px-8 bg-primary text-white text-lg font-bold shadow-lg shadow-blue-200 dark:shadow-none hover:bg-blue-700 hover:scale-105 transition-all no-underline">
+                        <span class="material-symbols-outlined mr-2">person</span>
+                        Citizen Login
+                    </a>
+                    <a href="{% url 'accounts:login' %}"
+                        class="flex min-w-[140px] cursor-pointer items-center justify-center rounded-xl h-14 px-8 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-[#111318] dark:text-white text-lg font-bold hover:bg-gray-50 dark:hover:bg-gray-700 hover:scale-105 transition-all no-underline">
+                        <span class="material-symbols-outlined mr-2">admin_panel_settings</span>
+                        Officer Login
+                    </a>
+                </div>
+            </div>
+            <div class="lg:w-1/2 mt-8 lg:mt-0">
+                <div
+                    class="relative w-full h-96 lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl bg-gray-100 dark:bg-gray-800 group border-[8px] border-white dark:border-gray-800">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10">
+                    </div>
+                    <div class="w-full h-full bg-center bg-cover transition-transform duration-1000 group-hover:scale-110"
+                        style='background-image: url("https://images.unsplash.com/photo-1554469384-e58fac16e23a?q=80&w=1974&auto=format&fit=crop");'>
+                    </div>
+                    <div
+                        class="absolute bottom-6 left-6 z-20 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md p-4 rounded-xl shadow-xl border border-white/50 dark:border-gray-700 animate-bounce-slow">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="bg-green-100 dark:bg-green-900/50 p-2.5 rounded-lg text-green-700 dark:text-green-400">
+                                <span class="material-symbols-outlined">check_circle</span>
+                            </div>
+                            <div>
+                                <div class="text-sm font-bold text-gray-900 dark:text-white">System Active</div>
+                                <div class="text-xs text-gray-500">Processing Applications</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section
+    class="w-full bg-background-light dark:bg-background-dark py-16 px-4 flex justify-center border-t border-gray-200 dark:border-gray-800">
+    <div class="max-w-[1280px] w-full flex flex-col gap-10">
+        <div class="flex flex-col gap-4 text-center md:text-left">
+            <h1
+                class="text-[#111318] dark:text-white text-3xl md:text-4xl font-bold leading-tight tracking-tight max-w-[720px]">
+                Citizen Services
+            </h1>
+            <p class="text-[#616f89] dark:text-gray-400 text-lg font-normal leading-normal max-w-[720px]">
+                Access essential government services with ease and transparency.
+            </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger-container">
+            <!-- Card 1 -->
+            <div
+                class="group flex flex-col gap-5 rounded-xl border border-[#dbdfe6] dark:border-gray-700 bg-white dark:bg-[#1a202c] p-8 hover:shadow-xl hover:border-primary/50 transition-all duration-300 stagger-item">
+                <div
+                    class="size-14 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-[32px]">post_add</span>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <h2 class="text-[#111318] dark:text-white text-xl font-bold leading-tight">Apply for Services</h2>
+                    <p class="text-[#616f89] dark:text-gray-400 text-base font-normal leading-relaxed">
+                        Submit applications for certificates, welfare schemes, and licenses directly from your home.
+                    </p>
+                </div>
+                <a class="mt-auto inline-flex items-center text-primary font-semibold hover:gap-2 transition-all no-underline"
+                    href="{% url 'citizen:services' %}">
+                    Start Application <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+                </a>
+            </div>
+            <!-- Card 2 -->
+            <div
+                class="group flex flex-col gap-5 rounded-xl border border-[#dbdfe6] dark:border-gray-700 bg-white dark:bg-[#1a202c] p-8 hover:shadow-xl hover:border-primary/50 transition-all duration-300 stagger-item">
+                <div
+                    class="size-14 rounded-full bg-purple-50 dark:bg-purple-900/20 flex items-center justify-center text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-[32px]">search</span>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <h2 class="text-[#111318] dark:text-white text-xl font-bold leading-tight">Track Application Status
+                    </h2>
+                    <p class="text-[#616f89] dark:text-gray-400 text-base font-normal leading-relaxed">
+                        Real-time tracking of your application workflow, approvals, and current pending status.
+                    </p>
+                </div>
+                <a class="mt-auto inline-flex items-center text-primary font-semibold hover:gap-2 transition-all no-underline"
+                    href="{% url 'citizen:dashboard' %}">
+                    Check Status <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+                </a>
+            </div>
+            <!-- Card 3 -->
+            <div
+                class="group flex flex-col gap-5 rounded-xl border border-[#dbdfe6] dark:border-gray-700 bg-white dark:bg-[#1a202c] p-8 hover:shadow-xl hover:border-primary/50 transition-all duration-300 stagger-item">
+                <div
+                    class="size-14 rounded-full bg-orange-50 dark:bg-orange-900/20 flex items-center justify-center text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-[32px]">report_problem</span>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <h2 class="text-[#111318] dark:text-white text-xl font-bold leading-tight">Raise Grievance</h2>
+                    <p class="text-[#616f89] dark:text-gray-400 text-base font-normal leading-relaxed">
+                        Lodge complaints regarding civic issues and track their resolution with our transparent system.
+                    </p>
+                </div>
+                <a class="mt-auto inline-flex items-center text-primary font-semibold hover:gap-2 transition-all no-underline"
+                    href="{% url 'citizen:grievances' %}">
+                    File Complaint <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 3.5 Governance Process Explanation Section -->
+<section class="py-20 bg-gray-50 dark:bg-[#151b28] reveal">
+    <div class="max-w-[1280px] mx-auto px-4">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+            <span
+                class="inline-block px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-primary font-bold text-xs uppercase tracking-wider mb-4">Transparent
+                Governance</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">How It Works</h2>
+            <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto text-lg">Understanding the lifecycle of your
+                application. We believe in complete transparency at every step.</p>
+        </div>
+
+        <!-- Step-wise Visualization -->
+        <div class="relative">
+            <!-- Connecting Line -->
+            <div
+                class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-gray-200 dark:bg-gray-700 -translate-y-1/2 z-0">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10 stagger-container">
+                <!-- Step 1 -->
+                <div
+                    class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 text-center group hover:-translate-y-2 transition-transform duration-300 stagger-item">
+                    <div
+                        class="size-16 mx-auto bg-blue-50 dark:bg-blue-900/20 text-blue-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-sm">
+                        <span class="material-symbols-outlined text-3xl">edit_document</span>
+                    </div>
+                    <div
+                        class="inline-block px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-bold text-gray-500 mb-2">
+                        Step 1</div>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Apply Online</h3>
+                    <p class="text-sm text-gray-500">Submit your application with unified KYC. <br><span
+                            class="text-primary font-bold">Responsibility:</span> Citizen</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div
+                    class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 text-center group hover:-translate-y-2 transition-transform duration-300 stagger-item">
+                    <div
+                        class="size-16 mx-auto bg-purple-50 dark:bg-purple-900/20 text-purple-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-sm">
+                        <span class="material-symbols-outlined text-3xl">fact_check</span>
+                    </div>
+                    <div
+                        class="inline-block px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-bold text-gray-500 mb-2">
+                        Step 2</div>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Verification</h3>
+                    <p class="text-sm text-gray-500">Field Officer verifies docs & eligibility. <br><span
+                            class="text-primary font-bold">Responsibility:</span> VRO / Clerk</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div
+                    class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 text-center group hover:-translate-y-2 transition-transform duration-300 stagger-item">
+                    <div
+                        class="size-16 mx-auto bg-orange-50 dark:bg-orange-900/20 text-orange-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-sm">
+                        <span class="material-symbols-outlined text-3xl">gavel</span>
+                    </div>
+                    <div
+                        class="inline-block px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-bold text-gray-500 mb-2">
+                        Step 3</div>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Approving</h3>
+                    <p class="text-sm text-gray-500">Final scrutiny & digital signing. <br><span
+                            class="text-primary font-bold">Authority:</span> MRO / Dept Head</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div
+                    class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 text-center group hover:-translate-y-2 transition-transform duration-300 stagger-item">
+                    <div
+                        class="size-16 mx-auto bg-green-50 dark:bg-green-900/20 text-green-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-sm">
+                        <span class="material-symbols-outlined text-3xl">download_done</span>
+                    </div>
+                    <div
+                        class="inline-block px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-bold text-gray-500 mb-2">
+                        Step 4</div>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Delivered</h3>
+                    <p class="text-sm text-gray-500">Certificate issued to your digital locker. <br><span
+                            class="text-primary font-bold">Outcome:</span> Valid Doc</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accountability & Rights Info -->
+        <div class="grid md:grid-cols-2 gap-8 mt-16">
+            <!-- Service Charter -->
+            <div class="bg-blue-600 rounded-3xl p-8 text-white relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-8 opacity-10">
+                    <span class="material-symbols-outlined text-9xl">policy</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 relative z-10 flex items-center gap-2">
+                    <span class="material-symbols-outlined">verified_user</span> Citizen Rights Charter
+                </h3>
+                <ul class="space-y-3 relative z-10 text-blue-50">
+                    <li class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-lg mt-0.5">check_circle</span>
+                        <span><strong>Right to Time-Bound Service:</strong> Every service has a fixed SLA time (e.g., 7
+                            days for Caste Cert).</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-lg mt-0.5">check_circle</span>
+                        <span><strong>Right to Appeal:</strong> If rejected or delayed, you can file a First Appeal to
+                            the Appellate Authority.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-lg mt-0.5">check_circle</span>
+                        <span><strong>Transparency:</strong> View officer names and pending durations for your
+                            application.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Appeal Awareness -->
+            <div class="bg-gray-900 rounded-3xl p-8 text-white relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-8 opacity-20">
+                    <span class="material-symbols-outlined text-9xl">gavel</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 relative z-10 flex items-center gap-2">
+                    <span class="material-symbols-outlined">scale</span> Grievance & Appeals
+                </h3>
+                <p class="text-gray-400 mb-6 relative z-10">
+                    Governance is a two-way process. If your rights are denied, the law empowers you to question it.
+                </p>
+                <div class="grid grid-cols-2 gap-4 relative z-10">
+                    <div class="bg-white/10 p-4 rounded-xl backdrop-blur-sm">
+                        <div class="text-xs uppercase font-bold text-gray-400 mb-1">Appeal Window</div>
+                        <div class="font-bold text-lg">Within 30 Days</div>
+                    </div>
+                    <div class="bg-white/10 p-4 rounded-xl backdrop-blur-sm">
+                        <div class="text-xs uppercase font-bold text-gray-400 mb-1">Escalation</div>
+                        <div class="font-bold text-lg">Dist. Collector</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- 4. Live Impact Dashboard -->
+<section class="py-20 bg-gradient-to-br from-blue-900 to-indigo-900 text-white relative overflow-hidden reveal">
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-20 pointer-events-none">
+        <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-blue-500 blur-3xl"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-purple-500 blur-3xl"></div>
+    </div>
+
+    <div class="max-w-[1280px] mx-auto px-4 relative z-10">
+        <div class="text-center mb-16">
+            <span
+                class="px-3 py-1 rounded-full bg-white/10 text-blue-200 text-xs font-bold uppercase tracking-wider mb-4 inline-block backdrop-blur-sm border border-white/10">Transparency
+                Report</span>
+            <h2 class="text-3xl md:text-5xl font-black mb-4 tracking-tight">Live Impact Dashboard</h2>
+            <p class="text-blue-200 text-lg max-w-2xl mx-auto">Real-time metrics demonstrating our commitment to
+                efficiency and transparency in public administration.</p>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            <div
+                class="p-8 bg-white/5 rounded-2xl backdrop-blur-md border border-white/10 hover:bg-white/10 transition-all duration-300 group text-center">
+                <div
+                    class="mb-4 inline-flex p-3 rounded-xl bg-blue-500/20 text-blue-300 group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-3xl">assignment_turned_in</span>
+                </div>
+                <div
+                    class="text-4xl md:text-5xl font-black mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
+                    {{ stats.total }}</div>
+                <div class="text-xs md:text-sm font-bold text-blue-300 uppercase tracking-widest mt-2">Applications
+                    Received</div>
+            </div>
+            <div
+                class="p-8 bg-white/5 rounded-2xl backdrop-blur-md border border-white/10 hover:bg-white/10 transition-all duration-300 group text-center">
+                <div
+                    class="mb-4 inline-flex p-3 rounded-xl bg-green-500/20 text-green-300 group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-3xl">verified</span>
+                </div>
+                <div
+                    class="text-4xl md:text-5xl font-black mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-green-200">
+                    {{ stats.issued }}</div>
+                <div class="text-xs md:text-sm font-bold text-green-300 uppercase tracking-widest mt-2">Certificates
+                    Issued</div>
+            </div>
+            <div
+                class="p-8 bg-white/5 rounded-2xl backdrop-blur-md border border-white/10 hover:bg-white/10 transition-all duration-300 group text-center">
+                <div
+                    class="mb-4 inline-flex p-3 rounded-xl bg-orange-500/20 text-orange-300 group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-3xl">timelapse</span>
+                </div>
+                <div
+                    class="text-4xl md:text-5xl font-black mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-orange-200">
+                    {{ stats.time }} <span class="text-2xl text-orange-200/80">Days</span></div>
+                <div class="text-xs md:text-sm font-bold text-orange-300 uppercase tracking-widest mt-2">Avg Processing
+                    Time</div>
+            </div>
+            <div
+                class="p-8 bg-white/5 rounded-2xl backdrop-blur-md border border-white/10 hover:bg-white/10 transition-all duration-300 group text-center">
+                <div
+                    class="mb-4 inline-flex p-3 rounded-xl bg-pink-500/20 text-pink-300 group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-3xl">favorite</span>
+                </div>
+                <div
+                    class="text-4xl md:text-5xl font-black mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-pink-200">
+                    {{ stats.satisfaction }}%</div>
+                <div class="text-xs md:text-sm font-bold text-pink-300 uppercase tracking-widest mt-2">Citizen
+                    Satisfaction</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- 5. Public Certificate Verification -->
+<section class="py-20 bg-gray-50 dark:bg-[#0d1117] border-y border-gray-200 dark:border-gray-800">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-200 dark:bg-gray-800 w-fit mb-6">
+            <span class="material-symbols-outlined text-base">verified_user</span>
+            <span class="text-xs font-bold uppercase tracking-wide">Public Verification Tool</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Check Certificate Authenticity
+        </h2>
+        <p class="text-gray-500 dark:text-gray-400 mb-10 max-w-2xl mx-auto">
+            Employers, schools, and agencies can verify the validity of any document issued by this portal instantly
+            using the unique Application ID.
+        </p>
+
+        <div
+            class="bg-white dark:bg-[#161b22] p-2 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 max-w-2xl mx-auto transform transition-all hover:shadow-2xl hover:border-primary/50">
+            <div class="flex flex-col sm:flex-row gap-2">
+                <div class="relative flex-1 search-bar-container">
+                    <span
+                        class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 material-symbols-outlined">search</span>
+                    <input type="text" id="verifyAppId" placeholder="Enter Application ID (e.g., APP12345)"
+                        class="w-full h-14 pl-12 pr-6 search-bar-pill bg-gray-50 dark:bg-gray-900 text-lg focus:bg-white dark:focus:bg-black focus:ring-2 focus:ring-primary outline-none transition-all text-black dark:text-white font-mono uppercase placeholder-gray-400">
+                </div>
+                <button onclick="verifyCertificate()"
+                    class="h-14 px-8 rounded-xl bg-primary hover:bg-blue-600 text-white font-bold text-lg shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 shrink-0">
+                    Verify Now
+                </button>
+            </div>
+        </div>
+
+        <div id="verifyResult" class="mt-8 hidden transition-all duration-300"></div>
+    </div>
+</section>
+
+
+<!-- 10. Information & Announcements Section -->
+<section class="py-20 bg-white dark:bg-background-dark reveal">
+    <div class="max-w-[1280px] mx-auto px-4">
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row justify-between items-md-end gap-4 mb-12">
+            <div>
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/30 w-fit mb-4">
+                    <span class="size-2 rounded-full bg-primary animate-pulse"></span>
+                    <span class="text-xs font-bold text-primary uppercase tracking-wide">Public Information
+                        Center</span>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Announcements & Updates</h2>
+                <p class="text-gray-500">Stay informed about latest policies, download circulars, and check deadlines.
+                </p>
+            </div>
+            <div class="flex gap-2">
+                <!-- Tabs Controller -->
+                <button onclick="filterAnnouncements('news')" id="btn-news"
+                    class="tab-btn active-tab px-4 py-2 rounded-full font-bold text-sm bg-primary text-white transition-all">Latest
+                    News</button>
+                <button onclick="filterAnnouncements('notices')" id="btn-notices"
+                    class="tab-btn px-4 py-2 rounded-full font-bold text-sm bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all">Circulars
+                    & Notices</button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Left: Main News (Dynamic) -->
+            <div id="panel-news" class="lg:col-span-8 space-y-8 animate-fade-in">
+                {% if latest_news %}
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Featured Article (First Item) -->
+                    <article
+                        class="md:col-span-2 group cursor-pointer relative rounded-3xl overflow-hidden shadow-lg h-[400px]">
+                        {% if latest_news.0.image %}
+                        <img src="{{ latest_news.0.image.url }}"
+                            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        {% else %}
+                        <img src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?auto=format&fit=crop&w=1000"
+                            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        {% endif %}
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-8">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span
+                                    class="px-2 py-1 rounded bg-primary text-white text-[10px] font-bold uppercase tracking-wider">{{
+                                    latest_news.0.get_category_display }}</span>
+                                <span class="text-gray-300 text-xs font-mono">{{ latest_news.0.created_at|date:"M d, Y"
+                                    }}</span>
+                            </div>
+                            <h3
+                                class="text-2xl md:text-3xl font-bold text-white mb-2 leading-tight group-hover:text-blue-200 transition-colors">
+                                {{ latest_news.0.title }}</h3>
+                            <p class="text-gray-300 line-clamp-2 max-w-2xl">{{ latest_news.0.content|striptags }}</p>
+                        </div>
+                    </article>
+
+                    <!-- Sub Articles -->
+                    {% for news in latest_news|slice:"1:" %}
+                    <article class="flex flex-col group cursor-pointer">
+                        <div class="rounded-2xl overflow-hidden h-48 mb-4 relative shadow-md">
+                            {% if news.image %}
+                            <img src="{{ news.image.url }}"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            {% else %}
+                            <img src="https://images.unsplash.com/photo-1507537297725-24a1c029d3ca?auto=format&fit=crop&w=800"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            {% endif %}
+                            <div
+                                class="absolute top-4 left-4 bg-white/90 backdrop-blur text-xs font-bold px-2 py-1 rounded uppercase tracking-wider text-black">
+                                {{ news.get_category_display }}</div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-xs text-gray-400 mb-2 font-mono">{{ news.created_at|date:"M d, Y" }}</div>
+                            <h3
+                                class="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary transition-colors leading-tight">
+                                {{ news.title }}</h3>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div
+                    class="p-12 text-center bg-gray-50 dark:bg-gray-800 rounded-3xl border border-dashed border-gray-200 dark:border-gray-700">
+                    <span class="material-symbols-outlined text-4xl text-gray-300 mb-2">article</span>
+                    <p class="text-gray-500 font-bold">No latest news updates available.</p>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Right: Notices & Circulars (Panel 2) -->
+            <div id="panel-notices" class="hidden lg:col-span-8 animate-fade-in">
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-3xl p-8 border border-gray-100 dark:border-gray-700">
+                    <div class="space-y-4">
+                        {% for notice in notices %}
+                        <div
+                            class="flex items-start gap-4 p-4 bg-white dark:bg-[#161b22] rounded-xl border border-gray-100 dark:border-gray-700 hover:border-primary/30 transition-all group">
+                            <div
+                                class="size-12 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-600 flex items-center justify-center shrink-0">
+                                {% if notice.category == 'circular' %}
+                                <span class="material-symbols-outlined">description</span>
+                                {% elif notice.category == 'deadline' %}
+                                <span class="material-symbols-outlined text-orange-500">timer</span>
+                                {% elif notice.category == 'tender' %}
+                                <span class="material-symbols-outlined text-purple-500">gavel</span>
+                                {% else %}
+                                <span class="material-symbols-outlined">article</span>
+                                {% endif %}
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <h3
+                                        class="font-bold text-gray-900 dark:text-white hover:text-primary transition-colors">
+                                        {{ notice.title }}</h3>
+                                    {% if notice.document %}
+                                    <a href="{{ notice.document.url }}" download
+                                        class="size-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+                                        title="Download PDF">
+                                        <span class="material-symbols-outlined text-sm">download</span>
+                                    </a>
+                                    {% endif %}
+                                </div>
+                                <p class="text-sm text-gray-500 mt-1 line-clamp-2">{{ notice.content|striptags }}</p>
+                                <div
+                                    class="flex items-center gap-4 mt-3 text-xs font-bold text-gray-400 uppercase tracking-widest">
+                                    <span>Ref: CIR-2026-{{ notice.id }}</span>
+                                    <span>{{ notice.created_at|date:"M d, Y" }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="text-center py-10 text-gray-500">No active circulars or notices.</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar: Quick Links & Alerts -->
+            <div class="lg:col-span-4 space-y-6">
+                <!-- Emergency Alerts Widget -->
+                {% if alerts %}
+                <div class="bg-red-50 dark:bg-red-900/10 rounded-2xl p-6 border border-red-100 dark:border-red-900/30">
+                    <div
+                        class="flex items-center gap-2 text-red-600 dark:text-red-400 font-bold mb-4 uppercase tracking-wider text-xs">
+                        <span class="flex h-2 w-2 rounded-full bg-red-600 animate-pulse"></span> Critical Alerts
+                    </div>
+                    <div class="space-y-4">
+                        {% for alert in alerts %}
+                        <div>
+                            <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-1">{{ alert.title }}</h4>
+                            <p class="text-xs text-gray-600 dark:text-red-200/70">{{ alert.content|truncatechars:100 }}
+                            </p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Quick Services List -->
+                <div
+                    class="bg-white dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-gray-800 p-6 shadow-sm">
+                    <h3 class="font-bold text-gray-900 dark:text-white mb-4">Quick Downloads</h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="#"
+                                class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 hover:text-primary transition-colors no-underline">
+                                <span class="material-symbols-outlined text-gray-400">picture_as_pdf</span>
+                                Income Certificate Form
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 hover:text-primary transition-colors no-underline">
+                                <span class="material-symbols-outlined text-gray-400">picture_as_pdf</span>
+                                Caste Certificate Format
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 hover:text-primary transition-colors no-underline">
+                                <span class="material-symbols-outlined text-gray-400">picture_as_pdf</span>
+                                Self Declaration Template
+                            </a>
+                        </li>
+                    </ul>
+                    <a href="#"
+                        class="mt-6 block w-full py-3 rounded-xl bg-gray-50 dark:bg-gray-800 text-center text-sm font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors no-underline">
+                        View All Forms
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function filterAnnouncements(type) {
+        const btnNews = document.getElementById('btn-news');
+        const btnNotices = document.getElementById('btn-notices');
+        const panelNews = document.getElementById('panel-news');
+        const panelNotices = document.getElementById('panel-notices');
+
+        if (type === 'news') {
+            btnNews.classList.add('bg-primary', 'text-white');
+            btnNews.classList.remove('bg-gray-100', 'text-gray-600', 'dark:bg-gray-800', 'dark:text-gray-400');
+            btnNotices.classList.remove('bg-primary', 'text-white');
+            btnNotices.classList.add('bg-gray-100', 'text-gray-600', 'dark:bg-gray-800', 'dark:text-gray-400');
+
+            panelNews.classList.remove('hidden');
+            panelNotices.classList.add('hidden');
+        } else {
+            btnNotices.classList.add('bg-primary', 'text-white');
+            btnNotices.classList.remove('bg-gray-100', 'text-gray-600', 'dark:bg-gray-800', 'dark:text-gray-400');
+            btnNews.classList.remove('bg-primary', 'text-white');
+            btnNews.classList.add('bg-gray-100', 'text-gray-600', 'dark:bg-gray-800', 'dark:text-gray-400');
+
+            panelNotices.classList.remove('hidden');
+            panelNews.classList.add('hidden');
+        }
+    }
+</script>
+<style>
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in {
+        animation: fade-in 0.4s ease-out forwards;
+    }
+</style>
+
+
+<!-- 9. Before & After Impact -->
+<section class="py-20 bg-gray-50 dark:bg-[#151b28]">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Direct Impact: Public Works</h2>
+            <p class="text-gray-500 max-w-2xl mx-auto">Visual proof of our rapid response to citizen grievances. We fix
+                what you report.</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="order-2 md:order-1 space-y-8">
+                <div>
+                    <div class="inline-flex items-center gap-2 text-primary font-bold mb-2">
+                        <span class="material-symbols-outlined">timelapse</span>
+                        <span class="uppercase tracking-wide text-xs">Case Study #402</span>
+                    </div>
+                    <h3 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">Ward 5 Main Road Repair</h3>
+                    <p class="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
+                        Reported by a citizen on Monday via the mobile app. Verified by the area officer within 4 hours.
+                        Repair crew dispatched Tuesday morning. Fully resolved by Wednesday evening.
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div
+                        class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+                        <div class="text-4xl font-black text-gray-900 dark:text-white mb-1">48</div>
+                        <div class="text-sm font-bold text-gray-400 uppercase">Hours to Fix</div>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+                        <div class="text-4xl font-black text-green-500 mb-1">100%</div>
+                        <div class="text-sm font-bold text-gray-400 uppercase">Quality Check</div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="order-1 md:order-2 relative h-[400px] w-full rounded-3xl overflow-hidden shadow-2xl group cursor-crosshair">
+                <!-- After Image (Bottom Layer) -->
+                <img src="https://images.unsplash.com/photo-1494783367193-149034c05e8f?auto=format&fit=crop&w=800"
+                    class="absolute inset-0 w-full h-full object-cover" alt="After Repair">
+                <div
+                    class="absolute top-4 right-4 bg-green-600 text-white px-3 py-1.5 rounded-lg text-sm font-bold shadow-lg z-10">
+                    AFTER (Fixed)</div>
+
+                <!-- Before Image (Top Layer - Fades out on hover) -->
+                <div class="absolute inset-0 transition-opacity duration-700 opacity-100 group-hover:opacity-0 z-20">
+                    <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800"
+                        class="absolute inset-0 w-full h-full object-cover" alt="Before Repair">
+                    <div
+                        class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1.5 rounded-lg text-sm font-bold shadow-lg">
+                        BEFORE (Hover to Fix)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- 11. Citizen Success Stories -->
+<section class="py-24 bg-white dark:bg-background-dark border-t border-gray-100 dark:border-gray-800">
+    <div class="max-w-[1280px] mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-16">What Citizens Say</h2>
+        <div class="grid md:grid-cols-3 gap-8 text-left">
+            <div
+                class="relative p-8 bg-gray-50 dark:bg-gray-800 rounded-3xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                <span
+                    class="absolute -top-6 left-8 w-12 h-12 bg-primary text-white flex items-center justify-center rounded-xl text-4xl font-serif">"</span>
+                <div class="flex gap-1 text-yellow-400 mb-6 mt-2">
+                    <span class="material-symbols-outlined text-lg fill-current">star</span>
+                    <span class="material-symbols-outlined text-lg fill-current">star</span>
+                    <span class="material-symbols-outlined text-lg fill-current">star</span>
+                    <span class="material-symbols-outlined text-lg fill-current">star</span>
+                    <span class="material-symbols-outlined text-lg fill-current">star</span>
+                </div>
+                <p class="text-gray-600 dark:text-gray-300 text-lg mb-8 leading-relaxed">
+                    I got my Caste Certificate in just 2 days from home! The process was incredibly smooth and
+                    completely transparent. No more standing in queues.
+                </p>
+                <div class="flex items-center gap-4 border-t border-gray-200 dark:border-gray-700 pt-6">
+                    <div
+                        class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                        R</div>
+                    <div>
+                        <div class="font-bold text-gray-900 dark:text-white">Rajesh Kumar</div>
+                        <div class="text-xs text-gray-500 uppercase font-bold tracking-wider">Entrepreneur</div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="relative p-8 bg-gray-50 dark:bg-gray-800 rounded-3xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                <span
+                    class="absolute -top-6 left-8 w-12 h-12 bg-purple-600 text-white flex items-center justify-center rounded-xl text-4xl font-serif">"</span>
+                <div class="flex gap-1 text-yellow-400 mb-6 mt-2">
+                    <span class="material-symbols-outlined text-lg fill-current">star</span>
+                    <span class="material-symbols-outlined text-lg fill-current">star</span>
+                    <span class="material-symbols-outlined text-lg fill-current">star</span>
+                    <span class="material-symbols-outlined text-lg fill-current">star</span>
+                    <span class="material-symbols-outlined text-lg fill-current">star_half</span>
+                </div>
+                <p class="text-gray-600 dark:text-gray-300 text-lg mb-8 leading-relaxed">
+                    The new Document Locker is a lifesaver. I applied for my daughter's scholarship and all my verified
+                    documents were already attached.
+                </p>
+                <div class="flex items-center gap-4 border-t border-gray-200 dark:border-gray-700 pt-6">
+                    <div
+                        class="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                        S</div>
+                    <div>
+                        <div class="font-bold text-gray-900 dark:text-white">Sneha Reddy</div>
+                        <div class="text-xs text-gray-500 uppercase font-bold tracking-wider">Teacher</div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="relative p-8 bg-gray-50 dark:bg-gray-800 rounded-3xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                <span
+                    class="absolute -top-6 left-8 w-12 h-12 bg-orange-500 text-white flex items-center justify-center rounded-xl text-4xl font-serif">"</span>
+                <div class="flex gap-1 text-yellow-400 mb-6 mt-2">
+                    <span class="material-symbols-outlined text-lg fill-current">star</span>
+                    <span class="material-symbols-outlined text-lg fill-current">star</span>
+                    <span class="material-symbols-outlined text-lg fill-current">star</span>
+                    <span class="material-symbols-outlined text-lg fill-current">star</span>
+                    <span class="material-symbols-outlined text-lg fill-current">star</span>
+                </div>
+                <p class="text-gray-600 dark:text-gray-300 text-lg mb-8 leading-relaxed">
+                    Very impressed with the Grievance system. I reported a garbage issue in my colony and the officer
+                    actually called me to confirm it was fixed.
+                </p>
+                <div class="flex items-center gap-4 border-t border-gray-200 dark:border-gray-700 pt-6">
+                    <div
+                        class="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                        A</div>
+                    <div>
+                        <div class="font-bold text-gray-900 dark:text-white">Amit Verma</div>
+                        <div class="text-xs text-gray-500 uppercase font-bold tracking-wider">Senior Citizen</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Key Benefits Section -->
+<section class="w-full bg-white dark:bg-[#151b28] py-16 px-4 flex justify-center">
+    <div class="max-w-[1280px] w-full flex flex-col gap-10">
+        <div class="flex flex-col gap-4 items-center text-center">
+            <h1 class="text-[#111318] dark:text-white text-3xl md:text-4xl font-bold leading-tight tracking-tight">
+                Key Benefits
+            </h1>
+            <p class="text-[#616f89] dark:text-gray-400 text-lg font-normal leading-normal max-w-[720px]">
+                Our platform is built on pillars of security, accountability, and efficiency to serve you better.
+            </p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Benefit 1 -->
+            <div
+                class="flex flex-col gap-4 rounded-xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 p-6 transition-colors text-center sm:text-left">
+                <div class="text-primary mb-2 flex justify-center sm:justify-start">
+                    <span class="material-symbols-outlined text-[36px]">verified_user</span>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <h2 class="text-[#111318] dark:text-white text-lg font-bold leading-tight">3-Tier Secure
+                        Architecture</h2>
+                    <p class="text-[#616f89] dark:text-gray-400 text-sm font-normal leading-relaxed">
+                        Enterprise-grade security ensuring data integrity and privacy across network, application, and
+                        database levels.
+                    </p>
+                </div>
+            </div>
+            <!-- Benefit 2 -->
+            <div
+                class="flex flex-col gap-4 rounded-xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 p-6 transition-colors text-center sm:text-left">
+                <div class="text-primary mb-2 flex justify-center sm:justify-start">
+                    <span class="material-symbols-outlined text-[36px]">admin_panel_settings</span>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <h2 class="text-[#111318] dark:text-white text-lg font-bold leading-tight">Role-Based Access</h2>
+                    <p class="text-[#616f89] dark:text-gray-400 text-sm font-normal leading-relaxed">
+                        Strict access controls to ensure authorized data handling by officers, preventing unauthorized
+                        usage.
+                    </p>
+                </div>
+            </div>
+            <!-- Benefit 3 -->
+            <div
+                class="flex flex-col gap-4 rounded-xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 p-6 transition-colors text-center sm:text-left">
+                <div class="text-primary mb-2 flex justify-center sm:justify-start">
+                    <span class="material-symbols-outlined text-[36px]">timer</span>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <h2 class="text-[#111318] dark:text-white text-lg font-bold leading-tight">SLA Monitoring</h2>
+                    <p class="text-[#616f89] dark:text-gray-400 text-sm font-normal leading-relaxed">
+                        Automated Service Level Agreement tracking to ensure timely delivery of services and officer
+                        accountability.
+                    </p>
+                </div>
+            </div>
+            <!-- Benefit 4 -->
+            <div
+                class="flex flex-col gap-4 rounded-xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 p-6 transition-colors text-center sm:text-left">
+                <div class="text-primary mb-2 flex justify-center sm:justify-start">
+                    <span class="material-symbols-outlined text-[36px]">folder_shared</span>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <h2 class="text-[#111318] dark:text-white text-lg font-bold leading-tight">Digital Document Locker
+                    </h2>
+                    <p class="text-[#616f89] dark:text-gray-400 text-sm font-normal leading-relaxed">
+                        Securely store and access your official certificates and documents in a personal digital locker
+                        anytime.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- 12. Citizen Support Hub -->
+<section class="py-20 bg-blue-50 dark:bg-blue-900/10 border-t border-blue-100 dark:border-blue-900/30">
+    <div class="max-w-[1280px] mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Help & Support Center</h2>
+            <p class="text-gray-500">Need assistance? We have multiple ways to guide you.</p>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- 1. Video Tutorials -->
+            <div
+                class="bg-white dark:bg-surface-dark p-6 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="size-10 bg-red-100 text-red-600 rounded-full flex items-center justify-center">
+                        <span class="material-symbols-outlined">play_circle</span>
+                    </div>
+                    <h3 class="font-bold text-lg text-gray-900 dark:text-white">Video Tutorials</h3>
+                </div>
+                <div class="space-y-4">
+                    <a href="#" class="flex gap-4 group no-underline">
+                        <div class="w-24 h-16 bg-gray-200 rounded-lg relative overflow-hidden flex-shrink-0">
+                            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=300"
+                                class="w-full h-full object-cover">
+                            <div
+                                class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-all">
+                                <span class="material-symbols-outlined text-white text-2xl">play_arrow</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4
+                                class="text-sm font-bold text-gray-800 dark:text-white group-hover:text-primary transition-colors">
+                                How to Register an Account</h4>
+                            <span class="text-xs text-gray-400">2 min • English</span>
+                        </div>
+                    </a>
+                    <a href="#" class="flex gap-4 group no-underline">
+                        <div class="w-24 h-16 bg-gray-200 rounded-lg relative overflow-hidden flex-shrink-0">
+                            <img src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?auto=format&fit=crop&w=300"
+                                class="w-full h-full object-cover">
+                            <div
+                                class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-all">
+                                <span class="material-symbols-outlined text-white text-2xl">play_arrow</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4
+                                class="text-sm font-bold text-gray-800 dark:text-white group-hover:text-primary transition-colors">
+                                Applying for Certificates</h4>
+                            <span class="text-xs text-gray-400">5 min • Hindi/Eng</span>
+                        </div>
+                    </a>
+                </div>
+                <button
+                    class="w-full mt-6 py-2 text-sm font-bold text-primary bg-primary/10 rounded-xl hover:bg-primary/20 transition-colors">View
+                    All Videos</button>
+            </div>
+
+            <!-- 2. Help Guides & FAQs -->
+            <div
+                class="bg-white dark:bg-surface-dark p-6 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="size-10 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
+                        <span class="material-symbols-outlined">menu_book</span>
+                    </div>
+                    <h3 class="font-bold text-lg text-gray-900 dark:text-white">User Guides</h3>
+                </div>
+                <div class="space-y-0 divide-y divide-gray-100 dark:divide-gray-800">
+                    <div class="py-3">
+                        <h4 class="text-sm font-bold text-gray-800 dark:text-white mb-1">Step 1: Create Profile</h4>
+                        <p class="text-xs text-gray-500">Ensure your Aadhaar and Phone number are linked.</p>
+                    </div>
+                    <div class="py-3">
+                        <h4 class="text-sm font-bold text-gray-800 dark:text-white mb-1">Step 2: Choose Service</h4>
+                        <p class="text-xs text-gray-500">Select the department and specific service needed.</p>
+                    </div>
+                    <div class="py-3">
+                        <h4 class="text-sm font-bold text-gray-800 dark:text-white mb-1">Step 3: Upload Docs</h4>
+                        <p class="text-xs text-gray-500">Scan and upload documents below 2MB size.</p>
+                    </div>
+                </div>
+                <button
+                    class="w-full mt-6 py-2 text-sm font-bold text-green-600 bg-green-500/10 rounded-xl hover:bg-green-500/20 transition-colors">Download
+                    Manual PDF</button>
+            </div>
+
+            <!-- 3. Contact & Helpline -->
+            <div
+                class="bg-white dark:bg-surface-dark p-6 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="size-10 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center">
+                        <span class="material-symbols-outlined">support_agent</span>
+                    </div>
+                    <h3 class="font-bold text-lg text-gray-900 dark:text-white">Helpline (24x7)</h3>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl flex items-center gap-4">
+                        <span class="material-symbols-outlined text-gray-400">call</span>
+                        <div>
+                            <div class="text-xs font-bold text-gray-400 uppercase">Toll Free</div>
+                            <div class="text-xl font-black text-gray-900 dark:text-white">1800-425-1234</div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl flex items-center gap-4">
+                        <span class="material-symbols-outlined text-gray-400">mail</span>
+                        <div>
+                            <div class="text-xs font-bold text-gray-400 uppercase">Email Support</div>
+                            <div class="text-sm font-bold text-gray-900 dark:text-white">helpdesk@egov.com</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between text-xs font-medium text-gray-500 pt-2">
+                        <span><i class="bi bi-clock"></i> Mon-Sat: 9AM - 6PM</span>
+                        <a href="{% url 'core:contact' %}" class="text-primary hover:underline">Escalate Issue</a>
+                    </div>
+                </div>
+                <button
+                    class="w-full mt-6 py-2 text-sm font-bold text-orange-600 bg-orange-500/10 rounded-xl hover:bg-orange-500/20 transition-colors">Start
+                    Live Chat (Bot)</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- LOCATOR SECTION -->
+<section
+    class="w-full bg-background-light dark:bg-background-dark py-16 px-4 flex justify-center border-t border-gray-200 dark:border-gray-800">
+    <div class="max-w-[1280px] w-full flex flex-col gap-10">
+        <div class="flex flex-col gap-4 items-center text-center">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 dark:bg-red-900/20 w-fit">
+                <span class="size-2 rounded-full bg-red-600 animate-pulse"></span>
+                <span class="text-xs font-bold text-red-600 dark:text-red-400 uppercase tracking-wide">Physical
+                    Locations</span>
+            </div>
+            <h1 class="text-[#111318] dark:text-white text-3xl md:text-4xl font-bold leading-tight tracking-tight">
+                Nearest Service Centers
+            </h1>
+            <p class="text-[#616f89] dark:text-gray-400 text-lg font-normal leading-normal max-w-[720px]">
+                Visit our government offices and help centers near you.
+            </p>
+        </div>
+
+        <!-- Map Container -->
+        <div
+            class="w-full h-[450px] rounded-2xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700 relative z-0">
+            <div id="homeMap" class="w-full bg-gray-100" style="height: 100%; min-height: 450px;"></div>
+        </div>
+
+        <!-- Button -->
+        <div class="flex justify-center">
+            <button onclick="getUserLocation()"
+                class="flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white font-bold hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl cursor-pointer border-0">
+                <span class="material-symbols-outlined">my_location</span>
+                Locate Me
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+{{ dept_list|json_script:"dept-data" }}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        if (document.getElementById('homeMap')) {
+            const map = L.map('homeMap').setView([28.6139, 77.2090], 11);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+
+            var blueIcon = new L.Icon({
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+
+            const deptData = JSON.parse(document.getElementById('dept-data').textContent);
+
+            deptData.forEach(dept => {
+                L.marker([dept.lat, dept.lng], { icon: blueIcon })
+                    .addTo(map)
+                    .bindPopup(`
+                        <div class="text-center font-sans">
+                            <h3 class="font-bold text-sm mb-1 text-black">${dept.name}</h3>
+                            <a href="https://www.google.com/maps/dir/?api=1&destination=${dept.lat},${dept.lng}" target="_blank" class="inline-block mt-2 px-3 py-1 bg-blue-600 text-white text-xs rounded-full no-underline hover:bg-blue-700">
+                                Navigate
+                            </a>
+                        </div>
+                    `);
+            });
+
+            window.getUserLocation = function () {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(position => {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        map.setView([lat, lng], 14);
+                        var redIcon = new L.Icon({
+                            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                            iconSize: [25, 41],
+                            iconAnchor: [12, 41],
+                            popupAnchor: [1, -34],
+                            shadowSize: [41, 41]
+                        });
+                        L.marker([lat, lng], { icon: redIcon }).addTo(map).bindPopup("<b>You are here</b>").openPopup();
+                    });
+                } else {
+                    alert("Geolocation not supported.");
+                }
+            }
+        }
+    });
+</script>
+
+
+{% endblock %}
+
+{% block extra_js %}
+
+<script>
+    async function verifyCertificate() {
+        const input = document.getElementById('verifyAppId');
+        const resultDiv = document.getElementById('verifyResult');
+        const appId = input.value.trim();
+
+        if (!appId) {
+            alert("Please enter an Application ID");
+            return;
+        }
+
+        // Show loading
+        resultDiv.classList.remove('hidden');
+        resultDiv.innerHTML = '<div class="flex items-center justify-center gap-3 p-4"><span class="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin"></span><span class="text-gray-500">Verifying in blockchain ledger...</span></div>';
+
+        try {
+            const response = await fetch(`/verify-certificate/?id=${appId}`);
+            const data = await response.json();
+
+            // Small timeout for dramatic effect
+            setTimeout(() => {
+                if (data.valid) {
+                    resultDiv.innerHTML = `
+                    <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-2xl p-6 flex flex-col md:flex-row items-center md:items-start gap-4 animate-scale-in">
+                        <div class="w-16 h-16 bg-green-100 dark:bg-green-800 rounded-full flex items-center justify-center flex-shrink-0">
+                             <span class="material-symbols-outlined text-green-600 dark:text-green-400 text-3xl">verified</span>
+                        </div>
+                        <div class="text-center md:text-left flex-1">
+                            <h4 class="font-bold text-green-800 dark:text-green-400 text-xl mb-1">Authenticity Verified</h4>
+                            <p class="text-green-700 dark:text-green-300 text-sm mb-4">This document is valid and issued by the State Government.</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 border-t border-green-200 dark:border-green-700/50 pt-4">
+                                <div>
+                                    <div class="text-xs font-bold text-green-600/70 uppercase">Applicant</div>
+                                    <div class="font-bold text-green-900 dark:text-white">${data.applicant}</div>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold text-green-600/70 uppercase">Service</div>
+                                    <div class="font-bold text-green-900 dark:text-white">${data.service}</div>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold text-green-600/70 uppercase">Date</div>
+                                    <div class="font-bold text-green-900 dark:text-white">${data.date}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                } else {
+                    resultDiv.innerHTML = `
+                    <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-4 flex items-center gap-3 text-red-700 dark:text-red-400 animate-shake">
+                        <span class="material-symbols-outlined text-2xl">gpp_bad</span>
+                        <div class="font-bold">${data.message}</div>
+                    </div>
+                `;
+                }
+            }, 800);
+
+        } catch (e) {
+            resultDiv.innerHTML = '<div class="text-red-500 text-center">Error connecting to verification server.</div>';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const counters = document.querySelectorAll('.count-up');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.getAttribute('data-target'));
+                    if (isNaN(target)) return;
+                    let count = 0;
+                    const increment = target / 100;
+                    const updateCount = () => {
+                        count += increment;
+                        if (count < target) {
+                            entry.target.innerText = Math.ceil(count).toLocaleString();
+                            requestAnimationFrame(updateCount);
+                        } else {
+                            entry.target.innerText = target.toLocaleString() + '+';
+                        }
+                    };
+                    updateCount();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        counters.forEach(c => observer.observe(c));
+    });
+</script>
+<style>
+    @keyframes scale-in {
+        from {
+            transform: scale(0.95);
+            opacity: 0;
+        }
+
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    .animate-scale-in {
+        animation: scale-in 0.3s ease-out forwards;
+    }
+
+    @keyframes shake {
+
+        0%,
+        100% {
+            transform: translateX(0);
+        }
+
+        25% {
+            transform: translateX(-5px);
+        }
+
+        75% {
+            transform: translateX(5px);
+        }
+    }
+
+    .animate-shake {
+        animation: shake 0.4s ease-in-out;
+    }
+</style>
+{% endblock %}

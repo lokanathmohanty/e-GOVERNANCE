@@ -1,0 +1,248 @@
+{% extends 'base.html' %}
+{% block title %}Citizen Dashboard | e-Gov Portal{% endblock %}
+
+{% block content %}
+<div class="max-w-[1280px] mx-auto px-4 md:px-10 py-8 space-y-8">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight">Citizen Dashboard</h1>
+            <p class="text-gray-500 dark:text-gray-400">Welcome back, <span class="text-primary font-bold">{{ user.first_name|default:user.username }}</span>.</p>
+        </div>
+        <a href="{% url 'citizen:services' %}"
+            class="inline-flex items-center justify-center gap-2 bg-primary text-white font-bold py-3 px-6 rounded-xl hover:bg-primary-dark transition-all shadow-lg shadow-blue-200 dark:shadow-none no-underline">
+            <span class="material-symbols-outlined">add</span>
+            New Application
+        </a>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <div
+            class="bg-white dark:bg-surface-dark p-6 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm flex flex-col gap-4">
+            <div
+                class="size-12 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-primary flex items-center justify-center">
+                <span class="material-symbols-outlined shrink-0">drafts</span>
+            </div>
+            <div>
+                <div class="text-2xl font-black text-gray-900 dark:text-white">{{ total_count }}</div>
+                <div class="text-xs font-bold text-gray-500 uppercase tracking-wider">Total Filed</div>
+            </div>
+        </div>
+        <div
+            class="bg-white dark:bg-surface-dark p-6 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm flex flex-col gap-4">
+            <div
+                class="size-12 rounded-xl bg-amber-50 dark:bg-amber-900/20 text-amber-600 flex items-center justify-center">
+                <span class="material-symbols-outlined shrink-0">pending_actions</span>
+            </div>
+            <div>
+                <div class="text-2xl font-black text-gray-900 dark:text-white">{{ pending_count }}</div>
+                <div class="text-xs font-bold text-gray-500 uppercase tracking-wider">In Progress</div>
+            </div>
+        </div>
+        <div
+            class="bg-white dark:bg-surface-dark p-6 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm flex flex-col gap-4">
+            <div
+                class="size-12 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 flex items-center justify-center">
+                <span class="material-symbols-outlined shrink-0">task_alt</span>
+            </div>
+            <div>
+                <div class="text-2xl font-black text-gray-900 dark:text-white">{{ approved_count }}</div>
+                <div class="text-xs font-bold text-gray-500 uppercase tracking-wider">Approved</div>
+            </div>
+        </div>
+        <div
+            class="bg-white dark:bg-surface-dark p-6 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm flex flex-col gap-4">
+            <div
+                class="size-12 rounded-xl bg-rose-50 dark:bg-rose-900/20 text-rose-600 flex items-center justify-center">
+                <span class="material-symbols-outlined shrink-0">cancel</span>
+            </div>
+            <div>
+                <div class="text-2xl font-black text-gray-900 dark:text-white">{{ rejected_count }}</div>
+                <div class="text-xs font-bold text-gray-500 uppercase tracking-wider">Rejected</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Card -->
+    <div
+        class="bg-white dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
+        <div class="px-6 py-5 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
+            <h2 class="text-lg font-bold text-gray-900 dark:text-white">Recent Applications</h2>
+            <a href="{% url 'citizen:services' %}"
+                class="text-sm font-bold text-primary hover:text-primary-dark no-underline">Browse All Services</a>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
+                <thead class="bg-gray-50 dark:bg-gray-800/50">
+                    <tr>
+                        <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Reference ID</th>
+                        <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Service Type</th>
+                        <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Applied On</th>
+                        <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">
+                            Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+                    {% for app in applications %}
+                    <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="font-mono text-sm font-bold text-gray-900 dark:text-white">#{{ app.application_number }}</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900 dark:text-white">{{ app.service.service_name }}</div>
+                            <div class="text-xs text-gray-500">{{ app.service.department.name }}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-600 dark:text-gray-400 font-medium">{{ app.applied_date|date:"d M Y" }}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            {% if app.status == 'pending' %}
+                            <span
+                                class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
+                                <span class="size-1.5 rounded-full bg-amber-600"></span> Pending
+                            </span>
+                            {% elif app.status == 'under_review' %}
+                            <span
+                                class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+                                <span class="size-1.5 rounded-full bg-blue-600"></span> Reviewing
+                            </span>
+                            {% elif app.status == 'approved' %}
+                            <span
+                                class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
+                                <span class="size-1.5 rounded-full bg-emerald-600"></span> Approved
+                            </span>
+                            {% else %}
+                            <span
+                                class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-rose-50 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400">
+                                <span class="size-1.5 rounded-full bg-rose-600"></span> Rejected
+                            </span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right">
+                            <div class="inline-flex items-center gap-2">
+                                <a href="{% url 'citizen:detail' app.id %}"
+                                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-xs font-bold text-gray-700 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-all no-underline">
+                                    <span class="material-symbols-outlined text-sm">visibility</span> Track
+                                </a>
+                                {% if app.status == 'approved' or app.status == 'rejected' %}
+                                {% if not app.feedback %}
+                                <button onclick="openFeedbackModal('{{ app.id }}', '{{ app.service.service_name }}')"
+                                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-white text-xs font-bold hover:bg-primary-dark transition-all">
+                                    <span class="material-symbols-outlined text-sm">star</span> Rate
+                                </button>
+                                {% else %}
+                                <div
+                                    class="px-3 py-1.5 rounded-lg bg-gray-50 dark:bg-gray-800 text-xs font-bold text-amber-600 flex items-center gap-1">
+                                    {{ app.feedback.rating }} <span
+                                        class="material-symbols-outlined text-xs">star</span>
+                                </div>
+                                {% endif %}
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="px-6 py-20 text-center">
+                            <div class="flex flex-col items-center gap-4">
+                                <div
+                                    class="size-20 rounded-full bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-300">
+                                    <span class="material-symbols-outlined text-5xl">folder_off</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">No applications yet</h3>
+                                    <p class="text-sm text-gray-500">Submit your first application to see it here.</p>
+                                </div>
+                                <a href="{% url 'citizen:services' %}"
+                                    class="btn bg-primary text-white font-bold py-2 px-6 rounded-lg hover:bg-primary-dark transition-all no-underline">Browse
+                                    Services</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Simple Feedback Modal -->
+<div id="feedbackModal"
+    class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 hidden backdrop-blur-sm">
+    <div
+        class="bg-white dark:bg-surface-dark w-full max-w-md rounded-2xl shadow-2xl overflow-hidden border dark:border-gray-800">
+        <form id="feedbackForm" method="POST" action="">
+            {% csrf_token %}
+            <div class="px-6 py-5 border-b dark:border-gray-800 flex items-center justify-between">
+                <h3 class="text-lg font-black text-gray-900 dark:text-white">Rate Service Experience</h3>
+                <button type="button" onclick="closeFeedbackModal()"
+                    class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="px-6 py-6 space-y-6">
+                <p class="text-sm text-center text-gray-600 dark:text-gray-400">How was your experience with <strong
+                        id="serviceNameDisplay" class="text-gray-900 dark:text-white"></strong>?</p>
+
+                <div class="flex items-center justify-center gap-3">
+                    {% for i in "12345"|make_list %}
+                    <label class="cursor-pointer group">
+                        <input type="radio" name="rating" value="{{ i }}" class="peer sr-only" required>
+                        <div
+                            class="size-12 rounded-xl border-2 border-gray-100 dark:border-gray-800 flex items-center justify-center text-gray-400 peer-checked:border-amber-500 peer-checked:bg-amber-50 dark:peer-checked:bg-amber-900/20 peer-checked:text-amber-600 transition-all font-bold text-lg">
+                            {{ i }}
+                        </div>
+                    </label>
+                    {% endfor %}
+                </div>
+
+                <div class="space-y-1.5">
+                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider">Comment
+                        (Optional)</label>
+                    <textarea name="comment" rows="3"
+                        class="block w-full rounded-xl border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50 px-3 py-2 text-sm text-gray-900 dark:text-white transition-all outline-none focus:ring-2 focus:ring-primary/20"
+                        placeholder="Tell us more about your experience..."></textarea>
+                </div>
+            </div>
+            <div class="px-6 py-5 bg-gray-50 dark:bg-gray-800/50 flex gap-3">
+                <button type="button" onclick="closeFeedbackModal()"
+                    class="flex-1 py-3 px-4 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-bold text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-800 transition-all">Cancel</button>
+                <button type="submit"
+                    class="flex-1 py-3 px-4 bg-primary text-white rounded-xl text-sm font-bold hover:bg-primary-dark transition-all shadow-lg shadow-blue-200 dark:shadow-none">Submit
+                    Rating</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openFeedbackModal(appId, serviceName) {
+        const modal = document.getElementById('feedbackModal');
+        const form = document.getElementById('feedbackForm');
+        const nameDisplay = document.getElementById('serviceNameDisplay');
+
+        nameDisplay.textContent = serviceName;
+        // Dynamically set action URL - adjust based on your URL structure
+        form.action = `/citizen/feedback/${appId}/`;
+
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeFeedbackModal() {
+        const modal = document.getElementById('feedbackModal');
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+
+    // Close modal on background click
+    window.onclick = function (event) {
+        const modal = document.getElementById('feedbackModal');
+        if (event.target == modal) {
+            closeFeedbackModal();
+        }
+    }
+</script>
+{% endblock %}

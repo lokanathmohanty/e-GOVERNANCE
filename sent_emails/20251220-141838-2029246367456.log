@@ -1,0 +1,23 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Password reset on 127.0.0.1:8000
+From: webmaster@localhost
+To: lokanathmohanty000@gmail.com
+Date: Sat, 20 Dec 2025 08:48:38 -0000
+Message-ID: <176622051869.8852.13779867424660636053@LokanathMohanty>
+
+Hello,
+
+You're receiving this email because you requested a password reset for your user account at e-Governance Portal.
+
+Please go to the following page and choose a new password:
+http://127.0.0.1:8000/accounts/reset/MjI/d14532-48e3438f6af0bfbec40fb535a93e9460/
+
+Your username, in case you've forgotten: final
+
+If you didn't request a password reset, please ignore this email.
+
+Thanks,
+The e-Governance Team
+-------------------------------------------------------------------------------

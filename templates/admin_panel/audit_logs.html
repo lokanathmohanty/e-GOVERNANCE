@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% block title %}Audit Logs | Security | e-Gov Portal{% endblock %}
+
+{% block content %}
+<div class="max-w-[1280px] mx-auto px-4 md:px-10 py-10 space-y-8">
+    <!-- Breadcrumb & Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div>
+            <nav class="flex text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 px-1">
+                <a href="{% url 'admin_panel:dashboard' %}"
+                    class="hover:text-primary transition-colors no-underline">Admin Control</a>
+                <span class="mx-2 text-gray-300">/</span>
+                <span class="text-primary">System Integrity Logs</span>
+            </nav>
+            <h1 class="text-3xl font-black text-gray-900 dark:text-white tracking-tight">Security Audit Logs</h1>
+        </div>
+        <div class="flex items-center gap-4">
+            <div
+                class="px-5 py-3 bg-rose-50 dark:bg-rose-900/10 rounded-2xl border border-rose-100 dark:border-rose-800 flex items-center gap-3">
+                <div class="size-2 bg-rose-500 rounded-full animate-pulse"></div>
+                <span class="text-[10px] font-black text-rose-600 uppercase tracking-widest">Real-time Monitoring
+                    Active</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Bar (Placeholder/Visual) -->
+    <div
+        class="bg-white dark:bg-surface-dark p-4 rounded-2xl border border-gray-100 dark:border-gray-800 flex flex-wrap items-center gap-4">
+        <div class="flex-1 min-w-[240px] relative">
+            <span
+                class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-[20px]">search</span>
+            <input type="text" placeholder="Search system events..."
+                class="w-full bg-gray-50 dark:bg-gray-900 border-none rounded-xl py-3 pl-12 pr-4 text-sm focus:ring-2 focus:ring-primary/20 transition-all outline-none">
+        </div>
+        <button
+            class="flex items-center gap-2 px-6 py-3 bg-gray-50 dark:bg-gray-900 text-gray-500 font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-gray-100 transition-all">
+            <span class="material-symbols-outlined text-[18px]">filter_list</span> Filter
+        </button>
+        <button
+            class="flex items-center gap-2 px-8 py-3 bg-primary text-white font-bold text-xs uppercase tracking-widest rounded-xl hover:opacity-90 transition-all shadow-lg active:scale-95">
+            <span class="material-symbols-outlined text-[18px]">download</span> Export CSV
+        </button>
+    </div>
+
+    <!-- Audit Table -->
+    <div
+        class="bg-white dark:bg-surface-dark rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
+                <thead class="bg-gray-50 dark:bg-gray-800/50">
+                    <tr>
+                        <th class="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Event
+                            Timestamp</th>
+                        <th class="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Authorized
+                            Personnel</th>
+                        <th class="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Action Code
+                        </th>
+                        <th class="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Entity
+                            Signature</th>
+                        <th class="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Event
+                            Description</th>
+                        <th class="px-8 py-5 text-right text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                            IP Address</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-50 dark:divide-gray-800">
+                    {% for log in logs %}
+                    <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/20 transition-colors">
+                        <td class="px-8 py-6">
+                            <div class="text-xs font-bold text-gray-900 dark:text-white">{{ log.timestamp|date:"M d, Y" }}</div>
+                            <div class="text-[10px] text-gray-400 font-medium">{{ log.timestamp|date:"H:i:s.u" }}</div>
+                        </td>
+                        <td class="px-6 py-6">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="size-8 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center font-bold text-[10px] text-gray-500">
+                                    {{ log.user.username|default:"SYS"|first|upper }}
+                                </div>
+                                <div>
+                                    <div
+                                        class="text-xs font-black text-gray-700 dark:text-gray-300 uppercase underline decoration-primary/20 underline-offset-4">
+                                        {{ log.user.username|default:"System" }}</div>
+                                    <div class="text-[9px] font-bold text-gray-400 uppercase tracking-tighter mt-0.5">{{ log.user.role|default:"daemon" }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-6">
+                            <span
+                                class="px-3 py-1 bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 text-[10px] font-black uppercase tracking-widest rounded-md border border-blue-100/50 dark:border-blue-800/50">
+                                {{ log.action }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-6 font-mono text-[10px] text-gray-500 uppercase">
+                            {{ log.entity_type }}#{{ log.entity_id }}
+                        </td>
+                        <td class="px-6 py-6">
+                            <p class="text-xs text-gray-600 dark:text-gray-400 max-w-sm line-clamp-1 italic">"{{ log.description }}"</p>
+                        </td>
+                        <td class="px-8 py-6 text-right">
+                            <div
+                                class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-50 dark:bg-gray-800 rounded-xl">
+                                <span class="size-1.5 rounded-full bg-emerald-500"></span>
+                                <span class="text-[10px] font-mono font-bold text-gray-500 uppercase">{{ log.ip_address }}</span>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="px-8 py-20 text-center">
+                            <div class="flex flex-col items-center gap-4">
+                                <span
+                                    class="material-symbols-outlined text-6xl text-gray-100 dark:text-gray-800">history_edu</span>
+                                <div>
+                                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Security ledger is empty
+                                    </h3>
+                                    <p class="text-sm text-gray-400">System maintenance has cleared all historical
+                                        events.</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Pagination (Visual Placeholder) -->
+    <div class="flex items-center justify-between px-4">
+        <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Showing 1 to {{ logs|length }} of
+            Global Events</p>
+        <div class="flex items-center gap-2">
+            <button
+                class="size-10 rounded-xl bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-800 flex items-center justify-center text-gray-400 hover:text-primary transition-all">
+                <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            <button
+                class="size-10 rounded-xl bg-primary text-white font-black text-xs flex items-center justify-center">1</button>
+            <button
+                class="size-10 rounded-xl bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-800 flex items-center justify-center text-gray-400 hover:text-primary transition-all font-black text-xs">2</button>
+            <button
+                class="size-10 rounded-xl bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-800 flex items-center justify-center text-gray-400 hover:text-primary transition-all">
+                <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}

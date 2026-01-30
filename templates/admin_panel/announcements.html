@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Manage Announcements | Admin Panel{% endblock %}
+
+{% block content %}
+<div class="max-w-[1280px] mx-auto px-4 md:px-10 py-10">
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <h1 class="text-3xl font-black text-gray-900 dark:text-white">Announcements</h1>
+            <p class="text-gray-500">Manage global news, alerts, and circulars.</p>
+        </div>
+        <a href="{% url 'admin_panel:create_announcement' %}"
+            class="bg-primary text-white font-bold py-3 px-6 rounded-xl hover:bg-blue-600 transition-colors no-underline">
+            + New Announcement
+        </a>
+    </div>
+
+    <div
+        class="bg-white dark:bg-surface-dark rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
+        <table class="w-full text-left">
+            <thead class="bg-gray-50 dark:bg-gray-800/50">
+                <tr>
+                    <th class="px-6 py-4 text-xs font-black text-gray-500 uppercase">Title</th>
+                    <th class="px-6 py-4 text-xs font-black text-gray-500 uppercase">Category</th>
+                    <th class="px-6 py-4 text-xs font-black text-gray-500 uppercase">Priority</th>
+                    <th class="px-6 py-4 text-xs font-black text-gray-500 uppercase">Status</th>
+                    <th class="px-6 py-4 text-xs font-black text-gray-500 uppercase">Date</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+                {% for item in announcements %}
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/30">
+                    <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">{{ item.title }}</td>
+                    <td class="px-6 py-4">
+                        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-bold">{{
+                            item.get_category_display }}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        {% if item.priority == 'high' %}
+                        <span class="text-red-500 font-bold">High</span>
+                        {% else %}
+                        <span class="text-gray-500">Normal</span>
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4">
+                        {% if item.is_active %}
+                        <span class="text-green-500 font-bold flex items-center gap-1"><span
+                                class="w-2 h-2 rounded-full bg-green-500"></span> Active</span>
+                        {% else %}
+                        <span class="text-gray-400">Archived</span>
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 text-xs text-gray-500">{{ item.created_at|date:"M d, Y" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="px-6 py-8 text-center text-gray-500">No announcements found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

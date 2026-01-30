@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate - {{ app.application_number }}</title>
+    <!-- Google Fonts: Public Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;900&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Public Sans', sans-serif;
+        }
+
+        .cert-title {
+            font-family: 'Cinzel', serif;
+        }
+
+        .certificate-border {
+            border: 24px solid #1e3a8a;
+            position: relative;
+        }
+
+        .outer-border {
+            border: 4px solid #1e3a8a;
+            padding: 2px;
+        }
+
+        @media print {
+            .no-print {
+                display: none;
+            }
+
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+
+            .certificate-border {
+                border-width: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen py-10 px-4">
+    <!-- Overlay Controls -->
+    <div class="max-w-4xl mx-auto flex justify-between items-center mb-10 no-print">
+        <a href="{% url 'citizen:dashboard' %}"
+            class="inline-flex items-center gap-2 text-gray-500 font-bold hover:text-primary transition-colors no-underline">
+            <span class="material-symbols-outlined">arrow_back</span> Back to Dashboard
+        </a>
+        <button onclick="window.print()"
+            class="inline-flex items-center gap-2 bg-primary text-white font-bold py-3 px-8 rounded-xl shadow-lg hover:bg-primary-dark transition-all">
+            <span class="material-symbols-outlined">print</span> Print Document
+        </button>
+    </div>
+
+    <!-- Certificate Card -->
+    <div class="max-w-[850px] mx-auto bg-white shadow-2xl relative">
+        <div class="outer-border">
+            <div
+                class="certificate-border p-12 lg:p-20 relative overflow-hidden h-[1100px] flex flex-col justify-between">
+                <!-- Background Pattern -->
+                <div class="absolute inset-0 opacity-[0.03] pointer-events-none">
+                    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="black" stroke-width="1" />
+                            </pattern>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#grid)" />
+                    </svg>
+                </div>
+
+                <!-- Watermark -->
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[-35deg] text-[120px] font-black text-blue-900/[0.03] whitespace-nowrap pointer-events-none z-0">
+                    VERIFIED DOCUMENT
+                </div>
+
+                <!-- Top Logo & Header -->
+                <div class="relative z-10 text-center space-y-4">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Emblem_of_India.svg/1200px-Emblem_of_India.svg.png"
+                        class="h-24 mx-auto mb-6 drop-shadow-sm" alt="National Emblem">
+                    <div class="space-y-1">
+                        <h2 class="text-xs font-black uppercase tracking-[0.3em] text-gray-500">Government of Digital
+                            State</h2>
+                        <h1 class="text-xl font-black text-blue-900 uppercase tracking-widest">{{ dept.department_name|default:"Department of Public Services" }}</h1>
+                    </div>
+                </div>
+
+                <!-- Title & Content -->
+                <div class="relative z-10 text-center space-y-12 my-10">
+                    <div class="space-y-2">
+                        <h3 class="cert-title text-5xl font-black text-blue-950">Certificate of Validity</h3>
+                        <div class="w-40 h-1 bg-blue-900 mx-auto rounded-full"></div>
+                    </div>
+
+                    <div class="space-y-8 text-lg text-gray-700 leading-relaxed font-medium">
+                        <p>This is to certify that the application for the service of</p>
+                        <h4 class="text-2xl font-black text-gray-900 italic">"{{ service.service_name }}"</h4>
+                        <p>Bearing Application Reference Number</p>
+                        <div
+                            class="bg-gray-50 border-y border-gray-100 py-3 font-mono text-xl font-black text-blue-900">
+                            #{{ app.application_number }}
+                        </div>
+                        <p>Submitted by Citizen</p>
+                        <h3 class="text-3xl font-black text-gray-900 tracking-tight">{{ citizen.get_full_name|default:citizen.username }}</h3>
+                        <p>has been thoroughly verified against the provided documents and the record is hereby <br>
+                            <span class="text-emerald-600 font-black">OFFICIALLY APPROVED & ISSUED</span></p>
+                    </div>
+                </div>
+
+                <!-- Bottom Footer -->
+                <div
+                    class="relative z-10 flex items-end justify-between pt-10 border-t-2 border-dashed border-gray-100">
+                    <div class="flex flex-col items-start gap-4">
+                        <div class="p-2 border border-blue-900/10 rounded-xl bg-white shadow-sm">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data={{ app.application_number }}"
+                                class="size-24" alt="Verification QR">
+                        </div>
+                        <div class="text-left">
+                            <div class="text-[10px] font-black uppercase text-gray-400">Scan to Verify Authenticity
+                            </div>
+                            <div class="text-xs font-bold text-gray-600">ID: {{ app.id|truncatechars:12 }}</div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 text-center">
+                        <div class="italic text-gray-400 font-serif text-3xl opacity-50 select-none">Govt. Official
+                        </div>
+                        <div class="space-y-0.5">
+                            <div class="w-48 h-px bg-gray-900 mx-auto"></div>
+                            <h5 class="text-sm font-black text-gray-900 uppercase tracking-tighter">Issuing Authority
+                            </h5>
+                            <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Revenue Department
+                            </p>
+                            <p class="text-[9px] text-gray-400 italic mt-2">Digitally Signed on {{ app.updated_at|date:"d M Y, H:i" }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Corner Decorations -->
+                <div class="absolute top-4 left-4 size-10 border-t-2 border-l-2 border-blue-900/20"></div>
+                <div class="absolute top-4 right-4 size-10 border-t-2 border-r-2 border-blue-900/20"></div>
+                <div class="absolute bottom-4 left-4 size-10 border-b-2 border-l-2 border-blue-900/20"></div>
+                <div class="absolute bottom-4 right-4 size-10 border-b-2 border-r-2 border-blue-900/20"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+{% block title %}Citizen Registration | Govt MIS{% endblock %}
+
+{% block content %}
+<div class="min-h-[calc(100vh-64px)] flex flex-col lg:flex-row overflow-hidden bg-white dark:bg-background-dark">
+    <!-- Left Section: Info Panel -->
+    <div class="hidden lg:flex lg:w-2/5 bg-primary relative flex-col justify-between p-12 text-white overflow-hidden">
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <circle cx="50" cy="50" r="40" fill="white" />
+            </svg>
+        </div>
+
+        <div class="relative z-10">
+            <div
+                class="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/10 mb-12">
+                <span class="material-symbols-outlined text-4xl text-white">person_add</span>
+            </div>
+
+            <h2 class="text-3xl font-bold mb-10 tracking-tight leading-tight">Join the Digital Revolution</h2>
+
+            <div class="space-y-8">
+                <div class="flex gap-4">
+                    <div class="size-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined text-sm">history_edu</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg mb-1">Easy Application</h3>
+                        <p class="text-white/80 text-sm">Apply for 50+ government services from the comfort of your
+                            home.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="size-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined text-sm">notifications_active</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg mb-1">Real-time Updates</h3>
+                        <p class="text-white/80 text-sm">Get SMS and Email alerts at every stage of your application
+                            process.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="size-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined text-sm">inventory_2</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg mb-1">Digital Locker</h3>
+                        <p class="text-white/80 text-sm">Keep all your certificates secure and accessible in your
+                            personal dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="relative z-10 pt-8 border-t border-white/20">
+            <p class="text-sm font-medium text-white/90 italic">
+                "Small steps towards a bigger digital future for every citizen."
+            </p>
+        </div>
+    </div>
+
+    <!-- Right Section: Registration Form -->
+    <div
+        class="w-full lg:w-3/5 flex flex-col justify-center px-6 lg:px-20 py-12 relative z-10 border-l dark:border-gray-800">
+        <div class="max-w-md w-full mx-auto">
+            <div class="mb-10 space-y-2">
+                <h1 class="text-3xl lg:text-4xl font-black tracking-tight text-gray-900 dark:text-white">Create Account
+                </h1>
+                <p class="text-gray-500 dark:text-gray-400 text-base">Enter your details to create a secure citizen
+                    account.</p>
+            </div>
+
+            <form method="POST" class="space-y-5">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <span class="material-symbols-outlined text-red-600 dark:text-red-400">error</span>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-red-800 dark:text-red-200">
+                                There were errors with your submission
+                            </h3>
+                            <div class="mt-2 text-sm text-red-700 dark:text-red-300">
+                                <ul class="list-disc pl-5 space-y-1">
+                                    {% for error in form.non_field_errors %}
+                                    <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-1.5">
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200">Username</label>
+                        <input type="text" name="username" placeholder="john_doe" required
+                            class="block w-full rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-surface-dark px-3 py-2.5 text-gray-900 dark:text-white placeholder-gray-400 focus:border-primary focus:ring-primary transition-all outline-none">
+                        {% if form.username.errors %}
+                        <p
+                            class="text-sm text-red-600 bg-red-50 p-2 rounded border border-red-200 mt-1 font-medium flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">error</span>
+                            {{ form.username.errors.0 }}
+                        </p>
+                        {% endif %}
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200">Full Name</label>
+                        <input type="text" name="name" placeholder="John Doe" required pattern="[a-zA-Z\s]+"
+                            title="Name must contain only letters and spaces"
+                            class="block w-full rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-surface-dark px-3 py-2.5 text-gray-900 dark:text-white placeholder-gray-400 focus:border-primary focus:ring-primary transition-all outline-none">
+                        {% if form.name.errors %}
+                        <p
+                            class="text-sm text-red-600 bg-red-50 p-2 rounded border border-red-200 mt-1 font-medium flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">error</span>
+                            {{ form.name.errors.0 }}
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="space-y-1.5">
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200">Email Address</label>
+                    <input type="email" name="email" placeholder="john@example.com" required
+                        class="block w-full rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-surface-dark px-3 py-2.5 text-gray-900 dark:text-white placeholder-gray-400 focus:border-primary focus:ring-primary transition-all outline-none">
+                    {% if form.email.errors %}
+                    <p
+                        class="text-sm text-red-600 bg-red-50 p-2 rounded border border-red-200 mt-1 font-medium flex items-center gap-1">
+                        <span class="material-symbols-outlined text-sm">error</span>
+                        {{ form.email.errors.0 }}
+                    </p>
+                    {% endif %}
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-1.5">
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200">Phone</label>
+                        <input type="text" name="phone" placeholder="9876543210" required pattern="\d{10}"
+                            maxlength="10" title="Phone number must be exactly 10 digits"
+                            class="block w-full rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-surface-dark px-3 py-2.5 text-gray-900 dark:text-white placeholder-gray-400 focus:border-primary focus:ring-primary transition-all outline-none">
+                        {% if form.phone.errors %}
+                        <p
+                            class="text-sm text-red-600 bg-red-50 p-2 rounded border border-red-200 mt-1 font-medium flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">error</span>
+                            {{ form.phone.errors.0 }}
+                        </p>
+                        {% endif %}
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200">Aadhaar
+                            Number</label>
+                        <input type="text" name="aadhaar_number" placeholder="12-digit number" required pattern="\d{12}"
+                            maxlength="12" title="Aadhaar number must be exactly 12 digits"
+                            class="block w-full rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-surface-dark px-3 py-2.5 text-gray-900 dark:text-white placeholder-gray-400 focus:border-primary focus:ring-primary transition-all outline-none">
+                        {% if form.aadhaar_number.errors %}
+                        <p
+                            class="text-sm text-red-600 bg-red-50 p-2 rounded border border-red-200 mt-1 font-medium flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">error</span>
+                            {{ form.aadhaar_number.errors.0 }}
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="space-y-1.5">
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200">Address</label>
+                    <textarea name="address" rows="2" placeholder="Street, City, State..." required
+                        class="block w-full rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-surface-dark px-3 py-2.5 text-gray-900 dark:text-white placeholder-gray-400 focus:border-primary focus:ring-primary transition-all outline-none"></textarea>
+                    {% if form.address.errors %}
+                    <p
+                        class="text-sm text-red-600 bg-red-50 p-2 rounded border border-red-200 mt-1 font-medium flex items-center gap-1">
+                        <span class="material-symbols-outlined text-sm">error</span>
+                        {{ form.address.errors.0 }}
+                    </p>
+                    {% endif %}
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-1.5">
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200">Password</label>
+                        <input type="password" name="password1" placeholder="••••••••" required
+                            class="block w-full rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-surface-dark px-3 py-2.5 text-gray-900 dark:text-white placeholder-gray-400 focus:border-primary focus:ring-primary transition-all outline-none">
+                        {% if form.password1.errors %}
+                        <p
+                            class="text-sm text-red-600 bg-red-50 p-2 rounded border border-red-200 mt-1 font-medium flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">error</span>
+                            {{ form.password1.errors.0 }}
+                        </p>
+                        {% endif %}
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200">Confirm
+                            Password</label>
+                        <input type="password" name="password2" placeholder="••••••••" required
+                            class="block w-full rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-surface-dark px-3 py-2.5 text-gray-900 dark:text-white placeholder-gray-400 focus:border-primary focus:ring-primary transition-all outline-none">
+                    </div>
+                </div>
+
+                <div class="pt-4 space-y-4">
+                    <button type="submit"
+                        class="w-full flex justify-center py-3.5 px-4 rounded-lg shadow-lg text-sm font-bold text-white bg-primary hover:bg-primary-dark focus:ring-4 focus:ring-primary/20 transition-all">
+                        Create Account
+                    </button>
+
+                    <p class="text-center text-sm text-gray-500 dark:text-gray-400">
+                        Already have an account?
+                        <a href="{% url 'accounts:login' %}"
+                            class="font-bold text-primary hover:text-primary-dark no-underline">Login here</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

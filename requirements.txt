@@ -1,0 +1,23 @@
+# Core Framework
+Django==4.2.8
+python-dotenv==1.0.0
+
+# Database
+mysqlclient==2.2.0
+
+# Forms & UI
+django-crispy-forms==2.1
+crispy-bootstrap5==2024.2
+
+# File Handling
+Pillow==10.1.0
+
+# PDF Generation (Optional)
+reportlab==4.0.7
+
+# Production Server (Railway deployment)
+gunicorn==21.2.0
+whitenoise==6.6.0
+
+# Security
+django-ratelimit==4.1.0

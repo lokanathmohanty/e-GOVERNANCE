@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+
+{% block title %}Review Application: {{ app.application_number }} | e-Gov Portal{% endblock %}
+
+{% block content %}
+<div class="max-w-[1280px] mx-auto px-4 md:px-10 py-10 space-y-8">
+    <!-- Breadcrumb & Status -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <nav class="flex text-sm font-bold text-gray-500 uppercase tracking-widest">
+            <a href="{% url 'officer:dashboard' %}" class="hover:text-primary transition-colors no-underline">Officer
+                Queue</a>
+            <span class="mx-3 text-gray-300">/</span>
+            <span class="text-primary">Review Application</span>
+        </nav>
+        <div class="flex items-center gap-3">
+            <span class="text-xs font-black text-gray-400 uppercase tracking-widest">Global Status:</span>
+            {% if app.status == 'pending' %}
+            <span
+                class="px-3 py-1 bg-amber-50 text-amber-600 dark:bg-amber-900/20 dark:text-amber-400 text-[10px] font-black uppercase tracking-widest rounded-full">Pending
+                Verification</span>
+            {% elif app.status == 'under_review' %}
+            <span
+                class="px-3 py-1 bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 text-[10px] font-black uppercase tracking-widest rounded-full">In
+                Active Review</span>
+            {% elif app.status == 'approved' %}
+            <span
+                class="px-3 py-1 bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full">Legally
+                Approved</span>
+            {% else %}
+            <span
+                class="px-3 py-1 bg-rose-50 text-rose-600 dark:bg-rose-900/20 dark:text-rose-400 text-[10px] font-black uppercase tracking-widest rounded-full">Rejected</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Main Panel -->
+        <div class="lg:col-span-8 space-y-8">
+            <!-- Applicant Dossier -->
+            <div
+                class="bg-white dark:bg-surface-dark rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
+                <div
+                    class="px-8 py-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/30 flex items-center gap-4">
+                    <div class="size-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+                        <span class="material-symbols-outlined text-[32px]">contact_page</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-black text-gray-900 dark:text-white tracking-tight">Citizen Dossier</h3>
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Verification ID:
+                            #USR-{{ app.user.id }}</p>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <div class="space-y-6">
+                            <div class="space-y-1">
+                                <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Full
+                                    Name</label>
+                                <div class="text-base font-bold text-gray-900 dark:text-white">{{ app.user.first_name }}
+                                    {{ app.user.last_name|default:app.user.username }}</div>
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Contact
+                                    Information</label>
+                                <div class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ app.user.email }}
+                                </div>
+                                <div class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ app.user.phone|default:"+91 98XXX XXXXX" }}</div>
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Permanent
+                                    Address</label>
+                                <div class="text-xs text-gray-500 leading-relaxed">{{ app.user.address|default:"Not Provided" }}</div>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="space-y-1">
+                                <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Requested
+                                    Service</label>
+                                <div class="text-base font-bold text-primary">{{ app.service.service_name }}</div>
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Submission
+                                    Priority</label>
+                                <div class="pt-2">
+                                    {% if app.priority == 'normal' %}
+                                    <span
+                                        class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-[10px] font-black uppercase tracking-widest rounded-lg border border-gray-100 dark:border-gray-700">Normal</span>
+                                    {% elif app.priority == 'emergency' %}
+                                    <span
+                                        class="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 dark:bg-amber-900/10 text-amber-600 dark:text-amber-400 text-[10px] font-black uppercase tracking-widest rounded-lg border border-amber-100 dark:border-amber-800">Emergency</span>
+                                    {% else %}
+                                    <span
+                                        class="inline-flex items-center gap-1.5 px-3 py-1 bg-rose-50 dark:bg-rose-900/10 text-rose-600 dark:text-rose-400 text-[10px] font-black uppercase tracking-widest rounded-lg border border-rose-100 dark:border-rose-800 animate-pulse">Disaster</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="space-y-1">
+                                <label
+                                    class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Timestamp</label>
+                                <div class="text-xs text-gray-500">{{ app.applied_date|date:"F j, Y, H:i" }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Documents Section -->
+            <div class="space-y-4">
+                <h3 class="text-xs font-black text-gray-400 uppercase tracking-widest px-2">Evidence & Supporting
+                    Documents</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {% for doc in documents %}
+                    <div
+                        class="bg-white dark:bg-surface-dark p-6 rounded-3xl border border-gray-100 dark:border-gray-800 flex items-center justify-between group hover:border-primary transition-all">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="size-10 rounded-xl bg-rose-50 dark:bg-rose-900/10 text-rose-500 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-[24px]">picture_as_pdf</span>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-gray-900 dark:text-white">{{ doc.document_type }}</h4>
+                                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">{{ doc.file_size|filesizeformat }}</p>
+                            </div>
+                        </div>
+                        <a href="{{ doc.file_path.url }}" target="_blank"
+                            class="size-10 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-400 group-hover:bg-primary group-hover:text-white flex items-center justify-center transition-all">
+                            <span class="material-symbols-outlined text-[20px]">visibility</span>
+                        </a>
+                    </div>
+                    {% empty %}
+                    <div
+                        class="col-span-full py-10 bg-gray-50 dark:bg-gray-800/20 rounded-3xl border-2 border-dashed border-gray-200 dark:border-gray-800 text-center">
+                        <p class="text-sm text-gray-400 italic">No evidence provided by applicant.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Review Actions Form -->
+            <div
+                class="bg-white dark:bg-surface-dark rounded-3xl border border-gray-100 dark:border-gray-800 shadow-xl overflow-hidden overflow-visible relative">
+                <div class="p-8 lg:p-12 space-y-8">
+                    <form method="POST" class="space-y-8">
+                        {% csrf_token %}
+                        <div class="space-y-3">
+                            <label class="block text-xs font-black text-gray-400 uppercase tracking-widest">Officer
+                                Remarks (Publicly Visible)</label>
+                            <textarea name="remarks" rows="5" required
+                                placeholder="Add adjudication notes or reason for approval/rejection..."
+                                class="block w-full rounded-2xl border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 p-6 text-sm text-gray-900 dark:text-white transition-all outline-none focus:ring-4 focus:ring-primary/10">{{ app.remarks }}</textarea>
+                        </div>
+
+                        <div class="flex flex-col md:flex-row items-center gap-4">
+                            <button type="submit" name="action" value="review"
+                                class="w-full md:w-auto px-8 py-4 border border-blue-200 text-blue-600 font-black rounded-2xl hover:bg-blue-50 transition-all text-xs uppercase tracking-widest">
+                                Needs Verification
+                            </button>
+                            <div class="hidden md:block flex-1"></div>
+                            <button type="submit" name="action" value="reject"
+                                class="w-full md:w-auto px-8 py-4 bg-rose-500 text-white font-black rounded-2xl hover:bg-rose-600 transition-all text-xs uppercase tracking-widest shadow-lg shadow-rose-200 dark:shadow-none">
+                                Reject Case
+                            </button>
+                            <button type="submit" name="action" value="approve"
+                                class="w-full md:w-auto px-12 py-4 bg-emerald-500 text-white font-black rounded-2xl hover:bg-emerald-600 transition-all text-xs uppercase tracking-widest shadow-lg shadow-emerald-200 dark:shadow-none">
+                                Final Approval
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="lg:col-span-4 space-y-8">
+            <!-- SLA Monitor -->
+            <div
+                class="bg-primary rounded-3xl p-8 text-white relative overflow-hidden shadow-2xl shadow-blue-100 dark:shadow-none">
+                <div class="absolute right-[-20px] top-[-20px] size-40 bg-white/10 rounded-full blur-3xl"></div>
+                <div class="relative z-10 flex flex-col items-center text-center space-y-6">
+                    <div class="size-20 rounded-2xl bg-white/20 flex items-center justify-center backdrop-blur-md">
+                        <span class="material-symbols-outlined text-[48px]">schedule</span>
+                    </div>
+                    <div>
+                        <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-white/60 mb-2">Target Deadline
+                        </h4>
+                        <div class="text-3xl font-black">{{ app.sla_deadline|date:"F j, Y" }}</div>
+                        <p class="text-xs text-white/70 mt-4 leading-relaxed italic">Processing this dossier today
+                            maintains your department's "Excellent" efficiency rating.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Adjudication Checklist -->
+            <div
+                class="bg-white dark:bg-surface-dark rounded-3xl border border-gray-100 dark:border-gray-800 p-8 space-y-6">
+                <h3
+                    class="text-sm font-black text-gray-900 dark:text-white uppercase tracking-wider pb-4 border-b border-gray-50 dark:border-gray-800">
+                    Compliance Checklist</h3>
+                <div class="space-y-4">
+                    <label class="flex items-start gap-3 cursor-pointer group">
+                        <input type="checkbox"
+                            class="mt-1 size-5 rounded border-gray-200 text-primary focus:ring-primary">
+                        <span class="text-xs text-gray-500 group-hover:text-gray-900 transition-colors">Digital Identity
+                            (Aadhaar/PAN) cross-verified with registry.</span>
+                    </label>
+                    <label class="flex items-start gap-3 cursor-pointer group">
+                        <input type="checkbox"
+                            class="mt-1 size-5 rounded border-gray-200 text-primary focus:ring-primary">
+                        <span class="text-xs text-gray-500 group-hover:text-gray-900 transition-colors">Residential
+                            address evidence validated against zone records.</span>
+                    </label>
+                    <label class="flex items-start gap-3 cursor-pointer group">
+                        <input type="checkbox"
+                            class="mt-1 size-5 rounded border-gray-200 text-primary focus:ring-primary">
+                        <span class="text-xs text-gray-500 group-hover:text-gray-900 transition-colors">Processing fee
+                            transaction settlement confirmed.</span>
+                    </label>
+                    <label class="flex items-start gap-3 cursor-pointer group">
+                        <input type="checkbox"
+                            class="mt-1 size-5 rounded border-gray-200 text-primary focus:ring-primary">
+                        <span class="text-xs text-gray-500 group-hover:text-gray-900 transition-colors">Service-specific
+                            eligibility criteria fully established.</span>
+                    </label>
+                </div>
+            </div>
+
+            <a href="{% url 'officer:dashboard' %}"
+                class="flex items-center justify-center gap-2 w-full py-4 text-xs font-black text-gray-400 hover:text-primary uppercase tracking-widest no-underline transition-all group">
+                <span
+                    class="material-symbols-outlined text-[18px] group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                Cancel and Return to Queue
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

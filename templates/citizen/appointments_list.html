@@ -1,0 +1,48 @@
+{% extends 'base_bootstrap.html' %}
+{% block title %}My Appointments | e-Gov{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>My Appointments</h2>
+        <a href="{% url 'citizen:book_appointment' %}" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> Book New Appointment
+        </a>
+    </div>
+    <div class="card shadow-sm border-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Date & Time</th>
+                        <th>Token</th>
+                        <th>Department</th>
+                        <th>Center</th>
+                        <th>Service</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appt in appointments %}
+                    <tr>
+                        <td>{{ appt.date }} <br> <small class="text-muted">{{ appt.time_slot }}</small></td>
+                        <td class="fw-bold text-primary">{{ appt.token_number }}</td>
+                        <td>{{ appt.department.department_name }}</td>
+                        <td>{{ appt.center.name }}</td>
+                        <td>{{ appt.service.service_name|default:"General Inquiry" }}</td>
+                        <td>
+                            {% if appt.status == 'scheduled' %}<span class="badge bg-primary">Scheduled</span>
+                            {% elif appt.status == 'completed' %}<span class="badge bg-success">Completed</span>
+                            {% else %}<span class="badge bg-secondary">{{ appt.status }}</span>{% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center py-4">No appointments found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
