@@ -54,13 +54,15 @@ class Command(BaseCommand):
                         role=user_data['role']
                     )
                 else:
-                    user = User.objects.create_user(
+                    # Create user and set attributes manually to ensure correctness
+                    user = User(
                         username=username,
                         email=user_data['email'],
-                        password=user_data['password'],
                         role=user_data['role'],
                         is_staff=user_data['is_staff']
                     )
+                    user.set_password(user_data['password'])
+                    user.save()
                 self.stdout.write(self.style.SUCCESS(f'Successfully created {username}'))
             else:
                 self.stdout.write(self.style.WARNING(f'User {username} already exists'))
