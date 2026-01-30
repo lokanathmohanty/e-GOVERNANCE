@@ -2,7 +2,7 @@ Django==4.2.8
 gunicorn
 whitenoise
 python-dotenv
-psycopg2-binary==2.9.9
+psycopg2-binary
 django-crispy-forms==2.1
 crispy-bootstrap5==2024.2
-Pillow==10.0.1
+Pillow>=10.2.0
