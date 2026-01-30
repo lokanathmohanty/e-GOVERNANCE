@@ -4,6 +4,7 @@ python-dotenv==1.0.0
 
 # Database
 mysqlclient==2.2.0
+psycopg2-binary==2.9.9
 
 # Forms & UI
 django-crispy-forms==2.1

@@ -15,12 +15,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-key-replace-in-prod')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
+DEBUG = os.getenv('DEBUG') == 'True'
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'testserver', '*']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
 
 # Application definition
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -85,10 +86,10 @@ except ImportError:
     pass
 
 # Database
-# Using MySQL for production-ready persistence
+# Using Environment variables for connection
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.mysql'),
         'NAME': os.getenv('DB_NAME', 'egov_db'),
         'USER': os.getenv('DB_USER', 'root'),
         'PASSWORD': os.getenv('DB_PASSWORD', ''),
@@ -96,7 +97,7 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT', '3306'),
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
+        } if os.getenv('DB_ENGINE', 'django.db.backends.mysql') == 'django.db.backends.mysql' else {},
     }
 }
 
