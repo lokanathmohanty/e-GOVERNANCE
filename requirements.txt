@@ -1,14 +1,8 @@
 Django==4.2.8
 gunicorn
 whitenoise
-python-dotenv==1.0.0
-
-# PostgreSQL
+python-dotenv
 psycopg2-binary==2.9.9
-
-# Forms & UI
 django-crispy-forms==2.1
 crispy-bootstrap5==2024.2
-
-# Images
 Pillow==10.0.1
