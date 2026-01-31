@@ -484,6 +484,7 @@
             <!-- Left: Main News (Dynamic) -->
             <div id="panel-news" class="lg:col-span-8 space-y-8 animate-fade-in">
                 {% if latest_news %}
+                <!-- Existing Dynamic Content Logic -->
                 <div class="grid md:grid-cols-2 gap-8">
                     <!-- Featured Article (First Item) -->
                     <article
@@ -536,10 +537,69 @@
                     {% endfor %}
                 </div>
                 {% else %}
-                <div
-                    class="p-12 text-center bg-gray-50 dark:bg-gray-800 rounded-3xl border border-dashed border-gray-200 dark:border-gray-700">
-                    <span class="material-symbols-outlined text-4xl text-gray-300 mb-2">article</span>
-                    <p class="text-gray-500 font-bold">No latest news updates available.</p>
+                <!-- DUMMY CONTENT: Displayed when no dynamic news exists -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Featured Article (Dummy) -->
+                    <article
+                        class="md:col-span-2 group cursor-pointer relative rounded-3xl overflow-hidden shadow-lg h-[400px]">
+                        <img src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?auto=format&fit=crop&w=1000"
+                            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-8">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span
+                                    class="px-2 py-1 rounded bg-primary text-white text-[10px] font-bold uppercase tracking-wider">Policy
+                                    Update</span>
+                                <span class="text-gray-300 text-xs font-mono">Oct 24, 2024</span>
+                            </div>
+                            <h3
+                                class="text-2xl md:text-3xl font-bold text-white mb-2 leading-tight group-hover:text-blue-200 transition-colors">
+                                State Government Launches 'Digital Saksharta Abhiyan' for Rural Citizens
+                            </h3>
+                            <p class="text-gray-300 line-clamp-2 max-w-2xl">
+                                A comprehensive digital literacy program aiming to empower over 5 million citizens with
+                                essential internet skills and access to e-governance services.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Sub Article 1 (Dummy) -->
+                    <article class="flex flex-col group cursor-pointer">
+                        <div class="rounded-2xl overflow-hidden h-48 mb-4 relative shadow-md">
+                            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute top-4 left-4 bg-white/90 backdrop-blur text-xs font-bold px-2 py-1 rounded uppercase tracking-wider text-black">
+                                Initiative
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-xs text-gray-400 mb-2 font-mono">Oct 20, 2024</div>
+                            <h3
+                                class="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary transition-colors leading-tight">
+                                New Online Portal for Land Records Digitization Announced
+                            </h3>
+                        </div>
+                    </article>
+
+                    <!-- Sub Article 2 (Dummy) -->
+                    <article class="flex flex-col group cursor-pointer">
+                        <div class="rounded-2xl overflow-hidden h-48 mb-4 relative shadow-md">
+                            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute top-4 left-4 bg-white/90 backdrop-blur text-xs font-bold px-2 py-1 rounded uppercase tracking-wider text-black">
+                                Education
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-xs text-gray-400 mb-2 font-mono">Oct 18, 2024</div>
+                            <h3
+                                class="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary transition-colors leading-tight">
+                                Scholarship Applications for 2024-25 Now Open for Students
+                            </h3>
+                        </div>
+                    </article>
                 </div>
                 {% endif %}
             </div>
@@ -549,6 +609,7 @@
                 <div class="bg-gray-50 dark:bg-gray-800 rounded-3xl p-8 border border-gray-100 dark:border-gray-700">
                     <div class="space-y-4">
                         {% for notice in notices %}
+                        <!-- Dynamic Notice Content -->
                         <div
                             class="flex items-start gap-4 p-4 bg-white dark:bg-[#161b22] rounded-xl border border-gray-100 dark:border-gray-700 hover:border-primary/30 transition-all group">
                             <div
@@ -585,7 +646,89 @@
                             </div>
                         </div>
                         {% empty %}
-                        <div class="text-center py-10 text-gray-500">No active circulars or notices.</div>
+                        <!-- DUMMY CONTENT: Static Notices when no DB records exist -->
+
+                        <!-- Dummy Notice 1 -->
+                        <div
+                            class="flex items-start gap-4 p-4 bg-white dark:bg-[#161b22] rounded-xl border border-gray-100 dark:border-gray-700 hover:border-primary/30 transition-all group">
+                            <div
+                                class="size-12 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-600 flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined">description</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <h3
+                                        class="font-bold text-gray-900 dark:text-white hover:text-primary transition-colors">
+                                        Revised Guidelines for Income Certificate Issuance</h3>
+                                    <button
+                                        class="size-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined text-sm">download</span>
+                                    </button>
+                                </div>
+                                <p class="text-sm text-gray-500 mt-1 line-clamp-2">Detailed SOP regarding the new
+                                    document requirements for income certificate applications effective from Nov 1st.
+                                </p>
+                                <div
+                                    class="flex items-center gap-4 mt-3 text-xs font-bold text-gray-400 uppercase tracking-widest">
+                                    <span>Ref: CIR-2024-089</span>
+                                    <span>Oct 25, 2024</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dummy Notice 2 -->
+                        <div
+                            class="flex items-start gap-4 p-4 bg-white dark:bg-[#161b22] rounded-xl border border-gray-100 dark:border-gray-700 hover:border-primary/30 transition-all group">
+                            <div
+                                class="size-12 rounded-lg bg-orange-50 dark:bg-orange-900/20 text-orange-500 flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined">timer</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <h3
+                                        class="font-bold text-gray-900 dark:text-white hover:text-primary transition-colors">
+                                        Deadline Extended for Property Tax Payment</h3>
+                                    <button
+                                        class="size-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined text-sm">download</span>
+                                    </button>
+                                </div>
+                                <p class="text-sm text-gray-500 mt-1 line-clamp-2">The last date for paying property tax
+                                    with a 5% rebate has been extended till March 31st, 2025.</p>
+                                <div
+                                    class="flex items-center gap-4 mt-3 text-xs font-bold text-gray-400 uppercase tracking-widest">
+                                    <span>Ref: NOT-2024-112</span>
+                                    <span>Oct 22, 2024</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dummy Notice 3 -->
+                        <div
+                            class="flex items-start gap-4 p-4 bg-white dark:bg-[#161b22] rounded-xl border border-gray-100 dark:border-gray-700 hover:border-primary/30 transition-all group">
+                            <div
+                                class="size-12 rounded-lg bg-purple-50 dark:bg-purple-900/20 text-purple-600 flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined">gavel</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <h3
+                                        class="font-bold text-gray-900 dark:text-white hover:text-primary transition-colors">
+                                        E-Tender Notice to Smart City Surveillance System</h3>
+                                    <button
+                                        class="size-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined text-sm">download</span>
+                                    </button>
+                                </div>
+                                <p class="text-sm text-gray-500 mt-1 line-clamp-2">Bids are invited for the supply and
+                                    installation of CCTV cameras under the Smart City Mission project.</p>
+                                <div
+                                    class="flex items-center gap-4 mt-3 text-xs font-bold text-gray-400 uppercase tracking-widest">
+                                    <span>Ref: TEN-2024-005</span>
+                                    <span>Oct 15, 2024</span>
+                                </div>
+                            </div>
+                        </div>
                         {% endfor %}
                     </div>
                 </div>
