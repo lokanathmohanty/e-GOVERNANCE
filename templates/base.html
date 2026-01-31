@@ -75,6 +75,16 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
         }
+
+        /* Utility to hide scrollbar */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 
     <link rel="manifest" href="{% static 'manifest.json' %}">
@@ -307,8 +317,8 @@
 
             <!-- Mobile Menu Button -->
             <button
-                class="lg:hidden p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-                onclick="toggleMobileMenu()">
+                class="lg:hidden p-2 ml-4 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors z-50 relative"
+                onclick="toggleMobileMenu()" aria-label="Toggle Menu">
                 <span class="material-symbols-outlined text-2xl">menu</span>
             </button>
         </div>
