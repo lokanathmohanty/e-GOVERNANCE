@@ -138,19 +138,27 @@ def verify_public_certificate(request):
     try:
         from core.models import Application
         
-        # Try finding by Application Number first
+        # Try finding by exact Application Number first
         app = Application.objects.filter(application_number__iexact=app_id).first()
         
         # Fallback to PK if it's numeric
         if not app and app_id.isdigit():
             app = Application.objects.filter(id=app_id).first()
             
+        # Fallback to icontains for partial match
+        if not app:
+            app = Application.objects.filter(application_number__icontains=app_id).first()
+            
         if not app:
             return JsonResponse({'valid': False, 'message': 'Certificate not found.'})
         
         if app.status == 'approved':
             username = app.user.get_full_name() or app.user.username
-            masked_name = username[0] + '*' * (len(username)-1) if len(username) > 1 else username
+            # Mask the name more gracefully
+            if len(username) > 3:
+                masked_name = username[:2] + '*' * (len(username)-4) + username[-2:]
+            else:
+                masked_name = username[0] + '*' * (len(username)-1) if len(username) > 1 else username
             
             return JsonResponse({
                 'valid': True,

@@ -1,0 +1,209 @@
+/* 
+   e-Governance Design System 
+   Core Tokens and Responsive Utilities
+*/
+
+:root {
+    --primary: #D97706;
+    --primary-dark: #B45309;
+    --primary-light: #FCD34D;
+    --secondary: #64748b;
+    --success: #059669;
+    --warning: #f59e0b;
+    --danger: #dc2626;
+    --info: #0ea5e9;
+    --background: #f8fafc;
+    --surface: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    
+    /* Spacing System */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+    
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-base: 300ms ease;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+/* Base Responsive Typography */
+html {
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+body {
+    font-family: 'Public Sans', 'Inter', sans-serif;
+    color: var(--text-main);
+    background-color: var(--background);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Button Refinements */
+.btn {
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    padding: 0.6rem 1.25rem;
+    border-radius: 0.5rem;
+    transition: all var(--transition-base);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Premium Card Design */
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-base);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+/* Responsive Table */
+.table-responsive-card {
+    overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+    .table-responsive-card table, 
+    .table-responsive-card thead, 
+    .table-responsive-card tbody, 
+    .table-responsive-card th, 
+    .table-responsive-card td, 
+    .table-responsive-card tr { 
+        display: block; 
+    }
+    
+    .table-responsive-card thead tr { 
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    
+    .table-responsive-card tr { 
+        border: 1px solid var(--border);
+        margin-bottom: 1rem;
+        border-radius: 0.75rem;
+        background: white;
+        padding: 0.5rem;
+    }
+    
+    .table-responsive-card td { 
+        border: none;
+        border-bottom: 1px solid #f1f5f9; 
+        position: relative;
+        padding-left: 50%; 
+        min-height: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        text-align: right;
+    }
+    
+    .table-responsive-card td:last-child {
+        border-bottom: 0;
+    }
+
+    .table-responsive-card td:before { 
+        content: attr(data-label);
+        position: absolute;
+        left: 1rem;
+        width: 45%; 
+        padding-right: 10px; 
+        white-space: nowrap;
+        font-weight: bold;
+        text-align: left;
+        color: var(--text-muted);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+    }
+}
+
+/* Input Styles */
+.form-control, .form-select {
+    border-radius: 0.5rem;
+    border: 1px solid var(--border);
+    padding: 0.625rem 1rem;
+    font-size: 0.95rem;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1);
+}
+
+/* Mobile Toggle Improvements */
+.navbar-toggler {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border);
+    background: #f8fafc;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1);
+}
+
+/* Micro-interactions */
+.hover-lift {
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.hover-scale {
+    transition: transform var(--transition-base);
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+/* Accessibility: Better contrast for focus states */
+:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
