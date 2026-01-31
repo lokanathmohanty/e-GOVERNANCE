@@ -1,10 +1,144 @@
-{% extends 'base_bootstrap.html' %}
-{% block title %}Terms of Use | e-Governance{% endblock %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Terms of Use - e-Governance Portal{% endblock %}
 
 {% block content %}
+<div class="bg-gray-50 dark:bg-background-dark min-h-screen py-12">
+    <div class="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div
+            class="bg-white dark:bg-surface-dark rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-gray-800 mb-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h1 class="text-3xl font-black text-gray-900 dark:text-white mb-2">Terms of Use</h1>
+                    <p class="text-gray-500 text-sm">Review our improved terms and conditions for using the government
+                        portal.</p>
+                </div>
+                <div class="flex flex-col items-end">
+                    <span
+                        class="px-3 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-600 rounded-full text-xs font-bold uppercase tracking-wider">Legal
+                        Document</span>
+                    <span class="text-xs text-gray-400 mt-1">Last Revised: Jan 01, 2026</span>
+                </div>
+            </div>
+        </div>
 
-<h5 class="mt-4 fw-bold">3. Account Responsibility</h5>
-<p>You are responsible for maintaining the confidentiality of your login credentials.</p>
-</div>
+        <!-- Content -->
+        <div
+            class="bg-white dark:bg-surface-dark rounded-2xl p-8 md:p-12 shadow-sm border border-gray-100 dark:border-gray-800 space-y-10">
+
+            <!-- Section 1 -->
+            <section>
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                    <span
+                        class="flex items-center justify-center size-8 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 text-sm">01</span>
+                    User Agreement
+                </h2>
+                <div class="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
+                    <p>
+                        By accessing and surfing the contents of this specialized website/portal, you agree to be bound
+                        by the terms and conditions set forth herein. If you do not agree with any of these terms,
+                        please discontinue using this portal immediately.
+                    </p>
+                    <p class="mt-2">
+                        This site is designed, developed, and hosted by the State Department of e-Governance. Though all
+                        efforts have been made to ensure the accuracy of the content on this portal, the same should not
+                        be construed as a statement of law or used for any legal purposes.
+                    </p>
+                </div>
+            </section>
+
+            <hr class="border-gray-100 dark:border-gray-800">
+
+            <!-- Section 2 -->
+            <section>
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                    <span
+                        class="flex items-center justify-center size-8 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 text-sm">02</span>
+                    Acceptable Use
+                </h2>
+                <div class="space-y-4 text-gray-600 dark:text-gray-300">
+                    <p>Users are strictly prohibited from:</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Introducing any virus, worm, or other harmful code to the portal.</li>
+                        <li>Attempting to gain unauthorized access to any part of the portal or its related systems.
+                        </li>
+                        <li>Using the portal for any unlawful, fraudulent, or malicious activity.</li>
+                        <li>Interfering with the proper working of the portal or restricting others from using it.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <hr class="border-gray-100 dark:border-gray-800">
+
+            <!-- Section 3 -->
+            <section>
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                    <span
+                        class="flex items-center justify-center size-8 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 text-sm">03</span>
+                    Account Security
+                </h2>
+                <div class="text-gray-600 dark:text-gray-300">
+                    <p>
+                        Citizens registering on the portal are responsible for maintaining the confidentiality of their
+                        login credentials (User ID and Password). The Department will not be liable for any loss or
+                        damage arising from your failure to comply with this security obligation. You agree to notify
+                        the administration immediately of any unauthorized use of your account.
+                    </p>
+                </div>
+            </section>
+
+            <hr class="border-gray-100 dark:border-gray-800">
+
+            <!-- Section 4 -->
+            <section>
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                    <span
+                        class="flex items-center justify-center size-8 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 text-sm">04</span>
+                    Hyperlinking Policy
+                </h2>
+                <div class="text-gray-600 dark:text-gray-300">
+                    <p>
+                        <strong>Links to external websites:</strong> Links to other websites that have been included on
+                        this portal are provided for public convenience only. We are not responsible for the contents or
+                        reliability of linked websites and do not necessarily endorse the view expressed within them.
+                    </p>
+                    <p class="mt-2">
+                        <strong>Links to this portal:</strong> We do not object to you linking directly to the
+                        information that is hosted on this site and no prior permission is required for the same.
+                        However, we would like you to inform us about any links provided to this portal.
+                    </p>
+                </div>
+            </section>
+
+            <hr class="border-gray-100 dark:border-gray-800">
+
+            <!-- Section 5 -->
+            <section>
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                    <span
+                        class="flex items-center justify-center size-8 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 text-sm">05</span>
+                    Disclaimer
+                </h2>
+                <div class="bg-blue-50 dark:bg-blue-900/10 p-6 rounded-xl border border-blue-100 dark:border-blue-800">
+                    <p class="text-blue-800 dark:text-blue-200 text-sm leading-relaxed">
+                        Under no circumstances will the State Government be liable for any expense, loss or damage
+                        including, without limitation, indirect or consequential loss or damage, or any expense, loss or
+                        damage whatsoever arising from use, or loss of use, of data, arising out of or in connection
+                        with the use of this portal.
+                    </p>
+                </div>
+            </section>
+        </div>
+
+        <div class="mt-8 text-center">
+            <a href="{% url 'citizen:services' %}"
+                class="inline-flex items-center gap-2 text-primary font-bold hover:underline">
+                Accept & Continue to Services
+                <span class="material-symbols-outlined text-lg">arrow_forward</span>
+            </a>
+        </div>
+    </div>
 </div>
 {% endblock %}

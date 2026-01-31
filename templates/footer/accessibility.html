@@ -1,15 +1,197 @@
-{% extends 'base_bootstrap.html' %}
-{% block title %}Accessibility Statement | e-Governance{% endblock %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Accessibility Statement - e-Governance Portal{% endblock %}
 
 {% block content %}
-<li>Screen reader compatibility.</li>
-<li>Keyboard navigation support.</li>
-<li>High contrast mode (coming soon).</li>
-<li>Resizable text.</li>
-</ul>
+<div class="bg-gray-50 dark:bg-background-dark min-h-screen py-12">
+        <div class="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8">
 
-<h4 class="mt-4">Feedback</h4>
-<p>If you encounter any accessibility barriers, please contact our support team at <a
-        href="mailto:support@egov.com">support@egov.com</a>.</p>
+                <!-- Header -->
+                <div
+                        class="bg-white dark:bg-surface-dark rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-gray-800 mb-8">
+                        <h1 class="text-3xl font-black text-gray-900 dark:text-white mb-4">Accessibility Statement</h1>
+                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                                We are committed to ensuring digital accessibility for people with disabilities. We are
+                                continually improving the user experience for everyone and applying the relevant
+                                accessibility standards.
+                        </p>
+                        <div class="flex flex-wrap gap-4 mt-6">
+                                <div
+                                        class="inline-flex items-center gap-2 px-4 py-2 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 rounded-lg text-sm font-bold">
+                                        <span class="material-symbols-outlined">check_circle</span>
+                                        WCAG 2.0 Level AA Compliant
+                                </div>
+                                <div
+                                        class="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded-lg text-sm font-bold">
+                                        <span class="material-symbols-outlined">translate</span>
+                                        Multi-language Support
+                                </div>
+                        </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                        <!-- Main Content -->
+                        <div class="md:col-span-2 space-y-8">
+
+                                <!-- Conformance Status -->
+                                <section
+                                        class="bg-white dark:bg-surface-dark rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-gray-800">
+                                        <h2
+                                                class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                                                <span class="material-symbols-outlined text-primary">verified</span>
+                                                Conformance Status
+                                        </h2>
+                                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                                                The <strong>Web Content Accessibility Guidelines (WCAG)</strong> defines
+                                                requirements for designers and developers to improve accessibility for
+                                                people with disabilities. It defines three levels of conformance: Level
+                                                A, Level AA, and Level AAA.
+                                        </p>
+                                        <p class="text-gray-600 dark:text-gray-300">
+                                                The e-Governance Service Management System is partially conformant with
+                                                WCAG 2.1 level AA. Partially conformant means that some parts of the
+                                                content do not fully conform to the accessibility standard, but we are
+                                                actively working to resolve this.
+                                        </p>
+                                </section>
+
+                                <!-- Features -->
+                                <section
+                                        class="bg-white dark:bg-surface-dark rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-gray-800">
+                                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Accessibility
+                                                Features</h2>
+                                        <div class="grid sm:grid-cols-2 gap-6">
+                                                <div class="flex gap-4">
+                                                        <div
+                                                                class="size-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                                                                <span
+                                                                        class="material-symbols-outlined text-primary">contrast</span>
+                                                        </div>
+                                                        <div>
+                                                                <h3 class="font-bold text-gray-900 dark:text-white">High
+                                                                        Contrast</h3>
+                                                                <p class="text-sm text-gray-500 mt-1">Toggle high
+                                                                        contrast mode for better visibility for visually
+                                                                        impaired users.</p>
+                                                        </div>
+                                                </div>
+                                                <div class="flex gap-4">
+                                                        <div
+                                                                class="size-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                                                                <span
+                                                                        class="material-symbols-outlined text-primary">format_size</span>
+                                                        </div>
+                                                        <div>
+                                                                <h3 class="font-bold text-gray-900 dark:text-white">
+                                                                        Resizable Text</h3>
+                                                                <p class="text-sm text-gray-500 mt-1">Adjust font sizes
+                                                                        relative to your device settings without
+                                                                        breaking the layout.</p>
+                                                        </div>
+                                                </div>
+                                                <div class="flex gap-4">
+                                                        <div
+                                                                class="size-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                                                                <span
+                                                                        class="material-symbols-outlined text-primary">keyboard</span>
+                                                        </div>
+                                                        <div>
+                                                                <h3 class="font-bold text-gray-900 dark:text-white">
+                                                                        Keyboard Nav</h3>
+                                                                <p class="text-sm text-gray-500 mt-1">Full keyboard
+                                                                        navigation support for all interactive elements
+                                                                        and forms.</p>
+                                                        </div>
+                                                </div>
+                                                <div class="flex gap-4">
+                                                        <div
+                                                                class="size-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                                                                <span
+                                                                        class="material-symbols-outlined text-primary">alt_route</span>
+                                                        </div>
+                                                        <div>
+                                                                <h3 class="font-bold text-gray-900 dark:text-white">Alt
+                                                                        Text</h3>
+                                                                <p class="text-sm text-gray-500 mt-1">Descriptive
+                                                                        alternative text for all images and non-text
+                                                                        content.</p>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </section>
+
+                                <!-- Feedback -->
+                                <section
+                                        class="bg-white dark:bg-surface-dark rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-gray-800">
+                                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Feedback &
+                                                Support</h2>
+                                        <p class="text-gray-600 dark:text-gray-300 mb-6">
+                                                We welcome your feedback on the accessibility of the e-Governance
+                                                Portal. Please let us know if you encounter accessibility barriers on
+                                                this website:
+                                        </p>
+                                        <div class="flex flex-col sm:flex-row gap-4">
+                                                <a href="mailto:accessibility@egov.state.gov"
+                                                        class="flex items-center gap-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-800 w-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors no-underline group">
+                                                        <span
+                                                                class="material-symbols-outlined text-gray-400 group-hover:text-primary">mail</span>
+                                                        <div>
+                                                                <div class="text-xs text-gray-400 font-bold uppercase">
+                                                                        Email Us</div>
+                                                                <div class="font-medium text-gray-900 dark:text-white">
+                                                                        accessibility@egov.state.gov</div>
+                                                        </div>
+                                                </a>
+                                                <a href="tel:1800-123-4567"
+                                                        class="flex items-center gap-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-800 w-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors no-underline group">
+                                                        <span
+                                                                class="material-symbols-outlined text-gray-400 group-hover:text-primary">call</span>
+                                                        <div>
+                                                                <div class="text-xs text-gray-400 font-bold uppercase">
+                                                                        Helpline</div>
+                                                                <div class="font-medium text-gray-900 dark:text-white">
+                                                                        1800-123-4567</div>
+                                                        </div>
+                                                </a>
+                                        </div>
+                                </section>
+                        </div>
+
+                        <!-- Sidebar -->
+                        <div class="md:col-span-1 space-y-6">
+                                <!-- Quick Settings -->
+                                <div
+                                        class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 sticky top-24">
+                                        <h3 class="font-bold text-gray-900 dark:text-white mb-4">Quick Settings</h3>
+                                        <div class="space-y-4">
+                                                <div>
+                                                        <label
+                                                                class="text-xs font-bold text-gray-500 uppercase mb-2 block">Text
+                                                                Size</label>
+                                                        <div class="flex gap-2">
+                                                                <button onclick="accessibilityManager.setFontSize('small')"
+                                                                        class="flex-1 py-2 bg-gray-100 dark:bg-gray-700 rounded text-xs hover:bg-primary hover:text-white">A-</button>
+                                                                <button onclick="accessibilityManager.setFontSize('normal')"
+                                                                        class="flex-1 py-2 bg-gray-100 dark:bg-gray-700 rounded text-sm font-bold hover:bg-primary hover:text-white">A</button>
+                                                                <button onclick="accessibilityManager.setFontSize('large')"
+                                                                        class="flex-1 py-2 bg-gray-100 dark:bg-gray-700 rounded text-lg font-bold hover:bg-primary hover:text-white">A+</button>
+                                                        </div>
+                                                </div>
+                                                <div>
+                                                        <label
+                                                                class="text-xs font-bold text-gray-500 uppercase mb-2 block">Visual
+                                                                Mode</label>
+                                                        <button onclick="accessibilityManager.toggleContrast()"
+                                                                class="w-full flex items-center justify-center gap-2 py-3 bg-gray-900 text-white rounded-lg hover:bg-black transition-colors">
+                                                                <span class="material-symbols-outlined">contrast</span>
+                                                                Toggle High Contrast
+                                                        </button>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+        </div>
 </div>
 {% endblock %}

@@ -1,30 +1,142 @@
-{% extends 'base_bootstrap.html' %}
-{% block title %}Dashboard Features | e-Governance{% endblock %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard Overview - e-Governance Portal{% endblock %}
 
 {% block content %}
-</div>
-<div class="col-md-6">
-    <div class="p-5 bg-light rounded-3 text-center">
-        <i class="bi bi-speedometer2 fs-1 text-primary"></i>
-    </div>
-</div>
-</div>
+<div class="bg-gray-50 dark:bg-background-dark min-h-screen py-12">
+    <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
 
-<div class="row align-items-center mb-5 flex-md-row-reverse">
-    <div class="col-md-6">
-        <h3 class="fw-bold">Digital Document Locker</h3>
-        <p>Store your verified certificates securely in the cloud. Access them anytime, anywhere without carrying
-            physical papers.</p>
-    </div>
-    <div class="col-md-6">
-        <div class="p-5 bg-light rounded-3 text-center">
-            <i class="bi bi-folder-check fs-1 text-success"></i>
+        <!-- Hero Section -->
+        <div class="text-center mb-16 space-y-4">
+            <span
+                class="inline-block px-4 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs font-bold uppercase tracking-widest">Citizen
+                Central</span>
+            <h1 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white max-w-4xl mx-auto leading-tight">
+                Your Personal Governance Hub</h1>
+            <p class="text-xl text-gray-500 max-w-2xl mx-auto">Manage applications, documents, and interactions with the
+                government in one secure place.</p>
+            <div class="pt-4">
+                <a href="{% url 'citizen:dashboard' %}"
+                    class="btn-premium btn-premium-primary text-lg px-8 py-4 no-underline inline-flex items-center gap-2">
+                    <span class="material-symbols-outlined">login</span>
+                    Go to My Dashboard
+                </a>
+            </div>
         </div>
-    </div>
-</div>
 
-<div class="text-center">
-    <a href="{% url 'accounts:login' %}" class="btn btn-primary btn-lg px-5">Login to Dashboard</a>
-</div>
+        <!-- Features Grid -->
+        <div class="grid md:grid-cols-2 gap-8 mb-20">
+            <!-- Feature 1 -->
+            <div
+                class="bg-white dark:bg-surface-dark rounded-3xl p-8 shadow-premium border border-gray-100 dark:border-gray-800 relative overflow-hidden group">
+                <div
+                    class="absolute -right-10 -top-10 size-40 bg-blue-50 dark:bg-blue-900/10 rounded-full blur-3xl group-hover:bg-blue-100 dark:group-hover:bg-blue-900/20 transition-all">
+                </div>
+                <div class="relative z-10">
+                    <div
+                        class="size-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-blue-500/20">
+                        <span class="material-symbols-outlined text-3xl">timeline</span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Real-time Application Tracking
+                    </h2>
+                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
+                        No more visiting government offices to check status. See exactly where your application is, who
+                        is processing it, and the estimated completion time.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center gap-3 text-sm font-bold text-gray-700 dark:text-gray-200">
+                            <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Status
+                            Timeline
+                        </li>
+                        <li class="flex items-center gap-3 text-sm font-bold text-gray-700 dark:text-gray-200">
+                            <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Officer
+                            Details
+                        </li>
+                        <li class="flex items-center gap-3 text-sm font-bold text-gray-700 dark:text-gray-200">
+                            <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> SMS/Email
+                            Alerts
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div
+                class="bg-white dark:bg-surface-dark rounded-3xl p-8 shadow-premium border border-gray-100 dark:border-gray-800 relative overflow-hidden group">
+                <div
+                    class="absolute -right-10 -top-10 size-40 bg-purple-50 dark:bg-purple-900/10 rounded-full blur-3xl group-hover:bg-purple-100 dark:group-hover:bg-purple-900/20 transition-all">
+                </div>
+                <div class="relative z-10">
+                    <div
+                        class="size-14 bg-purple-600 text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-purple-500/20">
+                        <span class="material-symbols-outlined text-3xl">folder_shared</span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Integrated DigiLocker</h2>
+                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
+                        Store your verified documents securely. Access your certificates, licenses, and ID proofs
+                        anytime, anywhere without carrying physical copies.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center gap-3 text-sm font-bold text-gray-700 dark:text-gray-200">
+                            <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> 1GB
+                            Secure Storage
+                        </li>
+                        <li class="flex items-center gap-3 text-sm font-bold text-gray-700 dark:text-gray-200">
+                            <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Auto-save
+                            Certificates
+                        </li>
+                        <li class="flex items-center gap-3 text-sm font-bold text-gray-700 dark:text-gray-200">
+                            <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Easy
+                            Sharing
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- How to Access -->
+        <div class="bg-gray-900 rounded-3xl p-8 md:p-12 text-white overflow-hidden relative">
+            <div
+                class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-gray-800 to-transparent opacity-50 pointer-events-none">
+            </div>
+            <div class="relative z-10 max-w-2xl">
+                <h2 class="text-3xl font-bold mb-6">How to Access?</h2>
+                <div class="space-y-8">
+                    <div class="flex gap-4">
+                        <div
+                            class="size-8 rounded-full bg-blue-600 flex items-center justify-center font-bold shrink-0">
+                            1</div>
+                        <div>
+                            <h3 class="font-bold text-lg mb-1">Login with Credentials</h3>
+                            <p class="text-gray-400">Use your registered Mobile Number or Email ID along with your
+                                password to log in.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div
+                            class="size-8 rounded-full bg-blue-600 flex items-center justify-center font-bold shrink-0">
+                            2</div>
+                        <div>
+                            <h3 class="font-bold text-lg mb-1">Verify OTP</h3>
+                            <p class="text-gray-400">For security, you may be asked to verify an OTP sent to your
+                                registered mobile.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div
+                            class="size-8 rounded-full bg-blue-600 flex items-center justify-center font-bold shrink-0">
+                            3</div>
+                        <div>
+                            <h3 class="font-bold text-lg mb-1">Access Dashboard</h3>
+                            <p class="text-gray-400">Once logged in, you will be redirected to your dashboard
+                                automatically.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
 {% endblock %}
