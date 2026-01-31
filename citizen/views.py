@@ -20,22 +20,32 @@ def dashboard(request):
     # Calculate SLA status for each application
     now = timezone.now()
     for app in applications:
-        if app.status in ['approved', 'rejected']:
-            app.sla_status = 'completed'
-        else:
-            time_diff = app.sla_deadline - now
-            days_remaining = time_diff.days
-            total_sla_days = app.service.processing_days
-            
-            if days_remaining < 0:
-                app.sla_status = 'delayed'
-                app.days_overdue = abs(days_remaining)
-            elif days_remaining <= (total_sla_days * 0.2):  # Less than 20% time remaining
-                app.sla_status = 'near_deadline'
-                app.days_left = days_remaining
+        try:
+            if app.status in ['approved', 'rejected']:
+                app.sla_status = 'completed'
             else:
-                app.sla_status = 'on_time'
-                app.days_left = days_remaining
+                # Ensure sla_deadline is aware if naive
+                deadline = app.sla_deadline
+                if timezone.is_naive(deadline):
+                    deadline = timezone.make_aware(deadline)
+                
+                time_diff = deadline - now
+                days_remaining = time_diff.days
+                total_sla_days = app.service.processing_days
+                
+                if days_remaining < 0:
+                    app.sla_status = 'delayed'
+                    app.days_overdue = abs(days_remaining)
+                elif days_remaining <= (total_sla_days * 0.2):  # Less than 20% time remaining
+                    app.sla_status = 'near_deadline'
+                    app.days_left = days_remaining
+                else:
+                    app.sla_status = 'on_time'
+                    app.days_left = days_remaining
+        except Exception as e:
+            # Fallback for bad data to prevent crash
+            app.sla_status = 'unknown'
+            app.days_left = 0
     
     # Statistics
     stats = {
