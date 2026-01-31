@@ -236,12 +236,10 @@
                                 {{ user.username|first|upper }}
                             </div>
                             <div class="d-none d-md-block text-start me-1">
-                                <p class="mb-0 fw-bold text-dark lh-1" style="font-size: 0.8rem;">
-                                    {% firstof user.get_full_name user.username %}
-                                </p>
-                                <small class="text-muted" style="font-size: 0.65rem;">
-                                    {{ user.get_role_display }}
-                                </small>
+                                <p class="mb-0 fw-bold text-dark lh-1" style="font-size: 0.8rem;">{% firstof
+                                    user.get_full_name user.username %}</p>
+                                <small class="text-muted" style="font-size: 0.65rem;">{{ user.get_role_display
+                                    }}</small>
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 mt-3 p-2 animate__animated animate__fadeInUp"
@@ -318,116 +316,62 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-[#0b0f19] text-white pt-5 mt-auto border-top border-secondary border-opacity-10">
-        <div class="container py-4">
-            <div class="row g-4">
+    <!-- Footer -->
+    <footer class="bg-light text-lg-start mt-auto border-top">
+        <div class="container p-4">
+            <div class="row">
                 <!-- Brand -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="d-flex align-items-center gap-2 mb-3">
-                        <span class="material-symbols-outlined text-primary fs-2">account_balance</span>
-                        <h4 class="fw-black mb-0 tracking-tighter">GOVT-OFFICE <span class="text-primary">MIS</span>
-                        </h4>
-                    </div>
-                    <p class="text-muted small mb-4" style="line-height: 1.6;">
-                        A robust, enterprise-grade e-governance platform built on a secure 3-tier architecture.
-                        Ensuring transparency, efficiency, and citizen-centric service delivery across all departments.
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase fw-bold text-primary mb-3">e-Governance</h5>
+                    <p class="small text-muted">
+                        A secure 3-tier architecture platform for transparent and efficient government services.
                     </p>
-                    <div class="d-flex gap-2">
-                        <a href="#"
-                            class="btn btn-sm btn-outline-secondary border-secondary border-opacity-25 rounded-circle"
-                            style="width: 32px; height: 32px; padding: 0; display: flex; align-items: center; justify-content: center;"><i
-                                class="bi bi-facebook"></i></a>
-                        <a href="#"
-                            class="btn btn-sm btn-outline-secondary border-secondary border-opacity-25 rounded-circle"
-                            style="width: 32px; height: 32px; padding: 0; display: flex; align-items: center; justify-content: center;"><i
-                                class="bi bi-twitter-x"></i></a>
-                        <a href="#"
-                            class="btn btn-sm btn-outline-secondary border-secondary border-opacity-25 rounded-circle"
-                            style="width: 32px; height: 32px; padding: 0; display: flex; align-items: center; justify-content: center;"><i
-                                class="bi bi-linkedin"></i></a>
-                    </div>
                 </div>
 
-                <!-- Quick Links -->
-                <div class="col-lg-2 col-md-6">
-                    <h6 class="text-uppercase fw-bold mb-3 small tracking-widest text-primary">Portal</h6>
+                <!-- Portal -->
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h6 class="text-uppercase fw-bold mb-3">Portal</h6>
                     <ul class="list-unstyled mb-0 small">
-                        <li class="mb-2"><a href="{% url 'core:home' %}"
-                                class="text-muted text-decoration-none hover-text-white">Home Page</a></li>
-                        <li class="mb-2"><a href="{% url 'citizen:services' %}"
-                                class="text-muted text-decoration-none hover-text-white">All Services</a></li>
-                        <li class="mb-2"><a href="{% url 'citizen:dashboard' %}"
-                                class="text-muted text-decoration-none hover-text-white">My Dashboard</a></li>
-                        <li class="mb-2"><a href="{% url 'citizen:public_track' %}"
-                                class="text-muted text-decoration-none hover-text-white">Track Application</a></li>
+                        <li class="mb-2"><a href="{% url 'core:about' %}"
+                                class="text-secondary text-decoration-none">About Portal</a></li>
+                        <li class="mb-2"><a href="{% url 'core:services_list' %}"
+                                class="text-secondary text-decoration-none">Services List</a></li>
+                        <li class="mb-2"><a href="{% url 'core:dashboard_info' %}"
+                                class="text-secondary text-decoration-none">Dashboard</a></li>
                     </ul>
                 </div>
 
                 <!-- Support -->
-                <div class="col-lg-2 col-md-6">
-                    <h6 class="text-uppercase fw-bold mb-3 small tracking-widest text-primary">Support</h6>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h6 class="text-uppercase fw-bold mb-3">Support</h6>
                     <ul class="list-unstyled mb-0 small">
+                        <li class="mb-2"><a href="{% url 'core:help' %}"
+                                class="text-secondary text-decoration-none">Help & PDF</a></li>
+                        <li class="mb-2"><a href="{% url 'core:manuals' %}"
+                                class="text-secondary text-decoration-none">User Manuals</a></li>
                         <li class="mb-2"><a href="{% url 'core:contact' %}"
-                                class="text-muted text-decoration-none hover-text-white">Contact Us</a></li>
-                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-text-white">Help
-                                Desk</a></li>
-                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-text-white">User
-                                Manuals</a></li>
-                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-text-white">FAQs</a>
-                        </li>
+                                class="text-secondary text-decoration-none">Contact Support</a></li>
                     </ul>
                 </div>
 
-                <!-- Statistics -->
-                <div class="col-lg-4 col-md-6">
-                    <h6 class="text-uppercase fw-bold mb-3 small tracking-widest text-primary">System Health</h6>
-                    <div class="bg-dark bg-opacity-50 p-3 rounded-3 border border-secondary border-opacity-10">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="small text-muted">Server Status</span>
-                            <span
-                                class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-2">Online</span>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="small text-muted">Response Time</span>
-                            <span class="small fw-bold">124ms</span>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="small text-muted">Version</span>
-                            <span class="small text-muted">v2.4.0 (Stable)</span>
-                        </div>
-                    </div>
+                <!-- Legal -->
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h6 class="text-uppercase fw-bold mb-3">Legal</h6>
+                    <ul class="list-unstyled mb-0 small">
+                        <li class="mb-2"><a href="{% url 'core:privacy' %}"
+                                class="text-secondary text-decoration-none">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="{% url 'core:terms' %}"
+                                class="text-secondary text-decoration-none">Terms of Use</a></li>
+                        <li class="mb-2"><a href="{% url 'core:accessibility' %}"
+                                class="text-secondary text-decoration-none">Accessibility</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-        <div class="py-3 bg-black border-top border-secondary border-opacity-10">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-md-6 text-center text-md-start">
-                        <p class="small text-muted mb-0">© 2025 State e-Governance Division. Digital India Initiative.
-                        </p>
-                    </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        <div class="d-flex justify-content-center justify-content-md-end gap-3 small">
-                            <a href="#" class="text-muted text-decoration-none">Privacy</a>
-                            <a href="#" class="text-muted text-decoration-none">Terms</a>
-                            <a href="#" class="text-muted text-decoration-none">Accessibility</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="text-center p-3 bg-dark text-white small">
+            © 2025 State Government e-Governance Department. All rights reserved.
         </div>
     </footer>
-
-    <style>
-        .hover-text-white:hover {
-            color: white !important;
-            transition: color 0.2s;
-        }
-
-        .bg-\[\#0b0f19\] {
-            background-color: #0b0f19 !important;
-        }
-    </style>
 
     <!-- Help Modal -->
     <div class="modal fade" id="helpModal" tabindex="-1">

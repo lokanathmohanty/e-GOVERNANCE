@@ -153,13 +153,7 @@
                         Citizen Login
                     </a>
                     {% else %}
-                    <div class="flex items-center gap-4">
-                        <div class="flex flex-col text-right d-none d-md-flex">
-                            <span class="text-sm font-bold text-gray-900 dark:text-white leading-none">{% firstof
-                                user.get_full_name user.username %}</span>
-                            <span class="text-[10px] font-medium text-gray-500 uppercase tracking-wider">{{
-                                user.get_role_display }}</span>
-                        </div>
+                    <div class="flex items-center gap-3">
                         <div class="avatar-circle">
                             {{ user.username|first|upper }}
                         </div>
@@ -196,18 +190,7 @@
                         Login</a>
                 </div>
                 {% else %}
-                <div class="pt-4 border-t border-gray-100 mt-2 flex items-center gap-3 mb-4">
-                    <div class="avatar-circle">
-                        {{ user.username|first|upper }}
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-sm font-bold text-gray-900 dark:text-white">{% firstof user.get_full_name
-                            user.username %}</span>
-                        <span class="text-[10px] uppercase tracking-wider text-gray-500">{{ user.get_role_display
-                            }}</span>
-                    </div>
-                </div>
-                <div class="pt-2">
+                <div class="pt-4 border-t border-gray-100 mt-2">
                     <a href="{% url 'accounts:logout' %}"
                         class="block py-2 text-red-500 font-bold no-underline">Logout</a>
                 </div>
