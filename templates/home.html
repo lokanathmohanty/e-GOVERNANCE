@@ -16,20 +16,24 @@
         <div
             class="w-full md:w-auto flex gap-4 overflow-x-auto whitespace-nowrap scrollbar-hide justify-center md:justify-end">
             <a href="tel:100"
-                class="flex items-center gap-1 hover:text-red-100 transition-colors no-underline text-white"><i
-                    class="bi bi-shield-fill"></i> Police (100)</a>
+                class="flex items-center gap-1 hover:text-red-100 transition-colors no-underline text-white">
+                <i class="bi bi-shield-fill"></i> <span data-i18n="em.police">Police</span> (100)
+            </a>
             <span class="opacity-50">•</span>
             <a href="tel:108"
-                class="flex items-center gap-1 hover:text-red-100 transition-colors no-underline text-white"><i
-                    class="bi bi-hospital-fill"></i> Ambulance (108)</a>
+                class="flex items-center gap-1 hover:text-red-100 transition-colors no-underline text-white">
+                <i class="bi bi-hospital-fill"></i> <span data-i18n="em.ambulance">Ambulance</span> (108)
+            </a>
             <span class="opacity-50">•</span>
             <a href="tel:1091"
-                class="flex items-center gap-1 hover:text-red-100 transition-colors no-underline text-white"><i
-                    class="bi bi-gender-female"></i> Women (1091)</a>
+                class="flex items-center gap-1 hover:text-red-100 transition-colors no-underline text-white">
+                <i class="bi bi-gender-female"></i> <span data-i18n="em.women">Women</span> (1091)
+            </a>
             <span class="opacity-50">•</span>
-            <a href="tel:108"
-                class="flex items-center gap-1 hover:text-red-100 transition-colors no-underline text-white"><i
-                    class="bi bi-cloud-lightning-rain-fill"></i> Disaster (108)</a>
+            <a href="tel:101"
+                class="flex items-center gap-1 hover:text-red-100 transition-colors no-underline text-white">
+                <i class="bi bi-fire"></i> <span data-i18n="em.fire">Fire</span> (101)
+            </a>
         </div>
     </div>
 </div>
@@ -89,12 +93,12 @@
                         <span class="size-2 rounded-full bg-primary animate-pulse"></span>
                         <span class="text-xs font-bold text-primary uppercase tracking-wide">Official Govt Portal</span>
                     </div>
-                    <h1
-                        class="text-[#111318] dark:text-white text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] tracking-[-0.033em]">
+                    <h1 class="text-[#111318] dark:text-white text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] tracking-[-0.033em]"
+                        data-i18n="hero.title">
                         e-Governance Service Management System
                     </h1>
-                    <h2
-                        class="text-[#616f89] dark:text-gray-300 text-lg md:text-xl font-normal leading-relaxed max-w-[600px]">
+                    <h2 class="text-[#616f89] dark:text-gray-300 text-lg md:text-xl font-normal leading-relaxed max-w-[600px]"
+                        data-i18n="hero.subtitle">
                         Secure, transparent citizen services. Empowering the state with a robust digital platform for
                         all administrative needs.
                     </h2>
@@ -103,12 +107,12 @@
                     <a href="{% url 'accounts:login' %}"
                         class="btn-premium btn-premium-primary text-lg !px-10 h-16 no-underline">
                         <span class="material-symbols-outlined">person</span>
-                        Citizen Login
+                        <span data-i18n="nav.login">Citizen Login</span>
                     </a>
                     <a href="{% url 'accounts:login' %}"
                         class="btn-premium bg-white dark:bg-gray-800 border-2 border-primary/20 text-primary text-lg !px-10 h-16 hover:bg-primary/5 hover:border-primary transition-all no-underline">
-                        <span class="material-symbols-outlined">admin_panel_settings</span>
-                        Officer Login
+                        <span class="material-symbols-outlined">menu_book</span>
+                        <span data-i18n="hero.cta">Apply for Services</span>
                     </a>
                 </div>
             </div>
@@ -144,11 +148,12 @@
     class="w-full bg-background-light dark:bg-background-dark py-16 px-4 flex justify-center border-t border-gray-200 dark:border-gray-800">
     <div class="max-w-[1280px] w-full flex flex-col gap-10">
         <div class="flex flex-col gap-4 text-center md:text-left">
-            <h1
-                class="text-[#111318] dark:text-white text-3xl md:text-4xl font-bold leading-tight tracking-tight max-w-[720px]">
+            <h1 class="text-[#111318] dark:text-white text-3xl md:text-4xl font-bold leading-tight tracking-tight max-w-[720px]"
+                data-i18n="nav.services">
                 Citizen Services
             </h1>
-            <p class="text-[#616f89] dark:text-gray-400 text-lg font-normal leading-normal max-w-[720px]">
+            <p class="text-[#616f89] dark:text-gray-400 text-lg font-normal leading-normal max-w-[720px]"
+                data-i18n="hero.subtitle">
                 Access essential government services with ease and transparency.
             </p>
         </div>
@@ -160,16 +165,16 @@
                     <span class="material-symbols-outlined text-[36px]">post_add</span>
                 </div>
                 <div class="flex flex-col gap-3">
-                    <h2 class="text-[#1E293B] dark:text-white text-2xl font-black tracking-tight">Apply for Services
-                    </h2>
-                    <p class="text-text-secondary dark:text-gray-400 text-base leading-relaxed">
-                        Submit applications for certificates, welfare schemes, and licenses safely from your home.
-                    </p>
+                    <h2 class="text-[#1E293B] dark:text-white text-2xl font-black tracking-tight"
+                        data-i18n="card.apply">
+                        Apply for Services</h2>
+                    <p class="text-text-secondary dark:text-gray-400 text-base leading-relaxed"
+                        data-i18n="card.apply.desc">Submit applications for
+                        certificates, welfare schemes, and licenses safely from your home.</p>
                 </div>
                 <a class="mt-auto flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all no-underline group/link"
                     href="{% url 'citizen:services' %}">
-                    Start Application
-                    <span
+                    <span data-i18n="card.apply.btn">Start Application</span> <span
                         class="material-symbols-outlined text-[20px] transition-transform group-hover/link:translate-x-1">east</span>
                 </a>
             </div>
@@ -180,14 +185,15 @@
                     <span class="material-symbols-outlined text-[36px]">search</span>
                 </div>
                 <div class="flex flex-col gap-3">
-                    <h2 class="text-[#1E293B] dark:text-white text-2xl font-black tracking-tight">Track Status</h2>
-                    <p class="text-text-secondary dark:text-gray-400 text-base leading-relaxed">
-                        Real-time tracking of your application workflow, approvals, and current pending status.
-                    </p>
+                    <h2 class="text-[#1E293B] dark:text-white text-2xl font-black tracking-tight"
+                        data-i18n="card.track">Track Status</h2>
+                    <p class="text-text-secondary dark:text-gray-400 text-base leading-relaxed"
+                        data-i18n="card.track.desc">Real-time tracking of
+                        your application workflow, approvals, and current pending status.</p>
                 </div>
                 <a class="mt-auto flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all no-underline group/link"
                     href="{% url 'citizen:dashboard' %}">
-                    Check Status <span
+                    <span data-i18n="card.track.btn">Check Status</span> <span
                         class="material-symbols-outlined text-[20px] transition-transform group-hover/link:translate-x-1">east</span>
                 </a>
             </div>
@@ -198,14 +204,16 @@
                     <span class="material-symbols-outlined text-[36px]">report_problem</span>
                 </div>
                 <div class="flex flex-col gap-3">
-                    <h2 class="text-[#1E293B] dark:text-white text-2xl font-black tracking-tight">Raise Grievance</h2>
-                    <p class="text-text-secondary dark:text-gray-400 text-base leading-relaxed">
+                    <h2 class="text-[#1E293B] dark:text-white text-2xl font-black tracking-tight"
+                        data-i18n="card.grievance">Raise Grievance</h2>
+                    <p class="text-text-secondary dark:text-gray-400 text-base leading-relaxed"
+                        data-i18n="card.grievance.desc">
                         Lodge complaints regarding civic issues and track their resolution with our transparent system.
                     </p>
                 </div>
                 <a class="mt-auto flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all no-underline group/link"
                     href="{% url 'citizen:grievances' %}">
-                    File Complaint <span
+                    <span data-i18n="card.grievance.btn">File Complaint</span> <span
                         class="material-symbols-outlined text-[20px] transition-transform group-hover/link:translate-x-1">east</span>
                 </a>
             </div>
@@ -221,8 +229,10 @@
             <span
                 class="inline-block px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-primary font-bold text-xs uppercase tracking-wider mb-4">Transparent
                 Governance</span>
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">How It Works</h2>
-            <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto text-lg">Understanding the lifecycle of your
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4" data-i18n="how.title">How It
+                Works</h2>
+            <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto text-lg" data-i18n="how.subtitle">Understanding
+                the lifecycle of your
                 application. We believe in complete transparency at every step.</p>
         </div>
 
@@ -242,8 +252,10 @@
                     <div
                         class="inline-flex px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-[10px] font-black uppercase tracking-widest text-gray-500 mb-4">
                         Process 01</div>
-                    <h3 class="text-xl font-black text-gray-900 dark:text-white mb-3 tracking-tight">Apply Online</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Submit your application with unified KYC
+                    <h3 class="text-xl font-black text-gray-900 dark:text-white mb-3 tracking-tight" data-i18n="step.1">
+                        Apply Online</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed" data-i18n="step.1.desc">Submit your application
+                        with unified KYC
                         verification.</p>
                 </div>
 
@@ -256,8 +268,10 @@
                     <div
                         class="inline-flex px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-[10px] font-black uppercase tracking-widest text-gray-500 mb-4">
                         Process 02</div>
-                    <h3 class="text-xl font-black text-gray-900 dark:text-white mb-3 tracking-tight">Verification</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Field Officer verifies docs & eligibility criteria.
+                    <h3 class="text-xl font-black text-gray-900 dark:text-white mb-3 tracking-tight" data-i18n="step.2">
+                        Verification</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed" data-i18n="step.2.desc">Field Officer verifies docs
+                        & eligibility criteria.
                     </p>
                 </div>
 
@@ -270,8 +284,10 @@
                     <div
                         class="inline-flex px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-[10px] font-black uppercase tracking-widest text-gray-500 mb-4">
                         Process 03</div>
-                    <h3 class="text-xl font-black text-gray-900 dark:text-white mb-3 tracking-tight">Approval</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Final scrutiny & digital signing by authority.</p>
+                    <h3 class="text-xl font-black text-gray-900 dark:text-white mb-3 tracking-tight" data-i18n="step.3">
+                        Approval</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed" data-i18n="step.3.desc">Final scrutiny & digital
+                        signing by authority.</p>
                 </div>
 
                 <!-- Step 4 -->
@@ -283,8 +299,10 @@
                     <div
                         class="inline-flex px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-[10px] font-black uppercase tracking-widest text-gray-500 mb-4">
                         Result 04</div>
-                    <h3 class="text-xl font-black text-gray-900 dark:text-white mb-3 tracking-tight">Delivered</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Certificate issued to your secure digital locker.
+                    <h3 class="text-xl font-black text-gray-900 dark:text-white mb-3 tracking-tight" data-i18n="step.4">
+                        Delivered</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed" data-i18n="step.4.desc">Certificate issued to your
+                        secure digital locker.
                     </p>
                 </div>
             </div>
@@ -359,8 +377,10 @@
             <span
                 class="px-3 py-1 rounded-full bg-white/10 text-blue-200 text-xs font-bold uppercase tracking-wider mb-4 inline-block backdrop-blur-sm border border-white/10">Transparency
                 Report</span>
-            <h2 class="text-3xl md:text-5xl font-black mb-4 tracking-tight">Live Impact Dashboard</h2>
-            <p class="text-blue-200 text-lg max-w-2xl mx-auto">Real-time metrics demonstrating our commitment to
+            <h2 class="text-3xl md:text-5xl font-black mb-4 tracking-tight" data-i18n="impact.title">Live Impact
+                Dashboard</h2>
+            <p class="text-blue-200 text-lg max-w-2xl mx-auto" data-i18n="impact.subtitle">Real-time metrics
+                demonstrating our commitment to
                 efficiency and transparency in public administration.</p>
         </div>
 
@@ -374,7 +394,8 @@
                 <div
                     class="text-4xl md:text-5xl font-black mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
                     {{ stats.total }}</div>
-                <div class="text-xs md:text-sm font-bold text-blue-300 uppercase tracking-widest mt-2">Applications
+                <div class="text-xs md:text-sm font-bold text-blue-300 uppercase tracking-widest mt-2"
+                    data-i18n="stats.total">Applications
                     Received</div>
             </div>
             <div
@@ -386,7 +407,8 @@
                 <div
                     class="text-4xl md:text-5xl font-black mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-green-200">
                     {{ stats.issued }}</div>
-                <div class="text-xs md:text-sm font-bold text-green-300 uppercase tracking-widest mt-2">Certificates
+                <div class="text-xs md:text-sm font-bold text-green-300 uppercase tracking-widest mt-2"
+                    data-i18n="stats.issued">Certificates
                     Issued</div>
             </div>
             <div
@@ -398,7 +420,8 @@
                 <div
                     class="text-4xl md:text-5xl font-black mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-orange-200">
                     {{ stats.time }} <span class="text-2xl text-orange-200/80">Days</span></div>
-                <div class="text-xs md:text-sm font-bold text-orange-300 uppercase tracking-widest mt-2">Avg Processing
+                <div class="text-xs md:text-sm font-bold text-orange-300 uppercase tracking-widest mt-2"
+                    data-i18n="stats.days">Avg Processing
                     Time</div>
             </div>
             <div
@@ -410,7 +433,8 @@
                 <div
                     class="text-4xl md:text-5xl font-black mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-pink-200">
                     {{ stats.satisfaction }}%</div>
-                <div class="text-xs md:text-sm font-bold text-pink-300 uppercase tracking-widest mt-2">Citizen
+                <div class="text-xs md:text-sm font-bold text-pink-300 uppercase tracking-widest mt-2"
+                    data-i18n="stats.satisfaction">Citizen
                     Satisfaction</div>
             </div>
         </div>
@@ -425,9 +449,10 @@
             <span class="material-symbols-outlined text-base">verified_user</span>
             <span class="text-xs font-bold uppercase tracking-wide">Public Verification Tool</span>
         </div>
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Check Certificate Authenticity
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4" data-i18n="verify.title">Check
+            Certificate Authenticity
         </h2>
-        <p class="text-gray-500 dark:text-gray-400 mb-10 max-w-2xl mx-auto">
+        <p class="text-gray-500 dark:text-gray-400 mb-10 max-w-2xl mx-auto" data-i18n="verify.subtitle">
             Employers, schools, and agencies can verify the validity of any document issued by this portal instantly
             using the unique Application ID.
         </p>
@@ -439,9 +464,10 @@
                     <span
                         class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 material-symbols-outlined">search</span>
                     <input type="text" id="verifyAppId" placeholder="Enter Application ID (e.g., APP12345)"
+                        data-i18n="verify.placeholder"
                         class="w-full h-14 pl-12 pr-6 search-bar-pill bg-gray-50 dark:bg-gray-900 text-lg focus:bg-white dark:focus:bg-black focus:ring-2 focus:ring-primary outline-none transition-all text-black dark:text-white font-mono uppercase placeholder-gray-400">
                 </div>
-                <button onclick="verifyCertificate()"
+                <button onclick="verifyCertificate()" data-i18n="verify.btn"
                     class="h-14 px-8 rounded-xl bg-primary hover:bg-blue-600 text-white font-bold text-lg shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 shrink-0">
                     Verify Now
                 </button>
@@ -465,17 +491,21 @@
                     <span class="text-xs font-bold text-primary uppercase tracking-wide">Public Information
                         Center</span>
                 </div>
-                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Announcements & Updates</h2>
-                <p class="text-gray-500">Stay informed about latest policies, download circulars, and check deadlines.
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="news.title">Announcements &
+                    Updates</h2>
+                <p class="text-gray-500" data-i18n="news.subtitle">Stay informed about latest policies, download
+                    circulars, and check deadlines.
                 </p>
             </div>
             <div class="flex gap-2">
                 <!-- Tabs Controller -->
                 <button onclick="filterAnnouncements('news')" id="btn-news"
-                    class="tab-btn active-tab px-4 py-2 rounded-full font-bold text-sm bg-primary text-white transition-all">Latest
+                    class="tab-btn active-tab px-4 py-2 rounded-full font-bold text-sm bg-primary text-white transition-all"
+                    data-i18n="tab.news">Latest
                     News</button>
                 <button onclick="filterAnnouncements('notices')" id="btn-notices"
-                    class="tab-btn px-4 py-2 rounded-full font-bold text-sm bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all">Circulars
+                    class="tab-btn px-4 py-2 rounded-full font-bold text-sm bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
+                    data-i18n="tab.notices">Circulars
                     & Notices</button>
             </div>
         </div>

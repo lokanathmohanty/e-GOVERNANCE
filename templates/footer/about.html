@@ -1,29 +1,238 @@
 {% extends 'base_bootstrap.html' %}
 {% block title %}About Portal | e-Governance{% endblock %}
+
 {% block content %}
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-10">
-            <h1 class="mb-4 fw-bold text-primary">About Our Portal</h1>
-            <p class="lead text-muted mb-5">Empowering citizens through transparent, efficient, and accessible digital governance.</p>
-            
-            <div class="card shadow-sm border-0 mb-4">
-                <div class="card-body p-4">
-                    <h4 class="card-title fw-bold">Our Mission</h4>
-                    <p class="card-text">To provide a single-window interface for all government services, ensuring speed, accountability, and transparency in public administration. We aim to bridge the gap between the government and citizens using cutting-edge technology.</p>
+<div class="bg-light py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'core:home' %}"
+                                class="text-decoration-none">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">About Portal</li>
+                    </ol>
+                </nav>
+
+                <!-- Header -->
+                <div class="text-center mb-5 animate-fade-in">
+                    <h1 class="display-4 fw-bold text-primary mb-3">About the Portal</h1>
+                    <p class="lead text-muted">A unified digital platform transforming public service delivery.</p>
                 </div>
-            </div>
-             <div class="card shadow-sm border-0 mb-4">
-                <div class="card-body p-4">
-                    <h4 class="card-title fw-bold">Key Objectives</h4>
-                    <ul>
-                        <li>Reduce processing time for public services.</li>
-                        <li>Eliminate corruption through digital tracking.</li>
-                        <li>Provide 24/7 access to government schemes.</li>
-                    </ul>
+
+                <!-- Overview Section -->
+                <div class="card shadow-sm border-0 mb-5 rounded-4 overflow-hidden animate-slide-up">
+                    <div class="card-body p-5">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h3 class="fw-bold text-primary mb-3">Overview</h3>
+                                <p class="text-secondary fs-6 leading-relaxed">
+                                    The <strong>e-Governance Service Management System</strong> is a state-of-the-art
+                                    digital infrastructure designed to bridge the gap between the government and its
+                                    citizens. Initiated by the Department of IT & Electronics, this portal serves as a
+                                    single-window interface for accessing over 50+ government services, ensuring
+                                    transparency, accountability, and speed in public administration.
+                                </p>
+                                <p class="text-secondary fs-6">
+                                    Built on robust, secure, and scalable technology, the portal empowers citizens to
+                                    apply for certificates, pay taxes, register grievances, and track their applications
+                                    in real-time—all from the comfort of their homes.
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <span class="material-symbols-outlined text-primary"
+                                    style="font-size: 120px; opacity: 0.1;">domain</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Vision & Mission -->
+                <div class="row mb-5">
+                    <div class="col-md-6 mb-4 mb-md-0">
+                        <div class="card h-100 shadow-premium border-0 rounded-4 animate-slide-up"
+                            style="transition-delay: 100ms;">
+                            <div class="card-body p-5 text-center">
+                                <div class="bg-blue-50 text-primary rounded-circle d-inline-flex p-3 mb-4">
+                                    <span class="material-symbols-outlined fs-2">visibility</span>
+                                </div>
+                                <h3 class="fw-bold mb-3">Our Vision</h3>
+                                <p class="text-muted">
+                                    To create a digitally empowered society where every citizen interactions with the
+                                    government is seamless, transparent, and paperless. We envision a future where
+                                    public services are delivered at the doorstep of the common man.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100 shadow-premium border-0 rounded-4 animate-slide-up"
+                            style="transition-delay: 200ms;">
+                            <div class="card-body p-5 text-center">
+                                <div class="bg-orange-50 text-orange-600 rounded-circle d-inline-flex p-3 mb-4">
+                                    <span class="material-symbols-outlined fs-2">flag</span>
+                                </div>
+                                <h3 class="fw-bold mb-3">Our Mission</h3>
+                                <p class="text-muted">
+                                    To leverage technology to simplify administrative processes, reduce turnaround
+                                    times, and eliminate corruption. We strive to provide accessible, affordable, and
+                                    accountable governance to all 45 million citizens of Odisha.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Benefits -->
+                <div class="mb-5">
+                    <h3 class="fw-bold text-center mb-4">Who Benefits?</h3>
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="p-4 bg-white rounded-4 border border-light h-100 text-center hover-lift">
+                                <h5 class="fw-bold text-dark">Citizens</h5>
+                                <hr class="w-25 mx-auto text-primary my-3">
+                                <ul class="list-unstyled text-muted small text-start mx-auto" style="max-width: 250px;">
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Apply
+                                        anytime, anywhere</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Real-time
+                                        status tracking</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Digital
+                                        document locker</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-4 bg-white rounded-4 border border-light h-100 text-center hover-lift">
+                                <h5 class="fw-bold text-dark">Officials</h5>
+                                <hr class="w-25 mx-auto text-primary my-3">
+                                <ul class="list-unstyled text-muted small text-start mx-auto" style="max-width: 250px;">
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Paperless
+                                        workflow</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Automated
+                                        notifications</li>
+                                    <li class="mb-2"><i
+                                            class="bi bi-check-circle-fill text-success me-2"></i>Data-driven dashboards
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-4 bg-white rounded-4 border border-light h-100 text-center hover-lift">
+                                <h5 class="fw-bold text-dark">Departments</h5>
+                                <hr class="w-25 mx-auto text-primary my-3">
+                                <ul class="list-unstyled text-muted small text-start mx-auto" style="max-width: 250px;">
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Inter-dept
+                                        coordination</li>
+                                    <li class="mb-2"><i
+                                            class="bi bi-check-circle-fill text-success me-2"></i>Standardized processes
+                                    </li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Efficient
+                                        resource usage</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technology Standards -->
+                <div class="card bg-primary text-white rounded-4 border-0 p-5 position-relative overflow-hidden">
+                    <div class="position-absolute top-0 end-0 opacity-10 p-4">
+                        <span class="material-symbols-outlined" style="font-size: 150px;">security</span>
+                    </div>
+                    <div class="position-relative z-1">
+                        <h3 class="fw-bold mb-4">Technology & Security Standards</h3>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="d-flex gap-3">
+                                    <span class="material-symbols-outlined">lock</span>
+                                    <div>
+                                        <h6 class="fw-bold mb-1">Data Encryption</h6>
+                                        <p class="small text-white-50">All data is transmitted via SSL/TLS encryption
+                                            and stored securely using AES-256 standards.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="d-flex gap-3">
+                                    <span class="material-symbols-outlined">verified</span>
+                                    <div>
+                                        <h6 class="fw-bold mb-1">Authenticity</h6>
+                                        <p class="small text-white-50">Integrated with Aadhaar based authentication and
+                                            Digital Signature Certificates (DSC) for validity.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="d-flex gap-3">
+                                    <span class="material-symbols-outlined">cloud_done</span>
+                                    <div>
+                                        <h6 class="fw-bold mb-1">High Availability</h6>
+                                        <p class="small text-white-50">cloud-native architecture ensures 99.9% uptime
+                                            with automated disaster recovery.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="d-flex gap-3">
+                                    <span class="material-symbols-outlined">accessibility_new</span>
+                                    <div>
+                                        <h6 class="fw-bold mb-1">Accessibility</h6>
+                                        <p class="small text-white-50">Compliant with WCAG 2.0 standards to ensure
+                                            access for all citizens, including differently-abled.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    .shadow-premium {
+        box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.05);
+    }
+
+    .hover-lift {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hover-lift:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .bg-blue-50 {
+        background-color: #eff6ff !important;
+    }
+
+    .bg-orange-50 {
+        background-color: #fff7ed !important;
+    }
+
+    .text-orange-600 {
+        color: #ea580c !important;
+    }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-slide-up {
+        animation: slideUp 0.6s ease-out forwards;
+        opacity: 0;
+    }
+</style>
 {% endblock %}

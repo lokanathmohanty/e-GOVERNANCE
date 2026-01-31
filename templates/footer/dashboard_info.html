@@ -1,38 +1,30 @@
 {% extends 'base_bootstrap.html' %}
 {% block title %}Dashboard Features | e-Governance{% endblock %}
+
 {% block content %}
-<div class="container py-5">
-    <div class="text-center mb-5">
-        <h1 class="fw-bold">Citizen Dashboard</h1>
-        <p class="lead text-muted">Your command center for all government interactions.</p>
+</div>
+<div class="col-md-6">
+    <div class="p-5 bg-light rounded-3 text-center">
+        <i class="bi bi-speedometer2 fs-1 text-primary"></i>
     </div>
-    
-    <div class="row align-items-center mb-5">
-        <div class="col-md-6">
-            <h3 class="fw-bold">Real-time status tracking</h3>
-            <p>Monitor your application progress at every step. Receive notifications when an officer reviews or approves your request.</p>
-        </div>
-        <div class="col-md-6">
-            <div class="p-5 bg-light rounded-3 text-center">
-                <i class="bi bi-speedometer2 fs-1 text-primary"></i>
-            </div>
-        </div>
+</div>
+</div>
+
+<div class="row align-items-center mb-5 flex-md-row-reverse">
+    <div class="col-md-6">
+        <h3 class="fw-bold">Digital Document Locker</h3>
+        <p>Store your verified certificates securely in the cloud. Access them anytime, anywhere without carrying
+            physical papers.</p>
     </div>
-    
-     <div class="row align-items-center mb-5 flex-md-row-reverse">
-        <div class="col-md-6">
-            <h3 class="fw-bold">Digital Document Locker</h3>
-            <p>Store your verified certificates securely in the cloud. Access them anytime, anywhere without carrying physical papers.</p>
-        </div>
-        <div class="col-md-6">
-            <div class="p-5 bg-light rounded-3 text-center">
-                <i class="bi bi-folder-check fs-1 text-success"></i>
-            </div>
+    <div class="col-md-6">
+        <div class="p-5 bg-light rounded-3 text-center">
+            <i class="bi bi-folder-check fs-1 text-success"></i>
         </div>
     </div>
-    
-    <div class="text-center">
-        <a href="{% url 'accounts:login' %}" class="btn btn-primary btn-lg px-5">Login to Dashboard</a>
-    </div>
+</div>
+
+<div class="text-center">
+    <a href="{% url 'accounts:login' %}" class="btn btn-primary btn-lg px-5">Login to Dashboard</a>
+</div>
 </div>
 {% endblock %}

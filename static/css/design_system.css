@@ -329,6 +329,47 @@ h3 {
     }
 }
 
+/* High Contrast Mode Overrides */
+html.high-contrast {
+    filter: contrast(1.5);
+    background-color: black !important;
+    color: white !important;
+}
+
+html.high-contrast * {
+    background-color: black !important;
+    color: #ffff00 !important;
+    border-color: white !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
+
+html.high-contrast a {
+    color: #00ffff !important;
+    text-decoration: underline !important;
+}
+
+html.high-contrast button,
+html.high-contrast .btn,
+html.high-contrast input,
+html.high-contrast select {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+}
+
+html.high-contrast img {
+    filter: invert(1);
+}
+
+html.high-contrast .bg-primary,
+html.high-contrast .text-primary,
+html.high-contrast .bg-white,
+html.high-contrast .bg-light {
+    background-color: transparent !important;
+    color: white !important;
+}
+
 .stagger-1 {
     animation-delay: 0.1s;
 }
