@@ -83,12 +83,19 @@ def logout_view(request):
 @login_required
 def profile_view(request):
     from .forms import UserProfileForm
-    if request.method == 'POST':
-        form = UserProfileForm(request.POST, request.FILES, instance=request.user)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Profile updated successfully!")
-            return redirect('accounts:profile')
-    else:
-        form = UserProfileForm(instance=request.user)
-    return render(request, 'accounts/profile.html', {'form': form, 'user': request.user})
+    try:
+        if request.method == 'POST':
+            form = UserProfileForm(request.POST, request.FILES, instance=request.user)
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Profile updated successfully!")
+                return redirect('accounts:profile')
+        else:
+            form = UserProfileForm(instance=request.user)
+        return render(request, 'accounts/profile.html', {'form': form, 'user': request.user})
+    except Exception as e:
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error in profile_view: {str(e)}")
+        messages.error(request, "There was an error loading your profile. Please try again later.")
+        return redirect('core:home')

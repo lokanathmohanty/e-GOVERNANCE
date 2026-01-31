@@ -11,98 +11,108 @@ from core.decorators import role_required
 @login_required
 @role_required(['citizen'])
 def dashboard(request):
-    from datetime import timedelta
-    from django.utils import timezone
-    from core.models import Department
-    
-    applications = Application.objects.filter(user=request.user).select_related('service__department').order_by('-applied_date')
-    
-    # Calculate SLA status for each application
-    now = timezone.now()
-    for app in applications:
-        try:
-            if app.status in ['approved', 'rejected']:
-                app.sla_status = 'completed'
-            else:
-                # Ensure sla_deadline is aware if naive
-                deadline = app.sla_deadline
-                if timezone.is_naive(deadline):
-                    deadline = timezone.make_aware(deadline)
-                
-                time_diff = deadline - now
-                days_remaining = time_diff.days
-                total_sla_days = app.service.processing_days
-                
-                if days_remaining < 0:
-                    app.sla_status = 'delayed'
-                    app.days_overdue = abs(days_remaining)
-                elif days_remaining <= (total_sla_days * 0.2):  # Less than 20% time remaining
-                    app.sla_status = 'near_deadline'
-                    app.days_left = days_remaining
-                else:
-                    app.sla_status = 'on_time'
-                    app.days_left = days_remaining
-        except Exception as e:
-            # Fallback for bad data to prevent crash
-            app.sla_status = 'unknown'
-            app.days_left = 0
-    
-    # Statistics
-    stats = {
-        'total': applications.count(),
-        'in_progress': applications.filter(status='under_review').count(),
-        'approved': applications.filter(status='approved').count(),
-        'rejected': applications.filter(status='rejected').count(),
-        'delayed': sum(1 for app in applications if hasattr(app, 'sla_status') and app.sla_status == 'delayed')
-    }
-    
-    approved_apps = applications.filter(status='approved')
-    departments = Department.objects.all()
-    
-    # Poll Logic
-    active_poll = None
-    has_voted = False
     try:
-        from core.models import Poll, PollVote
-        active_poll = Poll.objects.filter(is_active=True).first()
-        if active_poll:
-            has_voted = PollVote.objects.filter(user=request.user, poll=active_poll).exists()
-    except Exception:
-        pass
-
-    # Appointments
-    upcoming_appointments = []
-    try:
-        from core.models import Appointment
-        upcoming_appointments = Appointment.objects.filter(user=request.user, date__gte=timezone.now().date()).order_by('date')[:3]
-    except Exception:
-        pass
-
-    # Smart Reminders
-    reminders = []
-    try:
-        from core.models import CitizenDocumentLocker
         from datetime import timedelta
-        expiry_limit = timezone.now().date() + timedelta(days=30)
-        reminders = CitizenDocumentLocker.objects.filter(
-            user=request.user, 
-            expiry_date__lte=expiry_limit,
-            expiry_date__gte=timezone.now().date()
-        ).order_by('expiry_date')
-    except Exception:
-        pass
-    
-    context = {
-        'active_poll': active_poll,
-        'has_voted': has_voted,
-        'upcoming_appointments': upcoming_appointments,
-        'reminders': reminders,
-        'applications': applications,
-        'stats': stats,
-        'approved_apps': approved_apps,
-        'departments': departments,
-    }
-    return render(request, 'citizen/dashboard_bootstrap.html', context)
+        from django.utils import timezone
+        from core.models import Department
+        
+        applications = Application.objects.filter(user=request.user).select_related('service__department').order_by('-applied_date')
+        
+        # Calculate SLA status for each application
+        now = timezone.now()
+        for app in applications:
+            try:
+                if app.status in ['approved', 'rejected']:
+                    app.sla_status = 'completed'
+                else:
+                    # Ensure sla_deadline is aware if naive
+                    deadline = app.sla_deadline
+                    if timezone.is_naive(deadline):
+                        deadline = timezone.make_aware(deadline)
+                    
+                    time_diff = deadline - now
+                    days_remaining = time_diff.days
+                    total_sla_days = app.service.processing_days
+                    
+                    if days_remaining < 0:
+                        app.sla_status = 'delayed'
+                        app.days_overdue = abs(days_remaining)
+                    elif days_remaining <= (total_sla_days * 0.2):  # Less than 20% time remaining
+                        app.sla_status = 'near_deadline'
+                        app.days_left = days_remaining
+                    else:
+                        app.sla_status = 'on_time'
+                        app.days_left = days_remaining
+            except Exception as e:
+                # Fallback for bad data to prevent crash
+                app.sla_status = 'unknown'
+                app.days_left = 0
+        
+        # Statistics
+        stats = {
+            'total': applications.count(),
+            'in_progress': applications.filter(status='under_review').count(),
+            'approved': applications.filter(status='approved').count(),
+            'rejected': applications.filter(status='rejected').count(),
+            'delayed': sum(1 for app in applications if hasattr(app, 'sla_status') and app.sla_status == 'delayed')
+        }
+        
+        approved_apps = applications.filter(status='approved')
+        departments = Department.objects.all()
+        
+        # Poll Logic
+        active_poll = None
+        has_voted = False
+        try:
+            from core.models import Poll, PollVote
+            active_poll = Poll.objects.filter(is_active=True).first()
+            if active_poll:
+                has_voted = PollVote.objects.filter(user=request.user, poll=active_poll).exists()
+        except Exception:
+            pass
+
+        # Appointments
+        upcoming_appointments = []
+        try:
+            from core.models import Appointment
+            upcoming_appointments = Appointment.objects.filter(user=request.user, date__gte=timezone.now().date()).order_by('date')[:3]
+        except Exception:
+            pass
+
+        # Smart Reminders
+        reminders = []
+        try:
+            from core.models import CitizenDocumentLocker
+            from datetime import timedelta
+            expiry_limit = timezone.now().date() + timedelta(days=30)
+            reminders = CitizenDocumentLocker.objects.filter(
+                user=request.user, 
+                expiry_date__lte=expiry_limit,
+                expiry_date__gte=timezone.now().date()
+            ).order_by('expiry_date')
+        except Exception:
+            pass
+        
+        context = {
+            'active_poll': active_poll,
+            'has_voted': has_voted,
+            'upcoming_appointments': upcoming_appointments,
+            'reminders': reminders,
+            'applications': applications,
+            'stats': stats,
+            'approved_apps': approved_apps,
+            'departments': departments,
+        }
+        return render(request, 'citizen/dashboard_bootstrap.html', context)
+    except Exception as e:
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error(f"Critical error in citizen dashboard: {str(e)}")
+        # Provide minimal context to prevent total page crash if possible, or redirect
+        return render(request, 'citizen/dashboard_bootstrap.html', {
+            'error_message': 'Some dashboard features are temporarily unavailable.',
+            'applications': Application.objects.filter(user=request.user)
+        })
 
 @login_required
 def services_list(request):

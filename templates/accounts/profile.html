@@ -85,7 +85,7 @@
                                     <h4 class="mb-1 fw-black tracking-tight text-dark">Profile Settings</h4>
                                     <p class="text-muted small mb-0 font-medium">Update your citizen profile details</p>
                                 </div>
-                                <a href="{% if user.role == 'citizen' %}{% url 'citizen:dashboard' %}{% else %}{% url 'officer:dashboard' %}{% endif %}"
+                                <a href="{% if user.role == 'citizen' %}{% url 'citizen:dashboard' %}{% elif user.role == 'officer' %}{% url 'officer:dashboard' %}{% elif user.role == 'department_head' %}{% url 'mis:dashboard' %}{% elif user.role == 'admin' %}{% url 'admin_panel:dashboard' %}{% else %}{% url 'core:home' %}{% endif %}"
                                     class="btn btn-outline-secondary btn-sm rounded-pill px-4 fw-bold hover-lift transition-all">
                                     <i class="bi bi-arrow-left me-1"></i> Dashboard
                                 </a>
