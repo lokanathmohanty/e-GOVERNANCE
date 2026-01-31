@@ -1,4 +1,4 @@
-{% load static %}
+﻿{% load static %}
 <!DOCTYPE html>
 <html lang="en" class="light">
 
@@ -80,7 +80,8 @@
     <link rel="manifest" href="{% static 'manifest.json' %}">
     <meta name="theme-color" content="#185fec">
 
-    <!-- Custom & Animation CSS -->
+    <!-- Custom, Design System & Animation CSS -->
+    <link rel="stylesheet" href="{% static 'css/design_system.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     <link rel="stylesheet" href="{% static 'css/animations.css' %}">
 
@@ -144,8 +145,8 @@
                                 <label class="accessibility-label" data-i18n="accessibility.language">Language</label>
                                 <select class="language-select" id="languageSelect">
                                     <option value="en">English</option>
-                                    <option value="hi">हिन्दी (Hindi)</option>
-                                    <option value="es">Español (Spanish)</option>
+                                    <option value="hi">à¤¹à¤¿à¤¨à¥à¤¦à¥€ (Hindi)</option>
+                                    <option value="es">EspaÃ±ol (Spanish)</option>
                                 </select>
                             </div>
 
@@ -258,7 +259,7 @@
 
                     {% if user.is_authenticated %}
                     <div class="flex items-center gap-3">
-                        <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">{{ user.username }}</span>
+                        <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">{% firstof user.get_full_name user.username %}</span>
                         <a href="{% url 'accounts:logout' %}"
                             class="size-9 flex items-center justify-center rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-colors">
                             <span class="material-symbols-outlined text-[20px]">logout</span>
@@ -354,7 +355,7 @@
             <div class="h-px w-full bg-[#dbdfe6] dark:bg-gray-800"></div>
             <div class="flex flex-col md:flex-row items-center justify-between gap-4">
                 <p class="text-[#616f89] dark:text-gray-500 text-sm font-normal">
-                    © 2024 State Government e-Governance Dept. All rights reserved.
+                    Â© 2024 State Government e-Governance Dept. All rights reserved.
                 </p>
                 <div class="flex gap-4">
                     <span class="text-[#616f89] dark:text-gray-500 text-xs">Last Updated: Dec 19, 2024</span>

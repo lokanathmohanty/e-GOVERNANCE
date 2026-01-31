@@ -1,4 +1,4 @@
-{% load static %}
+﻿{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -138,11 +138,49 @@
         }
     </style>
 
-    <!-- Custom & Animation CSS -->
+    <!-- Custom, Design System & Animation CSS -->
+    <link rel="stylesheet" href="{% static 'css/design_system.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     <link rel="stylesheet" href="{% static 'css/animations.css' %}">
 
     {% block extra_css %}{% endblock %}
+    <style>
+        /* Mobile Navbar Adjustments */
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background: white;
+                position: fixed;
+                top: 72px;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 72px);
+                padding: 1.5rem;
+                z-index: 1000;
+                overflow-y: auto;
+                transition: transform 0.3s ease-in-out;
+                transform: translateX(-100%);
+                display: block !important;
+            }
+
+            .navbar-collapse.show {
+                transform: translateX(0);
+            }
+
+            .navbar-nav {
+                align-items: flex-start !important;
+            }
+
+            .nav-item {
+                width: 100%;
+                border-bottom: 1px solid #f1f5f9;
+            }
+
+            .nav-link {
+                padding: 1rem 0 !important;
+                font-size: 1.1rem !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -159,9 +197,12 @@
                         of e-Governance</span>
                 </div>
             </a>
-            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarNav">
-                <span class="material-symbols-outlined">menu</span>
+            <button class="navbar-toggler border-0 shadow-none p-2" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <div class="hamburger-icon">
+                    <span class="material-symbols-outlined fs-2">menu</span>
+                </div>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center gap-1">
@@ -259,10 +300,8 @@
                                 <i class="bi bi-person-fill"></i>
                             </div>
                             <div class="d-none d-md-block text-start me-1">
-                                <p class="mb-0 fw-bold text-dark lh-1" style="font-size: 0.8rem;">{% firstof
-                                    user.get_full_name user.username %}</p>
-                                <small class="text-muted" style="font-size: 0.65rem;">{{ user.get_role_display
-                                    }}</small>
+                                <p class="mb-0 fw-bold text-dark lh-1" style="font-size: 0.8rem;">{% firstof user.get_full_name user.username %}</p>
+                                <small class="text-muted" style="font-size: 0.65rem;">{{ user.get_role_display }}</small>
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 mt-3 p-2"
@@ -388,7 +427,7 @@
             </div>
         </div>
         <div class="text-center p-3 bg-dark text-white small">
-            © 2025 State Government e-Governance Department. All rights reserved.
+            Â© 2025 State Government e-Governance Department. All rights reserved.
         </div>
     </footer>
 

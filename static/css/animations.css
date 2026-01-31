@@ -226,25 +226,7 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.nav-link {
-    position: relative;
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: white;
-    transition: width 0.3s ease;
-}
-
-.nav-link.active::after,
-.nav-link:hover::after {
-    width: 100%;
-}
+/* Underline effect removed */
 
 .dropdown-menu {
     border: none;

@@ -85,15 +85,15 @@
                         all administrative needs.
                     </h2>
                 </div>
-                <div class="flex flex-wrap gap-4 mt-4">
+                <div class="flex flex-wrap gap-4 mt-6">
                     <a href="{% url 'accounts:login' %}"
-                        class="flex min-w-[140px] cursor-pointer items-center justify-center rounded-xl h-14 px-8 bg-primary text-white text-lg font-bold shadow-lg shadow-blue-200 dark:shadow-none hover:bg-blue-700 hover:scale-105 transition-all no-underline">
-                        <span class="material-symbols-outlined mr-2">person</span>
+                        class="btn-premium btn-premium-primary text-lg !px-10 h-16 no-underline">
+                        <span class="material-symbols-outlined">person</span>
                         Citizen Login
                     </a>
                     <a href="{% url 'accounts:login' %}"
-                        class="flex min-w-[140px] cursor-pointer items-center justify-center rounded-xl h-14 px-8 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-[#111318] dark:text-white text-lg font-bold hover:bg-gray-50 dark:hover:bg-gray-700 hover:scale-105 transition-all no-underline">
-                        <span class="material-symbols-outlined mr-2">admin_panel_settings</span>
+                        class="btn-premium bg-white dark:bg-gray-800 border-2 border-primary/20 text-primary text-lg !px-10 h-16 hover:bg-primary/5 hover:border-primary transition-all no-underline">
+                        <span class="material-symbols-outlined">admin_panel_settings</span>
                         Officer Login
                     </a>
                 </div>
@@ -138,60 +138,61 @@
                 Access essential government services with ease and transparency.
             </p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger-container">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 stagger-container">
             <!-- Card 1 -->
-            <div
-                class="group flex flex-col gap-5 rounded-xl border border-[#dbdfe6] dark:border-gray-700 bg-white dark:bg-[#1a202c] p-8 hover:shadow-xl hover:border-primary/50 transition-all duration-300 stagger-item">
+            <div class="card-premium flex flex-col gap-6 p-10 stagger-item">
                 <div
-                    class="size-14 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                    <span class="material-symbols-outlined text-[32px]">post_add</span>
+                    class="size-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                    <span class="material-symbols-outlined text-[36px]">post_add</span>
                 </div>
-                <div class="flex flex-col gap-2">
-                    <h2 class="text-[#111318] dark:text-white text-xl font-bold leading-tight">Apply for Services</h2>
-                    <p class="text-[#616f89] dark:text-gray-400 text-base font-normal leading-relaxed">
-                        Submit applications for certificates, welfare schemes, and licenses directly from your home.
+                <div class="flex flex-col gap-3">
+                    <h2 class="text-[#1E293B] dark:text-white text-2xl font-black tracking-tight">Apply for Services
+                    </h2>
+                    <p class="text-text-secondary dark:text-gray-400 text-base leading-relaxed">
+                        Submit applications for certificates, welfare schemes, and licenses safely from your home.
                     </p>
                 </div>
-                <a class="mt-auto inline-flex items-center text-primary font-semibold hover:gap-2 transition-all no-underline"
+                <a class="mt-auto flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all no-underline group/link"
                     href="{% url 'citizen:services' %}">
-                    Start Application <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+                    Start Application
+                    <span
+                        class="material-symbols-outlined text-[20px] transition-transform group-hover/link:translate-x-1">east</span>
                 </a>
             </div>
             <!-- Card 2 -->
-            <div
-                class="group flex flex-col gap-5 rounded-xl border border-[#dbdfe6] dark:border-gray-700 bg-white dark:bg-[#1a202c] p-8 hover:shadow-xl hover:border-primary/50 transition-all duration-300 stagger-item">
+            <div class="card-premium flex flex-col gap-6 p-10 stagger-item">
                 <div
-                    class="size-14 rounded-full bg-purple-50 dark:bg-purple-900/20 flex items-center justify-center text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform">
-                    <span class="material-symbols-outlined text-[32px]">search</span>
+                    class="size-16 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-600 transition-all duration-500">
+                    <span class="material-symbols-outlined text-[36px]">search</span>
                 </div>
-                <div class="flex flex-col gap-2">
-                    <h2 class="text-[#111318] dark:text-white text-xl font-bold leading-tight">Track Application Status
-                    </h2>
-                    <p class="text-[#616f89] dark:text-gray-400 text-base font-normal leading-relaxed">
+                <div class="flex flex-col gap-3">
+                    <h2 class="text-[#1E293B] dark:text-white text-2xl font-black tracking-tight">Track Status</h2>
+                    <p class="text-text-secondary dark:text-gray-400 text-base leading-relaxed">
                         Real-time tracking of your application workflow, approvals, and current pending status.
                     </p>
                 </div>
-                <a class="mt-auto inline-flex items-center text-primary font-semibold hover:gap-2 transition-all no-underline"
+                <a class="mt-auto flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all no-underline group/link"
                     href="{% url 'citizen:dashboard' %}">
-                    Check Status <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+                    Check Status <span
+                        class="material-symbols-outlined text-[20px] transition-transform group-hover/link:translate-x-1">east</span>
                 </a>
             </div>
             <!-- Card 3 -->
-            <div
-                class="group flex flex-col gap-5 rounded-xl border border-[#dbdfe6] dark:border-gray-700 bg-white dark:bg-[#1a202c] p-8 hover:shadow-xl hover:border-primary/50 transition-all duration-300 stagger-item">
+            <div class="card-premium flex flex-col gap-6 p-10 stagger-item">
                 <div
-                    class="size-14 rounded-full bg-orange-50 dark:bg-orange-900/20 flex items-center justify-center text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform">
-                    <span class="material-symbols-outlined text-[32px]">report_problem</span>
+                    class="size-16 rounded-2xl bg-orange-50 flex items-center justify-center text-orange-600 transition-all duration-500">
+                    <span class="material-symbols-outlined text-[36px]">report_problem</span>
                 </div>
-                <div class="flex flex-col gap-2">
-                    <h2 class="text-[#111318] dark:text-white text-xl font-bold leading-tight">Raise Grievance</h2>
-                    <p class="text-[#616f89] dark:text-gray-400 text-base font-normal leading-relaxed">
+                <div class="flex flex-col gap-3">
+                    <h2 class="text-[#1E293B] dark:text-white text-2xl font-black tracking-tight">Raise Grievance</h2>
+                    <p class="text-text-secondary dark:text-gray-400 text-base leading-relaxed">
                         Lodge complaints regarding civic issues and track their resolution with our transparent system.
                     </p>
                 </div>
-                <a class="mt-auto inline-flex items-center text-primary font-semibold hover:gap-2 transition-all no-underline"
+                <a class="mt-auto flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all no-underline group/link"
                     href="{% url 'citizen:grievances' %}">
-                    File Complaint <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+                    File Complaint <span
+                        class="material-symbols-outlined text-[20px] transition-transform group-hover/link:translate-x-1">east</span>
                 </a>
             </div>
         </div>
@@ -214,69 +215,63 @@
         <!-- Step-wise Visualization -->
         <div class="relative">
             <!-- Connecting Line -->
-            <div
-                class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-gray-200 dark:bg-gray-700 -translate-y-1/2 z-0">
+            <div class="hidden lg:block absolute top-[40px] left-0 w-full h-1 bg-gray-200 dark:bg-gray-700 z-0">
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10 stagger-container">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10 stagger-container">
                 <!-- Step 1 -->
-                <div
-                    class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 text-center group hover:-translate-y-2 transition-transform duration-300 stagger-item">
+                <div class="card-premium p-8 text-center stagger-item">
                     <div
-                        class="size-16 mx-auto bg-blue-50 dark:bg-blue-900/20 text-blue-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-sm">
-                        <span class="material-symbols-outlined text-3xl">edit_document</span>
+                        class="size-20 mx-auto bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-blue-100">
+                        <span class="material-symbols-outlined text-4xl">edit_document</span>
                     </div>
                     <div
-                        class="inline-block px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-bold text-gray-500 mb-2">
-                        Step 1</div>
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Apply Online</h3>
-                    <p class="text-sm text-gray-500">Submit your application with unified KYC. <br><span
-                            class="text-primary font-bold">Responsibility:</span> Citizen</p>
+                        class="inline-flex px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-[10px] font-black uppercase tracking-widest text-gray-500 mb-4">
+                        Process 01</div>
+                    <h3 class="text-xl font-black text-gray-900 dark:text-white mb-3 tracking-tight">Apply Online</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Submit your application with unified KYC
+                        verification.</p>
                 </div>
 
                 <!-- Step 2 -->
-                <div
-                    class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 text-center group hover:-translate-y-2 transition-transform duration-300 stagger-item">
+                <div class="card-premium p-8 text-center stagger-item">
                     <div
-                        class="size-16 mx-auto bg-purple-50 dark:bg-purple-900/20 text-purple-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-sm">
-                        <span class="material-symbols-outlined text-3xl">fact_check</span>
+                        class="size-20 mx-auto bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-purple-100">
+                        <span class="material-symbols-outlined text-4xl">fact_check</span>
                     </div>
                     <div
-                        class="inline-block px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-bold text-gray-500 mb-2">
-                        Step 2</div>
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Verification</h3>
-                    <p class="text-sm text-gray-500">Field Officer verifies docs & eligibility. <br><span
-                            class="text-primary font-bold">Responsibility:</span> VRO / Clerk</p>
+                        class="inline-flex px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-[10px] font-black uppercase tracking-widest text-gray-500 mb-4">
+                        Process 02</div>
+                    <h3 class="text-xl font-black text-gray-900 dark:text-white mb-3 tracking-tight">Verification</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Field Officer verifies docs & eligibility criteria.
+                    </p>
                 </div>
 
                 <!-- Step 3 -->
-                <div
-                    class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 text-center group hover:-translate-y-2 transition-transform duration-300 stagger-item">
+                <div class="card-premium p-8 text-center stagger-item">
                     <div
-                        class="size-16 mx-auto bg-orange-50 dark:bg-orange-900/20 text-orange-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-sm">
-                        <span class="material-symbols-outlined text-3xl">gavel</span>
+                        class="size-20 mx-auto bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-orange-100">
+                        <span class="material-symbols-outlined text-4xl">gavel</span>
                     </div>
                     <div
-                        class="inline-block px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-bold text-gray-500 mb-2">
-                        Step 3</div>
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Approving</h3>
-                    <p class="text-sm text-gray-500">Final scrutiny & digital signing. <br><span
-                            class="text-primary font-bold">Authority:</span> MRO / Dept Head</p>
+                        class="inline-flex px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-[10px] font-black uppercase tracking-widest text-gray-500 mb-4">
+                        Process 03</div>
+                    <h3 class="text-xl font-black text-gray-900 dark:text-white mb-3 tracking-tight">Approval</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Final scrutiny & digital signing by authority.</p>
                 </div>
 
                 <!-- Step 4 -->
-                <div
-                    class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 text-center group hover:-translate-y-2 transition-transform duration-300 stagger-item">
+                <div class="card-premium p-8 text-center stagger-item">
                     <div
-                        class="size-16 mx-auto bg-green-50 dark:bg-green-900/20 text-green-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-sm">
-                        <span class="material-symbols-outlined text-3xl">download_done</span>
+                        class="size-20 mx-auto bg-green-50 text-green-600 rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-green-100">
+                        <span class="material-symbols-outlined text-4xl">download_done</span>
                     </div>
                     <div
-                        class="inline-block px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-bold text-gray-500 mb-2">
-                        Step 4</div>
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Delivered</h3>
-                    <p class="text-sm text-gray-500">Certificate issued to your digital locker. <br><span
-                            class="text-primary font-bold">Outcome:</span> Valid Doc</p>
+                        class="inline-flex px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-[10px] font-black uppercase tracking-widest text-gray-500 mb-4">
+                        Result 04</div>
+                    <h3 class="text-xl font-black text-gray-900 dark:text-white mb-3 tracking-tight">Delivered</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Certificate issued to your secure digital locker.
+                    </p>
                 </div>
             </div>
         </div>

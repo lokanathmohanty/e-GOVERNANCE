@@ -6,17 +6,22 @@
 <div class="container-fluid bg-light min-vh-100">
     <div class="row">
         <!-- Sidebar -->
-        <nav class="col-md-2 d-md-block bg-white sidebar border-end">
+        <nav class="col-lg-2 d-none d-lg-block bg-white sidebar border-end shadow-sm">
             <div class="position-sticky pt-3">
-                <div class="text-center mb-4">
-                    <div class="avatar bg-primary text-white rounded-circle d-inline-flex align-items-center justify-center mb-2"
-                        style="width: 80px; height: 80px;">
-                        <i class="bi bi-person-badge fs-1"></i>
+                <div class="text-center mb-4 px-3">
+                    <div class="avatar bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow-md"
+                        style="width: 70px; height: 70px;">
+                        <i class="bi bi-person-badge fs-2"></i>
                     </div>
-                    <h6 class="mb-0">{{ user.get_full_name|default:user.username }}</h6>
-                    <small class="text-muted">Government Officer</small>
+                    <h6 class="fw-bold text-dark truncate mb-1">{{ user.get_full_name|default:user.username }}</h6>
+                    <span class="badge bg-primary-soft text-primary rounded-pill px-3 py-1 small fw-bold">GOVT
+                        OFFICER</span>
                 </div>
-                <ul class="nav flex-column mt-3">
+                <div class="px-3 mb-2">
+                    <small class="text-muted text-uppercase fw-bold opacity-50 tracking-wider"
+                        style="font-size: 0.65rem;">Navigation</small>
+                </div>
+                <ul class="nav flex-column gap-1">
                     <li class="nav-item">
                         <a class="nav-link {% if filter_type == 'all' %}active{% endif %}"
                             href="{% url 'officer:dashboard' %}">
@@ -125,79 +130,115 @@
             </div>
 
             <!-- Applications Table -->
-            <div class="card shadow-sm">
-                <div class="card-header bg-white">
-                    <h5 class="mb-0"><i class="bi bi-list-task"></i> Assigned Applications</h5>
+            <div class="card card-premium overflow-hidden">
+                <div class="card-header bg-white py-3 border-bottom d-flex align-items-center justify-content-between">
+                    <h5 class="mb-0 fw-bold"><i class="bi bi-list-task text-primary me-2"></i> Assigned Applications
+                    </h5>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle rounded-pill px-3" type="button"
+                            data-bs-toggle="dropdown">
+                            Sort By
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0">
+                            <li><a class="dropdown-item" href="#">Newest First</a></li>
+                            <li><a class="dropdown-item" href="#">Priority (High to Low)</a></li>
+                            <li><a class="dropdown-item" href="#">SLA Deadline</a></li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover mb-0">
+                    <div class="table-responsive-premium">
+                        <table class="table table-hover align-middle mb-0 table-mobile-cards">
                             <thead class="table-light">
-                                <tr>
-                                    <th>APP ID</th>
-                                    <th>CITIZEN</th>
-                                    <th>SERVICE</th>
-                                    <th>PRIORITY</th>
-                                    <th>APPLIED DATE</th>
-                                    <th>SLA</th>
-                                    <th>STATUS</th>
-                                    <th>ACTIONS</th>
+                                <tr class="text-uppercase small fw-black tracking-wider text-muted">
+                                    <th class="ps-4">App ID</th>
+                                    <th>Citizen</th>
+                                    <th>Service</th>
+                                    <th>Priority</th>
+                                    <th>Date</th>
+                                    <th>SLA Status</th>
+                                    <th>Status</th>
+                                    <th class="pe-4 text-end">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for assignment in assignments %}
                                 {% with app=assignment.application %}
-                                <tr
-                                    class="{% if app.priority == 'disaster' %}table-danger{% elif app.priority == 'emergency' %}table-warning{% endif %}">
-                                    <td class="fw-bold">#{{ app.application_number }}</td>
-                                    <td>{{ app.user.get_full_name|default:app.user.username }}</td>
-                                    <td>{{ app.service.service_name }}</td>
-                                    <td>
+                                <tr class="{% if app.priority == 'disaster' %}bg-danger bg-opacity-10{% endif %}">
+                                    <td class="ps-4 fw-bold text-dark" data-label="App ID">#{{ app.application_number }}
+                                    </td>
+                                    <td data-label="Citizen">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="size-8 rounded-circle bg-light d-flex align-items-center justify-content-center fw-bold text-primary small"
+                                                style="width: 32px; height: 32px;">
+                                                {{ app.user.username|slice:":1"|upper }}
+                                            </div>
+                                            <span>{{ app.user.get_full_name|default:app.user.username }}</span>
+                                        </div>
+                                    </td>
+                                    <td data-label="Service"><span class="fw-medium">{{ app.service.service_name
+                                            }}</span></td>
+                                    <td data-label="Priority">
                                         {% if app.priority == 'disaster' %}
-                                        <span class="badge bg-danger"><i class="bi bi-lightning-fill"></i>
-                                            Disaster</span>
+                                        <span class="badge bg-danger rounded-pill px-3"><i
+                                                class="bi bi-lightning-fill"></i> Disaster</span>
                                         {% elif app.priority == 'emergency' %}
-                                        <span class="badge bg-warning text-dark"><i
+                                        <span class="badge bg-warning text-dark rounded-pill px-3"><i
                                                 class="bi bi-exclamation-triangle"></i> Emergency</span>
                                         {% else %}
-                                        <span class="badge bg-secondary">Normal</span>
+                                        <span
+                                            class="badge bg-info bg-opacity-10 text-info border border-info rounded-pill px-3">Normal</span>
                                         {% endif %}
                                     </td>
-                                    <td>{{ app.applied_date|date:"M d, Y" }}</td>
-                                    <td>
+                                    <td data-label="Date">{{ app.applied_date|date:"d M Y" }}</td>
+                                    <td data-label="SLA">
                                         {% if app.sla_status == 'on_time' %}
-                                        <span class="text-success"><i class="bi bi-circle-fill"></i> {{ app.days_left
-                                            }}d left</span>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="progress flex-grow-1" style="height: 6px; width: 60px;">
+                                                <div class="progress-bar bg-success" style="width: 80%"></div>
+                                            </div>
+                                            <span class="text-success small fw-bold">{{ app.days_left }}d</span>
+                                        </div>
                                         {% elif app.sla_status == 'near_deadline' %}
-                                        <span class="text-warning"><i class="bi bi-circle-fill"></i> {{ app.days_left
-                                            }}d left</span>
-                                        {% elif app.sla_status == 'delayed' %}
-                                        <span class="text-danger"><i class="bi bi-circle-fill"></i> Overdue</span>
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        {% if app.status == 'pending' %}
-                                        <span class="badge bg-warning text-dark">Pending Review</span>
-                                        {% elif app.status == 'under_review' %}
-                                        <span class="badge bg-info">Under Review</span>
-                                        {% elif app.status == 'approved' %}
-                                        <span class="badge bg-success">Approved</span>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="progress flex-grow-1" style="height: 6px; width: 60px;">
+                                                <div class="progress-bar bg-warning" style="width: 30%"></div>
+                                            </div>
+                                            <span class="text-warning small fw-bold">{{ app.days_left }}d</span>
+                                        </div>
                                         {% else %}
-                                        <span class="badge bg-danger">Rejected</span>
+                                        <span
+                                            class="badge bg-danger bg-opacity-10 text-danger border border-danger">Delayed</span>
                                         {% endif %}
                                     </td>
-                                    <td>
-                                        <a href="{% url 'officer:review' app.id %}" class="btn btn-sm btn-primary">
-                                            <i class="bi bi-eye"></i> Review
+                                    <td data-label="Status">
+                                        {% if app.status == 'pending' %}
+                                        <span class="badge rounded-pill bg-warning text-dark">Pending Review</span>
+                                        {% elif app.status == 'under_review' %}
+                                        <span class="badge rounded-pill bg-primary">Under Review</span>
+                                        {% elif app.status == 'approved' %}
+                                        <span class="badge rounded-pill bg-success">Approved</span>
+                                        {% else %}
+                                        <span class="badge rounded-pill bg-danger">Rejected</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="pe-4 text-end">
+                                        <a href="{% url 'officer:review' app.id %}"
+                                            class="btn btn-premium btn-premium-primary btn-sm rounded-pill py-2 px-4 shadow-sm">
+                                            Review Case
                                         </a>
                                     </td>
                                 </tr>
                                 {% endwith %}
                                 {% empty %}
                                 <tr>
-                                    <td colspan="8" class="text-center py-5 text-muted">
-                                        <i class="bi bi-inbox fs-1 d-block mb-3"></i>
-                                        <p>No applications assigned yet</p>
+                                    <td colspan="8" class="text-center py-5">
+                                        <div class="py-5">
+                                            <i class="bi bi-inbox fs-1 text-muted opacity-25 d-block mb-3"></i>
+                                            <h5 class="text-muted">No Applications Assigned</h5>
+                                            <p class="text-muted small">When cases are assigned, they will appear here.
+                                            </p>
+                                        </div>
                                     </td>
                                 </tr>
                                 {% endfor %}

@@ -30,43 +30,39 @@
 
     <!-- Key Metrics Grid -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-        <div
-            class="bg-white dark:bg-surface-dark p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm relative overflow-hidden group">
+        <div class="card-premium p-8 relative overflow-hidden group">
             <div
                 class="absolute right-[-10px] top-[-10px] size-24 bg-primary/5 rounded-full blur-2xl group-hover:scale-150 transition-transform">
             </div>
             <div class="relative z-10">
-                <div class="text-4xl font-black text-gray-900 dark:text-white mb-2">{{ total_apps }}</div>
+                <div class="text-5xl font-black text-[#1E293B] dark:text-white mb-2">{{ total_apps }}</div>
                 <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Total Applications</div>
             </div>
         </div>
-        <div
-            class="bg-white dark:bg-surface-dark p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm relative overflow-hidden group">
+        <div class="card-premium p-8 relative overflow-hidden group">
             <div
                 class="absolute right-[-10px] top-[-10px] size-24 bg-emerald-500/5 rounded-full blur-2xl group-hover:scale-150 transition-transform">
             </div>
             <div class="relative z-10">
-                <div class="text-4xl font-black text-emerald-600 dark:text-emerald-400 mb-2">{{ approved_apps }}</div>
+                <div class="text-5xl font-black text-emerald-600 dark:text-emerald-400 mb-2">{{ approved_apps }}</div>
                 <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Successfully Approved</div>
             </div>
         </div>
-        <div
-            class="bg-white dark:bg-surface-dark p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm relative overflow-hidden group">
+        <div class="card-premium p-8 relative overflow-hidden group">
             <div
                 class="absolute right-[-10px] top-[-10px] size-24 bg-amber-500/5 rounded-full blur-2xl group-hover:scale-150 transition-transform">
             </div>
             <div class="relative z-10">
-                <div class="text-4xl font-black text-amber-600 dark:text-amber-400 mb-2">{{ pending_apps }}</div>
+                <div class="text-5xl font-black text-amber-600 dark:text-amber-400 mb-2">{{ pending_apps }}</div>
                 <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Currently Pending</div>
             </div>
         </div>
-        <div
-            class="bg-white dark:bg-surface-dark p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm relative overflow-hidden group">
+        <div class="card-premium p-8 relative overflow-hidden group">
             <div
                 class="absolute right-[-10px] top-[-10px] size-24 bg-rose-500/5 rounded-full blur-2xl group-hover:scale-150 transition-transform">
             </div>
             <div class="relative z-10">
-                <div class="text-4xl font-black text-rose-600 dark:text-rose-400 mb-2">{{ sla_breaches }}</div>
+                <div class="text-5xl font-black text-rose-600 dark:text-rose-400 mb-2">{{ sla_breaches }}</div>
                 <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest">SLA Breaches</div>
             </div>
         </div>
@@ -101,7 +97,8 @@
                             stroke="currentColor" fill="transparent" r="40" cx="50" cy="50" />
                     </svg>
                     <div class="absolute inset-0 flex flex-col items-center justify-center">
-                        <span class="text-5xl font-black text-gray-900 dark:text-white leading-none">{{ sla_compliance }}%</span>
+                        <span class="text-5xl font-black text-gray-900 dark:text-white leading-none">{{ sla_compliance
+                            }}%</span>
                         <span
                             class="text-[10px] font-black text-gray-400 uppercase tracking-widest mt-2">Compliance</span>
                     </div>
@@ -117,55 +114,59 @@
     </div>
 
     <!-- Department Performance Table -->
-    <div
-        class="bg-white dark:bg-surface-dark rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
-        <div class="px-8 py-6 border-b border-gray-100 dark:border-gray-800">
-            <h3 class="text-lg font-bold text-gray-900 dark:text-white">Departmental Performance Matrix</h3>
+    <div class="card-premium overflow-hidden">
+        <div class="px-8 py-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50">
+            <h3 class="text-lg font-black text-[#1E293B] dark:text-white tracking-tight">Departmental Performance Matrix
+            </h3>
         </div>
-        <div class="overflow-x-auto">
-            <table class="w-full text-left">
-                <thead class="bg-gray-50 dark:bg-gray-800/50">
+        <div class="table-responsive-premium">
+            <table class="w-full text-left table-mobile-cards">
+                <thead class="bg-gray-50/80 dark:bg-gray-800/50">
                     <tr>
-                        <th class="px-8 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">Department
+                        <th class="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest">Department
                         </th>
                         <th
-                            class="px-6 py-4 text-center text-[10px] font-black text-gray-500 uppercase tracking-widest">
+                            class="px-6 py-4 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">
                             Total Apps</th>
                         <th
-                            class="px-6 py-4 text-center text-[10px] font-black text-gray-500 uppercase tracking-widest">
+                            class="px-6 py-4 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">
                             Approved</th>
                         <th
-                            class="px-6 py-4 text-center text-[10px] font-black text-gray-500 uppercase tracking-widest">
+                            class="px-6 py-4 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">
                             Pending</th>
-                        <th class="px-6 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">Efficiency
-                            Rating</th>
-                        <th class="px-8 py-4 text-right text-[10px] font-black text-gray-500 uppercase tracking-widest">
+                        <th class="px-6 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest">Efficiency
+                        </th>
+                        <th class="px-8 py-4 text-right text-[10px] font-black text-gray-400 uppercase tracking-widest">
                             Status</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
                     {% for dept in dept_stats %}
-                    <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/20 transition-colors">
-                        <td class="px-8 py-6">
-                            <div class="text-sm font-bold text-gray-900 dark:text-white">{{ dept.department_name }}
+                    <tr class="hover:bg-primary/[0.02] transition-colors">
+                        <td class="px-8 py-6" data-label="Department">
+                            <div class="text-sm font-black text-[#1E293B] dark:text-white">{{ dept.department_name }}
                             </div>
-                            <div class="text-[10px] text-gray-400 font-medium">Verified Sector</div>
+                            <div class="text-[10px] font-bold text-gray-400 uppercase tracking-tight">Verified Sector
+                            </div>
                         </td>
-                        <td class="px-6 py-6 text-center text-sm font-bold text-gray-700 dark:text-gray-300">{{ dept.app_count }}</td>
-                        <td class="px-6 py-6 text-center text-sm font-bold text-emerald-600 dark:text-emerald-400">{{ dept.approved_count }}</td>
-                        <td class="px-6 py-6 text-center text-sm font-bold text-amber-600 dark:text-amber-400">{{ dept.pending_count }}</td>
-                        <td class="px-6 py-6 min-w-[200px]">
+                        <td class="px-6 py-6 text-center text-sm font-bold text-[#1E293B] dark:text-white"
+                            data-label="Total">{{ dept.app_count }}</td>
+                        <td class="px-6 py-6 text-center text-sm font-bold text-emerald-600 dark:text-emerald-400"
+                            data-label="Approved">{{ dept.approved_count }}</td>
+                        <td class="px-6 py-6 text-center text-sm font-bold text-amber-600 dark:text-amber-400"
+                            data-label="Pending">{{ dept.pending_count }}</td>
+                        <td class="px-6 py-6 min-w-[200px]" data-label="Efficiency">
                             <div class="flex items-center gap-3">
-                                <div class="flex-1 h-1.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-                                    <div class="h-full bg-primary rounded-full transition-all duration-1000"
+                                <div class="flex-1 h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-primary rounded-full transition-all duration-1000 shadow-sm"
                                         style="width: 85%"></div>
                                 </div>
-                                <span class="text-xs font-black text-gray-900 dark:text-white">85%</span>
+                                <span class="text-xs font-black text-[#1E293B] dark:text-white">85%</span>
                             </div>
                         </td>
-                        <td class="px-8 py-6 text-right">
+                        <td class="px-8 py-6 text-right" data-label="Health">
                             <span
-                                class="px-3 py-1 bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full">Outstanding</span>
+                                class="px-3 py-1 bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full border border-emerald-100">Outstanding</span>
                         </td>
                     </tr>
                     {% endfor %}
