@@ -448,15 +448,7 @@
             } catch (e) { console.error(e); }
         }
 
-        // Navbar Scroll Effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('header') || document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+        /* Navbar Scroll Effect Removed */
 
         // Scroll Reveal Animation
         const reveal = () => {

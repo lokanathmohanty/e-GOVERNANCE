@@ -25,7 +25,8 @@
                                 </div>
                                 {% endif %}
                             </div>
-                            <h3 class="fw-bold mb-1">{{ user.get_full_name|default:user.username }}</h3>
+                            <h3 class="fw-bold mb-1">{% if user.get_full_name %}{{ user.get_full_name }}{% else %}{{
+                                user.username }}{% endif %}</h3>
                             <p class="opacity-75 mb-4 text-uppercase tracking-wider small">{{ user.get_role_display }}
                             </p>
 
