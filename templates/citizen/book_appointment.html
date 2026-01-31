@@ -1,66 +1,93 @@
 {% extends 'base_bootstrap.html' %}
 {% block title %}Book Appointment | e-Gov{% endblock %}
 {% block content %}
-<div class="row justify-content-center py-5">
-    <div class="col-md-8">
-        <div class="card shadow rounded-4">
-            <div class="card-header bg-primary text-white p-4">
-                <h4 class="mb-0">Book an Appointment</h4>
-                <p class="mb-0 text-white-50">Select your preferred slot to visit a government office.</p>
+<div class="row justify-content-center py-5 reveal">
+    <div class="col-lg-8">
+        <div class="card card-premium shadow-premium border-0 overflow-hidden">
+            <div class="card-header bg-primary text-white p-5 border-0 position-relative overflow-hidden">
+                <div class="position-absolute top-0 end-0 p-4 opacity-10">
+                    <i class="bi bi-calendar-check" style="font-size: 8rem;"></i>
+                </div>
+                <div class="relative z-10">
+                    <h2 class="mb-2 fw-black tracking-tight uppercase">Visit Scheduler</h2>
+                    <p class="mb-0 opacity-75 font-medium">Reserve a priority slot at your local government service
+                        center.</p>
+                </div>
             </div>
-            <div class="card-body p-4">
-                <form method="POST">
+            <div class="card-body p-5 bg-white">
+                <form method="POST" class="space-y-6">
                     {% csrf_token %}
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Department</label>
-                        <select name="department" id="deptSelect" class="form-select" required
-                            onchange="filterCenters()">
-                            <option value="">Select Department</option>
-                            {% for d in departments %}
-                            <option value="{{ d.id }}">{{ d.department_name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Select Center</label>
-                        <select name="center" id="centerSelect" class="form-select" required>
-                            <option value="">Select Department First</option>
-                            {% for c in centers %}
-                            <option value="{{ c.id }}" data-dept="{{ c.department.id }}">{{ c.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Service (Optional)</label>
-                        <select name="service" class="form-select">
-                            <option value="">General Inquiry</option>
-                            {% for s in services %}
-                            <option value="{{ s.id }}">{{ s.service_name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold">Date</label>
-                            <input type="date" name="date" class="form-control" required min="2024-01-01">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-premium-label">Division / Department</label>
+                            <div class="position-relative">
+                                <select name="department" id="deptSelect" class="form-premium-control appearance-none"
+                                    required onchange="filterCenters()">
+                                    <option value="">Select Department</option>
+                                    {% for d in departments %}
+                                    <option value="{{ d.id }}">{{ d.department_name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <i
+                                    class="bi bi-chevron-down position-absolute top-50 end-0 translate-middle-y me-3 text-muted pointer-events-none"></i>
+                            </div>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold">Time Slot</label>
-                            <select name="time_slot" class="form-select" required>
-                                <option value="10:00 AM - 10:30 AM">10:00 AM - 10:30 AM</option>
-                                <option value="10:30 AM - 11:00 AM">10:30 AM - 11:00 AM</option>
-                                <option value="11:00 AM - 11:30 AM">11:00 AM - 11:30 AM</option>
-                                <option value="11:30 AM - 12:00 PM">11:30 AM - 12:00 PM</option>
-                                <option value="02:00 PM - 02:30 PM">02:00 PM - 02:30 PM</option>
+
+                        <div class="col-md-6">
+                            <label class="form-premium-label">Service Center</label>
+                            <div class="position-relative">
+                                <select name="center" id="centerSelect" class="form-premium-control appearance-none"
+                                    required>
+                                    <option value="">Select Department First</option>
+                                    {% for c in centers %}
+                                    <option value="{{ c.id }}" data-dept="{{ c.department.id }}">{{ c.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <i
+                                    class="bi bi-chevron-down position-absolute top-50 end-0 translate-middle-y me-3 text-muted pointer-events-none"></i>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-premium-label">Select Service (Optional)</label>
+                            <select name="service" class="form-premium-control appearance-none">
+                                <option value="">General Inquiry / Guidance</option>
+                                {% for s in services %}
+                                <option value="{{ s.id }}">{{ s.service_name }}</option>
+                                {% endfor %}
                             </select>
                         </div>
+
+                        <div class="col-md-6">
+                            <label class="form-premium-label">Appointment Date</label>
+                            <input type="date" name="date" class="form-premium-control" required min="2024-01-01">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-premium-label">Preferred Time Slot</label>
+                            <div class="position-relative">
+                                <select name="time_slot" class="form-premium-control appearance-none" required>
+                                    <option value="10:00 AM - 10:30 AM">10:00 AM - 10:30 AM (Early)</option>
+                                    <option value="10:30 AM - 11:00 AM">10:30 AM - 11:00 AM</option>
+                                    <option value="11:00 AM - 11:30 AM">11:00 AM - 11:30 AM</option>
+                                    <option value="11:30 AM - 12:00 PM">11:30 AM - 12:00 PM</option>
+                                    <option value="02:00 PM - 02:30 PM">02:00 PM - 02:30 PM (Post-Lunch)</option>
+                                </select>
+                                <i
+                                    class="bi bi-clock position-absolute top-50 end-0 translate-middle-y me-3 text-muted pointer-events-none"></i>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="d-grid mt-4">
-                        <button type="submit" class="btn btn-primary btn-lg">Confirm Booking</button>
+                    <div class="pt-4">
+                        <button type="submit"
+                            class="btn-premium btn-premium-primary w-100 py-4 shadow-lg uppercase tracking-widest fw-black">
+                            Confirm Secure Booking
+                        </button>
+                        <p class="text-center text-muted small mt-4">
+                            <i class="bi bi-info-circle"></i> Please arrive 15 minutes before your scheduled slot with
+                            valid ID proof.
+                        </p>
                     </div>
                 </form>
             </div>

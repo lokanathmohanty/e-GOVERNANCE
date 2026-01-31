@@ -6,138 +6,153 @@
 <div class="container-fluid bg-light min-vh-100 py-4">
     <div class="container">
         <!-- Welcome Header -->
-        <div class="row mb-4">
-            <div class="col-md-8">
-                <h2 class="mb-2">Welcome back, {{ user.first_name|default:user.username }}</h2>
-                <p class="text-muted">Manage your applications and certificates from a single dashboard.</p>
+        <div class="row align-items-center mb-5 reveal">
+            <div class="col-lg-8">
+                <div class="d-flex align-items-center gap-4 mb-3">
+                    <div
+                        class="size-16 rounded-4 bg-primary d-flex align-items-center justify-content-center text-white shadow-premium">
+                        <i class="bi bi-person-circle fs-1"></i>
+                    </div>
+                    <div>
+                        <h2 class="mb-1 fw-black tracking-tight">Namaste, {{ user.first_name|default:user.username }}
+                        </h2>
+                        <p class="text-muted mb-0 font-medium">Your centralized governance dashboard for SMART ODISHA.
+                        </p>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4 text-md-end">
-                <a href="{% url 'citizen:id_card' %}" class="btn btn-primary btn-sm me-2">
-                    <i class="bi bi-person-badge"></i> ID Card
-                </a>
-                <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#helpModal">
-                    <i class="bi bi-question-circle"></i> Need help?
-                </button>
+            <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                <div class="d-flex flex-wrap justify-content-lg-end gap-2">
+                    <a href="{% url 'citizen:id_card' %}" class="btn-premium btn-premium-primary py-2 px-4 shadow-sm">
+                        <i class="bi bi-person-vcard"></i> Digital ID
+                    </a>
+                    <button class="btn btn-white border-2 border-primary-soft text-primary fw-bold rounded-3 px-4"
+                        data-bs-toggle="modal" data-bs-target="#helpModal">
+                        <i class="bi bi-question-circle"></i> Support
+                    </button>
+                </div>
             </div>
         </div>
 
         <!-- Stats Cards -->
-        <div class="row g-2 mb-4 stagger-container">
-            <div class="col-6 col-md-2 stagger-item">
-                <div class="card border-start border-secondary border-3 h-100">
-                    <div class="card-body p-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <p class="text-muted small mb-1">Total</p>
-                                <h3 class="mb-0 count-up" data-value="{{ stats.total }}">0</h3>
-                            </div>
-                            <i class="bi bi-folder text-secondary fs-3 d-none d-lg-block"></i>
+        <div class="row g-3 mb-5 stagger-container reveal">
+            <div class="col-6 col-lg-2-5">
+                <div class="card card-premium h-100 border-0 p-3">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <p class="form-premium-label mb-1">Total Cases</p>
+                            <h2 class="mb-0 count-up" data-value="{{ stats.total }}">0</h2>
+                        </div>
+                        <div
+                            class="size-10 rounded-3 bg-secondary bg-opacity-10 d-flex align-items-center justify-content-center text-secondary">
+                            <i class="bi bi-folder2-open fs-5"></i>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-2 stagger-item">
-                <div class="card border-start border-warning border-3 h-100">
-                    <div class="card-body p-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <p class="text-muted small mb-1">In Progress</p>
-                                <h3 class="mb-0 count-up" data-value="{{ stats.in_progress }}">0</h3>
-                            </div>
-                            <i class="bi bi-clock-history text-warning fs-3 d-none d-lg-block"></i>
+            <div class="col-6 col-lg-2-5">
+                <div class="card card-premium h-100 border-0 p-3">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <p class="form-premium-label mb-1 text-warning">Processing</p>
+                            <h2 class="mb-0 count-up" data-value="{{ stats.in_progress }}">0</h2>
+                        </div>
+                        <div
+                            class="size-10 rounded-3 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center text-warning">
+                            <i class="bi bi-cpu fs-5"></i>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-2 stagger-item">
-                <div class="card border-start border-success border-3 h-100">
-                    <div class="card-body p-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <p class="text-muted small mb-1">Approved</p>
-                                <h3 class="mb-0 count-up" data-value="{{ stats.approved }}">0</h3>
-                            </div>
-                            <i class="bi bi-check-circle text-success fs-3 d-none d-lg-block"></i>
+            <div class="col-6 col-lg-2-5">
+                <div class="card card-premium h-100 border-0 p-3">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <p class="form-premium-label mb-1 text-success">Approved</p>
+                            <h2 class="mb-0 count-up" data-value="{{ stats.approved }}">0</h2>
+                        </div>
+                        <div
+                            class="size-10 rounded-3 bg-success bg-opacity-10 d-flex align-items-center justify-content-center text-success">
+                            <i class="bi bi-patch-check fs-5"></i>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-2 stagger-item">
-                <div class="card border-start border-danger border-3 h-100">
-                    <div class="card-body p-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <p class="text-muted small mb-1">Rejected</p>
-                                <h3 class="mb-0 count-up" data-value="{{ stats.rejected }}">0</h3>
-                            </div>
-                            <i class="bi bi-x-circle text-danger fs-3 d-none d-lg-block"></i>
+            <div class="col-6 col-lg-2-5">
+                <div class="card card-premium h-100 border-0 p-3">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <p class="form-premium-label mb-1 text-danger">Rejected</p>
+                            <h2 class="mb-0 count-up" data-value="{{ stats.rejected }}">0</h2>
+                        </div>
+                        <div
+                            class="size-10 rounded-3 bg-danger bg-opacity-10 d-flex align-items-center justify-content-center text-danger">
+                            <i class="bi bi-x-octagon fs-5"></i>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-2 stagger-item">
-                <div class="card border-start border-warning border-3 bg-warning bg-opacity-10 h-100">
-                    <div class="card-body p-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <p class="text-muted small mb-1">Delayed</p>
-                                <h3 class="mb-0 count-up" data-value="{{ stats.delayed }}">0</h3>
-                            </div>
-                            <i class="bi bi-exclamation-triangle text-warning fs-3 d-none d-lg-block"></i>
+            <div class="col-12 col-lg-2-5 mt-3 mt-lg-0">
+                <div class="card card-premium h-100 border-0 p-3 bg-primary text-white shadow-premium">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <p class="form-premium-label mb-1 text-white opacity-75">Overdue</p>
+                            <h2 class="mb-0 count-up" data-value="{{ stats.delayed }}">0</h2>
+                        </div>
+                        <div
+                            class="size-10 rounded-3 bg-white bg-opacity-20 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-alarm fs-5"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Quick Actions & Community -->
-        <!-- Main Content Card -->
-        <div class="card shadow-sm">
-            <!-- Tabs and Action Button -->
-            <div class="card-header bg-white border-bottom">
-                <div class="d-flex justify-content-between align-items-center">
-                    <ul class="nav nav-tabs card-header-tabs" role="tablist">
+        <!-- Main Card Section -->
+        <div class="card card-premium border-0 shadow-premium reveal stagger-1">
+            <div class="card-header bg-white border-bottom border-light p-4">
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-4">
+                    <ul class="nav nav-pills gap-2" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" data-bs-toggle="tab" href="#all-apps">
-                                <i class="bi bi-grid"></i> All Applications
+                            <a class="btn-premium px-4 active" data-bs-toggle="tab" href="#all-apps">
+                                <i class="bi bi-layers"></i> Applications
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#certificates">
-                                <i class="bi bi-download"></i> Downloads & Certificates
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#history">
-                                <i class="bi bi-clock-history"></i> History
+                            <a class="btn-premium px-4 text-dark hover:bg-light" data-bs-toggle="tab"
+                                href="#certificates">
+                                <i class="bi bi-shield-check"></i> Certificates
                             </a>
                         </li>
                     </ul>
-                    <a href="{% url 'citizen:services' %}" class="btn btn-primary">
-                        <i class="bi bi-plus-circle"></i> Apply for New Service
+                    <a href="{% url 'citizen:services' %}" class="btn-premium btn-premium-primary py-3 px-5 shadow-lg">
+                        <i class="bi bi-plus-lg"></i> New Application
                     </a>
                 </div>
             </div>
 
-            <!-- Filters -->
-            <div class="card-body border-bottom bg-light">
-                <div class="row g-2">
-                    <div class="col-md-4 search-bar-container">
-                        <input type="text" class="form-control search-bar-pill"
-                            placeholder="Search by App ID or Service Name" id="searchInput">
+            <div class="card-body bg-light bg-opacity-50 p-4 border-bottom">
+                <div class="row g-3">
+                    <div class="col-md-5">
+                        <div class="position-relative">
+                            <span class="position-absolute top-50 start-0 translate-middle-y ps-3 text-muted">
+                                <i class="bi bi-search"></i>
+                            </span>
+                            <input type="text" class="form-premium-control ps-5"
+                                placeholder="Filter by App ID or Service..." id="searchInput">
+                        </div>
                     </div>
                     <div class="col-md-3">
-                        <select class="form-select" id="statusFilter">
+                        <select class="form-premium-control" id="statusFilter">
                             <option value="">Status: All</option>
-                            <option value="pending">Pending</option>
+                            <option value="pending">Pending Review</option>
                             <option value="under_review">In Progress</option>
                             <option value="approved">Approved</option>
-                            <option value="rejected">Rejected</option>
                         </select>
                     </div>
-                    <div class="col-md-3">
-                        <select class="form-select" id="deptFilter">
-                            <option value="">Dept: All</option>
+                    <div class="col-md-4">
+                        <select class="form-premium-control" id="deptFilter">
+                            <option value="">Department: All</option>
                             {% for dept in departments %}
                             <option value="{{ dept.id }}">{{ dept.department_name }}</option>
                             {% endfor %}
@@ -146,485 +161,542 @@
                 </div>
             </div>
 
-            <!-- Applications Table -->
             <div class="card-body p-0">
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="all-apps">
-                        <div class="table-responsive">
-                            <table class="table table-hover mb-0">
+                        <div class="table-responsive-premium border-0 rounded-0">
+                            <table class="table table-hover align-middle mb-0 table-mobile-cards">
                                 <thead class="table-light">
-                                    <tr>
-                                        <th>APPLICATION ID</th>
-                                        <th>SERVICE NAME</th>
-                                        <th>DEPARTMENT</th>
-                                        <th>PRIORITY</th>
-                                        <th>STATUS</th>
-                                        <th>APPLIED DATE</th>
-                                        <th>SLA STATE</th>
-                                        <th>ACTIONS</th>
+                                    <tr class="small fw-black text-muted uppercase tracking-wider">
+                                        <th class="ps-4 py-3">Reference</th>
+                                        <th class="py-3">Service Details</th>
+                                        <th class="py-3">Priority</th>
+                                        <th class="py-3">SLA Status</th>
+                                        <th class="py-3">Process State</th>
+                                        <th class="pe-4 py-3 text-end">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for app in applications %}
-                                    <tr>
-                                        <td class="text-muted small">#{{ app.application_number }}</td>
-                                        <td class="fw-bold">{{ app.service.service_name }}</td>
-                                        <td class="text-muted">{{ app.service.department.department_name }}</td>
-                                        <td>
+                                    <tr class="bg-white">
+                                        <td class="ps-4 fw-bold text-dark" data-label="Reference ID">#{{
+                                            app.application_number }}</td>
+                                        <td data-label="Service">
+                                            <div class="fw-black text-dark">{{ app.service.service_name }}</div>
+                                            <div class="text-muted small">{{ app.service.department.department_name }}
+                                            </div>
+                                        </td>
+                                        <td data-label="Priority">
                                             {% if app.priority == 'disaster' %}
-                                            <span class="badge bg-danger"><i class="bi bi-lightning-fill"></i>
-                                                Emergency</span>
+                                            <span class="badge-premium badge-premium-danger">Emergency</span>
                                             {% elif app.priority == 'emergency' %}
-                                            <span class="badge bg-warning text-dark"><i
-                                                    class="bi bi-exclamation-triangle"></i> Urgent</span>
+                                            <span class="badge-premium badge-premium-warning">Urgent</span>
                                             {% else %}
-                                            <span class="badge bg-secondary">Normal</span>
+                                            <span class="badge-premium badge-premium-info">Normal</span>
                                             {% endif %}
                                         </td>
-                                        <td>
-                                            {% if app.status == 'approved' %}
-                                            <span class="badge bg-success">Approved</span>
-                                            {% elif app.status == 'rejected' %}
-                                            <span class="badge bg-danger">Rejected</span>
-                                            {% elif app.status == 'under_review' %}
-                                            <span class="badge bg-info">In Progress</span>
-                                            {% elif app.status == 'draft' %}
-                                            <span class="badge bg-secondary border">Draft</span>
-                                            {% else %}
-                                            <span class="badge bg-warning text-dark">Pending</span>
-                                            {% endif %}
-                                        </td>
-                                        <td class="text-muted">{{ app.applied_date|date:"M d, Y" }}</td>
-                                        <td>
+                                        <td data-label="SLA Deadline">
                                             {% if app.sla_status == 'on_time' %}
-                                            <span class="text-success"><i class="bi bi-circle-fill"></i> On Track</span>
-                                            <div class="small text-muted">{{ app.days_left }} days left</div>
+                                            <div class="text-success small fw-black"><i class="bi bi-check2-circle"></i>
+                                                {{ app.days_left }} Days Left</div>
                                             {% elif app.sla_status == 'near_deadline' %}
-                                            <span class="text-warning"><i class="bi bi-circle-fill"></i> Near
-                                                Deadline</span>
-                                            <div class="small text-muted">{{ app.days_left }} days left</div>
+                                            <div class="text-warning small fw-black"><i
+                                                    class="bi bi-hourglass-split"></i> {{ app.days_left }} Days Left
+                                            </div>
                                             {% elif app.sla_status == 'delayed' %}
-                                            <span class="text-danger"><i class="bi bi-circle-fill"></i> Overdue</span>
-                                            <div class="small text-muted">{{ app.days_overdue }} days overdue</div>
+                                            <div class="text-danger small fw-black"><i
+                                                    class="bi bi-exclamation-octagon"></i> Overdue</div>
                                             {% else %}
-                                            <span class="text-success"><i class="bi bi-check-circle-fill"></i>
-                                                Completed</span>
+                                            <span class="text-muted small">Processed</span>
                                             {% endif %}
                                         </td>
-                                        <td>
-                                            {% if app.status == 'draft' %}
-                                            <a href="{% url 'citizen:apply' app.service.id %}?resume={{ app.id }}"
-                                                class="btn btn-sm btn-primary fw-bold px-3">
-                                                <i class="bi bi-play-circle-fill"></i> Resume
-                                            </a>
-                                            {% else %}
-                                            <a href="{% url 'citizen:detail' app.id %}"
-                                                class="btn btn-sm btn-outline-primary me-1">
-                                                <i class="bi bi-eye"></i> View
-                                            </a>
+                                        <td data-label="Status">
                                             {% if app.status == 'approved' %}
-                                            <a href="{% url 'citizen:certificate' app.id %}"
-                                                class="btn btn-sm btn-success" target="_blank">
-                                                <i class="bi bi-download"></i>
-                                            </a>
+                                            <span class="badge-premium badge-premium-success">Approved</span>
+                                            {% elif app.status == 'rejected' %}
+                                            <span class="badge-premium badge-premium-danger">Rejected</span>
+                                            {% elif app.status == 'under_review' %}
+                                            <span class="badge-premium badge-premium-info">Under Review</span>
+                                            {% else %}
+                                            <span class="badge-premium badge-premium-warning">Pending</span>
                                             {% endif %}
-                                            {% endif %}
+                                        </td>
+                                        <td class="pe-4 text-end">
+                                            <div class="d-flex justify-content-end gap-1">
+                                                <a href="{% url 'citizen:detail' app.id %}"
+                                                    class="btn border-0 text-primary p-2 hover:bg-primary-soft rounded-3">
+                                                    <i class="bi bi-arrow-right-circle fs-5"></i>
+                                                </a>
+                                                {% if app.status == 'approved' %}
+                                                <a href="{% url 'citizen:certificate' app.id %}"
+                                                    class="btn border-0 text-success p-2 hover:bg-success-soft rounded-3"
+                                                    target="_blank">
+                                                    <i class="bi bi-file-earmark-arrow-down fs-5"></i>
+                                                </a>
+                                                {% endif %}
+                                            </div>
                                         </td>
                                     </tr>
                                     {% empty %}
                                     <tr>
-                                        <td colspan="8" class="text-center py-5 text-muted">
-                                            <i class="bi bi-inbox fs-1 d-block mb-3"></i>
-                                            <p>No applications yet</p>
-                                            <a href="{% url 'citizen:services' %}" class="btn btn-primary">Apply for
-                                                Your First Service</a>
+                                        <td colspan="6" class="text-center py-5">
+                                            <div class="py-5">
+                                                <div
+                                                    class="size-20 rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-4">
+                                                    <i class="bi bi-mailbox2 fs-1 text-muted opacity-25"></i>
+                                                </div>
+                                                <h5 class="fw-black text-dark">No active applications</h5>
+                                                <p class="text-muted small mb-4">You haven't applied for any government
+                                                    services yet.</p>
+                                                <a href="{% url 'citizen:services' %}"
+                                                    class="btn-premium btn-premium-primary">Explore Services</a>
+                                            </div>
                                         </td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
                             </table>
                         </div>
-                        {% if applications %}
-                        <div class="card-footer bg-light">
-                            <small class="text-muted">Showing 1-{{ applications|length }} of {{ stats.total }}
-                                applications</small>
-                        </div>
-                        {% endif %}
                     </div>
+                    {% if applications %}
+                    <div class="card-footer bg-light">
+                        <small class="text-muted">Showing 1-{{ applications|length }} of {{ stats.total }}
+                            applications</small>
+                    </div>
+                    {% endif %}
+                </div>
 
-                    <div class="tab-pane fade" id="certificates">
-                        <div class="p-4">
-                            <h5 class="mb-3"><i class="bi bi-award text-success"></i> Available Certificates</h5>
-                            <p class="text-muted small mb-4">Download your approved certificates below. Click the button
-                                to view and print your certificate.</p>
-                            {% for app in approved_apps %}
-                            <div class="card mb-3 border-success">
-                                <div class="card-body d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h6 class="mb-1 text-success">
-                                            <i class="bi bi-check-circle-fill"></i>
-                                            {{ app.service.service_name }}
-                                        </h6>
-                                        <small class="text-muted">
-                                            #{{ app.application_number }} •
-                                            Approved on {{ app.approved_date|date:"M d, Y" }} •
-                                            {{ app.service.department.department_name }}
-                                        </small>
+                <div class="tab-pane fade" id="certificates">
+                    <div class="p-4">
+                        <h5 class="mb-3"><i class="bi bi-award text-success"></i> Available Certificates</h5>
+                        <p class="text-muted small mb-4">Download your approved certificates below. Click the button
+                            to view and print your certificate.</p>
+                        {% for app in approved_apps %}
+                        <div class="card mb-3 border-success">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1 text-success">
+                                        <i class="bi bi-check-circle-fill"></i>
+                                        {{ app.service.service_name }}
+                                    </h6>
+                                    <small class="text-muted">
+                                        #{{ app.application_number }} •
+                                        Approved on {{ app.approved_date|date:"M d, Y" }} •
+                                        {{ app.service.department.department_name }}
+                                    </small>
+                                </div>
+                                <a href="{% url 'citizen:certificate' app.id %}" class="btn btn-success"
+                                    target="_blank">
+                                    <i class="bi bi-download"></i> Download Certificate
+                                </a>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="text-center py-5">
+                            <i class="bi bi-award fs-1 text-muted d-block mb-3"></i>
+                            <p class="text-muted">No certificates available yet.</p>
+                            <p class="small text-muted">Once your applications are approved, you can download
+                                certificates here.</p>
+                            <div class="p-5">
+                                <div class="d-flex align-items-center gap-3 mb-5">
+                                    <div
+                                        class="size-12 rounded-4 bg-success bg-opacity-10 d-flex align-items-center justify-content-center text-success">
+                                        <i class="bi bi-patch-check-fill fs-3"></i>
                                     </div>
-                                    <a href="{% url 'citizen:certificate' app.id %}" class="btn btn-success"
-                                        target="_blank">
-                                        <i class="bi bi-download"></i> Download Certificate
-                                    </a>
+                                    <div>
+                                        <h4 class="fw-black mb-1">Authenticated Certificates</h4>
+                                        <p class="text-muted mb-0 small uppercase tracking-wider fw-bold">Digitally
+                                            Signed & Validated Documents</p>
+                                    </div>
+                                </div>
+
+                                <div class="row g-4">
+                                    {% for app in approved_apps %}
+                                    <div class="col-md-6">
+                                        <div class="card card-premium shadow-sm border-0 p-4 transition-all hover-lift">
+                                            <div class="d-flex justify-content-between align-items-start mb-4">
+                                                <div>
+                                                    <h6 class="fw-black text-dark mb-1">{{ app.service.service_name }}
+                                                    </h6>
+                                                    <div class="text-muted small">ID: {{ app.application_number }}</div>
+                                                </div>
+                                                <div class="badge-premium badge-premium-success">Verified</div>
+                                            </div>
+                                            <div
+                                                class="d-flex align-items-center justify-content-between pt-3 border-top border-light">
+                                                <small class="text-muted font-medium">Issued: {{
+                                                    app.approved_date|date:"M d, Y" }}</small>
+                                                <a href="{% url 'citizen:certificate' app.id %}"
+                                                    class="btn-premium btn-premium-primary py-2 px-3 shadow-sm"
+                                                    target="_blank">
+                                                    <i class="bi bi-download"></i> Get Doc
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% empty %}
+                                    <div class="col-12 text-center py-5">
+                                        <div class="py-5 opacity-50">
+                                            <i class="bi bi-award-fill fs-1 d-block mb-3"></i>
+                                            <p class="font-medium">No certificates issued yet.</p>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
                                 </div>
                             </div>
-                            {% empty %}
-                            <div class="text-center py-5">
-                                <i class="bi bi-award fs-1 text-muted d-block mb-3"></i>
-                                <p class="text-muted">No certificates available yet.</p>
-                                <p class="small text-muted">Once your applications are approved, you can download
-                                    certificates here.</p>
+                        </div>
+
+                        <div class="tab-pane fade" id="history">
+                            <div class="p-4">
+                                <p class="text-muted">Application history will be displayed here</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Box -->
+            <div class="alert alert-info mt-4">
+                <i class="bi bi-info-circle-fill"></i> <strong>Did you know?</strong>
+                You can now download digitally signed certificates directly from the "Downloads & Certificates" tab
+                without
+                visiting the office.
+            </div>
+
+            <!-- Quick Actions & Widgets -->
+            <div class="row g-4 mt-5 reveal stagger-2">
+                <div class="col-lg-8">
+                    <h5 class="fw-black text-dark uppercase tracking-widest mb-4">
+                        <i class="bi bi-lightning-charge-fill text-warning me-2"></i> Express Portal
+                    </h5>
+                    <div class="row g-3 mb-5">
+                        <div class="col-sm-6">
+                            <a href="{% url 'citizen:book_appointment' %}"
+                                class="card card-premium border-0 p-4 text-decoration-none hover-lift h-100 shadow-sm">
+                                <div class="d-flex align-items-center gap-4">
+                                    <div
+                                        class="size-14 rounded-4 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center text-primary shadow-sm">
+                                        <i class="bi bi-calendar4-event fs-3"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-black text-dark mb-1">Book Visit</h6>
+                                        <p class="text-muted small mb-0">Schedule priority slot</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-sm-6">
+                            <a href="{% url 'citizen:family' %}"
+                                class="card card-premium border-0 p-4 text-decoration-none hover-lift h-100 shadow-sm">
+                                <div class="d-flex align-items-center gap-4">
+                                    <div
+                                        class="size-14 rounded-4 bg-success bg-opacity-10 d-flex align-items-center justify-content-center text-success shadow-sm">
+                                        <i class="bi bi-people-fill fs-3"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-black text-dark mb-1">Family Hub</h6>
+                                        <p class="text-muted small mb-0">Manage household data</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-sm-6">
+                            <button onclick="new bootstrap.Modal('#eligibilityModal').show()"
+                                class="card card-premium border-0 p-4 text-start w-100 hover-lift h-100 shadow-sm">
+                                <div class="d-flex align-items-center gap-4">
+                                    <div
+                                        class="size-14 rounded-4 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center text-warning shadow-sm">
+                                        <i class="bi bi-magic fs-3"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-black text-dark mb-1">Scheme Finder</h6>
+                                        <p class="text-muted small mb-0">Check your eligibility</p>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col-sm-6">
+                            <a href="{% url 'citizen:security' %}"
+                                class="card card-premium border-0 p-4 text-decoration-none hover-lift h-100 shadow-sm">
+                                <div class="d-flex align-items-center gap-4">
+                                    <div
+                                        class="size-14 rounded-4 bg-secondary bg-opacity-10 d-flex align-items-center justify-content-center text-secondary shadow-sm">
+                                        <i class="bi bi-shield-lock-fill fs-3"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-black text-dark mb-1">Security Wall</h6>
+                                        <p class="text-muted small mb-0">Privacy & login logs</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Appointments -->
+                    <div class="card card-premium border-0 shadow-premium overflow-hidden">
+                        <div class="card-header bg-white p-4 border-bottom border-light">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="fw-black mb-0 uppercase tracking-wider">Confirmed Appointments</h6>
+                                <a href="{% url 'citizen:appointments' %}"
+                                    class="text-primary small fw-black text-decoration-none">History <i
+                                        class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="list-group list-group-flush">
+                            {% if upcoming_appointments %}
+                            {% for appt in upcoming_appointments %}
+                            <div class="list-group-item p-4 border-light hover:bg-light transition-all">
+                                <div class="row align-items-center g-3">
+                                    <div class="col-auto">
+                                        <div class="text-center bg-primary bg-opacity-10 rounded-4 p-3 shadow-sm"
+                                            style="min-width: 70px;">
+                                            <div class="fw-black text-primary fs-4 lh-1 mb-1">{{ appt.date|date:"d" }}
+                                            </div>
+                                            <div class="uppercase small fw-bold text-muted" style="font-size: 0.65rem;">
+                                                {{ appt.date|date:"M" }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <h6 class="fw-black text-dark mb-1">{{ appt.department_center.name }}</h6>
+                                        <div class="d-flex align-items-center gap-3 text-muted small">
+                                            <span class="font-medium"><i class="bi bi-clock-history me-1"></i> {{
+                                                appt.time_slot }}</span>
+                                            <span class="badge-premium badge-premium-success">Confirmed</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button
+                                            class="btn btn-light rounded-circle size-10 d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                             {% endfor %}
+                            {% else %}
+                            <div class="p-5 text-center">
+                                <div
+                                    class="size-16 rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-3 text-muted opacity-25">
+                                    <i class="bi bi-calendar-x fs-2"></i>
+                                </div>
+                                <p class="text-muted small font-medium mb-3">No future visits scheduled.</p>
+                                <a href="{% url 'citizen:book_appointment' %}"
+                                    class="btn-premium btn-premium-primary py-2 px-4 shadow-sm">Book One Now</a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <!-- Community Voice -->
+                    <div class="card card-premium border-0 shadow-premium overflow-hidden mb-4 bg-primary text-white"
+                        style="background: linear-gradient(135deg, var(--primary-main) 0%, #92400E 100%) !important;">
+                        <div class="card-body p-4">
+                            {% if active_poll %}
+                            <div class="uppercase small fw-black tracking-widest mb-4 opacity-75">Citizen Feedback</div>
+                            <h5 class="fw-black mb-4 tracking-tight" style="line-height: 1.4;">{{ active_poll.question
+                                }}</h5>
+
+                            {% if has_voted %}
+                            <div
+                                class="bg-white bg-opacity-10 p-4 rounded-4 text-center border border-white border-opacity-20 translate-y-2">
+                                <i class="bi bi-heart-pulse-fill fs-2 d-block mb-3"></i>
+                                <h6 class="fw-black mb-1">Contribution Recorded</h6>
+                                <p class="small mb-0 opacity-75">Your voice helps shapes Odisha's digital future.</p>
+                            </div>
+                            {% else %}
+                            <form action="{% url 'citizen:vote_poll' active_poll.id %}" method="POST">
+                                {% csrf_token %}
+                                <div class="grid gap-2">
+                                    {% for opt in active_poll.options.all %}
+                                    <button type="submit" name="option" value="{{ opt.id }}"
+                                        class="btn btn-white w-100 text-start p-3 fw-bold rounded-3 hover-lift border-0 shadow-sm transition-all d-flex justify-content-between align-items-center">
+                                        {{ opt.text }}
+                                        <i class="bi bi-check2"></i>
+                                    </button>
+                                    {% endfor %}
+                                </div>
+                            </form>
+                            {% endif %}
+                            {% else %}
+                            <div class="py-4 text-center">
+                                <i class="bi bi-mic fs-1 opacity-25"></i>
+                                <p class="mt-3 font-medium">No active polls at the moment.</p>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
 
-                    <div class="tab-pane fade" id="history">
-                        <div class="p-4">
-                            <p class="text-muted">Application history will be displayed here</p>
+                    <!-- Smart Expiry Alerts -->
+                    <div class="card card-premium border-0 shadow-premium">
+                        <div class="card-header bg-white p-4 border-bottom border-light">
+                            <h6 class="fw-black mb-0 uppercase tracking-wider text-danger"><i
+                                    class="bi bi-shield-exclamation me-2"></i>Critical Expiry</h6>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Info Box -->
-        <div class="alert alert-info mt-4">
-            <i class="bi bi-info-circle-fill"></i> <strong>Did you know?</strong>
-            You can now download digitally signed certificates directly from the "Downloads & Certificates" tab without
-            visiting the office.
-        </div>
-
-        <!-- Dashboard Widgets Grid -->
-        <div class="row g-4 mb-5">
-            <!-- Left Column: Quick Actions & Appointments -->
-            <div class="col-lg-8">
-                <!-- Quick Actions Grid -->
-                <div class="d-flex align-items-center justify-content-between mb-3">
-                    <h5 class="fw-bold text-dark mb-0">🚀 Quick Actions</h5>
-                </div>
-                <div class="row g-3 mb-4 stagger-container">
-                    <div class="col-md-6 stagger-item">
-                        <a href="{% url 'citizen:book_appointment' %}"
-                            class="card h-100 border-0 shadow-sm hover-lift text-decoration-none">
-                            <div class="card-body d-flex align-items-center gap-3">
-                                <div class="bg-primary bg-opacity-10 p-3 rounded-4 text-primary">
-                                    <i class="bi bi-calendar-event fs-4"></i>
-                                </div>
-                                <div>
-                                    <h6 class="fw-bold text-dark mb-1">Book Appointment</h6>
-                                    <small class="text-muted">Schedule a visit to center</small>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-6 stagger-item">
-                        <a href="{% url 'citizen:family' %}"
-                            class="card h-100 border-0 shadow-sm hover-lift text-decoration-none">
-                            <div class="card-body d-flex align-items-center gap-3">
-                                <div class="bg-success bg-opacity-10 p-3 rounded-4 text-success">
-                                    <i class="bi bi-people fs-4"></i>
-                                </div>
-                                <div>
-                                    <h6 class="fw-bold text-dark mb-1">Family Profile</h6>
-                                    <small class="text-muted">Manage household members</small>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-6 stagger-item">
-                        <button onclick="new bootstrap.Modal('#eligibilityModal').show()"
-                            class="card h-100 border-0 shadow-sm hover-lift text-decoration-none w-100 text-start">
-                            <div class="card-body d-flex align-items-center gap-3">
-                                <div class="bg-warning bg-opacity-10 p-3 rounded-4 text-warning">
-                                    <i class="bi bi-magic fs-4"></i>
-                                </div>
-                                <div>
-                                    <h6 class="fw-bold text-dark mb-1">Check Eligibility</h6>
-                                    <small class="text-muted">Find relevant schemes</small>
-                                </div>
-                            </div>
-                        </button>
-                    </div>
-                    <div class="col-md-6 stagger-item">
-                        <a href="{% url 'citizen:security' %}"
-                            class="card h-100 border-0 shadow-sm hover-lift text-decoration-none">
-                            <div class="card-body d-flex align-items-center gap-3">
-                                <div class="bg-secondary bg-opacity-10 p-3 rounded-4 text-secondary">
-                                    <i class="bi bi-shield-lock fs-4"></i>
-                                </div>
-                                <div>
-                                    <h6 class="fw-bold text-dark mb-1">Security Center</h6>
-                                    <small class="text-muted">Login history & privacy</small>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Upcoming Appointments -->
-                <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4 mb-lg-0">
-                    <div
-                        class="card-header bg-white border-bottom border-light py-3 px-4 d-flex justify-content-between align-items-center">
-                        <h6 class="fw-bold mb-0">📅 Upcoming Appointments</h6>
-                        <a href="{% url 'citizen:appointments' %}" class="text-decoration-none small fw-bold">View
-                            All</a>
-                    </div>
-                    <div class="list-group list-group-flush">
-                        {% if upcoming_appointments %}
-                        {% for appt in upcoming_appointments %}
-                        <div class="list-group-item px-4 py-3 border-light">
-                            <div class="d-flex align-items-center">
-                                <div class="flex-shrink-0 text-center bg-light rounded-3 p-2 me-3"
-                                    style="min-width: 60px;">
-                                    <div class="fw-bold text-dark h5 mb-0">{{ appt.date|date:"d" }}</div>
-                                    <small class="text-uppercase text-muted" style="font-size: 10px;">{{
-                                        appt.date|date:"M" }}</small>
-                                </div>
+                        <div class="card-body p-4">
+                            {% if reminders %}
+                            {% for doc in reminders %}
+                            <div
+                                class="d-flex align-items-center p-3 rounded-4 bg-danger bg-opacity-5 mb-3 border-start border-danger border-4">
                                 <div class="flex-grow-1">
-                                    <h6 class="mb-1 fw-bold text-dark">{{ appt.department_center.name }}</h6>
-                                    <div class="d-flex align-items-center gap-2 text-muted small">
-                                        <span><i class="bi bi-clock me-1"></i>{{ appt.time_slot }}</span>
-                                        <span
-                                            class="badge bg-success-subtle text-success rounded-pill px-2">Confirmed</span>
-                                    </div>
+                                    <h6 class="fw-black text-dark mb-1" style="font-size: 0.9rem;">{{ doc.document_name
+                                        }}</h6>
+                                    <small class="text-danger fw-black uppercase" style="font-size: 0.65rem;">Action
+                                        Needed: {{ doc.expiry_date|date:"M d, Y" }}</small>
                                 </div>
-                                <div class="ms-3">
-                                    <a href="#" class="btn btn-sm btn-light rounded-circle"><i
-                                            class="bi bi-chevron-right"></i></a>
-                                </div>
+                                <i class="bi bi-arrow-right-short fs-4 text-danger opacity-50"></i>
                             </div>
+                            {% endfor %}
+                            <div class="text-center">
+                                <a href="{% url 'citizen:locker' %}"
+                                    class="small text-primary fw-black text-decoration-none uppercase tracking-widest">Access
+                                    Digital Locker</a>
+                            </div>
+                            {% else %}
+                            <div class="text-center py-4">
+                                <div
+                                    class="size-16 rounded-circle bg-success bg-opacity-10 d-flex align-items-center justify-content-center mx-auto mb-3 text-success">
+                                    <i class="bi bi-shield-check fs-2"></i>
+                                </div>
+                                <p class="text-muted small mb-0 font-medium">All compliance items are valid.</p>
+                            </div>
+                            {% endif %}
                         </div>
-                        {% endfor %}
-                        {% else %}
-                        <div class="p-5 text-center">
-                            <div class="mb-3 text-muted opacity-50"><i class="bi bi-calendar-x fs-1"></i></div>
-                            <h6 class="text-muted fw-normal">No upcoming appointments</h6>
-                            <a href="{% url 'citizen:book_appointment' %}"
-                                class="btn btn-sm btn-primary mt-2 rounded-pill px-4">Book Now</a>
-                        </div>
-                        {% endif %}
                     </div>
                 </div>
             </div>
 
-            <!-- Right Column: Community & Alerts -->
-            <div class="col-lg-4">
-                <!-- Poll Widget -->
-                <div class="card border-0 shadow-sm rounded-4 mb-4 text-white overflow-hidden position-relative"
-                    style="background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%); min-height: 200px;">
-                    <!-- Removed overlap icon -->
-                    <div class="card-body p-4 position-relative z-1">
-                        {% if active_poll %}
-                        <span class="badge bg-white bg-opacity-25 mb-3 border border-white border-opacity-25">COMMUNITY
-                            POLL</span>
-                        <h5 class="fw-bold mb-4 text-white" style="text-shadow: 0 2px 4px rgba(0,0,0,0.1);">{{
-                            active_poll.question }}</h5>
 
-                        {% if has_voted %}
-                        <div class="bg-white p-4 rounded-4 shadow-sm text-center">
-                            <i class="bi bi-check-circle-fill fs-1 mb-2 d-block text-success"></i>
-                            <span class="fw-bold text-dark h5 d-block mb-1">Thanks for voting!</span>
-                            <small class="text-muted">Your opinion matters.</small>
-                        </div>
-                        {% else %}
-                        <form action="{% url 'citizen:vote_poll' active_poll.id %}" method="POST">
-                            {% csrf_token %}
-                            <div class="d-grid gap-2">
-                                {% for opt in active_poll.options.all %}
-                                <button type="submit" name="option" value="{{ opt.id }}"
-                                    class="btn btn-white border-0 text-primary fw-bold text-start px-3 py-3 shadow-sm rounded-3 hover-scale">
-                                    {{ opt.text }}
-                                </button>
-                                {% endfor %}
-                            </div>
-                        </form>
-                        {% endif %}
-                        {% else %}
-                        <div class="text-center py-4 text-white text-opacity-75">
-                            <i class="bi bi-chat-square-quote fs-1"></i>
-                            <p class="mt-2 text-white">No active polls today.</p>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-
-                <!-- Smart Reminders -->
-                <div class="card border-0 shadow-sm rounded-4">
-                    <div class="card-header bg-white border-0 py-3 px-4">
-                        <h6 class="fw-bold mb-0 text-dark"><i class="bi bi-bell-fill text-warning me-2"></i>Expiry
-                            Alerts</h6>
-                    </div>
-                    <div class="card-body px-4 pb-4 pt-0">
-                        {% if reminders %}
-                        {% for doc in reminders %}
-                        <div
-                            class="d-flex align-items-center p-3 rounded-3 bg-warning bg-opacity-10 mb-2 border border-warning border-opacity-25">
-                            <div class="flex-shrink-0 text-warning">
-                                <i class="bi bi-exclamation-triangle-fill fs-4"></i>
-                            </div>
-                            <div class="ms-3 flex-grow-1">
-                                <h6 class="mb-0 fw-bold text-dark">{{ doc.document_name }}</h6>
-                                <small class="text-danger fw-bold">Expires: {{ doc.expiry_date|date:"M d, Y" }}</small>
-                            </div>
-                        </div>
-                        {% endfor %}
-                        <div class="text-center mt-3">
-                            <a href="#" class="small text-decoration-none fw-bold">View Locker <i
-                                    class="bi bi-arrow-right"></i></a>
-                        </div>
-                        {% else %}
-                        <div class="text-center py-4">
-                            <div class="d-inline-flex bg-success bg-opacity-10 p-3 rounded-circle text-success mb-3">
-                                <i class="bi bi-shield-check fs-2"></i>
-                            </div>
-                            <p class="text-muted mb-0 small">All your documents are valid and up to date.</p>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
         </div>
-
 
     </div>
 
-</div>
 
+    <script>
+        // Client-side filtering (Upgraded)
+        const searchInput = document.getElementById('searchInput');
+        const statusFilter = document.getElementById('statusFilter');
+        const deptFilter = document.getElementById('deptFilter');
 
-<script>
-    // Client-side filtering
-    document.getElementById('searchInput').addEventListener('keyup', filterTable);
-    document.getElementById('statusFilter').addEventListener('change', filterTable);
-    document.getElementById('deptFilter').addEventListener('change', filterTable);
-
-    function filterTable() {
-        const search = document.getElementById('searchInput').value.toLowerCase();
-        const status = document.getElementById('statusFilter').value.toLowerCase();
-        const dept = document.getElementById('deptFilter').value;
-
-        const rows = document.querySelectorAll('tbody tr');
-        rows.forEach(row => {
-            const text = row.textContent.toLowerCase();
-            const matchSearch = text.includes(search);
-            const matchStatus = !status || text.includes(status);
-
-            if (matchSearch && matchStatus) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
+        [searchInput, statusFilter, deptFilter].forEach(el => {
+            el.addEventListener('input', filterTable);
         });
-    }
-</script>
 
-<!-- Eligibility Modal -->
-<div class="modal fade" id="eligibilityModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content rounded-4 border-0">
-            <div class="modal-header bg-warning bg-opacity-10 border-0">
-                <h5 class="modal-title fw-bold text-dark"><i class="bi bi-magic fs-4 me-2"></i> Eligibility Wizard</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body p-4">
-                <div class="row" id="wizardQuestions">
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label fw-bold">Annual Family Income</label>
-                        <select class="form-select border-2" id="eliIncome">
-                            <option value="low">Less than ₹2.5 Lakhs</option>
-                            <option value="mid">₹2.5 Lakhs - ₹8 Lakhs</option>
-                            <option value="high">Above ₹8 Lakhs</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label fw-bold">Occupation / Status</label>
-                        <select class="form-select border-2" id="eliStatus">
-                            <option value="student">Student</option>
-                            <option value="farmer">Farmer</option>
-                            <option value="senior">Senior Citizen</option>
-                            <option value="employed">Private Employee</option>
-                            <option value="unemployed">Unemployed</option>
-                        </select>
-                    </div>
-                </div>
+        function filterTable() {
+            const query = searchInput.value.toLowerCase();
+            const status = statusFilter.value.toLowerCase();
+            const dept = deptFilter.value.toLowerCase();
 
-                <div id="eliResult" class="alert alert-success mt-3 d-none border-0 bg-success bg-opacity-10">
-                    <h6 class="fw-bold text-success mb-2"><i class="bi bi-check-circle-fill"></i> Recommended Schemes:
-                    </h6>
-                    <ul class="mb-0 small" id="eliList"></ul>
-                </div>
-            </div>
-            <div class="modal-footer border-0">
-                <button onclick="checkEligibility()" class="btn btn-warning text-dark fw-bold rounded-pill px-4">Check
-                    Eligibility</button>
-            </div>
-        </div>
-    </div>
-</div>
+            const rows = document.querySelectorAll('tbody tr:not(.empty-row)');
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                const matchQuery = text.includes(query);
+                const matchStatus = !status || text.includes(status);
+                // More specific dept matching logic if needed
 
-<script>
-    function checkEligibility() {
-        const income = document.getElementById('eliIncome').value;
-        const status = document.getElementById('eliStatus').value;
-        const list = document.getElementById('eliList');
-        const result = document.getElementById('eliResult');
+                row.style.display = (matchQuery && matchStatus) ? '' : 'none';
+            });
+        }
 
-        list.innerHTML = '';
-        const schemes = [];
+        function checkEligibility() {
+            const income = document.getElementById('eliIncome').value;
+            const status = document.getElementById('eliStatus').value;
+            const list = document.getElementById('eliList');
+            const result = document.getElementById('eliResult');
 
-        // Logic (Dummy AI)
-        if (status === 'student') schemes.push("Post-Matric Scholarship", "Free Laptop Scheme");
-        if (status === 'farmer') schemes.push("Kisan Samman Nidhi", "Crop Insurance Subsidy");
-        if (status === 'senior') schemes.push("Old Age Pension", "Senior Citizen Travel Concession");
-        if (income === 'low') schemes.push("Ration Card Priority", "Housing Subsidy (PMAY)");
-        if (status === 'unemployed') schemes.push("Skill Development Training", "Unemployment Allowance");
+            list.innerHTML = '';
+            const schemes = [];
 
-        if (schemes.length > 0) {
+            if (status === 'student') schemes.push("Biju Swasthya Kalyan (Health)", "Post-Matric Scholarship");
+            if (status === 'farmer') schemes.push("KALIA Scheme Assistance", "Seed Subsidy Program");
+            if (status === 'senior') schemes.push("Madhu Babu Pension", "Priority Medical Access");
+            if (income === 'low') schemes.push("PMAY Housing Support", "Subsidized Ration Card");
+
             schemes.forEach(s => {
                 const li = document.createElement('li');
-                li.textContent = s;
+                li.className = 'd-flex align-items-center gap-2 p-2 rounded-3 hover:bg-white transition-all fw-bold text-dark';
+                li.innerHTML = `<i class="bi bi-check2-circle text-success fw-black"></i> ${s}`;
                 list.appendChild(li);
             });
+
             result.classList.remove('d-none');
-        } else {
-            list.innerHTML = '<li>General Citizen Services</li>';
-            result.classList.remove('d-none');
+            result.classList.add('reveal');
         }
-    }
 
-    // Count-up animation
-    function animateValue(obj, start, end, duration) {
-        let startTimestamp = null;
-        const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            obj.innerHTML = Math.floor(progress * (end - start) + start);
-            if (progress < 1) {
-                window.requestAnimationFrame(step);
-            }
-        };
-        window.requestAnimationFrame(step);
-    }
+        // Count-up Utility
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start);
+                if (progress < 1) window.requestAnimationFrame(step);
+            };
+            window.requestAnimationFrame(step);
+        }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const counters = document.querySelectorAll('.count-up');
-        setTimeout(() => {
-            counters.forEach(counter => {
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.count-up').forEach(counter => {
                 const target = parseInt(counter.dataset.value);
-                if (!isNaN(target)) {
-                    animateValue(counter, 0, target, 1500);
-                }
+                if (!isNaN(target)) setTimeout(() => animateValue(counter, 0, target, 2000), 400);
             });
-        }, 500);
-    });
-</script>
-{% endblock %}
+        });
+    </script>
+
+    <!-- Eligibility Modal (Upgraded) -->
+    <div class="modal fade" id="eligibilityModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow-premium rounded-5 overflow-hidden">
+                <div class="modal-header bg-warning py-4 px-5 border-0">
+                    <div class="d-flex align-items-center gap-3">
+                        <div
+                            class="size-12 rounded-4 bg-white bg-opacity-20 d-flex align-items-center justify-content-center text-white">
+                            <i class="bi bi-magic fs-3"></i>
+                        </div>
+                        <div>
+                            <h4 class="modal-title fw-black text-white uppercase tracking-tighter">Eligibility Wizard
+                            </h4>
+                            <p class="mb-0 text-white opacity-75 small">AI-powered scheme recommendations</p>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-5">
+                    <div class="row g-4" id="wizardQuestions">
+                        <div class="col-md-6 text-start">
+                            <label class="form-premium-label">Monthly Household Income</label>
+                            <select class="form-premium-control appearance-none" id="eliIncome">
+                                <option value="low">Economic Weaker Section (< 25k)</option>
+                                <option value="mid">Middle Income Group (25k-1L)</option>
+                                <option value="high">Above 1 Lakh</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 text-start">
+                            <label class="form-premium-label">Employment Domain</label>
+                            <select class="form-premium-control appearance-none" id="eliStatus">
+                                <option value="student">Academic / Student</option>
+                                <option value="farmer">Agritech / Farmer</option>
+                                <option value="senior">Veteran / Senior</option>
+                                <option value="unemployed">Job Seeker</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="eliResult" class="mt-5 d-none">
+                        <div class="p-4 rounded-4 bg-success bg-opacity-5 border border-success border-opacity-10">
+                            <h6 class="fw-black text-success uppercase tracking-widest mb-3"><i
+                                    class="bi bi-star-fill me-2"></i>Recommended for You</h6>
+                            <ul class="list-unstyled mb-0 d-grid gap-2" id="eliList"></ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer p-4 bg-light border-0">
+                    <button onclick="checkEligibility()"
+                        class="btn-premium btn-premium-primary w-100 py-3 uppercase fw-black">Analyze
+                        Eligibility</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}

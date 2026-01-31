@@ -145,21 +145,47 @@
 
     {% block extra_css %}{% endblock %}
     <style>
-        /* Mobile Navbar Adjustments */
+        /* Mobile Navbar Adjustments - Premium Drawer */
         @media (max-width: 991.98px) {
-            .navbar-collapse {
-                background: white;
+
+            /* Backdrop */
+            .navbar-collapse::before {
+                content: '';
                 position: fixed;
-                top: 72px;
+                top: 0;
                 left: 0;
-                width: 100%;
-                height: calc(100vh - 72px);
+                width: 100vw;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.6);
+                backdrop-filter: blur(4px);
+                z-index: -1;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                pointer-events: none;
+            }
+
+            .navbar-collapse.show::before {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .navbar-collapse {
+                position: fixed;
+                top: 0;
+                right: 0;
+                left: auto;
+                width: 85%;
+                max-width: 350px;
+                height: 100vh;
+                background: #ffffff;
+                z-index: 9999;
                 padding: 1.5rem;
-                z-index: 1000;
+                /* Increased padding */
                 overflow-y: auto;
-                transition: transform 0.3s ease-in-out;
-                transform: translateX(-100%);
+                transform: translateX(100%);
+                transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
                 display: block !important;
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
             }
 
             .navbar-collapse.show {
@@ -167,17 +193,22 @@
             }
 
             .navbar-nav {
-                align-items: flex-start !important;
+                margin-top: 1rem;
             }
 
             .nav-item {
-                width: 100%;
-                border-bottom: 1px solid #f1f5f9;
+                border-bottom: 1px solid #f3f4f6;
             }
 
             .nav-link {
                 padding: 1rem 0 !important;
-                font-size: 1.1rem !important;
+                font-size: 1rem !important;
+                color: #1f2937 !important;
+            }
+
+            /* Hide Scrollbar */
+            .navbar-collapse::-webkit-scrollbar {
+                width: 0px;
             }
         }
     </style>
@@ -205,7 +236,15 @@
                 </div>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center gap-1">
+                <!-- Mobile Header with Close Button -->
+                <div class="d-flex justify-content-between align-items-center mb-4 d-lg-none border-bottom pb-3">
+                    <h5 class="fw-bold m-0 text-primary">Menu</h5>
+                    <button class="btn btn-light rounded-circle p-2" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <ul class="navbar-nav ms-auto align-items-center gap-2">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'citizen:public_track' %}">
                             <i class="bi bi-search me-1"></i> Track Status
@@ -300,8 +339,10 @@
                                 <i class="bi bi-person-fill"></i>
                             </div>
                             <div class="d-none d-md-block text-start me-1">
-                                <p class="mb-0 fw-bold text-dark lh-1" style="font-size: 0.8rem;">{% firstof user.get_full_name user.username %}</p>
-                                <small class="text-muted" style="font-size: 0.65rem;">{{ user.get_role_display }}</small>
+                                <p class="mb-0 fw-bold text-dark lh-1" style="font-size: 0.8rem;">{% firstof
+                                    user.get_full_name user.username %}</p>
+                                <small class="text-muted" style="font-size: 0.65rem;">{{ user.get_role_display
+                                    }}</small>
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 mt-3 p-2"

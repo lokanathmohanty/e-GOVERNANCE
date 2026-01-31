@@ -92,65 +92,57 @@
     class="bg-background-light dark:bg-background-dark text-[#111318] dark:text-white font-display flex flex-col min-h-screen">
     <!-- Navbar -->
     <header
-        class="sticky top-0 z-50 bg-white dark:bg-[#1a202c] border-b border-[#e5e7eb] dark:border-[#2d3748] shadow-sm">
-        <div class="max-w-[1280px] mx-auto px-4 md:px-10 py-3 flex items-center justify-between">
-            <a href="{% url 'core:home' %}" class="flex items-center gap-4 text-[#111318] dark:text-white no-underline">
-                <div class="size-10 flex items-center justify-center rounded bg-primary/10 text-primary">
-                    <span class="material-symbols-outlined text-[28px]">account_balance</span>
+        class="sticky top-0 z-50 bg-white/90 dark:bg-[#1a202c]/90 backdrop-blur-md border-b border-[#e5e7eb] dark:border-[#2d3748] shadow-sm transition-all duration-300"
+        id="mainHeader">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-8 py-3 flex items-center justify-between">
+            <a href="{% url 'core:home' %}"
+                class="flex items-center gap-3 md:gap-4 text-[#111318] dark:text-white no-underline group">
+                <div
+                    class="size-10 flex items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-sm">
+                    <span class="material-symbols-outlined text-[26px]">account_balance</span>
                 </div>
                 <div class="flex flex-col">
-                    <h2 class="text-lg font-bold leading-tight tracking-tight mb-0">Govt-Office MIS</h2>
-                    <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Department of e-Governance</span>
+                    <h2
+                        class="text-base md:text-lg font-bold leading-tight tracking-tight mb-0 group-hover:text-primary transition-colors">
+                        Govt-Office MIS</h2>
+                    <span
+                        class="text-[10px] md:text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Dept
+                        of e-Governance</span>
                 </div>
             </a>
 
+            <!-- Desktop Navigation -->
             <div class="hidden lg:flex flex-1 justify-end gap-8 items-center">
-                <nav class="flex items-center gap-6">
-                    <a class="text-[#111318] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors no-underline"
+                <nav
+                    class="flex items-center gap-1 bg-gray-50 dark:bg-gray-800/50 p-1.5 rounded-full border border-gray-100 dark:border-gray-700/50">
+                    <a class="px-4 py-1.5 rounded-full text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white hover:shadow-sm transition-all no-underline"
                         href="{% url 'core:home' %}" data-i18n="nav.home">Home</a>
-                    <a class="text-[#111318] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors no-underline"
+                    <a class="px-4 py-1.5 rounded-full text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white hover:shadow-sm transition-all no-underline"
                         href="{% url 'citizen:services' %}" data-i18n="nav.services">Services</a>
-                    <a class="text-[#111318] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors no-underline"
+                    <a class="px-4 py-1.5 rounded-full text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white hover:shadow-sm transition-all no-underline"
                         href="{% url 'citizen:grievances' %}" data-i18n="nav.grievance">Grievance</a>
-
-                    <a class="text-[#111318] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors no-underline"
-                        href="{% url 'core:contact' %}" data-i18n="nav.contact">Contact Us</a>
-
-                    {% if user.is_authenticated %}
-                    {% if user.role == 'citizen' %}
-                    <a class="text-[#111318] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors no-underline"
-                        href="{% url 'citizen:dashboard' %}" data-i18n="nav.dashboard">Dashboard</a>
-                    <a class="text-[#111318] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors no-underline"
-                        href="{% url 'citizen:locker' %}" data-i18n="nav.locker">Locker</a>
-                    {% elif user.role == 'officer' or user.role == 'department_head' %}
-                    <a class="text-[#111318] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors no-underline"
-                        href="{% url 'officer:dashboard' %}">Dashboard</a>
-                    {% elif user.role == 'admin' %}
-                    <a class="text-[#111318] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors no-underline"
-                        href="{% url 'admin_panel:dashboard' %}">Dashboard</a>
-                    {% endif %}
-                    {% endif %}
+                    <a class="px-4 py-1.5 rounded-full text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white hover:shadow-sm transition-all no-underline"
+                        href="{% url 'core:contact' %}" data-i18n="nav.contact">Contact</a>
                 </nav>
 
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-3 pl-4 border-l border-gray-200 dark:border-gray-700">
                     <!-- Accessibility Menu -->
                     <div class="relative" id="accessibilityMenu">
-                        <button class="accessibility-btn" id="accessibilityToggle" aria-label="Accessibility Options">
-                            <span class="material-symbols-outlined text-[20px]">accessibility</span>
+                        <button class="accessibility-btn hover:scale-105 transition-transform" id="accessibilityToggle"
+                            aria-label="Accessibility Options">
+                            <span class="material-symbols-outlined text-[20px]">accessibility_new</span>
                         </button>
 
                         <div class="accessibility-dropdown" id="accessibilityDropdown">
-                            <!-- Language Selection -->
+                            <!-- Accessibility content remains same -->
                             <div class="accessibility-section">
                                 <label class="accessibility-label" data-i18n="accessibility.language">Language</label>
                                 <select class="language-select" id="languageSelect">
                                     <option value="en">English</option>
-                                    <option value="hi">à¤¹à¤¿à¤¨à¥à¤¦à¥€ (Hindi)</option>
-                                    <option value="es">EspaÃ±ol (Spanish)</option>
+                                    <option value="hi">हिन्दी (Hindi)</option>
+                                    <option value="es">Español (Spanish)</option>
                                 </select>
                             </div>
-
-                            <!-- Font Size Controls -->
                             <div class="accessibility-section">
                                 <label class="accessibility-label" data-i18n="accessibility.font_size">Font Size</label>
                                 <div class="font-size-controls">
@@ -160,13 +152,10 @@
                                     <button class="font-size-btn" data-font-size="xlarge">A</button>
                                 </div>
                             </div>
-
-                            <!-- High Contrast Toggle -->
                             <div class="accessibility-section">
-                                <label class="accessibility-label" data-i18n="accessibility.contrast">High
-                                    Contrast</label>
+                                <label class="accessibility-label" data-i18n="accessibility.contrast">Display</label>
                                 <button class="contrast-toggle" id="contrastToggle">
-                                    <span class="contrast-toggle-label">Toggle Contrast</span>
+                                    <span class="contrast-toggle-label">High Contrast</span>
                                     <span class="material-symbols-outlined contrast-toggle-icon"
                                         id="contrastIcon">contrast</span>
                                 </button>
@@ -176,23 +165,22 @@
 
                     <!-- Notification Bell -->
                     {% if user.is_authenticated %}
-                    <div class="relative group mr-4">
+                    <div class="relative group">
                         <button
-                            class="flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary relative py-2">
-                            <span class="material-symbols-outlined text-[24px]">notifications</span>
+                            class="flex items-center justify-center size-9 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 hover:text-primary transition-all relative">
+                            <span class="material-symbols-outlined text-[20px]">notifications</span>
                             {% if unread_notification_count > 0 %}
                             <span
-                                class="absolute top-0 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] text-white font-bold animate-pulse">
-                                {{ unread_notification_count }}
+                                class="absolute top-1.5 right-1.5 flex h-2.5 w-2.5 rounded-full bg-red-500 ring-2 ring-white dark:ring-gray-900 animate-pulse">
                             </span>
                             {% endif %}
                         </button>
 
-                        <!-- Dropdown -->
+                        <!-- Notification Dropdown -->
                         <div
-                            class="absolute right-0 top-full mt-2 w-80 bg-white dark:bg-surface-dark rounded-xl shadow-xl border border-gray-100 dark:border-gray-800 hidden group-hover:block z-50 overflow-hidden">
+                            class="absolute right-0 top-full mt-4 w-96 bg-white dark:bg-[#1a202c] rounded-2xl shadow-premium border border-gray-100 dark:border-gray-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right z-[100]">
                             <div
-                                class="p-4 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50">
+                                class="p-4 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50 rounded-t-2xl">
                                 <h3 class="font-bold text-sm text-gray-900 dark:text-white"
                                     data-i18n="notifications.title">Notifications</h3>
                                 {% if unread_notification_count > 0 %}
@@ -200,50 +188,52 @@
                                     data-i18n="notifications.mark_all">Mark all read</button>
                                 {% endif %}
                             </div>
-                            <div class="max-h-80 overflow-y-auto">
+                            <!-- ... content ... -->
+                            <div class="max-h-[300px] overflow-y-auto scrollbar-thin">
                                 {% for notif in user_notifications %}
-                                <div class="p-4 border-b border-gray-50 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer {% if not notif.is_read %}bg-blue-50/30 dark:bg-blue-900/10{% endif %}"
+                                <div class="p-4 border-b border-gray-50 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors cursor-pointer {% if not notif.is_read %}bg-blue-50/50 dark:bg-blue-900/10{% endif %}"
                                     onclick="markRead('{{ notif.id }}')">
                                     <div class="flex gap-3">
                                         <div class="mt-0.5 shrink-0">
                                             {% if notif.notification_type == 'success' %}
                                             <span
-                                                class="material-symbols-outlined text-green-500 text-sm">check_circle</span>
+                                                class="material-symbols-outlined text-green-500 text-xl">check_circle</span>
                                             {% elif notif.notification_type == 'error' %}
-                                            <span class="material-symbols-outlined text-red-500 text-sm">error</span>
+                                            <span class="material-symbols-outlined text-red-500 text-xl">error</span>
                                             {% elif notif.notification_type == 'warning' %}
                                             <span
-                                                class="material-symbols-outlined text-amber-500 text-sm">warning</span>
+                                                class="material-symbols-outlined text-amber-500 text-xl">warning</span>
                                             {% else %}
-                                            <span class="material-symbols-outlined text-blue-500 text-sm">info</span>
+                                            <span class="material-symbols-outlined text-blue-500 text-xl">info</span>
                                             {% endif %}
                                         </div>
                                         <div>
                                             <p
-                                                class="text-sm font-semibold text-gray-900 dark:text-white leading-tight mb-1">
+                                                class="text-sm font-bold text-gray-900 dark:text-white leading-snug mb-1">
                                                 {{ notif.title }}</p>
                                             <p
                                                 class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 leading-relaxed">
                                                 {{ notif.message }}</p>
-                                            <p class="text-[10px] text-gray-400 mt-2 font-medium">{{
-                                                notif.created_at|timesince }} ago</p>
+                                            <p
+                                                class="text-[10px] text-gray-400 mt-2 font-medium flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-[10px]">schedule</span> {{
+                                                notif.created_at|timesince }} ago
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
                                 {% empty %}
                                 <div class="p-8 text-center flex flex-col items-center gap-2">
                                     <span
-                                        class="material-symbols-outlined text-gray-300 text-3xl">notifications_off</span>
-                                    <p class="text-gray-400 text-sm" data-i18n="notifications.no_new">No new
-                                        notifications</p>
+                                        class="material-symbols-outlined text-gray-300 text-4xl">notifications_off</span>
+                                    <p class="text-gray-400 text-sm">No new notifications</p>
                                 </div>
                                 {% endfor %}
                             </div>
                             <div
-                                class="p-3 bg-gray-50 dark:bg-gray-800/50 text-center border-t border-gray-100 dark:border-gray-800">
+                                class="p-3 bg-gray-50 dark:bg-gray-800/50 text-center border-t border-gray-100 dark:border-gray-800 rounded-b-2xl">
                                 <a href="{% url 'core:notifications' %}"
-                                    class="text-xs font-bold text-primary hover:underline block w-full h-full"
-                                    data-i18n="notifications.view_all">View All
+                                    class="text-xs font-bold text-primary hover:underline block w-full">View All
                                     History</a>
                             </div>
                         </div>
@@ -251,35 +241,149 @@
                     {% endif %}
 
                     <button
-                        class="flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary"
+                        class="flex items-center justify-center size-9 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 hover:text-primary transition-all"
                         id="themeToggle">
                         <span class="material-symbols-outlined text-[20px]" id="themeIcon">dark_mode</span>
                     </button>
-                    <div class="h-6 w-px bg-gray-200 dark:bg-gray-700"></div>
+
+                    <div class="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2"></div>
 
                     {% if user.is_authenticated %}
-                    <div class="flex items-center gap-3">
-                        <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">{% firstof user.get_full_name user.username %}</span>
-                        <a href="{% url 'accounts:logout' %}"
-                            class="size-9 flex items-center justify-center rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-colors">
-                            <span class="material-symbols-outlined text-[20px]">logout</span>
-                        </a>
+                    <div class="relative group">
+                        <button class="flex items-center gap-2 focus:outline-none">
+                            {% if user.profile_picture %}
+                            <img src="{{ user.profile_picture.url }}"
+                                class="size-9 rounded-full border border-gray-200 dark:border-gray-700 object-cover">
+                            {% else %}
+                            <div
+                                class="size-9 rounded-full bg-primary text-white flex items-center justify-center text-sm font-bold shadow-sm">
+                                {{ user.username|make_list|first|upper }}
+                            </div>
+                            {% endif %}
+                            <span
+                                class="hidden md:block text-sm font-semibold text-gray-700 dark:text-gray-200 max-w-[100px] truncate">
+                                {% firstof user.get_full_name user.username %}
+                            </span>
+                            <span class="material-symbols-outlined text-gray-400 text-lg">expand_more</span>
+                        </button>
+
+                        <!-- User Dropdown -->
+                        <div
+                            class="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-[#1a202c] rounded-xl shadow-premium border border-gray-100 dark:border-gray-800 hidden group-hover:block p-2 z-50">
+                            {% if user.role == 'citizen' %}
+                            <a href="{% url 'citizen:dashboard' %}"
+                                class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg transition-colors no-underline">
+                                <span class="material-symbols-outlined text-lg">dashboard</span> Dashboard
+                            </a>
+                            <a href="{% url 'accounts:profile' %}"
+                                class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg transition-colors no-underline">
+                                <span class="material-symbols-outlined text-lg">person</span> Profile
+                            </a>
+                            <a href="{% url 'citizen:locker' %}"
+                                class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg transition-colors no-underline">
+                                <span class="material-symbols-outlined text-lg">folder_shared</span> Locker
+                            </a>
+                            {% elif user.role == 'officer' or user.role == 'department_head' %}
+                            <a href="{% url 'officer:dashboard' %}"
+                                class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg transition-colors no-underline">
+                                <span class="material-symbols-outlined text-lg">dashboard</span> Officer Dash
+                            </a>
+                            {% endif %}
+                            <div class="h-px bg-gray-100 dark:bg-gray-700 my-1"></div>
+                            <a href="{% url 'accounts:logout' %}"
+                                class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-lg transition-colors no-underline">
+                                <span class="material-symbols-outlined text-lg">logout</span> Logout
+                            </a>
+                        </div>
                     </div>
                     {% else %}
                     <a href="{% url 'accounts:login' %}"
-                        class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-blue-700 transition-colors shadow-sm no-underline">
-                        Citizen Login
+                        class="flex items-center justify-center rounded-xl h-10 px-5 bg-primary hover:bg-primary-dark text-white text-sm font-bold shadow-sm shadow-primary/30 hover:shadow-primary/50 transition-all transform hover:-translate-y-0.5 no-underline">
+                        Login
                     </a>
                     {% endif %}
                 </div>
             </div>
 
-            <!-- Mobile Menu Icon (Simplified for now) -->
-            <button class="lg:hidden text-gray-700 dark:text-white">
-                <span class="material-symbols-outlined">menu</span>
+            <!-- Mobile Menu Button -->
+            <button
+                class="lg:hidden p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                onclick="toggleMobileMenu()">
+                <span class="material-symbols-outlined text-2xl">menu</span>
             </button>
         </div>
     </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenu" class="fixed inset-0 z-[60] opacity-0 invisible transition-all duration-300 lg:hidden">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300"
+            onclick="toggleMobileMenu()"></div>
+
+        <!-- Drawer -->
+        <nav
+            class="absolute top-0 right-0 w-[85%] max-w-sm h-full bg-white dark:bg-[#1a202c] shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+            <div class="p-5 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
+                <span class="text-lg font-bold text-gray-900 dark:text-white">Menu</span>
+                <button onclick="toggleMobileMenu()"
+                    class="p-2 -mr-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors">
+                    <span class="material-symbols-outlined text-2xl">close</span>
+                </button>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-5 py-6 flex flex-col gap-2">
+                <a href="{% url 'core:home' %}"
+                    class="flex items-center gap-4 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-200 hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20 transition-all font-medium no-underline">
+                    <span class="material-symbols-outlined">home</span> Home
+                </a>
+                <a href="{% url 'citizen:services' %}"
+                    class="flex items-center gap-4 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-200 hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20 transition-all font-medium no-underline">
+                    <span class="material-symbols-outlined">grid_view</span> Services
+                </a>
+                <a href="{% url 'citizen:grievances' %}"
+                    class="flex items-center gap-4 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-200 hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20 transition-all font-medium no-underline">
+                    <span class="material-symbols-outlined">report_problem</span> Grievances
+                </a>
+                <a href="{% url 'core:contact' %}"
+                    class="flex items-center gap-4 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-200 hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20 transition-all font-medium no-underline">
+                    <span class="material-symbols-outlined">perm_phone_msg</span> Contact Us
+                </a>
+
+                <div class="border-t border-gray-100 dark:border-gray-800 my-2"></div>
+
+                {% if user.is_authenticated %}
+                {% if user.role == 'citizen' %}
+                <a href="{% url 'citizen:dashboard' %}"
+                    class="flex items-center gap-4 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-200 hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20 transition-all font-medium no-underline">
+                    <span class="material-symbols-outlined">dashboard</span> Dashboard
+                </a>
+                <a href="{% url 'citizen:locker' %}"
+                    class="flex items-center gap-4 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-200 hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20 transition-all font-medium no-underline">
+                    <span class="material-symbols-outlined">folder</span> DigiLocker
+                </a>
+                {% endif %}
+                <a href="{% url 'accounts:profile' %}"
+                    class="flex items-center gap-4 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-200 hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20 transition-all font-medium no-underline">
+                    <span class="material-symbols-outlined">person</span> My Profile
+                </a>
+                <a href="{% url 'accounts:logout' %}"
+                    class="flex items-center gap-4 px-4 py-3 rounded-xl text-red-600 hover:bg-red-50 dark:hover:bg-red-900/10 transition-all font-medium no-underline">
+                    <span class="material-symbols-outlined">logout</span> Logout
+                </a>
+                {% else %}
+                <a href="{% url 'accounts:login' %}"
+                    class="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-primary text-white font-bold shadow-lg shadow-primary/30 mt-2 no-underline">
+                    Login / Register
+                </a>
+                {% endif %}
+            </div>
+
+            <!-- Mobile Footer Info -->
+            <div class="p-5 bg-gray-50 dark:bg-gray-800/50 text-center text-xs text-gray-400">
+                &copy; 2024 Govt-Office MIS
+            </div>
+        </nav>
+    </div>
 
     <!-- Main Content -->
     <main class="flex-grow page-load-animation">
@@ -428,6 +532,31 @@
         window.addEventListener('online', () => offlineBanner.classList.add('hidden'));
         window.addEventListener('offline', () => offlineBanner.classList.remove('hidden'));
         if (!navigator.onLine) offlineBanner.classList.remove('hidden');
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const drawer = mobileMenu.querySelector('nav');
+            const body = document.body;
+
+            if (mobileMenu.classList.contains('invisible')) {
+                // Open
+                mobileMenu.classList.remove('invisible', 'opacity-0');
+                // Small delay to allow display:block to apply before transition
+                setTimeout(() => {
+                    drawer.classList.remove('translate-x-full');
+                }, 10);
+                body.style.overflow = 'hidden';
+            } else {
+                // Close
+                drawer.classList.add('translate-x-full');
+                mobileMenu.classList.add('opacity-0');
+                setTimeout(() => {
+                    mobileMenu.classList.add('invisible');
+                }, 300);
+                body.style.overflow = '';
+            }
+        }
     </script>
     <script>
         async function markRead(id) {
