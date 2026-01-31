@@ -163,3 +163,7 @@ def verify_public_certificate(request):
             
     except Exception as e:
         return JsonResponse({'valid': False, 'message': 'An error occurred during verification.'})
+
+from django.utils import timezone
+def health_check(request):
+    return JsonResponse({'status': 'ok', 'timestamp': timezone.now().isoformat()})

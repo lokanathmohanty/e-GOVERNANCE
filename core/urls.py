@@ -19,4 +19,5 @@ urlpatterns = [
     path('notifications/read/<int:notif_id>/', views.mark_notification_read, name='mark_read'),
     path('notifications/read/all/', views.mark_all_read, name='mark_all_read'),
     path('verify-certificate/', views.verify_public_certificate, name='verify_certificate'),
+    path('healthz', views.health_check, name='health_check'),
 ]
