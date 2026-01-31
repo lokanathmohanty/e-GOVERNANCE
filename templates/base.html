@@ -92,110 +92,191 @@
     <!-- Navbar -->
     <header
         class="sticky top-0 z-50 bg-white dark:bg-[#1a202c] border-b border-[#e5e7eb] dark:border-[#2d3748] shadow-sm">
-        <div class="max-w-[1440px] mx-auto px-4 md:px-6 lg:px-10 py-3 flex items-center justify-between">
-            <a href="{% url 'core:home' %}"
-                class="flex items-center gap-3 text-[#111318] dark:text-white no-underline group">
-                <div
-                    class="size-10 flex items-center justify-center rounded bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-10 py-3 flex items-center justify-between">
+            <a href="{% url 'core:home' %}" class="flex items-center gap-4 text-[#111318] dark:text-white no-underline">
+                <div class="size-10 flex items-center justify-center rounded bg-primary/10 text-primary">
                     <span class="material-symbols-outlined text-[28px]">account_balance</span>
                 </div>
                 <div class="flex flex-col">
                     <h2 class="text-lg font-bold leading-tight tracking-tight mb-0">Govt-Office MIS</h2>
-                    <span class="text-xs font-medium text-gray-500 dark:text-gray-400 d-none d-sm-block">Department of
-                        e-Governance</span>
+                    <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Department of e-Governance</span>
                 </div>
             </a>
 
-            <!-- Desktop Nav -->
             <div class="hidden lg:flex flex-1 justify-end gap-8 items-center">
                 <nav class="flex items-center gap-6">
-                    <a class="text-[#111318] dark:text-gray-200 text-sm font-semibold hover:text-primary transition-colors no-underline px-2"
+                    <a class="text-[#111318] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors no-underline"
                         href="{% url 'core:home' %}" data-i18n="nav.home">Home</a>
-                    <a class="text-[#111318] dark:text-gray-200 text-sm font-semibold hover:text-primary transition-colors no-underline px-2"
+                    <a class="text-[#111318] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors no-underline"
                         href="{% url 'citizen:services' %}" data-i18n="nav.services">Services</a>
-                    <a class="text-[#111318] dark:text-gray-200 text-sm font-semibold hover:text-primary transition-colors no-underline px-2"
+                    <a class="text-[#111318] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors no-underline"
                         href="{% url 'citizen:grievances' %}" data-i18n="nav.grievance">Grievance</a>
-                    <a class="text-[#111318] dark:text-gray-200 text-sm font-semibold hover:text-primary transition-colors no-underline px-2"
-                        href="{% url 'core:contact' %}" data-i18n="nav.contact">Contact</a>
+
+                    <a class="text-[#111318] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors no-underline"
+                        href="{% url 'core:contact' %}" data-i18n="nav.contact">Contact Us</a>
 
                     {% if user.is_authenticated %}
-                    <a class="text-[#111318] dark:text-gray-200 text-sm font-semibold hover:text-primary transition-colors no-underline px-2"
-                        href="{% if user.role == 'citizen' %}{% url 'citizen:dashboard' %}{% elif user.role == 'officer' or user.role == 'department_head' %}{% url 'officer:dashboard' %}{% else %}{% url 'admin_panel:dashboard' %}{% endif %}"
-                        data-i18n="nav.dashboard">Dashboard</a>
+                    {% if user.role == 'citizen' %}
+                    <a class="text-[#111318] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors no-underline"
+                        href="{% url 'citizen:dashboard' %}" data-i18n="nav.dashboard">Dashboard</a>
+                    <a class="text-[#111318] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors no-underline"
+                        href="{% url 'citizen:locker' %}" data-i18n="nav.locker">Locker</a>
+                    {% elif user.role == 'officer' or user.role == 'department_head' %}
+                    <a class="text-[#111318] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors no-underline"
+                        href="{% url 'officer:dashboard' %}">Dashboard</a>
+                    {% elif user.role == 'admin' %}
+                    <a class="text-[#111318] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors no-underline"
+                        href="{% url 'admin_panel:dashboard' %}">Dashboard</a>
+                    {% endif %}
                     {% endif %}
                 </nav>
 
-                <div class="h-6 w-px bg-gray-200 dark:bg-gray-700"></div>
-
-                <div class="flex items-center gap-4">
-                    <!-- Theme Toggle -->
-                    <button
-                        class="size-9 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                        id="themeToggle" aria-label="Toggle Theme">
-                        <span class="material-symbols-outlined text-[20px]" id="themeIcon">dark_mode</span>
-                    </button>
-
-                    <!-- Accessibility -->
+                <div class="flex items-center gap-3">
+                    <!-- Accessibility Menu -->
                     <div class="relative" id="accessibilityMenu">
-                        <button
-                            class="size-9 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                            id="accessibilityToggle" aria-label="Accessibility Options">
+                        <button class="accessibility-btn" id="accessibilityToggle" aria-label="Accessibility Options">
                             <span class="material-symbols-outlined text-[20px]">accessibility</span>
                         </button>
+
                         <div class="accessibility-dropdown" id="accessibilityDropdown">
-                            <!-- ... (keeping existing accessibility items) ... -->
+                            <!-- Language Selection -->
+                            <div class="accessibility-section">
+                                <label class="accessibility-label" data-i18n="accessibility.language">Language</label>
+                                <select class="language-select" id="languageSelect">
+                                    <option value="en">English</option>
+                                    <option value="hi">हिन्दी (Hindi)</option>
+                                    <option value="es">Español (Spanish)</option>
+                                </select>
+                            </div>
+
+                            <!-- Font Size Controls -->
+                            <div class="accessibility-section">
+                                <label class="accessibility-label" data-i18n="accessibility.font_size">Font Size</label>
+                                <div class="font-size-controls">
+                                    <button class="font-size-btn" data-font-size="small">A</button>
+                                    <button class="font-size-btn active" data-font-size="normal">A</button>
+                                    <button class="font-size-btn" data-font-size="large">A</button>
+                                    <button class="font-size-btn" data-font-size="xlarge">A</button>
+                                </div>
+                            </div>
+
+                            <!-- High Contrast Toggle -->
+                            <div class="accessibility-section">
+                                <label class="accessibility-label" data-i18n="accessibility.contrast">High
+                                    Contrast</label>
+                                <button class="contrast-toggle" id="contrastToggle">
+                                    <span class="contrast-toggle-label">Toggle Contrast</span>
+                                    <span class="material-symbols-outlined contrast-toggle-icon"
+                                        id="contrastIcon">contrast</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
-                    {% if not user.is_authenticated %}
+                    <!-- Notification Bell -->
+                    {% if user.is_authenticated %}
+                    <div class="relative group mr-4">
+                        <button
+                            class="flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary relative py-2">
+                            <span class="material-symbols-outlined text-[24px]">notifications</span>
+                            {% if unread_notification_count > 0 %}
+                            <span
+                                class="absolute top-0 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] text-white font-bold animate-pulse">
+                                {{ unread_notification_count }}
+                            </span>
+                            {% endif %}
+                        </button>
+
+                        <!-- Dropdown -->
+                        <div
+                            class="absolute right-0 top-full mt-2 w-80 bg-white dark:bg-surface-dark rounded-xl shadow-xl border border-gray-100 dark:border-gray-800 hidden group-hover:block z-50 overflow-hidden">
+                            <div
+                                class="p-4 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50">
+                                <h3 class="font-bold text-sm text-gray-900 dark:text-white"
+                                    data-i18n="notifications.title">Notifications</h3>
+                                {% if unread_notification_count > 0 %}
+                                <button onclick="markAllRead()" class="text-xs text-primary font-bold hover:underline"
+                                    data-i18n="notifications.mark_all">Mark all read</button>
+                                {% endif %}
+                            </div>
+                            <div class="max-h-80 overflow-y-auto">
+                                {% for notif in user_notifications %}
+                                <div class="p-4 border-b border-gray-50 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer {% if not notif.is_read %}bg-blue-50/30 dark:bg-blue-900/10{% endif %}"
+                                    onclick="markRead('{{ notif.id }}')">
+                                    <div class="flex gap-3">
+                                        <div class="mt-0.5 shrink-0">
+                                            {% if notif.notification_type == 'success' %}
+                                            <span
+                                                class="material-symbols-outlined text-green-500 text-sm">check_circle</span>
+                                            {% elif notif.notification_type == 'error' %}
+                                            <span class="material-symbols-outlined text-red-500 text-sm">error</span>
+                                            {% elif notif.notification_type == 'warning' %}
+                                            <span
+                                                class="material-symbols-outlined text-amber-500 text-sm">warning</span>
+                                            {% else %}
+                                            <span class="material-symbols-outlined text-blue-500 text-sm">info</span>
+                                            {% endif %}
+                                        </div>
+                                        <div>
+                                            <p
+                                                class="text-sm font-semibold text-gray-900 dark:text-white leading-tight mb-1">
+                                                {{ notif.title }}</p>
+                                            <p
+                                                class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 leading-relaxed">
+                                                {{ notif.message }}</p>
+                                            <p class="text-[10px] text-gray-400 mt-2 font-medium">{{
+                                                notif.created_at|timesince }} ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% empty %}
+                                <div class="p-8 text-center flex flex-col items-center gap-2">
+                                    <span
+                                        class="material-symbols-outlined text-gray-300 text-3xl">notifications_off</span>
+                                    <p class="text-gray-400 text-sm" data-i18n="notifications.no_new">No new
+                                        notifications</p>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div
+                                class="p-3 bg-gray-50 dark:bg-gray-800/50 text-center border-t border-gray-100 dark:border-gray-800">
+                                <a href="{% url 'core:notifications' %}"
+                                    class="text-xs font-bold text-primary hover:underline block w-full h-full"
+                                    data-i18n="notifications.view_all">View All
+                                    History</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <button
+                        class="flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary"
+                        id="themeToggle">
+                        <span class="material-symbols-outlined text-[20px]" id="themeIcon">dark_mode</span>
+                    </button>
+                    <div class="h-6 w-px bg-gray-200 dark:bg-gray-700"></div>
+
+                    {% if user.is_authenticated %}
+                    <div class="flex items-center gap-3">
+                        <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">{{ user.username }}</span>
+                        <a href="{% url 'accounts:logout' %}"
+                            class="size-9 flex items-center justify-center rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-colors">
+                            <span class="material-symbols-outlined text-[20px]">logout</span>
+                        </a>
+                    </div>
+                    {% else %}
                     <a href="{% url 'accounts:login' %}"
-                        class="btn-primary px-5 py-2 rounded-lg text-sm font-bold no-underline shadow-sm hover:shadow-md transition-all">
+                        class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-blue-700 transition-colors shadow-sm no-underline">
                         Citizen Login
                     </a>
-                    {% else %}
-                    <div class="flex items-center gap-3">
-                        <div class="avatar-circle">
-                            {{ user.username|first|upper }}
-                        </div>
-                        <a href="{% url 'accounts:logout' %}"
-                            class="text-sm font-bold text-red-500 hover:text-red-600 no-underline">Logout</a>
-                    </div>
                     {% endif %}
                 </div>
             </div>
 
-            <!-- Mobile Menu Toggler -->
-            <button class="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                id="mobileMenuBtn">
+            <!-- Mobile Menu Icon (Simplified for now) -->
+            <button class="lg:hidden text-gray-700 dark:text-white">
                 <span class="material-symbols-outlined">menu</span>
             </button>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div class="hidden lg:hidden bg-white dark:bg-surface-dark border-t border-gray-100 dark:border-gray-800"
-            id="mobileMenu">
-            <div class="p-4 space-y-3">
-                <a href="{% url 'core:home' %}"
-                    class="block py-2 text-base font-semibold text-gray-700 dark:text-gray-200 no-underline">Home</a>
-                <a href="{% url 'citizen:services' %}"
-                    class="block py-2 text-base font-semibold text-gray-700 dark:text-gray-200 no-underline">Services</a>
-                <a href="{% url 'citizen:grievances' %}"
-                    class="block py-2 text-base font-semibold text-gray-700 dark:text-gray-200 no-underline">Grievance</a>
-                <a href="{% url 'core:contact' %}"
-                    class="block py-2 text-base font-semibold text-gray-700 dark:text-gray-200 no-underline">Contact</a>
-                {% if not user.is_authenticated %}
-                <div class="pt-4">
-                    <a href="{% url 'accounts:login' %}"
-                        class="block w-full py-3 text-center bg-primary text-white font-bold rounded-lg no-underline">Citizen
-                        Login</a>
-                </div>
-                {% else %}
-                <div class="pt-4 border-t border-gray-100 mt-2">
-                    <a href="{% url 'accounts:logout' %}"
-                        class="block py-2 text-red-500 font-bold no-underline">Logout</a>
-                </div>
-                {% endif %}
-            </div>
         </div>
     </header>
 
@@ -225,108 +306,62 @@
     </main>
 
     <!-- Footer -->
-    <footer class="w-full bg-[#0d1117] text-gray-400 py-20">
-        <div class="max-w-[1440px] mx-auto px-4 md:px-12 flex flex-col gap-16">
-            <div class="row g-5">
-                <div class="col-lg-4">
-                    <div class="flex flex-col gap-6">
-                        <div class="flex items-center gap-3 text-white">
-                            <span class="material-symbols-outlined text-primary text-[40px]">account_balance</span>
-                            <span class="text-2xl font-black tracking-tight">E-Governance <span
-                                    class="text-primary">System</span></span>
-                        </div>
-                        <p class="text-gray-500 text-lg leading-relaxed">
-                            Empowering citizens through digital innovation and transparent administration. Access
-                            government services anytime, anywhere.
-                        </p>
-                        <div class="flex gap-4">
-                            <a href="#"
-                                class="size-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white transition-all"><i
-                                    class="bi bi-facebook"></i></a>
-                            <a href="#"
-                                class="size-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white transition-all"><i
-                                    class="bi bi-twitter-x"></i></a>
-                            <a href="#"
-                                class="size-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white transition-all"><i
-                                    class="bi bi-linkedin"></i></a>
-                            <a href="#"
-                                class="size-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white transition-all"><i
-                                    class="bi bi-envelope"></i></a>
-                        </div>
+    <footer class="w-full bg-[#f8f9fa] dark:bg-[#0d1117] border-t border-[#e5e7eb] dark:border-[#2d3748] py-12">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-10 flex flex-col gap-8">
+            <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
+                <div class="flex flex-col gap-4 max-w-sm text-center md:text-left">
+                    <div class="flex items-center gap-3 justify-center md:justify-start text-[#111318] dark:text-white">
+                        <span class="material-symbols-outlined text-primary text-[32px]">account_balance</span>
+                        <span class="text-xl font-bold">Govt-Office MIS</span>
                     </div>
+                    <p class="text-[#616f89] dark:text-gray-400 text-sm leading-relaxed">
+                        An initiative to bring transparency and efficiency to public services. Connect with your
+                        government digitally.
+                    </p>
                 </div>
-
-                <div class="col-lg-8">
-                    <div class="row g-4">
-                        <div class="col-md-4">
-                            <h3
-                                class="text-white font-black text-sm uppercase tracking-widest mb-6 border-b border-white/10 pb-2 inline-block">
-                                Citizen Resources</h3>
-                            <ul class="list-none p-0 flex flex-col gap-3">
-                                <li><a href="{% url 'citizen:services' %}"
-                                        class="text-gray-500 hover:text-primary no-underline transition-colors">Apply
-                                        Online</a></li>
-                                <li><a href="{% url 'citizen:public_track' %}"
-                                        class="text-gray-500 hover:text-primary no-underline transition-colors">Track
-                                        Status</a></li>
-                                <li><a href="{% url 'citizen:grievances' %}"
-                                        class="text-gray-500 hover:text-primary no-underline transition-colors">Raise
-                                        Grievance</a></li>
-                                <li><a href="#"
-                                        class="text-gray-500 hover:text-primary no-underline transition-colors">Service
-                                        Directory</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-md-4">
-                            <h3
-                                class="text-white font-black text-sm uppercase tracking-widest mb-6 border-b border-white/10 pb-2 inline-block">
-                                Governance</h3>
-                            <ul class="list-none p-0 flex flex-col gap-3">
-                                <li><a href="{% url 'core:about' %}"
-                                        class="text-gray-500 hover:text-primary no-underline transition-colors">About
-                                        Portal</a></li>
-                                <li><a href="#"
-                                        class="text-gray-500 hover:text-primary no-underline transition-colors">Departments</a>
-                                </li>
-                                <li><a href="#"
-                                        class="text-gray-500 hover:text-primary no-underline transition-colors">RTI
-                                        Dashboard</a></li>
-                                <li><a href="{% url 'core:contact' %}"
-                                        class="text-gray-500 hover:text-primary no-underline transition-colors">Public
-                                        Officials</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-md-4">
-                            <h3
-                                class="text-white font-black text-sm uppercase tracking-widest mb-6 border-b border-white/10 pb-2 inline-block">
-                                Legal & Compliance</h3>
-                            <ul class="list-none p-0 flex flex-col gap-3">
-                                <li><a href="#"
-                                        class="text-gray-500 hover:text-primary no-underline transition-colors">Privacy
-                                        Policy</a></li>
-                                <li><a href="#"
-                                        class="text-gray-500 hover:text-primary no-underline transition-colors">Terms of
-                                        Service</a></li>
-                                <li><a href="#"
-                                        class="text-gray-500 hover:text-primary no-underline transition-colors">Security
-                                        Audit</a></li>
-                                <li><a href="#"
-                                        class="text-gray-500 hover:text-primary no-underline transition-colors">Accessibility
-                                        Statement</a></li>
-                            </ul>
-                        </div>
+                <div class="flex flex-wrap justify-center md:justify-end gap-6 md:gap-12">
+                    <div class="flex flex-col gap-3">
+                        <h3 class="text-[#111318] dark:text-white font-bold text-sm uppercase tracking-wider">Portal
+                        </h3>
+                        <a class="text-[#616f89] dark:text-gray-400 text-sm hover:text-primary no-underline"
+                            href="{% url 'core:about' %}" data-i18n="footer.about">About Portal</a>
+                        <a class="text-[#616f89] dark:text-gray-400 text-sm hover:text-primary no-underline"
+                            href="{% url 'core:services_list' %}" data-i18n="footer.services">Services List</a>
+                        <a class="text-[#616f89] dark:text-gray-400 text-sm hover:text-primary no-underline"
+                            href="{% url 'core:dashboard_info' %}" data-i18n="nav.dashboard">Dashboard</a>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <h3 class="text-[#111318] dark:text-white font-bold text-sm uppercase tracking-wider">Support
+                        </h3>
+                        <a class="text-[#616f89] dark:text-gray-400 text-sm hover:text-primary no-underline"
+                            href="{% url 'core:help' %}" data-i18n="footer.help">Help & PDF</a>
+                        <a class="text-[#616f89] dark:text-gray-400 text-sm hover:text-primary no-underline"
+                            href="{% url 'core:manuals' %}" data-i18n="footer.manuals">User Manuals</a>
+                        <a class="text-[#616f89] dark:text-gray-400 text-sm hover:text-primary no-underline"
+                            href="{% url 'core:contact' %}" data-i18n="footer.contact">Contact Support</a>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <h3 class="text-[#111318] dark:text-white font-bold text-sm uppercase tracking-wider">Legal</h3>
+                        <a class="text-[#616f89] dark:text-gray-400 text-sm hover:text-primary no-underline"
+                            href="{% url 'core:privacy' %}" data-i18n="footer.privacy">Privacy Policy</a>
+                        <a class="text-[#616f89] dark:text-gray-400 text-sm hover:text-primary no-underline"
+                            href="{% url 'core:terms' %}" data-i18n="footer.terms">Terms of Use</a>
+                        <a class="text-[#616f89] dark:text-gray-400 text-sm hover:text-primary no-underline"
+                            href="{% url 'core:accessibility' %}" data-i18n="footer.accessibility">Accessibility</a>
                     </div>
                 </div>
             </div>
-
-            <div class="h-px bg-white/10 w-full"></div>
-
-            <div class="flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
-                <p class="mb-0">© 2024 State Digital Service Center. All Rights Reserved.</p>
-                <div class="flex gap-6">
-                    <span class="flex items-center gap-2"><span class="size-2 rounded-full bg-green-500"></span> System
-                        Status: 100% Online</span>
-                    <span class="text-gray-600">v2.4.0 (Stable)</span>
+            <div class="h-px w-full bg-[#dbdfe6] dark:bg-gray-800"></div>
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-[#616f89] dark:text-gray-500 text-sm font-normal">
+                    © 2024 State Government e-Governance Dept. All rights reserved.
+                </p>
+                <div class="flex gap-4">
+                    <span class="text-[#616f89] dark:text-gray-500 text-xs">Last Updated: Dec 19, 2024</span>
+                    <div class="flex gap-2 text-gray-400">
+                        <a href="#" class="hover:text-primary"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="hover:text-primary"><i class="fab fa-twitter"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -374,16 +409,6 @@
                 accessibilityDropdown.classList.remove('show');
             }
         });
-
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-
-        if (mobileMenuBtn && mobileMenu) {
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-        }
     </script>
 
     <div id="offline-banner"

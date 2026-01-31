@@ -178,25 +178,28 @@ def application_receipt(request, app_id):
     return render(request, 'citizen/receipt.html', {'app': application})
 
 def public_track(request):
-    app_number = request.GET.get('app_number', '').strip()
+    app_number = request.GET.get('app_number')
     application = None
     
     if app_number:
-        # Try finding by exact Application Number first
-        application = Application.objects.filter(application_number__iexact=app_number).first()
+        # Strip whitespace and try to find the application
+        app_number_clean = app_number.strip().upper()
         
-        # Fallback to PK if it's numeric
-        if not application and app_number.isdigit():
-            application = Application.objects.filter(id=app_number).first()
-            
-        # Fallback to icontains for partial match
+        # Try exact match first
+        application = Application.objects.filter(application_number__iexact=app_number_clean).first()
+        
         if not application:
-            application = Application.objects.filter(application_number__icontains=app_number).first()
+            # Try partial match if exact doesn't work
+            application = Application.objects.filter(application_number__icontains=app_number_clean).first()
+        
+        if not application:
+            messages.error(request, f"Application number '{app_number}' not found. Please verify the number and try again.")
+            # For debugging - show how many applications exist
+            total_apps = Application.objects.count()
+            if total_apps > 0:
+                messages.info(request, f"Hint: Try copying the exact number from your receipt. System has {total_apps} applications.")
     
-    return render(request, 'citizen/search_track.html', {
-        'application': application,
-        'app_number': app_number
-    })
+    return render(request, 'citizen/search_track.html', {'application': application, 'app_number': app_number})
 
 @login_required
 def download_certificate(request, app_id):
