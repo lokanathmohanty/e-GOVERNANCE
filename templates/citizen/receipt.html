@@ -25,7 +25,7 @@
                             </button>
                         </div>
                         <p class='small text-muted mt-3'>Use this number to track your application status.</p>
-                        <a href='{% url 'citizen:public_track' %}?app_number={{ app.application_number }}' class='btn btn-info btn-sm mt-2'>
+                        <a href='{% url ' citizen:dashboard' %}' class='btn btn-info btn-sm mt-2'>
                             <i class='bi bi-search'></i> Track Now
                         </a>
                     </div>
@@ -33,15 +33,21 @@
                     <div class='row mb-5'>
                         <div class='col-sm-6 mb-4 mb-sm-0'>
                             <h6 class='fw-bold mb-3 border-bottom pb-2'>Service Details</h6>
-                            <p class='mb-1'><span class='text-muted small'>Service:</span><br><strong>{{ app.service.service_name }}</strong></p>
-                            <p class='mb-1'><span class='text-muted small'>Department:</span><br><strong>{{ app.service.department.department_name }}</strong></p>
-                            <p class='mb-1'><span class='text-muted small'>Priority:</span><br><strong>{{ app.get_priority_display }}</strong></p>
+                            <p class='mb-1'><span class='text-muted small'>Service:</span><br><strong>{{
+                                    app.service.service_name }}</strong></p>
+                            <p class='mb-1'><span class='text-muted small'>Department:</span><br><strong>{{
+                                    app.service.department.department_name }}</strong></p>
+                            <p class='mb-1'><span class='text-muted small'>Priority:</span><br><strong>{{
+                                    app.get_priority_display }}</strong></p>
                         </div>
                         <div class='col-sm-6'>
                             <h6 class='fw-bold mb-3 border-bottom pb-2'>Applicant Details</h6>
-                            <p class='mb-1'><span class='text-muted small'>Name:</span><br><strong>{{ app.user.get_full_name|default:app.user.username }}</strong></p>
-                            <p class='mb-1'><span class='text-muted small'>Date:</span><br><strong>{{ app.applied_date|date:'F d, Y H:i' }}</strong></p>
-                            <p class='mb-1'><span class='text-muted small'>SLA Deadline:</span><br><strong>{{ app.sla_deadline|date:'F d, Y' }}</strong></p>
+                            <p class='mb-1'><span class='text-muted small'>Name:</span><br><strong>{{
+                                    app.user.get_full_name|default:app.user.username }}</strong></p>
+                            <p class='mb-1'><span class='text-muted small'>Date:</span><br><strong>{{
+                                    app.applied_date|date:'F d, Y H:i' }}</strong></p>
+                            <p class='mb-1'><span class='text-muted small'>SLA Deadline:</span><br><strong>{{
+                                    app.sla_deadline|date:'F d, Y' }}</strong></p>
                         </div>
                     </div>
 
@@ -51,7 +57,8 @@
                             <h6 class='fw-bold mb-0'>Acknowledgement</h6>
                         </div>
                         <p class='small text-muted mb-0'>
-                            This is a system-generated acknowledgement for your application. No physical signature is required.
+                            This is a system-generated acknowledgement for your application. No physical signature is
+                            required.
                             You will receive updates via SMS and Email as your application progresses.
                         </p>
                     </div>
@@ -60,7 +67,7 @@
                         <button onclick='window.print()' class='btn btn-outline-dark px-4 rounded-pill'>
                             <i class='bi bi-printer me-2'></i> Print Receipt
                         </button>
-                        <a href='{% url 'citizen:dashboard' %}' class='btn btn-primary px-4 rounded-pill'>
+                        <a href='{% url ' citizen:dashboard' %}' class='btn btn-primary px-4 rounded-pill'>
                             Go to Dashboard <i class='bi bi-arrow-right ms-2'></i>
                         </a>
                     </div>
@@ -96,10 +103,26 @@
 
 <style>
     @media print {
-        body { background-color: white !important; }
-        .container { width: 100% !important; max-width: 100% !important; margin: 0 !important; padding: 0 !important; }
-        .card { box-shadow: none !important; border: 1px solid #ddd !important; }
-        .btn, .d-print-none { display: none !important; }
+        body {
+            background-color: white !important;
+        }
+
+        .container {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .card {
+            box-shadow: none !important;
+            border: 1px solid #ddd !important;
+        }
+
+        .btn,
+        .d-print-none {
+            display: none !important;
+        }
     }
 </style>
 {% endblock %}
