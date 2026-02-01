@@ -272,7 +272,7 @@
                             {% endif %}
                             <span
                                 class="hidden md:block text-sm font-semibold text-gray-700 dark:text-gray-200 max-w-[100px] truncate">
-                                {% firstof user.get_full_name user.username %}
+                                {{ user.first_name|default:user.username }}
                             </span>
                             <span class="material-symbols-outlined text-gray-400 text-lg">expand_more</span>
                         </button>

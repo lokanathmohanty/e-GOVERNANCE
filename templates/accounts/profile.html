@@ -43,11 +43,7 @@
                             </div>
 
                             <h3 class="fw-black mb-1 z-10">
-                                {% if user.get_full_name %}
-                                {{ user.get_full_name }}
-                                {% else %}
-                                {{ user.username }}
-                                {% endif %}
+                                {{ user.first_name|default:user.username }}
                             </h3>
                             <p class="opacity-75 mb-4 text-uppercase tracking-widest small fw-bold z-10">
                                 {{ user.get_role_display }}
@@ -86,7 +82,7 @@
                                 class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-5 gap-3">
                                 <div>
                                     <h4 class="mb-1 fw-black tracking-tight text-dark">Profile Settings</h4>
-                                    <p class="text-muted small mb-0 font-medium">Update your citizen profile details</p>
+                                    <p class="text-muted small mb-0 font-medium">Update your account details</p>
                                 </div>
                                 {% if user.role == 'citizen' %}
                                 {% url 'citizen:dashboard' as dashboard_url %}
@@ -105,54 +101,45 @@
                                 </a>
                             </div>
 
-                            <form method="POST" enctype="multipart/form-data" class="needs-validation space-y-4">
+                            <form method="POST" enctype="multipart/form-data" class="needs-validation">
                                 {% csrf_token %}
 
                                 <div class="row g-4">
                                     <div class="col-md-6">
-                                        <label class="form-premium-label">First Name</label>
+                                        <label class="form-label small fw-bold text-muted">First Name</label>
                                         {{ form.first_name }}
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-premium-label">Last Name</label>
+                                        <label class="form-label small fw-bold text-muted">Last Name</label>
                                         {{ form.last_name }}
                                     </div>
                                     <div class="col-md-12">
-                                        <label class="form-premium-label">Email Address</label>
+                                        <label class="form-label small fw-bold text-muted">Email Address</label>
                                         {{ form.email }}
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-premium-label">Phone Number</label>
+                                        <label class="form-label small fw-bold text-muted">Phone Number</label>
                                         {{ form.phone }}
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-premium-label">Aadhaar Number</label>
+                                        <label class="form-label small fw-bold text-muted">Aadhaar Number</label>
                                         {{ form.aadhaar_number }}
                                     </div>
                                     <div class="col-md-12">
-                                        <label class="form-premium-label">Residential Address</label>
+                                        <label class="form-label small fw-bold text-muted">Address</label>
                                         {{ form.address }}
                                     </div>
                                     <div class="col-md-12">
-                                        <label class="form-premium-label">Profile Picture</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text bg-light border-end-0"><i
-                                                    class="bi bi-image"></i></span>
-                                            {{ form.profile_picture }}
-                                        </div>
-                                        <div class="form-text mt-2 small">Upload a professional photo (JPG, PNG). Max
-                                            2MB.</div>
+                                        <label class="form-label small fw-bold text-muted">Profile Picture</label>
+                                        {{ form.profile_picture }}
                                     </div>
                                 </div>
 
-                                <div class="pt-4 border-top border-light mt-5">
-                                    <div class="d-flex justify-content-end gap-3">
-                                        <button type="reset" class="btn btn-light rounded-pill px-4 fw-bold">Discard
-                                            Changes</button>
-                                        <button type="submit"
-                                            class="btn btn-primary rounded-pill px-5 fw-bold shadow-sm">Save Profile
-                                            Update</button>
-                                    </div>
+                                <div class="mt-5 pt-4 border-top d-flex justify-content-end">
+                                    <button type="submit"
+                                        class="btn btn-primary px-5 py-3 rounded-pill fw-bold shadow-sm hover-lift transition-all">
+                                        Save Changes
+                                    </button>
                                 </div>
                             </form>
                         </div>
