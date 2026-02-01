@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block title %}Citizen Dashboard | e-Gov Portal{% endblock %}
+
 {% block content %}
 <div class="container-fluid bg-light min-vh-100 py-4">
     <div class="container">
@@ -14,7 +15,8 @@
                         <i class="bi bi-person-circle fs-1"></i>
                     </div>
                     <div>
-                        <h2 class="mb-1 fw-black tracking-tight">Namaste, {{ user.first_name|default:user.username }}
+                        <h2 class="mb-1 fw-black tracking-tight">
+                            Namaste, {{ user.first_name|default:user.username }}
                         </h2>
                         <p class="text-muted mb-0 font-medium">Your centralized governance dashboard for SMART ODISHA.
                         </p>
@@ -33,6 +35,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Quick Track Status Bar -->
         <div class="row mb-5 reveal">
             <div class="col-12">
@@ -56,9 +59,7 @@
                                     </span>
                                     <input type="text" name="app_number" class="form-control border-0 bg-white"
                                         placeholder="Enter Application ID (e.g., APP-2024-XXXX)" required>
-                                    <button type="submit" class="btn btn-warning px-4 fw-bold">
-                                        Track Status
-                                    </button>
+                                    <button type="submit" class="btn btn-warning px-4 fw-bold">Track Status</button>
                                 </div>
                             </form>
                         </div>
@@ -212,8 +213,9 @@
                                 <tbody>
                                     {% for app in applications %}
                                     <tr class="bg-white">
-                                        <td class="ps-4 fw-bold text-dark" data-label="Reference ID">#{{
-                                            app.application_number|default:app.pk }}</td>
+                                        <td class="ps-4 fw-bold text-dark" data-label="Ref">
+                                            #{{ app.application_number|default:app.pk }}
+                                        </td>
                                         <td data-label="Service">
                                             <div class="fw-black text-dark">{{ app.service.service_name }}</div>
                                             <div class="text-muted small">{{ app.service.department.department_name }}
@@ -230,11 +232,14 @@
                                         </td>
                                         <td data-label="SLA Deadline">
                                             {% if app.sla_status == 'on_time' %}
-                                            <div class="text-success small fw-black"><i class="bi bi-check2-circle"></i>
-                                                {{ app.days_left }} Days Left</div>
+                                            <div class="text-success small fw-black">
+                                                <i class="bi bi-check2-circle"></i>
+                                                {{ app.days_left }} Days Left
+                                            </div>
                                             {% elif app.sla_status == 'near_deadline' %}
-                                            <div class="text-warning small fw-black"><i
-                                                    class="bi bi-hourglass-split"></i> {{ app.days_left }} Days Left
+                                            <div class="text-warning small fw-black">
+                                                <i class="bi bi-hourglass-split"></i>
+                                                {{ app.days_left }} Days Left
                                             </div>
                                             {% elif app.sla_status == 'delayed' %}
                                             <div class="text-danger small fw-black"><i
@@ -291,446 +296,367 @@
                             </table>
                         </div>
                     </div>
-                    {% if applications %}
-                    <div class="card-footer bg-light">
-                        <small class="text-muted">Showing 1-{{ applications|length }} of {{ stats.total }}
-                            applications</small>
-                    </div>
-                    {% endif %}
-                </div>
 
-                <div class="tab-pane fade" id="certificates">
-                    <div class="p-4">
-                        <h5 class="mb-3"><i class="bi bi-award text-success"></i> Available Certificates</h5>
-                        <p class="text-muted small mb-4">Download your approved certificates below. Click the button
-                            to view and print your certificate.</p>
-                        {% for app in approved_apps %}
-                        <div class="card mb-3 border-success">
-                            <div class="card-body d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="mb-1 text-success">
-                                        <i class="bi bi-check-circle-fill"></i>
-                                        {{ app.service.service_name }}
-                                    </h6>
-                                    <small class="text-muted">
-                                        #{{ app.application_number }} •
-                                        Approved on {{ app.approved_date|date:"M d, Y" }} •
-                                        {{ app.service.department.department_name }}
-                                    </small>
+                    <div class="tab-pane fade" id="certificates">
+                        <div class="p-4">
+                            <h5 class="mb-3"><i class="bi bi-award text-success"></i> Available Certificates</h5>
+                            <div class="row g-4">
+                                {% for app in approved_apps %}
+                                <div class="col-md-6">
+                                    <div class="card card-premium shadow-sm border-0 p-4 transition-all hover-lift">
+                                        <div class="d-flex justify-content-between align-items-start mb-4">
+                                            <div>
+                                                <h6 class="fw-black text-dark mb-1">{{ app.service.service_name }}</h6>
+                                                <div class="text-muted small">
+                                                    #{{ app.application_number|default:app.pk }}
+                                                </div>
+                                            </div>
+                                            <div class="badge-premium badge-premium-success">Verified</div>
+                                        </div>
+                                        <div
+                                            class="d-flex align-items-center justify-content-between pt-3 border-top border-light">
+                                            <small class="text-muted font-medium">
+                                                Issued: {{ app.approved_date|date:"M d, Y" }}
+                                            </small>
+                                            <a href="{% url 'citizen:certificate' app.id %}"
+                                                class="btn-premium btn-premium-primary py-2 px-3 shadow-sm"
+                                                target="_blank">
+                                                <i class="bi bi-download"></i> Get Doc
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <a href="{% url 'citizen:certificate' app.id %}" class="btn btn-success"
-                                    target="_blank">
-                                    <i class="bi bi-download"></i> Download Certificate
-                                </a>
+                                {% empty %}
+                                <div class="col-12 text-center py-5">
+                                    <div class="py-5 opacity-50">
+                                        <i class="bi bi-award-fill fs-1 d-block mb-3"></i>
+                                        <p class="font-medium">No certificates issued yet.</p>
+                                    </div>
+                                </div>
+                                {% endfor %}
                             </div>
                         </div>
-                        {% empty %}
-                        <div class="text-center py-5">
-                            <i class="bi bi-award fs-1 text-muted d-block mb-3"></i>
-                            <p class="text-muted">No certificates available yet.</p>
-                            <p class="small text-muted">Once your applications are approved, you can download
-                                certificates here.</p>
-                            <div class="p-5">
-                                <div class="d-flex align-items-center gap-3 mb-5">
-                                    <div
-                                        class="size-12 rounded-4 bg-success bg-opacity-10 d-flex align-items-center justify-content-center text-success">
-                                        <i class="bi bi-patch-check-fill fs-3"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="fw-black mb-1">Authenticated Certificates</h4>
-                                        <p class="text-muted mb-0 small uppercase tracking-wider fw-bold">Digitally
-                                            Signed & Validated Documents</p>
+                    </div>
+                </div>
+            </div>
+            {% if applications %}
+            <div class="card-footer bg-light p-3 px-4">
+                <small class="text-muted">Showing 1-{{ applications|length }} of {{ stats.total }} applications</small>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Express Portal -->
+        <div class="row g-4 mt-5 reveal stagger-2">
+            <div class="col-lg-8">
+                <h5 class="fw-black text-dark uppercase tracking-widest mb-4">
+                    <i class="bi bi-lightning-charge-fill text-warning me-2"></i> Express Portal
+                </h5>
+                <div class="row g-3 mb-5">
+                    <div class="col-sm-6">
+                        <a href="{% url 'citizen:book_appointment' %}"
+                            class="card card-premium border-0 p-4 text-decoration-none hover-lift h-100 shadow-sm">
+                            <div class="d-flex align-items-center gap-4">
+                                <div
+                                    class="size-14 rounded-4 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center text-primary shadow-sm">
+                                    <i class="bi bi-calendar4-event fs-3"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-black text-dark mb-1">Book Visit</h6>
+                                    <p class="text-muted small mb-0">Schedule priority slot</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="{% url 'citizen:family' %}"
+                            class="card card-premium border-0 p-4 text-decoration-none hover-lift h-100 shadow-sm">
+                            <div class="d-flex align-items-center gap-4">
+                                <div
+                                    class="size-14 rounded-4 bg-success bg-opacity-10 d-flex align-items-center justify-content-center text-success shadow-sm">
+                                    <i class="bi bi-people-fill fs-3"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-black text-dark mb-1">Family Hub</h6>
+                                    <p class="text-muted small mb-0">Manage household data</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-sm-6">
+                        <button data-bs-toggle="modal" data-bs-target="#eligibilityModal"
+                            class="card card-premium border-0 p-4 text-start w-100 hover-lift h-100 shadow-sm">
+                            <div class="d-flex align-items-center gap-4">
+                                <div
+                                    class="size-14 rounded-4 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center text-warning shadow-sm">
+                                    <i class="bi bi-magic fs-3"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-black text-dark mb-1">Scheme Finder</h6>
+                                    <p class="text-muted small mb-0">Check your eligibility</p>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="{% url 'citizen:security' %}"
+                            class="card card-premium border-0 p-4 text-decoration-none hover-lift h-100 shadow-sm">
+                            <div class="d-flex align-items-center gap-4">
+                                <div
+                                    class="size-14 rounded-4 bg-secondary bg-opacity-10 d-flex align-items-center justify-content-center text-secondary shadow-sm">
+                                    <i class="bi bi-shield-lock-fill fs-3"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-black text-dark mb-1">Security Wall</h6>
+                                    <p class="text-muted small mb-0">Privacy & login logs</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Appointments -->
+                <div class="card card-premium border-0 shadow-premium overflow-hidden">
+                    <div class="card-header bg-white p-4 border-bottom border-light">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="fw-black mb-0 uppercase tracking-wider">Confirmed Appointments</h6>
+                            <a href="{% url 'citizen:appointments' %}"
+                                class="text-primary small fw-black text-decoration-none">History <i
+                                    class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="list-group list-group-flush">
+                        {% if upcoming_appointments %}
+                        {% for appt in upcoming_appointments %}
+                        <div class="list-group-item p-4 border-light hover:bg-light transition-all">
+                            <div class="row align-items-center g-3">
+                                <div class="col-auto">
+                                    <div class="text-center bg-primary bg-opacity-10 rounded-4 p-3 shadow-sm"
+                                        style="min-width: 70px;">
+                                        <div class="fw-black text-primary fs-4 lh-1 mb-1">{{ appt.date|date:"d" }}</div>
+                                        <div class="uppercase small fw-bold text-muted" style="font-size: 0.65rem;">{{
+                                            appt.date|date:"M" }}</div>
                                     </div>
                                 </div>
-
-                                <div class="row g-4">
-                                    {% for app in approved_apps %}
-                                    <div class="col-md-6">
-                                        <div class="card card-premium shadow-sm border-0 p-4 transition-all hover-lift">
-                                            <div class="d-flex justify-content-between align-items-start mb-4">
-                                                <div>
-                                                    <h6 class="fw-black text-dark mb-1">{{ app.service.service_name }}
-                                                    </h6>
-                                                    <div class="text-muted small">ID: {{ app.application_number }}</div>
-                                                </div>
-                                                <div class="badge-premium badge-premium-success">Verified</div>
-                                            </div>
-                                            <div
-                                                class="d-flex align-items-center justify-content-between pt-3 border-top border-light">
-                                                <small class="text-muted font-medium">Issued: {{
-                                                    app.approved_date|date:"M d, Y" }}</small>
-                                                <a href="{% url 'citizen:certificate' app.id %}"
-                                                    class="btn-premium btn-premium-primary py-2 px-3 shadow-sm"
-                                                    target="_blank">
-                                                    <i class="bi bi-download"></i> Get Doc
-                                                </a>
-                                            </div>
-                                        </div>
+                                <div class="col">
+                                    <h6 class="fw-black text-dark mb-1">{{ appt.center.name }}</h6>
+                                    <div class="d-flex align-items-center gap-3 text-muted small">
+                                        <span class="font-medium"><i class="bi bi-clock-history me-1"></i> {{
+                                            appt.time_slot }}</span>
+                                        <span class="badge-premium badge-premium-success">Confirmed</span>
                                     </div>
-                                    {% empty %}
-                                    <div class="col-12 text-center py-5">
-                                        <div class="py-5 opacity-50">
-                                            <i class="bi bi-award-fill fs-1 d-block mb-3"></i>
-                                            <p class="font-medium">No certificates issued yet.</p>
-                                        </div>
-                                    </div>
-                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
                         {% endfor %}
-
-                        <div class="tab-pane fade" id="history">
-                            <div class="p-4">
-                                <p class="text-muted">Application history will be displayed here</p>
+                        {% else %}
+                        <div class="p-5 text-center">
+                            <div
+                                class="size-16 rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-3 text-muted opacity-25">
+                                <i class="bi bi-calendar-x fs-2"></i>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Info Box -->
-            <div class="alert alert-info mt-4">
-                <i class="bi bi-info-circle-fill"></i> <strong>Did you know?</strong>
-                You can now download digitally signed certificates directly from the "Downloads & Certificates" tab
-                without
-                visiting the office.
-            </div>
-
-            <!-- Quick Actions & Widgets -->
-            <div class="row g-4 mt-5 reveal stagger-2">
-                <div class="col-lg-8">
-                    <h5 class="fw-black text-dark uppercase tracking-widest mb-4">
-                        <i class="bi bi-lightning-charge-fill text-warning me-2"></i> Express Portal
-                    </h5>
-                    <div class="row g-3 mb-5">
-                        <div class="col-sm-6">
+                            <p class="text-muted small font-medium mb-3">No future visits scheduled.</p>
                             <a href="{% url 'citizen:book_appointment' %}"
-                                class="card card-premium border-0 p-4 text-decoration-none hover-lift h-100 shadow-sm">
-                                <div class="d-flex align-items-center gap-4">
-                                    <div
-                                        class="size-14 rounded-4 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center text-primary shadow-sm">
-                                        <i class="bi bi-calendar4-event fs-3"></i>
-                                    </div>
-                                    <div>
-                                        <h6 class="fw-black text-dark mb-1">Book Visit</h6>
-                                        <p class="text-muted small mb-0">Schedule priority slot</p>
-                                    </div>
-                                </div>
-                            </a>
+                                class="btn-premium btn-premium-primary py-2 px-4 shadow-sm">Book One Now</a>
                         </div>
-                        <div class="col-sm-6">
-                            <a href="{% url 'citizen:family' %}"
-                                class="card card-premium border-0 p-4 text-decoration-none hover-lift h-100 shadow-sm">
-                                <div class="d-flex align-items-center gap-4">
-                                    <div
-                                        class="size-14 rounded-4 bg-success bg-opacity-10 d-flex align-items-center justify-content-center text-success shadow-sm">
-                                        <i class="bi bi-people-fill fs-3"></i>
-                                    </div>
-                                    <div>
-                                        <h6 class="fw-black text-dark mb-1">Family Hub</h6>
-                                        <p class="text-muted small mb-0">Manage household data</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6">
-                            <button onclick="new bootstrap.Modal('#eligibilityModal').show()"
-                                class="card card-premium border-0 p-4 text-start w-100 hover-lift h-100 shadow-sm">
-                                <div class="d-flex align-items-center gap-4">
-                                    <div
-                                        class="size-14 rounded-4 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center text-warning shadow-sm">
-                                        <i class="bi bi-magic fs-3"></i>
-                                    </div>
-                                    <div>
-                                        <h6 class="fw-black text-dark mb-1">Scheme Finder</h6>
-                                        <p class="text-muted small mb-0">Check your eligibility</p>
-                                    </div>
-                                </div>
-                            </button>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="{% url 'citizen:security' %}"
-                                class="card card-premium border-0 p-4 text-decoration-none hover-lift h-100 shadow-sm">
-                                <div class="d-flex align-items-center gap-4">
-                                    <div
-                                        class="size-14 rounded-4 bg-secondary bg-opacity-10 d-flex align-items-center justify-content-center text-secondary shadow-sm">
-                                        <i class="bi bi-shield-lock-fill fs-3"></i>
-                                    </div>
-                                    <div>
-                                        <h6 class="fw-black text-dark mb-1">Security Wall</h6>
-                                        <p class="text-muted small mb-0">Privacy & login logs</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Appointments -->
-                    <div class="card card-premium border-0 shadow-premium overflow-hidden">
-                        <div class="card-header bg-white p-4 border-bottom border-light">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h6 class="fw-black mb-0 uppercase tracking-wider">Confirmed Appointments</h6>
-                                <a href="{% url 'citizen:appointments' %}"
-                                    class="text-primary small fw-black text-decoration-none">History <i
-                                        class="bi bi-arrow-right"></i></a>
-                            </div>
-                        </div>
-                        <div class="list-group list-group-flush">
-                            {% if upcoming_appointments %}
-                            {% for appt in upcoming_appointments %}
-                            <div class="list-group-item p-4 border-light hover:bg-light transition-all">
-                                <div class="row align-items-center g-3">
-                                    <div class="col-auto">
-                                        <div class="text-center bg-primary bg-opacity-10 rounded-4 p-3 shadow-sm"
-                                            style="min-width: 70px;">
-                                            <div class="fw-black text-primary fs-4 lh-1 mb-1">{{ appt.date|date:"d" }}
-                                            </div>
-                                            <div class="uppercase small fw-bold text-muted" style="font-size: 0.65rem;">
-                                                {{ appt.date|date:"M" }}</div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <h6 class="fw-black text-dark mb-1">{{ appt.center.name }}</h6>
-                                        <div class="d-flex align-items-center gap-3 text-muted small">
-                                            <span class="font-medium"><i class="bi bi-clock-history me-1"></i> {{
-                                                appt.time_slot }}</span>
-                                            <span class="badge-premium badge-premium-success">Confirmed</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <button
-                                            class="btn btn-light rounded-circle size-10 d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-chevron-right"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                            {% else %}
-                            <div class="p-5 text-center">
-                                <div
-                                    class="size-16 rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-3 text-muted opacity-25">
-                                    <i class="bi bi-calendar-x fs-2"></i>
-                                </div>
-                                <p class="text-muted small font-medium mb-3">No future visits scheduled.</p>
-                                <a href="{% url 'citizen:book_appointment' %}"
-                                    class="btn-premium btn-premium-primary py-2 px-4 shadow-sm">Book One Now</a>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4">
-                    <!-- Community Voice -->
-                    <div class="card card-premium border-0 shadow-premium overflow-hidden mb-4 bg-primary text-white"
-                        style="background: linear-gradient(135deg, var(--primary-color) 0%, #92400E 100%) !important;">
-                        <div class="card-body p-4">
-                            {% if active_poll %}
-                            <div class="uppercase small fw-black tracking-widest mb-4 opacity-75">Citizen Feedback</div>
-                            <h5 class="fw-black mb-4 tracking-tight" style="line-height: 1.4;">{{ active_poll.question
-                                }}</h5>
-
-                            {% if has_voted %}
-                            <div
-                                class="bg-white bg-opacity-10 p-4 rounded-4 text-center border border-white border-opacity-20 translate-y-2">
-                                <i class="bi bi-heart-pulse-fill fs-2 d-block mb-3"></i>
-                                <h6 class="fw-black mb-1">Contribution Recorded</h6>
-                                <p class="small mb-0 opacity-75">Your voice helps shapes Odisha's digital future.</p>
-                            </div>
-                            {% else %}
-                            <form action="{% url 'citizen:vote_poll' active_poll.id %}" method="POST">
-                                {% csrf_token %}
-                                <div class="grid gap-2">
-                                    {% for opt in active_poll.options.all %}
-                                    <button type="submit" name="option" value="{{ opt.id }}"
-                                        class="btn btn-white w-100 text-start p-3 fw-bold rounded-3 hover-lift border-0 shadow-sm transition-all d-flex justify-content-between align-items-center">
-                                        {{ opt.text }}
-                                        <i class="bi bi-check2"></i>
-                                    </button>
-                                    {% endfor %}
-                                </div>
-                            </form>
-                            {% endif %}
-                            {% else %}
-                            <div class="py-4 text-center">
-                                <i class="bi bi-mic fs-1 opacity-25"></i>
-                                <p class="mt-3 font-medium">No active polls at the moment.</p>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-
-                    <!-- Smart Expiry Alerts -->
-                    <div class="card card-premium border-0 shadow-premium">
-                        <div class="card-header bg-white p-4 border-bottom border-light">
-                            <h6 class="fw-black mb-0 uppercase tracking-wider text-danger"><i
-                                    class="bi bi-shield-exclamation me-2"></i>Critical Expiry</h6>
-                        </div>
-                        <div class="card-body p-4">
-                            {% if reminders %}
-                            {% for doc in reminders %}
-                            <div
-                                class="d-flex align-items-center p-3 rounded-4 bg-danger bg-opacity-5 mb-3 border-start border-danger border-4">
-                                <div class="flex-grow-1">
-                                    <h6 class="fw-black text-dark mb-1" style="font-size: 0.9rem;">{{ doc.document_name
-                                        }}</h6>
-                                    <small class="text-danger fw-black uppercase" style="font-size: 0.65rem;">Action
-                                        Needed: {{ doc.expiry_date|date:"M d, Y" }}</small>
-                                </div>
-                                <i class="bi bi-arrow-right-short fs-4 text-danger opacity-50"></i>
-                            </div>
-                            {% endfor %}
-                            <div class="text-center">
-                                <a href="{% url 'citizen:locker' %}"
-                                    class="small text-primary fw-black text-decoration-none uppercase tracking-widest">Access
-                                    Digital Locker</a>
-                            </div>
-                            {% else %}
-                            <div class="text-center py-4">
-                                <div
-                                    class="size-16 rounded-circle bg-success bg-opacity-10 d-flex align-items-center justify-content-center mx-auto mb-3 text-success">
-                                    <i class="bi bi-shield-check fs-2"></i>
-                                </div>
-                                <p class="text-muted small mb-0 font-medium">All compliance items are valid.</p>
-                            </div>
-                            {% endif %}
-                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
 
-
-        </div>
-
-    </div>
-
-
-    <script>
-        // Client-side filtering (Upgraded)
-        const searchInput = document.getElementById('searchInput');
-        const statusFilter = document.getElementById('statusFilter');
-        const deptFilter = document.getElementById('deptFilter');
-
-        [searchInput, statusFilter, deptFilter].forEach(el => {
-            el.addEventListener('input', filterTable);
-        });
-
-        function filterTable() {
-            const query = searchInput.value.toLowerCase();
-            const status = statusFilter.value.toLowerCase();
-            const dept = deptFilter.value.toLowerCase();
-
-            const rows = document.querySelectorAll('tbody tr:not(.empty-row)');
-            rows.forEach(row => {
-                const text = row.innerText.toLowerCase();
-                const matchQuery = text.includes(query);
-                const matchStatus = !status || text.includes(status);
-                // More specific dept matching logic if needed
-
-                row.style.display = (matchQuery && matchStatus) ? '' : 'none';
-            });
-        }
-
-        function checkEligibility() {
-            const income = document.getElementById('eliIncome').value;
-            const status = document.getElementById('eliStatus').value;
-            const list = document.getElementById('eliList');
-            const result = document.getElementById('eliResult');
-
-            list.innerHTML = '';
-            const schemes = [];
-
-            if (status === 'student') schemes.push("Biju Swasthya Kalyan (Health)", "Post-Matric Scholarship");
-            if (status === 'farmer') schemes.push("KALIA Scheme Assistance", "Seed Subsidy Program");
-            if (status === 'senior') schemes.push("Madhu Babu Pension", "Priority Medical Access");
-            if (income === 'low') schemes.push("PMAY Housing Support", "Subsidized Ration Card");
-
-            schemes.forEach(s => {
-                const li = document.createElement('li');
-                li.className = 'd-flex align-items-center gap-2 p-2 rounded-3 hover:bg-white transition-all fw-bold text-dark';
-                li.innerHTML = `<i class="bi bi-check2-circle text-success fw-black"></i> ${s}`;
-                list.appendChild(li);
-            });
-
-            result.classList.remove('d-none');
-            result.classList.add('reveal');
-        }
-
-        // Count-up Utility
-        function animateValue(obj, start, end, duration) {
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                obj.innerHTML = Math.floor(progress * (end - start) + start);
-                if (progress < 1) window.requestAnimationFrame(step);
-            };
-            window.requestAnimationFrame(step);
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.count-up').forEach(counter => {
-                const target = parseInt(counter.dataset.value);
-                if (!isNaN(target)) setTimeout(() => animateValue(counter, 0, target, 2000), 400);
-            });
-        });
-    </script>
-
-    <!-- Eligibility Modal (Upgraded) -->
-    <div class="modal fade" id="eligibilityModal" tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content border-0 shadow-premium rounded-5 overflow-hidden">
-                <div class="modal-header bg-warning py-4 px-5 border-0">
-                    <div class="d-flex align-items-center gap-3">
-                        <div
-                            class="size-12 rounded-4 bg-white bg-opacity-20 d-flex align-items-center justify-content-center text-white">
-                            <i class="bi bi-magic fs-3"></i>
+            <div class="col-lg-4">
+                <!-- Community Voice -->
+                <div class="card card-premium border-0 shadow-premium overflow-hidden mb-4 bg-primary text-white"
+                    style="background: linear-gradient(135deg, var(--primary-color) 0%, #92400E 100%) !important;">
+                    <div class="card-body p-4 text-center">
+                        {% if active_poll %}
+                        <div class="uppercase small fw-black tracking-widest mb-4 opacity-75">Citizen Feedback</div>
+                        <h5 class="fw-black mb-4 tracking-tight">{{ active_poll.question }}</h5>
+                        {% if has_voted %}
+                        <div class="bg-white bg-opacity-10 p-4 rounded-4 text-center">
+                            <i class="bi bi-heart-pulse-fill fs-2 d-block mb-3"></i>
+                            <h6 class="fw-black mb-1">Recorded</h6>
                         </div>
-                        <div>
-                            <h4 class="modal-title fw-black text-white uppercase tracking-tighter">Eligibility Wizard
-                            </h4>
-                            <p class="mb-0 text-white opacity-75 small">AI-powered scheme recommendations</p>
+                        {% else %}
+                        <form action="{% url 'citizen:vote_poll' active_poll.id %}" method="POST">
+                            {% csrf_token %}
+                            <div class="d-grid gap-2">
+                                {% for opt in active_poll.options.all %}
+                                <button type="submit" name="option" value="{{ opt.id }}"
+                                    class="btn btn-white w-100 text-start p-3 fw-bold rounded-3">
+                                    {{ opt.text }}
+                                </button>
+                                {% endfor %}
+                            </div>
+                        </form>
+                        {% endif %}
+                        {% else %}
+                        <div class="py-4 text-center">
+                            <i class="bi bi-mic fs-1 opacity-25"></i>
+                            <p class="mt-3 font-medium">No active polls.</p>
                         </div>
-                    </div>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body p-5">
-                    <div class="row g-4" id="wizardQuestions">
-                        <div class="col-md-6 text-start">
-                            <label class="form-premium-label">Monthly Household Income</label>
-                            <select class="form-premium-control appearance-none" id="eliIncome">
-                                <option value="low">Economic Weaker Section (< 25k)</option>
-                                <option value="mid">Middle Income Group (25k-1L)</option>
-                                <option value="high">Above 1 Lakh</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 text-start">
-                            <label class="form-premium-label">Employment Domain</label>
-                            <select class="form-premium-control appearance-none" id="eliStatus">
-                                <option value="student">Academic / Student</option>
-                                <option value="farmer">Agritech / Farmer</option>
-                                <option value="senior">Veteran / Senior</option>
-                                <option value="unemployed">Job Seeker</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div id="eliResult" class="mt-5 d-none">
-                        <div class="p-4 rounded-4 bg-success bg-opacity-5 border border-success border-opacity-10">
-                            <h6 class="fw-black text-success uppercase tracking-widest mb-3"><i
-                                    class="bi bi-star-fill me-2"></i>Recommended for You</h6>
-                            <ul class="list-unstyled mb-0 d-grid gap-2" id="eliList"></ul>
-                        </div>
+                        {% endif %}
                     </div>
                 </div>
-                <div class="modal-footer p-4 bg-light border-0">
-                    <button onclick="checkEligibility()"
-                        class="btn-premium btn-premium-primary w-100 py-3 uppercase fw-black">Analyze
-                        Eligibility</button>
+
+                <!-- Expiry Alerts -->
+                <div class="card card-premium border-0 shadow-premium">
+                    <div class="card-header bg-white p-4 border-bottom border-light">
+                        <h6 class="fw-black mb-0 uppercase tracking-wider text-danger"><i
+                                class="bi bi-shield-exclamation me-2"></i>Critical Expiry</h6>
+                    </div>
+                    <div class="card-body p-4">
+                        {% if reminders %}
+                        {% for doc in reminders %}
+                        <div class="d-flex align-items-center p-3 rounded-4 bg-danger bg-opacity-5 mb-3">
+                            <div class="flex-grow-1">
+                                <h6 class="fw-black text-dark mb-1">{{ doc.document_name }}</h6>
+                                <small class="text-danger fw-black uppercase">Expires: {{ doc.expiry_date|date:"M d, Y"
+                                    }}</small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <div class="text-center py-4">
+                            <div
+                                class="size-16 rounded-circle bg-success bg-opacity-10 d-flex align-items-center justify-content-center mx-auto mb-3 text-success">
+                                <i class="bi bi-shield-check fs-2"></i>
+                            </div>
+                            <p class="text-muted small mb-0 font-medium">All compliance valid.</p>
+                        </div>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    {% endblock %}
+</div>
+
+<!-- Modals -->
+<div class="modal fade" id="helpModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-premium rounded-5 overflow-hidden">
+            <div class="modal-header bg-primary py-4 px-5 border-0 text-white">
+                <h5 class="modal-title fw-black uppercase tracking-tighter">Citizen Support</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-5 text-center">
+                <div
+                    class="size-20 rounded-circle bg-primary bg-opacity-10 d-flex align-items-center justify-content-center mx-auto mb-4 text-primary">
+                    <i class="bi bi-headset fs-1"></i>
+                </div>
+                <h4 class="fw-black text-dark mb-2">Need Assistance?</h4>
+                <p class="text-muted mb-4">Our team is here to help with your applications or portal navigation.</p>
+                <div class="d-grid gap-3">
+                    <a href="tel:+911800123456" class="btn-premium btn-premium-primary py-3">Toll Free: 1800 123 456</a>
+                    <a href="mailto:support@odisha.gov.in" class="btn btn-light py-3 fw-bold rounded-4 border">Email
+                        Support</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="eligibilityModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow-premium rounded-5 overflow-hidden">
+            <div class="modal-header bg-warning py-4 px-5 border-0 text-white">
+                <h5 class="modal-title fw-black uppercase tracking-tighter">Eligibility Wizard</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-5">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Household Income</label>
+                        <select class="form-select py-3 rounded-4" id="eliIncome">
+                            <option value="low">EWS (< 25k)</option>
+                            <option value="mid">Middle (25k-1L)</option>
+                            <option value="high">High (> 1L)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Domain</label>
+                        <select class="form-select py-3 rounded-4" id="eliStatus">
+                            <option value="student">Student</option>
+                            <option value="farmer">Farmer</option>
+                            <option value="senior">Senior</option>
+                            <option value="unemployed">Job Seeker</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="eliResult" class="mt-5 d-none">
+                    <div class="p-4 rounded-4 bg-success bg-opacity-5 border border-success">
+                        <h6 class="fw-black text-success uppercase tracking-widest mb-3">Recommended Schemes</h6>
+                        <ul class="list-unstyled mb-0 d-grid gap-2" id="eliList"></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer p-4 bg-light border-0">
+                <button onclick="checkEligibility()"
+                    class="btn-premium btn-premium-primary w-100 py-3 uppercase fw-black">Analyze Eligibility</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const searchInput = document.getElementById('searchInput');
+    const statusFilter = document.getElementById('statusFilter');
+    const deptFilter = document.getElementById('deptFilter');
+
+    [searchInput, statusFilter, deptFilter].forEach(el => {
+        if (el) el.addEventListener('input', filterTable);
+    });
+
+    function filterTable() {
+        const query = searchInput.value.toLowerCase();
+        const status = statusFilter.value.toLowerCase();
+        const dept = deptFilter.value.toLowerCase();
+        const rows = document.querySelectorAll('tbody tr');
+        rows.forEach(row => {
+            const text = row.innerText.toLowerCase();
+            const matchQuery = text.includes(query);
+            const matchStatus = !status || text.includes(status);
+            row.style.display = (matchQuery && matchStatus) ? '' : 'none';
+        });
+    }
+
+    function checkEligibility() {
+        const income = document.getElementById('eliIncome').value;
+        const status = document.getElementById('eliStatus').value;
+        const list = document.getElementById('eliList');
+        const result = document.getElementById('eliResult');
+        list.innerHTML = '';
+        const schemes = [];
+        if (status === 'student') schemes.push("Biju Swasthya Kalyan (Health)", "Post-Matric Scholarship");
+        if (status === 'farmer') schemes.push("KALIA Scheme Assistance", "Seed Subsidy Program");
+        if (status === 'senior') schemes.push("Madhu Babu Pension", "Priority Medical Access");
+        if (income === 'low') schemes.push("PMAY Housing Support", "Subsidized Ration Card");
+        schemes.forEach(s => {
+            const li = document.createElement('li');
+            li.className = 'd-flex align-items-center gap-2 p-2 fw-bold text-dark';
+            li.innerHTML = `<i class="bi bi-check2-circle text-success fw-black"></i> ${s}`;
+            list.appendChild(li);
+        });
+        result.classList.remove('d-none');
+    }
+
+    function animateValue(obj, start, end, duration) {
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            obj.innerHTML = Math.floor(progress * (end - start) + start);
+            if (progress < 1) window.requestAnimationFrame(step);
+        };
+        window.requestAnimationFrame(step);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.count-up').forEach(counter => {
+            const target = parseInt(counter.dataset.value);
+            if (!isNaN(target)) setTimeout(() => animateValue(counter, 0, target, 2000), 400);
+        });
+    });
+</script>
+{% endblock %}
