@@ -43,8 +43,11 @@
                             </div>
 
                             <h3 class="fw-black mb-1 z-10">
-                                {% if user.get_full_name %}{{ user.get_full_name }}{% else %}{{ user.username }}{% endif
-                                %}
+                                {% if user.get_full_name %}
+                                {{ user.get_full_name }}
+                                {% else %}
+                                {{ user.username }}
+                                {% endif %}
                             </h3>
                             <p class="opacity-75 mb-4 text-uppercase tracking-widest small fw-bold z-10">
                                 {{ user.get_role_display }}
@@ -85,7 +88,18 @@
                                     <h4 class="mb-1 fw-black tracking-tight text-dark">Profile Settings</h4>
                                     <p class="text-muted small mb-0 font-medium">Update your citizen profile details</p>
                                 </div>
-                                <a href="{% if user.role == 'citizen' %}{% url 'citizen:dashboard' %}{% elif user.role == 'officer' %}{% url 'officer:dashboard' %}{% elif user.role == 'department_head' %}{% url 'mis:dashboard' %}{% elif user.role == 'admin' %}{% url 'admin_panel:dashboard' %}{% else %}{% url 'core:home' %}{% endif %}"
+                                {% if user.role == 'citizen' %}
+                                {% url 'citizen:dashboard' as dashboard_url %}
+                                {% elif user.role == 'officer' %}
+                                {% url 'officer:dashboard' as dashboard_url %}
+                                {% elif user.role == 'department_head' %}
+                                {% url 'mis:dashboard' as dashboard_url %}
+                                {% elif user.role == 'admin' %}
+                                {% url 'admin_panel:dashboard' as dashboard_url %}
+                                {% else %}
+                                {% url 'core:home' as dashboard_url %}
+                                {% endif %}
+                                <a href="{{ dashboard_url }}"
                                     class="btn btn-outline-secondary btn-sm rounded-pill px-4 fw-bold hover-lift transition-all">
                                     <i class="bi bi-arrow-left me-1"></i> Dashboard
                                 </a>
@@ -116,46 +130,31 @@
                                         {{ form.aadhaar_number }}
                                     </div>
                                     <div class="col-md-12">
-                                        <label class="form-premium-label">Full Address</label>
+                                        <label class="form-premium-label">Residential Address</label>
                                         {{ form.address }}
                                     </div>
                                     <div class="col-md-12">
                                         <label class="form-premium-label">Profile Picture</label>
-                                        {{ form.profile_picture }}
-                                        <div class="form-text small mt-2 d-flex align-items-center gap-1 text-muted">
-                                            <i class="bi bi-info-circle"></i> Max size 2MB. formats: JPG, PNG
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-end-0"><i
+                                                    class="bi bi-image"></i></span>
+                                            {{ form.profile_picture }}
                                         </div>
+                                        <div class="form-text mt-2 small">Upload a professional photo (JPG, PNG). Max
+                                            2MB.</div>
                                     </div>
                                 </div>
 
-                                <div class="mt-5 pt-4 border-top border-light d-grid d-md-flex justify-content-md-end">
-                                    <button type="submit" class="btn-premium btn-premium-primary px-5 py-3 shadow-lg">
-                                        <i class="bi bi-check2-circle me-2"></i> Save Changes
-                                    </button>
+                                <div class="pt-4 border-top border-light mt-5">
+                                    <div class="d-flex justify-content-end gap-3">
+                                        <button type="reset" class="btn btn-light rounded-pill px-4 fw-bold">Discard
+                                            Changes</button>
+                                        <button type="submit"
+                                            class="btn btn-primary rounded-pill px-5 fw-bold shadow-sm">Save Profile
+                                            Update</button>
+                                    </div>
                                 </div>
                             </form>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Account Security Card -->
-                <div class="card card-premium mt-4 border-0 shadow-sm transition-all hover-lift">
-                    <div class="card-body p-4">
-                        <div class="d-flex flex-column flex-md-row align-items-md-center gap-4">
-                            <div
-                                class="size-14 rounded-4 bg-warning bg-opacity-10 text-warning d-flex align-items-center justify-content-center flex-shrink-0">
-                                <i class="bi bi-shield-lock-fill fs-3"></i>
-                            </div>
-                            <div>
-                                <h6 class="mb-1 fw-black text-dark">Security Settings</h6>
-                                <p class="text-muted small mb-0">Protect your account with a strong password</p>
-                            </div>
-                            <div class="ms-md-auto">
-                                <button
-                                    class="btn btn-outline-warning border-2 fw-bold rounded-pill px-4 py-2 hover-bg-warning hover-text-dark transition-all">
-                                    Change Password
-                                </button>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -163,35 +162,4 @@
         </div>
     </div>
 </div>
-
-<style>
-    /* Scoped form overrides if needed, though premium classes should handle most */
-    input[type="text"],
-    input[type="email"],
-    input[type="number"],
-    textarea,
-    select {
-        width: 100%;
-        padding: 0.75rem 1rem;
-        font-size: 0.95rem;
-        font-weight: 500;
-        line-height: 1.5;
-        color: #1e293b;
-        background-color: #f8fafc;
-        background-clip: padding-box;
-        border: 1px solid #e2e8f0;
-        appearance: none;
-        border-radius: 0.75rem;
-        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    }
-
-    input:focus,
-    textarea:focus,
-    select:focus {
-        border-color: var(--primary-color);
-        outline: 0;
-        box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.1);
-        background-color: #fff;
-    }
-</style>
 {% endblock %}
