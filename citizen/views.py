@@ -315,6 +315,9 @@ def document_locker(request):
         if 'delete' in request.POST:
             doc_id = request.POST.get('document_id')
             doc = get_object_or_404(CitizenDocumentLocker, id=doc_id, user=request.user)
+            # Delete physical file
+            if doc.file_path:
+                doc.file_path.delete(save=False)
             doc.delete()
             messages.success(request, "Document removed from locker.")
             return redirect('citizen:locker')

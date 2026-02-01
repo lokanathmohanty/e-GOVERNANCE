@@ -182,16 +182,18 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = str(BASE_DIR / 'staticfiles')
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # For production static file serving (WhiteNoise)
-# Using CompressedStaticFilesStorage instead of Manifest version to prevent 500 errors on missing files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # Media Files
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = str(BASE_DIR / 'media')
+
+if DEBUG:
+    print(f"DEBUG: Media serving enabled at {MEDIA_URL} -> {MEDIA_ROOT}")
 
 
 # Default primary key field type
