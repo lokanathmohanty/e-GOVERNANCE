@@ -250,13 +250,6 @@
                     </button>
                 </div>
                 <ul class="navbar-nav ms-auto align-items-center gap-2">
-                    {% if user.role != 'officer' and user.role != 'department_head' %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'citizen:public_track' %}">
-                            <i class="bi bi-search me-1"></i> Track Status
-                        </a>
-                    </li>
-                    {% endif %}
                     <!-- Notifications -->
                     {% if user.is_authenticated %}
                     <li class="nav-item dropdown me-2">
