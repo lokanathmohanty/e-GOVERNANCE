@@ -101,20 +101,31 @@
         const centerSelect = document.getElementById('centerSelect');
         const options = centerSelect.querySelectorAll('option');
 
-        // Hide/Show logic
-        let count = 0;
-        options.forEach(opt => {
-            if (!opt.value) return;
-            if (opt.getAttribute('data-dept') === deptId) {
-                opt.hidden = false;
-                count++;
-            } else {
-                opt.hidden = true;
-            }
-        });
-
         // Reset selection
         centerSelect.value = "";
+
+        options.forEach(opt => {
+            // Always show the placeholder
+            if (opt.value === "") {
+                opt.text = deptId ? "Select Service Center" : "Select Department First";
+                opt.hidden = false;
+                opt.style.display = "";
+                return;
+            }
+
+            const dataDept = opt.getAttribute('data-dept');
+
+            // Loose comparison in case types differ (string vs int)
+            if (deptId && dataDept == deptId) {
+                opt.hidden = false;
+                opt.style.display = "";
+                opt.disabled = false;
+            } else {
+                opt.hidden = true;
+                opt.style.display = "none";
+                opt.disabled = true;
+            }
+        });
     }
     // Set min date to today
     document.querySelector('input[name="date"]').min = new Date().toISOString().split("T")[0];

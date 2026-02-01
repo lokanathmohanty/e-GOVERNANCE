@@ -627,19 +627,33 @@
         const status = document.getElementById('eliStatus').value;
         const list = document.getElementById('eliList');
         const result = document.getElementById('eliResult');
+
+        if (!list || !result) return;
+
         list.innerHTML = '';
         const schemes = [];
+
+        // Logic
         if (status === 'student') schemes.push("Biju Swasthya Kalyan (Health)", "Post-Matric Scholarship");
         if (status === 'farmer') schemes.push("KALIA Scheme Assistance", "Seed Subsidy Program");
         if (status === 'senior') schemes.push("Madhu Babu Pension", "Priority Medical Access");
+        if (status === 'unemployed') schemes.push("Skill India Training", "Unemployment Allowance");
         if (income === 'low') schemes.push("PMAY Housing Support", "Subsidized Ration Card");
+
+        if (schemes.length === 0) {
+            schemes.push("General Citizen Services");
+        }
+
         schemes.forEach(s => {
             const li = document.createElement('li');
             li.className = 'd-flex align-items-center gap-2 p-2 fw-bold text-dark';
             li.innerHTML = `<i class="bi bi-check2-circle text-success fw-black"></i> ${s}`;
             list.appendChild(li);
         });
+
+        // Show result
         result.classList.remove('d-none');
+        result.style.display = "block"; // Force display
     }
 
     function animateValue(obj, start, end, duration) {

@@ -111,7 +111,7 @@
         class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-background-dark/80 backdrop-blur-sm hidden">
         <div
             class="bg-white dark:bg-surface-dark w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in duration-300 border dark:border-gray-800">
-            <form method="POST" enctype="multipart/form-data">
+            <form method="POST" action="{% url 'citizen:locker' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="bg-primary p-6 text-white flex items-center justify-between">
                     <div class="flex items-center gap-4">

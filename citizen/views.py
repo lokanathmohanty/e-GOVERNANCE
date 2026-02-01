@@ -328,13 +328,16 @@ def document_locker(request):
         file = request.FILES.get('file')
         
         if name and file:
-            CitizenDocumentLocker.objects.create(
-                user=request.user,
-                document_name=name,
-                document_type=doc_type,
-                file_path=file
-            )
-            messages.success(request, 'Document permanently added to your locker.')
+            try:
+                CitizenDocumentLocker.objects.create(
+                    user=request.user,
+                    document_name=name,
+                    document_type=doc_type,
+                    file_path=file
+                )
+                messages.success(request, 'Document permanently added to your locker.')
+            except Exception as e:
+                messages.error(request, f"Error uploading document: {str(e)}")
         else:
             messages.error(request, 'Please provide name and file.')
         return redirect('citizen:locker')
