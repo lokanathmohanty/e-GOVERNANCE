@@ -197,29 +197,44 @@ def application_receipt(request, app_id):
     application = get_object_or_404(Application, id=app_id, user=request.user)
     return render(request, 'citizen/receipt.html', {'app': application})
 
+@login_required
 def public_track(request):
-    app_number = request.GET.get('app_number')
+    app_number = request.GET.get('app_number', '').strip()
     application = None
     
     if app_number:
-        # Strip whitespace and try to find the application
-        app_number_clean = app_number.strip().upper()
+        # Normalize the input
+        app_number_clean = app_number.upper()
         
-        # Try exact match first
+        # 1. Try exact match on application_number
         application = Application.objects.filter(application_number__iexact=app_number_clean).first()
         
+        # 2. Try partial match if exact doesn't work
         if not application:
-            # Try partial match if exact doesn't work
             application = Application.objects.filter(application_number__icontains=app_number_clean).first()
+            
+        # 3. Try integer ID if input is numeric
+        if not application and app_number.isdigit():
+            application = Application.objects.filter(id=int(app_number)).first()
         
         if not application:
-            messages.error(request, f"Application number '{app_number}' not found. Please verify the number and try again.")
-            # For debugging - show how many applications exist
-            total_apps = Application.objects.count()
-            if total_apps > 0:
-                messages.info(request, f"Hint: Try copying the exact number from your receipt. System has {total_apps} applications.")
+            messages.warning(request, f"Record '{app_number}' not found. Please check the ID and try again.")
+        else:
+            # Audit the search
+            from core.models import AuditLog
+            AuditLog.objects.create(
+                user=request.user,
+                action='APP_TRACK',
+                entity_type='Application',
+                entity_id=application.id,
+                description=f"User tracked application {application.application_number}",
+                ip_address=request.META.get('REMOTE_ADDR', '0.0.0.0')
+            )
     
-    return render(request, 'citizen/search_track.html', {'application': application, 'app_number': app_number})
+    return render(request, 'citizen/search_track.html', {
+        'application': application, 
+        'app_number': app_number
+    })
 
 @login_required
 def download_certificate(request, app_id):

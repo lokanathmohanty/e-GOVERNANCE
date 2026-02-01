@@ -25,7 +25,8 @@
                             </button>
                         </div>
                         <p class='small text-muted mt-3'>Use this number to track your application status.</p>
-                        <a href='{% url ' citizen:dashboard' %}' class='btn btn-info btn-sm mt-2'>
+                        <a href='{% url "citizen:public_track" %}?app_number={{ app.application_number }}'
+                            class='btn btn-info btn-sm mt-2'>
                             <i class='bi bi-search'></i> Track Now
                         </a>
                     </div>
