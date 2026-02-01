@@ -11,108 +11,128 @@ from core.decorators import role_required
 @login_required
 @role_required(['citizen'])
 def dashboard(request):
+    """
+    Main dashboard for citizens to view their applications, appointments, and alerts.
+    Designed with extreme robustness to ensure page loads even if some models are missing/corrupt.
+    """
+    from django.utils import timezone
+    from datetime import timedelta
+    from core.models import Department, Application, Service, Poll, PollVote, Appointment, CitizenDocumentLocker
+    import logging
+    
+    logger = logging.getLogger(__name__)
+    
+    # Initialize default context
+    context = {
+        'applications': [],
+        'stats': {'total': 0, 'in_progress': 0, 'approved': 0, 'rejected': 0, 'delayed': 0},
+        'approved_apps': [],
+        'departments': [],
+        'active_poll': None,
+        'has_voted': False,
+        'upcoming_appointments': [],
+        'reminders': [],
+        'error_message': None
+    }
+    
     try:
-        from datetime import timedelta
-        from django.utils import timezone
-        from core.models import Department
+        # 1. Fetch Basic Data
+        applications_qs = Application.objects.filter(user=request.user).select_related('service__department').order_by('-applied_date')
+        applications = list(applications_qs) # Evaluate immediately to store custom attributes
+        context['applications'] = applications
+        context['departments'] = Department.objects.all()
         
-        applications = Application.objects.filter(user=request.user).select_related('service__department').order_by('-applied_date')
-        
-        # Calculate SLA status for each application
+        # 2. Process SLA & Stats
         now = timezone.now()
+        in_progress = 0
+        approved = 0
+        rejected = 0
+        delayed = 0
+        
         for app in applications:
             try:
+                # Set default status tracking
+                if app.status == 'under_review': in_progress += 1
+                elif app.status == 'approved': approved += 1
+                elif app.status == 'rejected': rejected += 1
+                
+                # SLA Logic
                 if app.status in ['approved', 'rejected']:
                     app.sla_status = 'completed'
+                    app.days_left = 0
                 else:
-                    # Ensure sla_deadline is aware if naive
                     deadline = app.sla_deadline
-                    if timezone.is_naive(deadline):
-                        deadline = timezone.make_aware(deadline)
-                    
-                    time_diff = deadline - now
-                    days_remaining = time_diff.days
-                    total_sla_days = app.service.processing_days
-                    
-                    if days_remaining < 0:
-                        app.sla_status = 'delayed'
-                        app.days_overdue = abs(days_remaining)
-                    elif days_remaining <= (total_sla_days * 0.2):  # Less than 20% time remaining
-                        app.sla_status = 'near_deadline'
-                        app.days_left = days_remaining
+                    if deadline:
+                        if timezone.is_naive(deadline):
+                            deadline = timezone.make_aware(deadline)
+                        
+                        time_diff = deadline - now
+                        app.days_left = time_diff.days
+                        
+                        if time_diff.total_seconds() < 0:
+                            app.sla_status = 'delayed'
+                            delayed += 1
+                        elif time_diff.days <= 2:
+                            app.sla_status = 'near_deadline'
+                        else:
+                            app.sla_status = 'on_time'
                     else:
-                        app.sla_status = 'on_time'
-                        app.days_left = days_remaining
+                        app.sla_status = 'unknown'
+                        app.days_left = 0
             except Exception as e:
-                # Fallback for bad data to prevent crash
+                logger.warning(f"Error calculating SLA for app {app.id}: {str(e)}")
                 app.sla_status = 'unknown'
                 app.days_left = 0
-        
-        # Statistics
-        stats = {
-            'total': applications.count(),
-            'in_progress': applications.filter(status='under_review').count(),
-            'approved': applications.filter(status='approved').count(),
-            'rejected': applications.filter(status='rejected').count(),
-            'delayed': sum(1 for app in applications if hasattr(app, 'sla_status') and app.sla_status == 'delayed')
+                
+        context['stats'] = {
+            'total': len(applications),
+            'in_progress': in_progress,
+            'approved': approved,
+            'rejected': rejected,
+            'delayed': delayed
         }
+        context['approved_apps'] = [app for app in applications if app.status == 'approved']
         
-        approved_apps = applications.filter(status='approved')
-        departments = Department.objects.all()
-        
-        # Poll Logic
-        active_poll = None
-        has_voted = False
+        # 3. Fetch Polls
         try:
-            from core.models import Poll, PollVote
             active_poll = Poll.objects.filter(is_active=True).first()
             if active_poll:
-                has_voted = PollVote.objects.filter(user=request.user, poll=active_poll).exists()
-        except Exception:
-            pass
-
-        # Appointments
-        upcoming_appointments = []
+                context['active_poll'] = active_poll
+                context['has_voted'] = PollVote.objects.filter(user=request.user, poll=active_poll).exists()
+        except Exception as e:
+            logger.error(f"Poll fetch error: {str(e)}")
+            
+        # 4. Fetch Appointments
         try:
-            from core.models import Appointment
-            upcoming_appointments = Appointment.objects.filter(user=request.user, date__gte=timezone.now().date()).order_by('date')[:3]
-        except Exception:
-            pass
-
-        # Smart Reminders
-        reminders = []
+            context['upcoming_appointments'] = Appointment.objects.filter(
+                user=request.user, 
+                date__gte=now.date()
+            ).select_related('center').order_by('date', 'time_slot')[:3]
+        except Exception as e:
+            logger.error(f"Appointment fetch error: {str(e)}")
+            
+        # 5. Fetch Reminders (Document Expiry)
         try:
-            from core.models import CitizenDocumentLocker
-            from datetime import timedelta
-            expiry_limit = timezone.now().date() + timedelta(days=30)
-            reminders = CitizenDocumentLocker.objects.filter(
+            expiry_limit = now.date() + timedelta(days=30)
+            context['reminders'] = CitizenDocumentLocker.objects.filter(
                 user=request.user, 
                 expiry_date__lte=expiry_limit,
-                expiry_date__gte=timezone.now().date()
+                expiry_date__gte=now.date()
             ).order_by('expiry_date')
-        except Exception:
-            pass
-        
-        context = {
-            'active_poll': active_poll,
-            'has_voted': has_voted,
-            'upcoming_appointments': upcoming_appointments,
-            'reminders': reminders,
-            'applications': applications,
-            'stats': stats,
-            'approved_apps': approved_apps,
-            'departments': departments,
-        }
-        return render(request, 'citizen/dashboard_bootstrap.html', context)
+        except Exception as e:
+            logger.error(f"Reminders fetch error: {str(e)}")
+            
     except Exception as e:
-        import logging
-        logger = logging.getLogger(__name__)
-        logger.error(f"Critical error in citizen dashboard: {str(e)}")
-        # Provide minimal context to prevent total page crash if possible, or redirect
-        return render(request, 'citizen/dashboard_bootstrap.html', {
-            'error_message': 'Some dashboard features are temporarily unavailable.',
-            'applications': Application.objects.filter(user=request.user)
-        })
+        logger.critical(f"Global dashboard failure: {str(e)}")
+        context['error_message'] = "We encountered a problem loading your full dashboard. Some information may be missing."
+        # Attempt to at least provide applications if not already loaded
+        if not context['applications']:
+            try:
+                context['applications'] = Application.objects.filter(user=request.user)
+            except:
+                pass
+
+    return render(request, 'citizen/dashboard_bootstrap.html', context)
 
 @login_required
 def services_list(request):
