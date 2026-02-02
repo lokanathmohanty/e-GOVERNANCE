@@ -40,8 +40,7 @@
                                     required>
                                     <option value="" selected disabled>Select Department First</option>
                                     {% for c in centers %}
-                                    <option value="{{ c.id }}" data-dept="{{ c.department_id }}" style="display: none;"
-                                        disabled>{{ c.name }}</option>
+                                    <option value="{{ c.id }}" data-dept="{{ c.department_id }}">{{ c.name }}</option>
                                     {% endfor %}
                                 </select>
                                 <i
@@ -68,8 +67,42 @@
                             <label class="form-premium-label">Appointment Date</label>
                             <div class="position-relative">
                                 <input type="date" name="date" class="form-premium-control" required>
-                                <i class="bi bi-calendar3 position-absolute top-50 end-0 translate-middle-y me-3 text-muted pointer-events-none"
-                                    style="z-index: 5;"></i>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-premium-label">Available Time Slots</label>
+                            <div class="position-relative">
+                                <select name="time_slot" class="form-premium-control appearance-none" required>
+                                    <option value="">Select Time Slot</option>
+                                    {% for slot in time_slots %}
+                                    <option value="{{ slot }}">{{ slot }}</option>
+                                    {% endfor %}
+                                </select>
+                                <i
+                                    class="bi bi-clock position-absolute top-50 end-0 translate-middle-y me-3 text-muted pointer-events-none"></i>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mt-3">
+                            <div class="card bg-light border-0 p-3 rounded-4">
+                                <label class="form-premium-label mb-2">Booking Priority</label>
+                                <div class="d-flex gap-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="priority" id="priorityNormal"
+                                            value="normal" checked>
+                                        <label class="form-check-label fw-bold" for="priorityNormal">
+                                            Normal Slot
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="priority" id="priorityHigh"
+                                            value="priority">
+                                        <label class="form-check-label fw-bold text-primary" for="priorityHigh">
+                                            Priority / Fast-Track <span class="badge bg-primary ms-1">Express</span>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -104,18 +137,16 @@
         centerOptions.forEach(opt => {
             if (opt.value === "") {
                 opt.text = deptId ? "--- Now Select a Center ---" : "Select Department First";
-                opt.disabled = true;
                 return;
             }
 
             const optDept = opt.getAttribute('data-dept');
-            // Use loose comparison for string vs integer IDs
-            if (deptId && optDept == deptId) {
-                opt.style.display = "block";
+            if (deptId && optDept === deptId) {
+                opt.hidden = false;
                 opt.disabled = false;
                 centerCount++;
             } else {
-                opt.style.display = "none";
+                opt.hidden = true;
                 opt.disabled = true;
             }
         });
@@ -130,8 +161,13 @@
         svcOptions.forEach(opt => {
             if (opt.value === "") return;
             const optDept = opt.getAttribute('data-dept');
-            // Use loose comparison
-            opt.style.display = (deptId && optDept == deptId) ? "block" : "none";
+            if (deptId && optDept === deptId) {
+                opt.hidden = false;
+                opt.disabled = false;
+            } else {
+                opt.hidden = true;
+                opt.disabled = true;
+            }
         });
     }
 
@@ -153,7 +189,7 @@
     document.querySelector('form').addEventListener('submit', function (e) {
         const btn = document.getElementById('submitBtn');
         btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Processing...';
-        btn.disabled = true;
+        // Note: Don't disable immediately if you want browser validation to work
     });
 </script>
 {% endblock %}

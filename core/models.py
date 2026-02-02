@@ -238,12 +238,17 @@ class DepartmentCenter(models.Model):
         return self.name
 
 class Appointment(models.Model):
+    PRIORITY_CHOICES = (
+        ('normal', 'Normal'),
+        ('priority', 'Priority'),
+    )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     center = models.ForeignKey(DepartmentCenter, on_delete=models.CASCADE)
     service = models.ForeignKey(Service, on_delete=models.SET_NULL, null=True)
     date = models.DateField()
     time_slot = models.CharField(max_length=20)
+    priority = models.CharField(max_length=10, choices=PRIORITY_CHOICES, default='normal')
     status = models.CharField(max_length=20, default='scheduled')
     token_number = models.CharField(max_length=20)
     created_at = models.DateTimeField(auto_now_add=True)

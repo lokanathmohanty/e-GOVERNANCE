@@ -1,11 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from core.models import (
-    Application, Service, GrievanceTicket, Document, OfficerAssignment, 
-    User, CitizenDocumentLocker, Department, DepartmentCenter, 
-    Poll, PollOption, PollVote, Appointment, LoginHistory
-)
+from core.models import Application, Service, GrievanceTicket, Document, OfficerAssignment, User, CitizenDocumentLocker
 from .forms import ServiceApplicationForm, DocumentUploadForm, GrievanceForm
 from django.db import transaction, models
 from django.utils import timezone
@@ -16,22 +12,26 @@ from core.decorators import role_required
 @role_required(['citizen'])
 def dashboard(request):
     """
-    Main dashboard view for citizens.
+    Main dashboard for citizens to view their applications, appointments, and alerts.
+    Designed with extreme robustness to ensure page loads even if some models are missing/corrupt.
     """
-    import logging
+    from django.utils import timezone
     from datetime import timedelta
-    logger = logging.getLogger(__name__)
-    now = timezone.now()
+    from core.models import Department, Application, Service, Poll, PollVote, Appointment, CitizenDocumentLocker
+    import logging
     
-    # Initialize Context
+    logger = logging.getLogger(__name__)
+    
+    # Initialize default context
     context = {
         'applications': [],
         'stats': {'total': 0, 'in_progress': 0, 'approved': 0, 'rejected': 0, 'delayed': 0},
+        'approved_apps': [],
+        'departments': [],
         'active_poll': None,
         'has_voted': False,
         'upcoming_appointments': [],
         'reminders': [],
-        'departments': [],
         'error_message': None
     }
     
@@ -102,13 +102,28 @@ def dashboard(request):
 
     # 3. Fetch Polls (Independent Block)
     try:
-        # Get the latest active poll that actually has options
-        poll_qs = Poll.objects.filter(is_active=True).order_by('-created_at')
-        for p in poll_qs:
-            if p.options.exists():
-                context['active_poll'] = p
-                context['has_voted'] = PollVote.objects.filter(user=request.user, poll=p).exists()
-                break
+        active_poll = Poll.objects.filter(is_active=True).order_by('-created_at').first()
+        if active_poll:
+            context['active_poll'] = active_poll
+            context['has_voted'] = PollVote.objects.filter(user=request.user, poll=active_poll).exists()
+            
+            # Calculate total votes for the poll to show percentages
+            total_votes = sum(option.votes for option in active_poll.options.all())
+            context['total_poll_votes'] = total_votes
+            
+            # Prepare options with percentage calculation
+            poll_options = []
+            for opt in active_poll.options.all():
+                percentage = 0
+                if total_votes > 0:
+                    percentage = int((opt.votes / total_votes) * 100)
+                poll_options.append({
+                    'id': opt.id,
+                    'text': opt.text,
+                    'votes': opt.votes,
+                    'percentage': percentage
+                })
+            context['poll_options'] = poll_options
     except Exception as e:
         logger.error(f"Poll fetch error: {str(e)}")
 
@@ -133,15 +148,6 @@ def dashboard(request):
         ).order_by('expiry_date')
     except Exception as e:
         logger.error(f"Reminders error: {str(e)}")
-
-    # DEBUG: Log to file
-    try:
-        with open('dashboard_debug.log', 'a') as f:
-            from django.utils import timezone
-            f.write(f"\n[{timezone.now()}] User: {request.user.username} (ID: {request.user.id}, Role: {request.user.role})\n")
-            f.write(f"Poll Count: {Poll.objects.filter(is_active=True).count()}\n")
-    except:
-        pass
 
     return render(request, 'citizen/dashboard_bootstrap.html', context)
 
@@ -391,6 +397,7 @@ def book_appointment(request):
         date = request.POST.get('date')
         time_slot = request.POST.get('time_slot')
         service_id = request.POST.get('service')
+        priority = request.POST.get('priority', 'normal')
         
         dept = get_object_or_404(Department, id=dept_id)
         center = get_object_or_404(DepartmentCenter, id=center_id)
@@ -405,6 +412,7 @@ def book_appointment(request):
             service=service,
             date=date,
             time_slot=time_slot,
+            priority=priority,
             token_number=token
         )
         messages.success(request, f"Appointment booked successfully! Your Token is {token}")
@@ -413,7 +421,24 @@ def book_appointment(request):
     departments = Department.objects.all()
     centers = DepartmentCenter.objects.all()
     services = Service.objects.all()
-    return render(request, 'citizen/book_appointment.html', {'departments': departments, 'centers': centers, 'services': services})
+    
+    # Common time slots
+    time_slots = [
+        "09:00 AM - 10:00 AM",
+        "10:00 AM - 11:00 AM",
+        "11:00 AM - 12:00 PM",
+        "12:00 PM - 01:00 PM",
+        "02:00 PM - 03:00 PM",
+        "03:00 PM - 04:00 PM",
+        "04:00 PM - 05:00 PM"
+    ]
+    
+    return render(request, 'citizen/book_appointment.html', {
+        'departments': departments, 
+        'centers': centers, 
+        'services': services,
+        'time_slots': time_slots
+    })
 
 @login_required
 def my_appointments(request):

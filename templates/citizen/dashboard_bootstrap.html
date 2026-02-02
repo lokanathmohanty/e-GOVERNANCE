@@ -355,7 +355,7 @@
         </div>
 
         <!-- Express Portal -->
-        <div class="row g-4 mt-5 stagger-2">
+        <div class="row g-4 mt-5 reveal stagger-2">
             <div class="col-lg-8">
                 <h5 class="fw-black text-dark uppercase tracking-widest mb-4">
                     <i class="bi bi-lightning-charge-fill text-warning me-2"></i> Express Portal
@@ -448,9 +448,14 @@
                                 </div>
                                 <div class="col">
                                     <h6 class="fw-black text-dark mb-1">{{ appt.center.name }}</h6>
-                                    <div class="d-flex align-items-center gap-3 text-muted small">
+                                    <div class="d-flex align-items-center gap-2 text-muted small">
                                         <span class="font-medium"><i class="bi bi-clock-history me-1"></i> {{
                                             appt.time_slot }}</span>
+                                        {% if appt.priority == 'priority' %}
+                                        <span
+                                            class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 small fw-bold">Priority
+                                            Slot</span>
+                                        {% endif %}
                                         <span class="badge-premium badge-premium-success">Confirmed</span>
                                     </div>
                                 </div>
@@ -481,9 +486,24 @@
                         <div class="uppercase small fw-black tracking-widest mb-4 opacity-75">Citizen Feedback</div>
                         <h5 class="fw-black mb-4 tracking-tight">{{ active_poll.question }}</h5>
                         {% if has_voted %}
-                        <div class="bg-white bg-opacity-10 p-4 rounded-4 text-center">
-                            <i class="bi bi-heart-pulse-fill fs-2 d-block mb-3"></i>
-                            <h6 class="fw-black mb-1">Recorded</h6>
+                        <div class="bg-white bg-opacity-10 p-4 rounded-4 text-start">
+                            {% for opt in poll_options %}
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="small fw-bold">{{ opt.text }}</span>
+                                    <span class="small fw-black">{{ opt.percentage }}%</span>
+                                </div>
+                                <div class="progress bg-white bg-opacity-20" style="height: 6px;">
+                                    <div class="progress-bar bg-white" role="progressbar"
+                                        style="--pg-val: {{ opt.percentage }}%; width: var(--pg-val);"
+                                        aria-valuenow="{{ opt.percentage }}" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <div class="text-center mt-3 small opacity-75">
+                                <i class="bi bi-check2-all me-1"></i> Your vote has been recorded.
+                            </div>
                         </div>
                         {% else %}
                         <form action="{% url 'citizen:vote_poll' active_poll.id %}" method="POST">
