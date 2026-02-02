@@ -30,7 +30,7 @@
                         <i class="bi bi-person-vcard"></i> Digital ID
                     </a>
                     <button class="btn btn-white border-2 border-primary-soft text-primary fw-bold rounded-3 px-4"
-                        data-bs-toggle="modal" data-bs-target="#supportDashboardModal">
+                        data-bs-toggle="modal" data-bs-target="#helpModal">
                         <i class="bi bi-question-circle"></i> Support
                     </button>
                 </div>
@@ -535,9 +535,9 @@
 
 {% endblock %}
 
-{% block extra_modals %}
-<!-- Dashboard Support Modal -->
-<div class="modal fade" id="supportDashboardModal" tabindex="-1">
+{% block modals %}
+<!-- Modals -->
+<div class="modal fade" id="helpModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow-premium rounded-5 overflow-hidden">
             <div class="modal-header bg-primary py-4 px-5 border-0 text-white">
@@ -604,6 +604,7 @@
 </div>
 {% endblock %}
 
+{% block extra_js %}
 <script>
     const searchInput = document.getElementById('searchInput');
     const statusFilter = document.getElementById('statusFilter');
@@ -616,13 +617,16 @@
     function filterTable() {
         const query = searchInput.value.toLowerCase();
         const status = statusFilter.value.toLowerCase();
-        const dept = deptFilter.value.toLowerCase();
+        const dept = deptFilter.options[deptFilter.selectedIndex].text.toLowerCase();
         const rows = document.querySelectorAll('tbody tr');
+
         rows.forEach(row => {
             const text = row.innerText.toLowerCase();
             const matchQuery = text.includes(query);
             const matchStatus = !status || text.includes(status);
-            row.style.display = (matchQuery && matchStatus) ? '' : 'none';
+            const matchDept = deptFilter.value === "" || text.includes(dept);
+
+            row.style.display = (matchQuery && matchStatus && matchDept) ? '' : 'none';
         });
     }
 

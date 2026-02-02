@@ -1251,7 +1251,7 @@
                     </div>
                 </div>
                 <button
-                    onclick="document.getElementById('aiChatModal') ? document.getElementById('aiChatModal').classList.remove('hidden') : alert('Chatbot connecting...')"
+                    onclick="document.getElementById('helpModal') ? new bootstrap.Modal(document.getElementById('helpModal')).show() : alert('Chatbot connecting...')"
                     class="w-full mt-6 py-2.5 text-sm font-bold text-white bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl hover:shadow-lg hover:shadow-orange-500/30 transition-all uppercase tracking-wide">
                     Start Live Chat (Bot)
                 </button>

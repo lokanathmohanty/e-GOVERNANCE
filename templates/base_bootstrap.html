@@ -153,35 +153,42 @@
         /* Premium Navbar Dropdown Hover Fix */
         @media (min-width: 992px) {
             .navbar .nav-item.dropdown:hover>.dropdown-menu {
+                display: block !important;
                 opacity: 1 !important;
                 visibility: visible !important;
                 transform: translateY(0) !important;
-                z-index: 10001 !important;
+                /* Always higher than anything else in the nav but lower than modals */
+                z-index: 1040 !important;
                 pointer-events: auto !important;
+                transition-delay: 0s !important;
             }
 
             .navbar .dropdown-menu {
                 display: block !important;
                 opacity: 0;
                 visibility: hidden;
-                transform: translateY(10px);
-                transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+                transform: translateY(8px);
+                transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+                /* Add a slight delay before closing to prevent accidental flickers */
+                transition-delay: 0.15s !important;
                 margin-top: 0 !important;
-                z-index: 10000;
+                z-index: 1039;
                 pointer-events: none !important;
             }
-        }
 
-        /* The "Bridge" - prevents closing when moving mouse over gap */
-        .navbar .dropdown-menu::before {
-            content: '';
-            position: absolute;
-            top: -35px;
-            left: -50px;
-            right: -50px;
-            height: 35px;
-            background: transparent;
-            z-index: -1;
+            /* The "Bridge" - prevents closing when moving mouse over gap */
+            .navbar .dropdown-menu::before {
+                content: '';
+                position: absolute;
+                top: -45px;
+                /* Increased to cover more gap */
+                left: -60px;
+                right: -60px;
+                height: 50px;
+                /* Increased height */
+                background: transparent;
+                z-index: -1;
+            }
         }
 
         /* Mobile Navbar Adjustments - Premium Drawer */
@@ -217,7 +224,8 @@
                 max-width: 320px;
                 height: 100vh;
                 background: #ffffff;
-                z-index: 10000;
+                z-index: 1045;
+                /* Lower than modal (1050) */
                 padding: 1.5rem;
                 overflow-y: auto;
                 transform: translateX(100%);
@@ -594,10 +602,10 @@
         </button>
     </div>
 
-    {% block extra_modals %}{% endblock %}
-
     <!-- Bootstrap 5.3 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    {% block modals %}{% endblock %}
 
     {% block extra_js %}{% endblock %}
     <script>
