@@ -150,6 +150,41 @@
 
     {% block extra_css %}{% endblock %}
     <style>
+        /* Premium Navbar Dropdown Hover Fix */
+        @media (min-width: 992px) {
+            .navbar .nav-item.dropdown:hover>.dropdown-menu {
+                display: block !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                transform: translateY(0) !important;
+                z-index: 10001 !important;
+                pointer-events: auto !important;
+            }
+
+            .navbar .dropdown-menu {
+                display: block !important;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(10px);
+                transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+                margin-top: 0 !important;
+                z-index: 10000;
+                pointer-events: none !important;
+            }
+
+            /* The "Bridge" - prevents closing when moving mouse over gap */
+            .navbar .dropdown-menu::before {
+                content: '';
+                position: absolute;
+                top: -35px;
+                left: -50px;
+                right: -50px;
+                height: 35px;
+                background: transparent;
+                z-index: -1;
+            }
+        }
+
         /* Mobile Navbar Adjustments - Premium Drawer */
         @media (max-width: 991.98px) {
 
@@ -292,7 +327,7 @@
                             </span>
                             {% endif %}
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end p-0 shadow-lg border-0 mt-3"
+                        <ul class="dropdown-menu dropdown-menu-end p-0 shadow-lg border-0 mt-0"
                             style="width: 340px; max-height: 480px; overflow-y: auto; border-radius: 12px;">
                             <li class="d-flex justify-content-between align-items-center p-3 border-bottom bg-white sticky-top"
                                 style="border-radius: 12px 12px 0 0;">
@@ -374,7 +409,7 @@
                                 </small>
                             </div>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 mt-3 p-2"
+                        <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 mt-0 p-2"
                             style="border-radius: 12px; min-width: 200px;">
                             <li><a class="dropdown-item rounded-2 py-2" href="{% url 'accounts:profile' %}">
                                     <i class="bi bi-person me-2 text-primary"></i> Profile
@@ -501,28 +536,29 @@
         </div>
     </footer>
 
-    <!-- Help Modal -->
-    <div class="modal fade" id="helpModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title"><i class="bi bi-robot"></i> AI Assistant</h5>
+    <!-- Global AI Help Chat Modal -->
+    <div class="modal fade" id="aiChatModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content shadow-premium border-0 rounded-4 overflow-hidden">
+                <div class="modal-header bg-primary text-white py-3">
+                    <h5 class="modal-title"><i class="bi bi-robot me-2"></i> AI Assistant</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body p-4">
                     <div class="d-flex align-items-start mb-4">
                         <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 me-2"
                             style="width: 40px; height: 40px;">
                             <i class="bi bi-robot"></i>
                         </div>
-                        <div class="bg-light p-3 rounded-4 rounded-top-0">
+                        <div class="bg-light p-3 rounded-4 rounded-top-0 shadow-sm">
                             <p class="mb-0 small">Hello! I'm here to help. You can ask me about services, status, or
                                 bookings.</p>
                         </div>
                     </div>
 
-                    <h6 class="fw-bold small text-uppercase text-muted mb-3">Quick Actions</h6>
-                    <div class="list-group list-group-flush border rounded-3 overflow-hidden">
+                    <h6 class="fw-bold small text-uppercase text-muted mb-3 tracking-widest"
+                        style="font-size: 0.65rem;">Quick Actions</h6>
+                    <div class="list-group list-group-flush border rounded-3 overflow-hidden shadow-sm">
                         <a href="{% url 'citizen:services' %}"
                             class="list-group-item list-group-item-action small py-3">
                             <i class="bi bi-file-earmark-plus text-primary me-2"></i> Apply for Income Certificate
@@ -537,10 +573,13 @@
                         </a>
                     </div>
                 </div>
-                <div class="modal-footer bg-light p-2">
-                    <input type="text" class="form-control form-control-sm border-0 bg-transparent"
-                        placeholder="Type your question...">
-                    <button class="btn btn-sm btn-primary rounded-circle"><i class="bi bi-send"></i></button>
+                <div class="modal-footer bg-light p-2 border-top-0">
+                    <div class="input-group">
+                        <input type="text" class="form-control border-0 bg-transparent"
+                            placeholder="Type your question...">
+                        <button class="btn btn-primary rounded-pill px-3 ms-2 shadow-sm"><i
+                                class="bi bi-send"></i></button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -551,7 +590,7 @@
         <button
             class="btn btn-primary rounded-circle shadow-lg d-flex align-items-center justify-content-center hover-scale"
             style="width: 60px; height: 60px; transition: transform 0.2s;" data-bs-toggle="modal"
-            data-bs-target="#helpModal" title="Chat with AI Helpdesk">
+            data-bs-target="#aiChatModal" title="Chat with AI Helpdesk">
             <i class="bi bi-chat-dots-fill fs-4"></i>
         </button>
     </div>
