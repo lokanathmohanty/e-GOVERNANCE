@@ -97,10 +97,16 @@
 
 <script>
     function filterCenters() {
-        const deptId = document.getElementById('deptSelect').value;
+        const deptSelect = document.getElementById('deptSelect');
         const centerSelect = document.getElementById('centerSelect');
+
+        if (!deptSelect || !centerSelect) return;
+
+        const deptId = deptSelect.value;
         const options = Array.from(centerSelect.querySelectorAll('option'));
         let found = 0;
+
+        console.log('Filtering centers for Dept ID:', deptId);
 
         // Reset and show loading state or placeholder
         centerSelect.value = "";
@@ -108,32 +114,37 @@
         options.forEach(opt => {
             if (opt.value === "") {
                 opt.text = deptId ? "--- Select Service Center ---" : "Select Department First";
-                opt.hidden = false;
                 opt.style.display = "block";
                 return;
             }
 
             const dataDept = opt.getAttribute('data-dept');
+            console.log('Center:', opt.text, 'Data-Dept:', dataDept);
+
+            // Using loose equality (==) to handle string/number comparison
             if (deptId && dataDept == deptId) {
                 opt.hidden = false;
-                opt.style.display = "block";
                 opt.disabled = false;
+                opt.style.display = "block";
                 found++;
             } else {
                 opt.hidden = true;
-                opt.style.display = "none";
                 opt.disabled = true;
+                opt.style.display = "none";
             }
         });
 
         if (deptId && found === 0) {
+            console.warn('No centers found for Dept ID:', deptId);
             const placeholder = options.find(o => o.value === "");
             if (placeholder) placeholder.text = "No centers available in this division";
         }
     }
 
-    // Set min date to today
+    // Initial call in case of page refresh with selected value
     document.addEventListener('DOMContentLoaded', () => {
+        filterCenters();
+
         const dateInput = document.querySelector('input[name="date"]');
         if (dateInput) {
             dateInput.min = new Date().toISOString().split("T")[0];

@@ -15,75 +15,88 @@ django.setup()
 from core.models import Department, DepartmentCenter, User, LoginHistory, Poll, PollOption, Service
 
 def populate_data():
-    print("Starting data population...")
+    print("Starting comprehensive data population...")
 
-    # 1. Ensure at least one citizen user exists for dummy data
-    user = User.objects.filter(role='citizen').first()
-    if not user:
-        print("Creating citizen user...")
-        user = User.objects.create_user(
-            username='citizen_test',
+    # 1. Update all citizen users with login history
+    citizens = User.objects.filter(role='citizen')
+    if not citizens.exists():
+        print("Creating default citizen user...")
+        c = User.objects.create_user(
+            username='citizen_tester',
             password='password123',
-            email='citizen@example.com',
+            email='tester@example.com',
             role='citizen',
-            first_name='Test',
-            last_name='Citizen'
+            first_name='Citizen',
+            last_name='Tester'
         )
+        citizens = [c]
+
+    for user in citizens:
+        print(f"Populating history for user: {user.username}")
+        # Clear old history to ensure fresh data
+        LoginHistory.objects.filter(user=user).delete()
+        for i in range(5):
+            LoginHistory.objects.create(
+                user=user,
+                ip_address=f"157.24.1.{random.randint(1, 254)}",
+                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/121.0.0.0 Safari/537.36",
+                timestamp=datetime.now() - timedelta(hours=random.randint(1, 100))
+            )
 
     # 2. Departments and Service Centers
     depts_data = [
         {'name': 'Health & Family Welfare', 'desc': 'Medical services and health initiatives.'},
         {'name': 'Revenue & Disaster Management', 'desc': 'Land records and disaster relief.'},
         {'name': 'School & Mass Education', 'desc': 'Education and scholarship services.'},
-        {'name': 'Odisha Police', 'desc': 'Law enforcement and public safety.'}
+        {'name': 'Odisha Police', 'desc': 'Law enforcement and public safety.'},
+        {'name': 'Panchayati Raj', 'desc': 'Rural development and local governance.'}
     ]
 
     for d_info in depts_data:
         dept, created = Department.objects.get_or_create(
             department_name=d_info['name'],
-            defaults={'description': d_info['desc'], 'contact_email': 'contact@odisha.gov.in'}
+            defaults={'description': d_info['desc'], 'contact_email': 'support@odisha.gov.in'}
         )
-        if created:
-            print(f"Created Department: {dept.department_name}")
-            # Create a few service centers for each department
-            centers = ['Central Unit', 'Regional Office', 'District Hub']
+        # Ensure it's active
+        dept.is_active = True
+        dept.save()
+
+        # Create service centers if they don't exist
+        if not DepartmentCenter.objects.filter(department=dept).exists():
+            centers = ['Main Secretariat', 'Regional Hub', 'District Office']
             for c_name in centers:
                 DepartmentCenter.objects.create(
                     department=dept,
                     name=f"{dept.department_name} - {c_name}",
-                    address=f"Bhubaneswar, Odisha",
-                    contact_number="0674-1234567"
+                    address=f"{c_name} Complex, Odisha",
+                    contact_number="0674-2391234"
                 )
                 print(f"  Created Center: {dept.department_name} - {c_name}")
-            
-            # Also create some services if none exist
-            if not dept.services.exists():
-                Service.objects.create(
-                    service_name=f"General {dept.department_name} Support",
-                    department=dept,
-                    description=f"General support for {dept.department_name}",
-                    required_documents="ID Proof",
-                    processing_days=7
-                )
-
-    # 3. Login History (Security Wall)
-    if not LoginHistory.objects.filter(user=user).exists():
-        print(f"Creating login history for {user.username}...")
-        for i in range(5):
-            LoginHistory.objects.create(
-                user=user,
-                ip_address=f"192.168.1.{random.randint(1, 254)}",
-                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36",
-                timestamp=datetime.now() - timedelta(days=i)
+        
+        # Create services if they don't exist
+        if not Service.objects.filter(department=dept).exists():
+            Service.objects.create(
+                service_name=f"{dept.department_name} Verification",
+                department=dept,
+                description=f"Standard verification service for {dept.department_name}.",
+                required_documents="Aadhaar Card, Proof of Address",
+                processing_days=7,
+                fee_amount=50.00
             )
 
-    # 4. Polls (Community Voice)
-    if not Poll.objects.filter(is_active=True).exists():
-        print("Creating satisfaction poll...")
-        poll = Poll.objects.create(question="Overall Satisfaction with SMART Odisha Portal")
-        options = ["Extremely Satisfied", "Satisfied", "Needs Improvement", "Poor Experience"]
-        for opt_text in options:
-            PollOption.objects.create(poll=poll, text=opt_text, votes=random.randint(10, 100))
+    # 3. Polls (Community Voice)
+    # Ensure at least one fresh active poll
+    Poll.objects.filter(question__icontains="SMART").delete() 
+    print("Creating active satisfaction poll...")
+    poll = Poll.objects.create(question="How satisfied are you with the new SMART E-Governance Dashboard?", is_active=True)
+    options = [
+        "Highly Satisfied - It's very fast!", 
+        "Satisfied - Good features", 
+        "Average - Needs more services", 
+        "Not Satisfied - Hard to use"
+    ]
+    for opt_text in options:
+        PollOption.objects.create(poll=poll, text=opt_text, votes=random.randint(5, 50))
 
     print("Data population complete!")
 

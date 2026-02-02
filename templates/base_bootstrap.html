@@ -631,17 +631,23 @@
         // Scroll Reveal Animation
         const reveal = () => {
             const reveals = document.querySelectorAll('.reveal');
-            for (let i = 0; i < reveals.length; i++) {
-                const windowHeight = window.innerHeight;
-                const elementTop = reveals[i].getBoundingClientRect().top;
-                const elementVisible = 150;
+            const windowHeight = window.innerHeight;
+            reveals.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const elementVisible = 100; // Decreased threshold for better visibility
                 if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add('active');
+                    el.classList.add('active');
                 }
-            }
+            });
         };
+
         window.addEventListener('scroll', reveal);
         window.addEventListener('load', reveal);
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initial check with a slight delay to ensure layout is ready
+            setTimeout(reveal, 100);
+            setTimeout(reveal, 500); // Second pass for slow-loading dynamic content
+        });
 
         // Navbar scroll effect removed
 
