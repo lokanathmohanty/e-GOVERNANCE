@@ -367,7 +367,17 @@ def submit_feedback(request, app_id):
 
 @login_required
 def digital_id_card(request):
-    return render(request, 'citizen/id_card.html', {'user': request.user})
+    """
+    Renders the digital identity card for the logged-in citizen.
+    Explicitly fetches the User instance to ensure all custom attributes are available.
+    """
+    from core.models import User
+    user = User.objects.get(pk=request.user.pk)
+    return render(request, 'citizen/id_card.html', {
+        'user': user,
+        'verification_id': f"CIT-{user.id:06d}"
+    })
+
 
 @login_required
 def book_appointment(request):
