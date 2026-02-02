@@ -99,35 +99,45 @@
     function filterCenters() {
         const deptId = document.getElementById('deptSelect').value;
         const centerSelect = document.getElementById('centerSelect');
-        const options = centerSelect.querySelectorAll('option');
+        const options = Array.from(centerSelect.querySelectorAll('option'));
+        let found = 0;
 
-        // Reset selection
+        // Reset and show loading state or placeholder
         centerSelect.value = "";
 
         options.forEach(opt => {
-            // Always show the placeholder
             if (opt.value === "") {
-                opt.text = deptId ? "Select Service Center" : "Select Department First";
+                opt.text = deptId ? "--- Select Service Center ---" : "Select Department First";
                 opt.hidden = false;
-                opt.style.display = "";
+                opt.style.display = "block";
                 return;
             }
 
             const dataDept = opt.getAttribute('data-dept');
-
-            // Loose comparison in case types differ (string vs int)
             if (deptId && dataDept == deptId) {
                 opt.hidden = false;
-                opt.style.display = "";
+                opt.style.display = "block";
                 opt.disabled = false;
+                found++;
             } else {
                 opt.hidden = true;
                 opt.style.display = "none";
                 opt.disabled = true;
             }
         });
+
+        if (deptId && found === 0) {
+            const placeholder = options.find(o => o.value === "");
+            if (placeholder) placeholder.text = "No centers available in this division";
+        }
     }
+
     // Set min date to today
-    document.querySelector('input[name="date"]').min = new Date().toISOString().split("T")[0];
+    document.addEventListener('DOMContentLoaded', () => {
+        const dateInput = document.querySelector('input[name="date"]');
+        if (dateInput) {
+            dateInput.min = new Date().toISOString().split("T")[0];
+        }
+    });
 </script>
 {% endblock %}
