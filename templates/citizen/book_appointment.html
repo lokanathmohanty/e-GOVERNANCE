@@ -38,9 +38,25 @@
                             <div class="position-relative">
                                 <select name="center" id="centerSelect" class="form-premium-control appearance-none"
                                     required>
-                                    <option value="">Select Department First</option>
+                                    <option value="" selected disabled>Select Department First</option>
                                     {% for c in centers %}
-                                    <option value="{{ c.id }}" data-dept="{{ c.department.id }}">{{ c.name }}</option>
+                                    <option value="{{ c.id }}" data-dept="{{ c.department_id }}" style="display: none;"
+                                        disabled>{{ c.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <i
+                                    class="bi bi-geo-alt position-absolute top-50 end-0 translate-middle-y me-3 text-muted pointer-events-none"></i>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-premium-label">Select Service (Optional)</label>
+                            <div class="position-relative">
+                                <select name="service" id="serviceSelect" class="form-premium-control appearance-none">
+                                    <option value="">General Inquiry / Guidance</option>
+                                    {% for s in services %}
+                                    <option value="{{ s.id }}" data-dept="{{ s.department_id }}">{{ s.service_name }}
+                                    </option>
                                     {% endfor %}
                                 </select>
                                 <i
@@ -48,39 +64,18 @@
                             </div>
                         </div>
 
-                        <div class="col-12">
-                            <label class="form-premium-label">Select Service (Optional)</label>
-                            <select name="service" class="form-premium-control appearance-none">
-                                <option value="">General Inquiry / Guidance</option>
-                                {% for s in services %}
-                                <option value="{{ s.id }}">{{ s.service_name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-
                         <div class="col-md-6">
                             <label class="form-premium-label">Appointment Date</label>
-                            <input type="date" name="date" class="form-premium-control" required min="2024-01-01">
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-premium-label">Preferred Time Slot</label>
                             <div class="position-relative">
-                                <select name="time_slot" class="form-premium-control appearance-none" required>
-                                    <option value="10:00 AM - 10:30 AM">10:00 AM - 10:30 AM (Early)</option>
-                                    <option value="10:30 AM - 11:00 AM">10:30 AM - 11:00 AM</option>
-                                    <option value="11:00 AM - 11:30 AM">11:00 AM - 11:30 AM</option>
-                                    <option value="11:30 AM - 12:00 PM">11:30 AM - 12:00 PM</option>
-                                    <option value="02:00 PM - 02:30 PM">02:00 PM - 02:30 PM (Post-Lunch)</option>
-                                </select>
-                                <i
-                                    class="bi bi-clock position-absolute top-50 end-0 translate-middle-y me-3 text-muted pointer-events-none"></i>
+                                <input type="date" name="date" class="form-premium-control" required>
+                                <i class="bi bi-calendar3 position-absolute top-50 end-0 translate-middle-y me-3 text-muted pointer-events-none"
+                                    style="z-index: 5;"></i>
                             </div>
                         </div>
                     </div>
 
                     <div class="pt-4">
-                        <button type="submit"
+                        <button type="submit" id="submitBtn"
                             class="btn-premium btn-premium-primary w-100 py-4 shadow-lg uppercase tracking-widest fw-black">
                             Confirm Secure Booking
                         </button>
@@ -97,58 +92,66 @@
 
 <script>
     function filterCenters() {
-        const deptSelect = document.getElementById('deptSelect');
+        const deptId = document.getElementById('deptSelect').value;
         const centerSelect = document.getElementById('centerSelect');
+        const serviceSelect = document.getElementById('serviceSelect');
 
-        if (!deptSelect || !centerSelect) return;
-
-        const deptId = deptSelect.value;
-        const options = Array.from(centerSelect.querySelectorAll('option'));
-        let found = 0;
-
-        console.log('Filtering centers for Dept ID:', deptId);
-
-        // Reset and show loading state or placeholder
+        // Reset center select
         centerSelect.value = "";
+        const centerOptions = Array.from(centerSelect.querySelectorAll('option'));
+        let centerCount = 0;
 
-        options.forEach(opt => {
+        centerOptions.forEach(opt => {
             if (opt.value === "") {
-                opt.text = deptId ? "--- Select Service Center ---" : "Select Department First";
-                opt.style.display = "block";
+                opt.text = deptId ? "--- Now Select a Center ---" : "Select Department First";
+                opt.disabled = true;
                 return;
             }
 
-            const dataDept = opt.getAttribute('data-dept');
-            console.log('Center:', opt.text, 'Data-Dept:', dataDept);
-
-            // Using loose equality (==) to handle string/number comparison
-            if (deptId && dataDept == deptId) {
-                opt.hidden = false;
-                opt.disabled = false;
+            const optDept = opt.getAttribute('data-dept');
+            if (deptId && optDept === deptId) {
                 opt.style.display = "block";
-                found++;
+                opt.disabled = false;
+                centerCount++;
             } else {
-                opt.hidden = true;
-                opt.disabled = true;
                 opt.style.display = "none";
+                opt.disabled = true;
             }
         });
 
-        if (deptId && found === 0) {
-            console.warn('No centers found for Dept ID:', deptId);
-            const placeholder = options.find(o => o.value === "");
-            if (placeholder) placeholder.text = "No centers available in this division";
+        if (deptId && centerCount === 0) {
+            const placeholder = centerOptions.find(o => o.value === "");
+            if (placeholder) placeholder.text = "No centers available for this department";
         }
+
+        // Also filter services
+        const svcOptions = Array.from(serviceSelect.querySelectorAll('option'));
+        svcOptions.forEach(opt => {
+            if (opt.value === "") return;
+            const optDept = opt.getAttribute('data-dept');
+            opt.style.display = (deptId && optDept === deptId) ? "block" : "none";
+        });
     }
 
-    // Initial call in case of page refresh with selected value
     document.addEventListener('DOMContentLoaded', () => {
-        filterCenters();
-
+        // Init date picker min
         const dateInput = document.querySelector('input[name="date"]');
         if (dateInput) {
-            dateInput.min = new Date().toISOString().split("T")[0];
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.min = today;
         }
+
+        // Ensure filter runs if dept is pre-selected
+        if (document.getElementById('deptSelect').value) {
+            filterCenters();
+        }
+    });
+
+    // Handle form validation visual feedback
+    document.querySelector('form').addEventListener('submit', function (e) {
+        const btn = document.getElementById('submitBtn');
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Processing...';
+        btn.disabled = true;
     });
 </script>
 {% endblock %}

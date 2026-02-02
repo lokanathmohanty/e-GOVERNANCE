@@ -35,14 +35,13 @@ def dashboard(request):
         'error_message': None
     }
     
+    # 1. Fetch Applications (Independent Block)
     try:
-        # 1. Fetch Basic Data
         applications_qs = Application.objects.filter(user=request.user).select_related('service__department').order_by('-applied_date')
-        applications = list(applications_qs) # Evaluate immediately to store custom attributes
+        applications = list(applications_qs)
         context['applications'] = applications
-        context['departments'] = Department.objects.all()
         
-        # 2. Process SLA & Stats
+        # Process SLA & Stats
         now = timezone.now()
         in_progress = 0
         approved = 0
@@ -80,9 +79,8 @@ def dashboard(request):
                         app.sla_status = 'unknown'
                         app.days_left = 0
             except Exception as e:
-                logger.warning(f"Error calculating SLA for app {app.id}: {str(e)}")
+                logger.warning(f"SLA calc error for {app.id}: {str(e)}")
                 app.sla_status = 'unknown'
-                app.days_left = 0
                 
         context['stats'] = {
             'total': len(applications),
@@ -92,45 +90,46 @@ def dashboard(request):
             'delayed': delayed
         }
         context['approved_apps'] = [app for app in applications if app.status == 'approved']
-        
-        # 3. Fetch Polls
-        try:
-            active_poll = Poll.objects.filter(is_active=True).first()
-            if active_poll:
-                context['active_poll'] = active_poll
-                context['has_voted'] = PollVote.objects.filter(user=request.user, poll=active_poll).exists()
-        except Exception as e:
-            logger.error(f"Poll fetch error: {str(e)}")
-            
-        # 4. Fetch Appointments
-        try:
-            context['upcoming_appointments'] = Appointment.objects.filter(
-                user=request.user, 
-                date__gte=now.date()
-            ).select_related('center').order_by('date', 'time_slot')[:3]
-        except Exception as e:
-            logger.error(f"Appointment fetch error: {str(e)}")
-            
-        # 5. Fetch Reminders (Document Expiry)
-        try:
-            expiry_limit = now.date() + timedelta(days=30)
-            context['reminders'] = CitizenDocumentLocker.objects.filter(
-                user=request.user, 
-                expiry_date__lte=expiry_limit,
-                expiry_date__gte=now.date()
-            ).order_by('expiry_date')
-        except Exception as e:
-            logger.error(f"Reminders fetch error: {str(e)}")
-            
     except Exception as e:
-        logger.critical(f"Global dashboard failure: {str(e)}")
-        context['error_message'] = "We encountered a problem loading your full dashboard. Some information may be missing."
-        # Attempt to at least provide applications if not already loaded
-        if not context['applications']:
-            try:
-                context['applications'] = Application.objects.filter(user=request.user)
-            except:
-                pass
+        logger.error(f"Apps fetch error: {str(e)}")
+        context['error_message'] = "Could not load application records."
+
+    # 2. Fetch Departments (For filters)
+    try:
+        context['departments'] = Department.objects.all()
+    except:
+        pass
+
+    # 3. Fetch Polls (Independent Block)
+    try:
+        active_poll = Poll.objects.filter(is_active=True).order_by('-created_at').first()
+        if active_poll:
+            context['active_poll'] = active_poll
+            context['has_voted'] = PollVote.objects.filter(user=request.user, poll=active_poll).exists()
+    except Exception as e:
+        logger.error(f"Poll fetch error: {str(e)}")
+
+    # 4. Fetch Appointments (Independent Block)
+    try:
+        now = timezone.now()
+        context['upcoming_appointments'] = Appointment.objects.filter(
+            user=request.user, 
+            date__gte=now.date()
+        ).select_related('center').order_by('date', 'time_slot')[:3]
+    except Exception as e:
+        logger.error(f"Appointment fetch error: {str(e)}")
+
+    # 5. Fetch Reminders (Independent Block)
+    try:
+        now = timezone.now()
+        expiry_limit = now.date() + timedelta(days=30)
+        context['reminders'] = CitizenDocumentLocker.objects.filter(
+            user=request.user, 
+            expiry_date__lte=expiry_limit,
+            expiry_date__gte=now.date()
+        ).order_by('expiry_date')
+    except Exception as e:
+        logger.error(f"Reminders error: {str(e)}")
 
     return render(request, 'citizen/dashboard_bootstrap.html', context)
 

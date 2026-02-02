@@ -6,6 +6,13 @@
 {% block content %}
 <div class="container-fluid bg-light min-vh-100 py-4">
     <div class="container">
+        {% if error_message %}
+        <div class="alert alert-danger shadow-sm rounded-4 border-0 mb-4 d-flex align-items-center gap-3">
+            <i class="bi bi-exclamation-triangle-fill fs-4"></i>
+            <div class="font-medium">{{ error_message }}</div>
+        </div>
+        {% endif %}
+
         <!-- Welcome Header -->
         <div class="row align-items-center mb-5 reveal">
             <div class="col-lg-8">
@@ -348,7 +355,7 @@
         </div>
 
         <!-- Express Portal -->
-        <div class="row g-4 mt-5 stagger-container">
+        <div class="row g-4 mt-5 reveal stagger-2">
             <div class="col-lg-8">
                 <h5 class="fw-black text-dark uppercase tracking-widest mb-4">
                     <i class="bi bi-lightning-charge-fill text-warning me-2"></i> Express Portal
@@ -617,8 +624,7 @@
     function filterTable() {
         const query = searchInput.value.toLowerCase();
         const status = statusFilter.value.toLowerCase();
-        const deptSelect = document.getElementById('deptFilter');
-        const dept = deptSelect.selectedIndex >= 0 ? deptSelect.options[deptSelect.selectedIndex].text.toLowerCase() : "";
+        const dept = deptFilter.options[deptFilter.selectedIndex].text.toLowerCase();
         const rows = document.querySelectorAll('tbody tr');
 
         rows.forEach(row => {

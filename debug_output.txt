@@ -1,0 +1,9 @@
+--- USERS ---
+User: admin, Role: admin, ID: 1
+User: officer1, Role: officer, ID: 2
+User: head1, Role: department_head, ID: 3
+User: final_tester, Role: citizen, ID: 4
+
+--- POLLS ---
+Poll: How satisfied are you with the e-Governance portal?, Active: True, ID: 1
+Poll: How satisfied are you with the new SMART E-Governance Dashboard?, Active: True, ID: 2
