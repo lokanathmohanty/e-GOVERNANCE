@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+# Test comment by Antigravity
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from core.models import Application, Service, GrievanceTicket, Document, OfficerAssignment, User, CitizenDocumentLocker
@@ -367,17 +368,7 @@ def submit_feedback(request, app_id):
 
 @login_required
 def digital_id_card(request):
-    """
-    Renders the digital identity card for the logged-in citizen.
-    Explicitly fetches the User instance to ensure all custom attributes are available.
-    """
-    from core.models import User
-    user = User.objects.get(pk=request.user.pk)
-    return render(request, 'citizen/id_card.html', {
-        'user': user,
-        'verification_id': f"CIT-{user.id:06d}"
-    })
-
+    return render(request, 'citizen/id_card.html', {'user': request.user})
 
 @login_required
 def book_appointment(request):
