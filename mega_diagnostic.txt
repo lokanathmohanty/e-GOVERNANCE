@@ -1,0 +1,31 @@
+=== SYSTEM DIAGNOSTIC ===
+Database Path: C:\Users\lokan\OneDrive\Desktop\mejor Project -Render\db.sqlite3
+Exists: True
+
+--- Model Counts ---
+Department: 8
+DepartmentCenter: 16
+Service: 10
+Poll: 1
+PollOption: 4
+User: 4
+Application: 0
+PollVote: 0
+
+--- Active Polls ---
+Poll: How satisfied are you with the new SMART E-Governance Dashboard? (ID: 3)
+  Options (4): ['Extremely Satisfied', 'Very Good', 'Needs Improvement', 'Not Satisfied']
+
+--- Depts & Centers ---
+Dept: Revenue & Disaster Management (ID: 1) -> Centers: 2
+Dept: Food & Civil Supplies (ID: 2) -> Centers: 2
+Dept: General Administration (ID: 3) -> Centers: 2
+Dept: Transport Department (ID: 4) -> Centers: 2
+Dept: Health & Family Welfare (ID: 5) -> Centers: 2
+Dept: School & Mass Education (ID: 6) -> Centers: 2
+Dept: Odisha Police (ID: 7) -> Centers: 2
+Dept: Panchayati Raj (ID: 8) -> Centers: 2
+
+Testing for user: final_tester
+First active poll for user: How satisfied are you with the new SMART E-Governance Dashboard?
+Has voted: False

@@ -109,7 +109,8 @@
             }
 
             const optDept = opt.getAttribute('data-dept');
-            if (deptId && optDept === deptId) {
+            // Use loose comparison for string vs integer IDs
+            if (deptId && optDept == deptId) {
                 opt.style.display = "block";
                 opt.disabled = false;
                 centerCount++;
@@ -129,7 +130,8 @@
         svcOptions.forEach(opt => {
             if (opt.value === "") return;
             const optDept = opt.getAttribute('data-dept');
-            opt.style.display = (deptId && optDept === deptId) ? "block" : "none";
+            // Use loose comparison
+            opt.style.display = (deptId && optDept == deptId) ? "block" : "none";
         });
     }
 

@@ -1,7 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from core.models import Application, Service, GrievanceTicket, Document, OfficerAssignment, User, CitizenDocumentLocker
+from core.models import (
+    Application, Service, GrievanceTicket, Document, OfficerAssignment, 
+    User, CitizenDocumentLocker, Department, DepartmentCenter, 
+    Poll, PollOption, PollVote, Appointment, LoginHistory
+)
 from .forms import ServiceApplicationForm, DocumentUploadForm, GrievanceForm
 from django.db import transaction, models
 from django.utils import timezone
@@ -12,26 +16,22 @@ from core.decorators import role_required
 @role_required(['citizen'])
 def dashboard(request):
     """
-    Main dashboard for citizens to view their applications, appointments, and alerts.
-    Designed with extreme robustness to ensure page loads even if some models are missing/corrupt.
+    Main dashboard view for citizens.
     """
-    from django.utils import timezone
-    from datetime import timedelta
-    from core.models import Department, Application, Service, Poll, PollVote, Appointment, CitizenDocumentLocker
     import logging
-    
+    from datetime import timedelta
     logger = logging.getLogger(__name__)
+    now = timezone.now()
     
-    # Initialize default context
+    # Initialize Context
     context = {
         'applications': [],
         'stats': {'total': 0, 'in_progress': 0, 'approved': 0, 'rejected': 0, 'delayed': 0},
-        'approved_apps': [],
-        'departments': [],
         'active_poll': None,
         'has_voted': False,
         'upcoming_appointments': [],
         'reminders': [],
+        'departments': [],
         'error_message': None
     }
     
@@ -102,10 +102,13 @@ def dashboard(request):
 
     # 3. Fetch Polls (Independent Block)
     try:
-        active_poll = Poll.objects.filter(is_active=True).order_by('-created_at').first()
-        if active_poll:
-            context['active_poll'] = active_poll
-            context['has_voted'] = PollVote.objects.filter(user=request.user, poll=active_poll).exists()
+        # Get the latest active poll that actually has options
+        poll_qs = Poll.objects.filter(is_active=True).order_by('-created_at')
+        for p in poll_qs:
+            if p.options.exists():
+                context['active_poll'] = p
+                context['has_voted'] = PollVote.objects.filter(user=request.user, poll=p).exists()
+                break
     except Exception as e:
         logger.error(f"Poll fetch error: {str(e)}")
 
@@ -130,6 +133,15 @@ def dashboard(request):
         ).order_by('expiry_date')
     except Exception as e:
         logger.error(f"Reminders error: {str(e)}")
+
+    # DEBUG: Log to file
+    try:
+        with open('dashboard_debug.log', 'a') as f:
+            from django.utils import timezone
+            f.write(f"\n[{timezone.now()}] User: {request.user.username} (ID: {request.user.id}, Role: {request.user.role})\n")
+            f.write(f"Poll Count: {Poll.objects.filter(is_active=True).count()}\n")
+    except:
+        pass
 
     return render(request, 'citizen/dashboard_bootstrap.html', context)
 
