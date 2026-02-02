@@ -195,7 +195,7 @@
         /* Mobile Navbar Adjustments - Premium Drawer */
         @media (max-width: 991.98px) {
 
-            /* Premium Backdrop with Blur */
+            /* Backdrop */
             .navbar-collapse::before {
                 content: '';
                 position: fixed;
@@ -203,12 +203,11 @@
                 left: 0;
                 width: 100vw;
                 height: 100vh;
-                background: rgba(15, 23, 42, 0.6);
-                /* Darker, premium slate overlay */
-                backdrop-filter: blur(8px);
+                background: rgba(0, 0, 0, 0.6);
+                backdrop-filter: blur(4px);
                 z-index: -1;
                 opacity: 0;
-                transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                transition: opacity 0.3s ease;
                 pointer-events: none;
             }
 
@@ -223,97 +222,48 @@
                 right: 0;
                 left: auto;
                 width: 85%;
-                max-width: 300px;
-                /* Slightly narrower for nicer proportions */
+                max-width: 320px;
                 height: 100vh;
                 background: #ffffff;
-                z-index: 1055;
-                /* Higher than everything */
-                padding: 0;
+                z-index: 1045;
+                /* Lower than modal (1050) */
+                padding: 1.5rem;
                 overflow-y: auto;
                 transform: translateX(100%);
-                transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-                /* Apple-like easing */
+                transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
                 display: flex !important;
                 flex-direction: column;
-                box-shadow: -10px 0 40px rgba(0, 0, 0, 0.15);
-                border-left: 1px solid rgba(0, 0, 0, 0.05);
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
             }
 
             .navbar-collapse.show {
                 transform: translateX(0);
             }
 
-            /* Container for items to manage scrolling */
             .navbar-nav {
                 width: 100%;
-                margin: 0;
-                padding: 1.5rem;
-                flex-grow: 1;
+                margin-top: 0.5rem;
             }
 
-            /* Styling individual links */
             .nav-item {
-                border-bottom: none;
-                /* Remove harsh lines */
+                border-bottom: 1px solid #f3f4f6;
                 width: 100%;
-                margin-bottom: 0.25rem;
-                padding-bottom: 0;
+                margin-bottom: 0.5rem;
+                padding-bottom: 0.5rem;
             }
 
             .nav-link {
-                padding: 0.85rem 1rem !important;
-                font-size: 0.95rem !important;
-                font-weight: 600;
-                color: #334155 !important;
-                /* Slate-700 */
-                display: flex;
-                align-items: center;
-                justify-content: flex-start;
-                gap: 12px;
-                border-radius: 12px;
-                transition: all 0.2s ease;
-            }
-
-            .nav-link:active,
-            .nav-link:hover {
-                background-color: #f1f5f9;
-                /* Slate-100 */
-                color: var(--primary-color) !important;
-                transform: translateX(4px);
-            }
-
-            .nav-link i {
-                font-size: 1.25rem;
-                color: #94a3b8;
-                /* Slate-400 */
-                transition: color 0.2s;
-            }
-
-            .nav-link:hover i {
-                color: var(--primary-color);
-            }
-
-            /* Header inside Drawer */
-            .mobile-drawer-header {
-                padding: 1.5rem;
+                padding: 1rem 0 !important;
+                font-size: 1rem !important;
+                color: #1f2937 !important;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                border-bottom: 1px solid #f1f5f9;
-                background: white;
-                position: sticky;
-                top: 0;
-                z-index: 10;
             }
 
-            /* User Profile Card in Drawer */
-            .user-profile-mobile {
-                background-color: #f8fafc;
-                margin: 0 1rem 1rem 1rem;
-                padding: 1rem;
-                border-radius: 16px;
-                border: 1px solid #e2e8f0;
+            /* Hide Scrollbar */
+            .navbar-collapse::-webkit-scrollbar {
+                width: 0px;
             }
 
             /* Fix User Dropdown in Mobile */
@@ -321,25 +271,16 @@
                 position: static !important;
                 float: none;
                 width: 100%;
-                margin-top: 0.5rem;
-                background-color: white;
-                border: 1px solid #f1f5f9;
-                border-radius: 12px;
+                margin-top: 0;
+                background-color: transparent;
+                border: 0;
                 box-shadow: none;
-                padding: 0.5rem;
+                padding-left: 1rem;
             }
 
             .dropdown-menu .dropdown-item {
-                padding: 0.75rem 1rem;
-                border-radius: 8px;
-                color: #64748b;
-                font-size: 0.9rem;
-            }
-
-            .dropdown-menu .dropdown-item:hover {
-                background-color: #fff7ed;
-                /* Orange-50 */
-                color: var(--primary-color);
+                padding: 0.75rem 0;
+                color: #6b7280;
             }
 
             .notification-list {
@@ -372,19 +313,116 @@
                 </div>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <!-- Mobile Header with Close Button -->
-                <!-- Mobile Header with Close Button -->
-                <div class="mobile-drawer-header d-lg-none">
-                    <h5 class="fw-bold m-0 text-dark" style="font-family: 'Public Sans', sans-serif;">Menu</h5>
-                    <button class="btn btn-light rounded-circle p-2 shadow-sm border-0 bg-light text-muted"
-                        type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </div>
-                <ul class="navbar-nav ms-auto align-items-center gap-2">
-                    <!-- Notifications -->
+                <!-- Mobile Header & Profile Section (Visible only on Mobile) -->
+                <div class="d-lg-none mb-4">
+                    <div class="d-flex justify-content-between align-items-start mb-4 border-bottom pb-3">
+                        <div>
+                            <h5 class="fw-bold m-0 text-dark">Menu</h5>
+                            <small class="text-muted">e-Governance Portal</small>
+                        </div>
+                        <button class="btn btn-light rounded-circle shadow-sm border p-2" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </div>
+
                     {% if user.is_authenticated %}
-                    <li class="nav-item dropdown me-2">
+                    <!-- Mobile Profile Card -->
+                    <div class="bg-light rounded-4 p-3 border mb-4">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="bg-white text-primary border rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 shadow-sm"
+                                style="width: 50px; height: 50px; font-size: 1.25rem;">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <div class="overflow-hidden">
+                                <h6 class="fw-bold text-dark mb-0 text-truncate">{{
+                                    user.first_name|default:user.username }}
+                                </h6>
+                                <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-2 py-1"
+                                    style="font-size: 0.7rem; letter-spacing: 0.5px;">{{ user.get_role_display|upper
+                                    }}</span>
+                            </div>
+                        </div>
+                        <a href="{% url 'accounts:profile' %}"
+                            class="btn btn-white border w-100 fw-bold shadow-sm text-primary text-uppercase py-2"
+                            style="font-size: 0.75rem; border-radius: 8px;">
+                            <i class="bi bi-person-gear me-1"></i> Manage Profile
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Navigation Links -->
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-2">
+
+                    {% if user.is_authenticated %}
+                    <!-- Mobile: Direct Feature Links -->
+                    <div class="d-lg-none d-flex flex-column gap-2 mb-3">
+                        <label class="small text-uppercase fw-bold text-muted mb-1 px-1"
+                            style="font-size: 0.65rem;">Quick Access</label>
+                        {% if user.role == 'citizen' %}
+                        <a class="card text-decoration-none border-0 shadow-sm bg-white mb-1"
+                            href="{% url 'citizen:dashboard' %}">
+                            <div class="card-body p-3 d-flex align-items-center gap-3">
+                                <div class="bg-primary bg-opacity-10 text-primary rounded-circle p-2"><i
+                                        class="bi bi-speedometer2"></i></div>
+                                <span class="fw-bold text-dark small">Dashboard</span>
+                            </div>
+                        </a>
+                        <a class="card text-decoration-none border-0 shadow-sm bg-white mb-1"
+                            href="{% url 'citizen:locker' %}">
+                            <div class="card-body p-3 d-flex align-items-center gap-3">
+                                <div class="bg-success bg-opacity-10 text-success rounded-circle p-2"><i
+                                        class="bi bi-folder-check"></i></div>
+                                <span class="fw-bold text-dark small">Document Locker</span>
+                            </div>
+                        </a>
+                        {% elif user.role == 'officer' %}
+                        <a class="card text-decoration-none border-0 shadow-sm bg-white mb-1"
+                            href="{% url 'officer:dashboard' %}">
+                            <div class="card-body p-3 d-flex align-items-center gap-3">
+                                <div class="bg-primary bg-opacity-10 text-primary rounded-circle p-2"><i
+                                        class="bi bi-speedometer2"></i></div>
+                                <span class="fw-bold text-dark small">Officer Dashboard</span>
+                            </div>
+                        </a>
+                        {% elif user.role == 'department_head' %}
+                        <a class="card text-decoration-none border-0 shadow-sm bg-white mb-1"
+                            href="{% url 'mis:dashboard' %}">
+                            <div class="card-body p-3 d-flex align-items-center gap-3">
+                                <div class="bg-primary bg-opacity-10 text-primary rounded-circle p-2"><i
+                                        class="bi bi-bar-chart-fill"></i></div>
+                                <span class="fw-bold text-dark small">MIS Dashboard</span>
+                            </div>
+                        </a>
+                        {% endif %}
+                    </div>
+
+                    <!-- Mobile: Notifications Link -->
+                    <div class="d-lg-none mb-4">
+                        <a class="card text-decoration-none border-0 shadow-sm bg-white"
+                            href="{% url 'core:notifications' %}">
+                            <div class="card-body p-3 d-flex align-items-center gap-3">
+                                <div class="position-relative bg-warning bg-opacity-10 text-warning rounded-circle p-2">
+                                    <i class="bi bi-bell-fill"></i>
+                                    {% if unread_notification_count > 0 %}
+                                    <span
+                                        class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+                                    {% endif %}
+                                </div>
+                                <span class="fw-bold text-dark small">Notifications</span>
+                                {% if unread_notification_count > 0 %}
+                                <span class="badge bg-danger rounded-pill ms-auto">{{ unread_notification_count }}
+                                    New</span>
+                                {% endif %}
+                            </div>
+                        </a>
+                    </div>
+                    {% endif %}
+
+                    <!-- Web: Notifications Dropdown (Hidden on Mobile) -->
+                    {% if user.is_authenticated %}
+                    <li class="nav-item dropdown me-2 d-none d-lg-block">
                         <a class="nav-link dropdown-toggle position-relative d-flex align-items-center justify-content-center bg-light rounded-circle"
                             href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
                             style="width: 40px; height: 40px;">
@@ -463,18 +501,19 @@
                     {% endif %}
 
                     {% if user.is_authenticated %}
-                    <li class="nav-item dropdown ms-2">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center gap-3 bg-light rounded-pill px-3 py-2 w-100 justify-content-start"
+                    <!-- Web: User Dropdown (Hidden on Mobile) -->
+                    <li class="nav-item dropdown ms-2 d-none d-lg-block">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center gap-2 bg-light rounded-pill px-3 py-2"
                             href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
-                                style="width: 32px; height: 32px;">
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center"
+                                style="width: 28px; height: 28px;">
                                 <i class="bi bi-person-fill"></i>
                             </div>
-                            <div class="text-start overflow-hidden">
-                                <p class="mb-0 fw-bold text-dark lh-1 text-truncate" style="font-size: 0.85rem;">
+                            <div class="text-start me-1">
+                                <p class="mb-0 fw-bold text-dark lh-1" style="font-size: 0.8rem;">
                                     {{ user.first_name|default:user.username }}
                                 </p>
-                                <small class="text-muted d-block" style="font-size: 0.7rem;">
+                                <small class="text-muted" style="font-size: 0.65rem;">
                                     {{ user.get_role_display }}
                                 </small>
                             </div>
@@ -512,9 +551,19 @@
                                 </a></li>
                         </ul>
                     </li>
+
+                    <!-- Mobile: Logout Button -->
+                    <li class="nav-item d-lg-none mt-auto">
+                        <div class="h-px bg-gray-100 my-3"></div>
+                        <a href="{% url 'accounts:logout' %}"
+                            class="btn btn-danger bg-danger bg-opacity-10 text-danger border-0 w-100 py-3 rounded-3 fw-bold d-flex align-items-center justify-content-center gap-2">
+                            <i class="bi bi-box-arrow-right"></i> Sign Out
+                        </a>
+                    </li>
+
                     {% else %}
                     <li class="nav-item ms-2">
-                        <a class="btn btn-primary rounded-pill px-4" href="{% url 'accounts:login' %}">
+                        <a class="btn btn-primary rounded-pill px-4 w-100 w-lg-auto" href="{% url 'accounts:login' %}">
                             Login
                         </a>
                     </li>
