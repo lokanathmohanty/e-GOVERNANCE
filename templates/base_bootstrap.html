@@ -283,11 +283,32 @@
             </button>
 
             <!-- Desktop Menu (Hidden on Mobile) -->
-            <div class="collapse navbar-collapse d-none d-lg-block" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center gap-1 gap-xl-2">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- Left Side: Main Navigation -->
+                <ul class="navbar-nav me-auto align-items-center gap-1 gap-xl-2">
                     <li class="nav-item"><a class="nav-link px-3" href="{% url 'core:home' %}">Home</a></li>
                     <li class="nav-item"><a class="nav-link px-3" href="{% url 'citizen:services' %}">Services</a></li>
                     <li class="nav-item"><a class="nav-link px-3" href="{% url 'core:contact' %}">Contact Us</a></li>
+                </ul>
+
+                <!-- Right Side: Utilities & Profile -->
+                <ul class="navbar-nav ms-auto align-items-center gap-1 gap-xl-2">
+
+                    <!-- Accessibility & Theme -->
+                    <li class="nav-item d-none d-lg-flex">
+                        <a class="nav-link px-2" href="{% url 'core:accessibility' %}" title="Accessibility">
+                            <i class="bi bi- Universal-access"></i> <span class="visually-hidden">Accessibility</span>
+                            <span class="material-symbols-outlined fs-5">accessibility_new</span>
+                        </a>
+                    </li>
+                    <li class="nav-item d-none d-lg-flex me-2">
+                        <button class="nav-link border-0 bg-transparent px-2" id="darkModeToggle"
+                            title="Toggle Dark Mode">
+                            <span class="material-symbols-outlined fs-5">dark_mode</span>
+                        </button>
+                    </li>
+
+                    <li class="vr d-none d-lg-block mx-2 h-50 my-auto"></li>
 
                     {% if user.is_authenticated %}
                     <!-- Dashboard Link -->
@@ -575,6 +596,29 @@
 
     {% block extra_js %}{% endblock %}
     <script>
+        // Dark Mode Toggle Logic
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const html = document.documentElement;
+
+        // Check local storage or system preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener('click', () => {
+                if (html.classList.contains('dark')) {
+                    html.classList.remove('dark');
+                    localStorage.theme = 'light';
+                } else {
+                    html.classList.add('dark');
+                    localStorage.theme = 'dark';
+                }
+            });
+        }
+
         async function markRead(id) {
             try {
                 await fetch(`/notifications/read/${id}/`, {
