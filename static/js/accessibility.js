@@ -5,7 +5,7 @@
 
 const AccessibilityManager = {
     settings: {
-        fontSize: 100,
+        fontSize: 100, // percentage
         highContrast: false,
         darkMode: false,
         language: 'en'
@@ -13,67 +13,61 @@ const AccessibilityManager = {
 
     translations: {
         'en': {
-            'home': 'Home', 'services': 'Services', 'contact': 'Contact Us',
-            'dashboard': 'My Dashboard', 'officer_console': 'Officer Console',
-            'analytics': 'Analytics', 'login': 'Login', 'logout': 'Logout',
-            'profile': 'My Profile', 'search': 'Search', 'notifications': 'Notifications',
-            'accessibility': 'Accessibility', 'text_size': 'Text Size',
-            'theme': 'Theme', 'language': 'Language', 'reset': 'Reset', 'welcome': 'Welcome',
-            'em.police': 'Police', 'em.ambulance': 'Ambulance', 'em.women': 'Women', 'em.fire': 'Fire',
-            'hero.title': 'e-Governance Service Management System',
-            'hero.subtitle': 'Secure, transparent citizen services. Empowering the state with a robust digital platform for all administrative needs.',
-            'hero.cta': 'Apply for Services', 'nav.login': 'Citizen Login', 'nav.services': 'Citizen Services',
-            'nav.home': 'Home', 'nav.grievance': 'Grievance', 'nav.contact': 'Contact Us',
-            'card.apply': 'Apply for Services', 'card.apply.desc': 'Submit applications for certificates, welfare schemes, and licenses safely from your home.',
-            'card.apply.btn': 'Start Application', 'card.track': 'Track Status', 'card.track.desc': 'Real-time tracking of your application workflow, approvals, and current pending status.',
-            'card.track.btn': 'Check Status', 'card.grievance': 'Raise Grievance', 'card.grievance.desc': 'Lodge complaints regarding civic issues and track their resolution with our transparent system.',
-            'card.grievance.btn': 'File Complaint', 'how.title': 'How It Works', 'how.subtitle': 'Understanding the lifecycle of your application. We believe in complete transparency at every step.',
-            'step.1': 'Apply Online', 'step.1.desc': 'Submit your application with unified KYC verification.',
-            'step.2': 'Verification', 'step.2.desc': 'Field Officer verifies docs & eligibility criteria.',
-            'step.3': 'Approval', 'step.3.desc': 'Final scrutiny & digital signing by authority.',
-            'step.4': 'Issuance', 'step.4.desc': 'Get your digital certificate instantly.'
+            'home': 'Home',
+            'services': 'Services',
+            'contact': 'Contact Us',
+            'dashboard': 'My Dashboard',
+            'officer_console': 'Officer Console',
+            'analytics': 'Analytics',
+            'login': 'Login',
+            'logout': 'Logout',
+            'profile': 'My Profile',
+            'search': 'Search',
+            'notifications': 'Notifications',
+            'accessibility': 'Accessibility',
+            'text_size': 'Text Size',
+            'theme': 'Theme',
+            'language': 'Language',
+            'reset': 'Reset',
+            'welcome': 'Welcome'
         },
         'hi': {
-            'home': 'मुखपृष्ठ', 'services': 'सेवाएं', 'contact': 'संपर्क करें',
-            'dashboard': 'मेरा डैशबोर्ड', 'officer_console': 'अधिकारी कंसोल',
-            'analytics': 'विश्लेषण', 'login': 'लॉगिन', 'logout': 'लॉग आउट',
-            'profile': 'मेरी प्रोफाइल', 'search': 'खोजें', 'notifications': 'सूचनाएं',
-            'accessibility': 'पहुंच-योग्यता', 'text_size': 'लेख का आकार',
-            'theme': 'थीम', 'language': 'भाषा', 'reset': 'रीसेट', 'welcome': 'स्वागत',
-            'em.police': 'पुलिस', 'em.ambulance': 'एम्बुलेंस', 'em.women': 'महिला', 'em.fire': 'दमकल',
-            'hero.title': 'ई-गवर्नेंस सेवा प्रबंधन प्रणाली',
-            'hero.subtitle': 'सुरक्षित, पारदर्शी नागरिक सेवाएं। सभी प्रशासनिक आवश्यकताओं के लिए एक मजबूत डिजिटल प्लेटफॉर्म के साथ राज्य को सशक्त बनाना।',
-            'hero.cta': 'सेवाओं के लिए आवेदन करें', 'nav.login': 'नागरिक लॉगिन', 'nav.services': 'नागरिक सेवाएं',
-            'nav.home': 'मुखपृष्ठ', 'nav.grievance': 'शिकायत', 'nav.contact': 'संपर्क करें',
-            'card.apply': 'सेवाओं के लिए आवेदन करें', 'card.apply.desc': 'अपने घर से सुरक्षित रूप से प्रमाण पत्र, कल्याणकारी योजनाओं और लाइसेंस के लिए आवेदन जमा करें।',
-            'card.apply.btn': 'आवेदन शुरू करें', 'card.track': 'स्थिति ट्रैक करें', 'card.track.desc': 'आपके आवेदन वर्कफ़्लो, अनुमोदन और वर्तमान लंबित स्थिति की रीयल-टाइम ट्रैकिंग।',
-            'card.track.btn': 'स्थिति जांचें', 'card.grievance': 'शिकायत दर्ज करें', 'card.grievance.desc': 'नागरिक मुद्दों के संबंध में शिकायतें दर्ज करें और हमारे पारदर्शी सिस्टम के साथ उनके समाधान को ट्रैक करें।',
-            'card.grievance.btn': 'शिकायत दर्ज करें', 'how.title': 'यह कैसे काम करता है', 'how.subtitle': 'आपके आवेदन के जीवनचक्र को समझना। हम हर कदम पर पूर्ण पारदर्शिता में विश्वास करते हैं।',
-            'step.1': 'ऑनलाइन आवेदन करें', 'step.1.desc': 'एकीकृत केवाईसी सत्यापन के साथ अपना आवेदन जमा करें।',
-            'step.2': 'सत्यापन', 'step.2.desc': 'क्षेत्र अधिकारी दस्तावेजों और पात्रता मानदंडों की पुष्टि करता है।',
-            'step.3': 'अनुमोदन', 'step.3.desc': 'प्राधिकरण द्वारा अंतिम जांच और डिजिटल हस्ताक्षर।',
-            'step.4': 'जारी करना', 'step.4.desc': 'अपना डिजिटल प्रमाणपत्र तुरंत प्राप्त करें।'
+            'home': 'मुखपृष्ठ',
+            'services': 'सेवाएं',
+            'contact': 'संपर्क करें',
+            'dashboard': 'मेरा डैशबोर्ड',
+            'officer_console': 'अधिकारी कंसोल',
+            'analytics': 'विश्लेषण',
+            'login': 'लॉगिन',
+            'logout': 'लॉग आउट',
+            'profile': 'मेरी प्रोफाइल',
+            'search': 'खोजें',
+            'notifications': 'सूचनाएं',
+            'accessibility': 'पहुंच-योग्यता',
+            'text_size': 'लेखा का आकार',
+            'theme': 'प्रसंग',
+            'language': 'भाषा',
+            'reset': 'रीसेट',
+            'welcome': 'स्वागत'
         },
         'or': {
-            'home': 'ମୂଳ ପୃଷ୍ଠା', 'services': 'ସେବା', 'contact': 'ଯୋଗାଯୋଗ',
-            'dashboard': 'ମୋର ଡ୍ୟାସବୋର୍ଡ', 'officer_console': 'ଅଧିକାରୀ କନସୋଲ',
-            'analytics': 'ବିଶ୍ଳେଷଣ', 'login': 'ଲଗ୍ ଇନ୍', 'logout': 'ଲଗ୍ ଆଉଟ୍',
-            'profile': 'ମୋର ପ୍ରୋଫାଇଲ୍', 'search': 'ସନ୍ଧାନ', 'notifications': 'ବିଜ୍ଞପ୍ତି',
-            'accessibility': 'ସୁଗମତା', 'text_size': 'ପାଠ୍ୟ ଆକାର',
-            'theme': 'ଥିମ୍', 'language': 'ଭାଷା', 'reset': 'ରିସେଟ୍', 'welcome': 'ସ୍ୱାଗତ',
-            'em.police': 'ପୋଲିସ', 'em.ambulance': 'ଆମ୍ବୁଲାନ୍ସ', 'em.women': 'ମହିଳା', 'em.fire': 'ଅଗ୍ନିଶମ',
-            'hero.title': 'ଇ-ଗଭର୍ଣ୍ଣାନ୍ସ ସେବା ପରିଚାଳନା ପ୍ରଣାଳୀ',
-            'hero.subtitle': 'ସୁରକ୍ଷିତ, ସ୍ୱଚ୍ଛ ନାଗରିକ ସେବା | ସମସ୍ତ ପ୍ରଶାସନିକ ଆବଶ୍ୟକତା ପାଇଁ ଏକ ଦୃଢ଼ ଡିଜିଟାଲ୍ ପ୍ଲାଟଫର୍ମ ସହିତ ରାଜ୍ୟକୁ ସଶକ୍ତ କରିବା |',
-            'hero.cta': 'ସେବା ପାଇଁ ଆବେଦନ କରନ୍ତୁ', 'nav.login': 'ନାଗରିକ ଲଗଇନ୍', 'nav.services': 'ନାଗରିକ ସେବା',
-            'nav.home': 'ମୂଳ ପୃଷ୍ଠା', 'nav.grievance': 'ଅଭିଯୋଗ', 'nav.contact': 'ଯୋଗାଯୋଗ',
-            'card.apply': 'ସେବା ପାଇଁ ଆବେଦନ କରନ୍ତୁ', 'card.apply.desc': 'ଆପଣଙ୍କ ଘରୁ ନିରାପଦରେ ପ୍ରମାଣପତ୍ର, କଲ୍ୟାଣକାରୀ ଯୋଜନା ଏବଂ ଲାଇସେନ୍ସ ପାଇଁ ଆବେଦନ ଦାଖଲ କରନ୍ତୁ |',
-            'card.apply.btn': 'ଆବେଦନ ଆରମ୍ଭ କରନ୍ତୁ', 'card.track': 'ସ୍ଥିତି ଟ୍ରାକ୍ କରନ୍ତୁ', 'card.track.desc': 'ଆପଣଙ୍କର ଆବେଦନ କାର୍ଯ୍ୟଧାରା, ଅନୁମୋଦନ ଏବଂ ସାମ୍ପ୍ରତିକ ବିଚାରାଧୀନ ସ୍ଥିତିର ରିଅଲ-ଟାଇମ୍ ଟ୍ରାକିଂ |',
-            'card.track.btn': 'ସ୍ଥିତି ଯାଞ୍ଚ କରନ୍ତୁ', 'card.grievance': 'ଅଭିଯୋଗ କରନ୍ତୁ', 'card.grievance.desc': 'ନାଗରିକ ସମସ୍ୟା ସମ୍ବନ୍ଧରେ ଅଭିଯୋଗ କରନ୍ତୁ ଏବଂ ଆମର ସ୍ୱଚ୍ଛ ସିଷ୍ଟମ ସହିତ ସେଗୁଡିକର ସମାଧାନ ଟ୍ରାକ୍ କରନ୍ତୁ |',
-            'card.grievance.btn': 'ଅଭିଯୋଗ ଦାଖଲ କରନ୍ତୁ', 'how.title': 'ଏହା କିପରି କାମ କରେ', 'how.subtitle': 'ଆପଣଙ୍କର ଆବେଦନର ଜୀବନଚକ୍ରକୁ ବୁଝିବା | ଆମେ ପ୍ରତିଟି ପଦକ୍ଷେପରେ ସମ୍ପୂର୍ଣ୍ଣ ସ୍ୱଚ୍ଛତାରେ ବିଶ୍ୱାସ କରୁ |',
-            'step.1': 'ଅନଲାଇନରେ ଆବେଦନ କରନ୍ତୁ', 'step.1.desc': 'ୟୁନିଫାଏଡ୍ KYC ଯାଞ୍ଚ ସହିତ ଆପଣଙ୍କର ଆବେଦନ ଦାଖଲ କରନ୍ତୁ |',
-            'step.2': 'ଯାଞ୍ଚ', 'step.2.desc': 'କ୍ଷେତ୍ର ଅଧିକାରୀ ଦଲିଲ ଏବଂ ଯୋଗ୍ୟତା ମାପଦଣ୍ଡ ଯାଞ୍ଚ କରନ୍ତି |',
-            'step.3': 'ଅନୁମୋଦନ', 'step.3.desc': 'କର୍ତ୍ତୃପକ୍ଷଙ୍କ ଦ୍ୱାରା ଚୂଡ଼ାନ୍ତ ଯାଞ୍ଚ ଏବଂ ଡିଜିଟାଲ୍ ସ୍ୱାକ୍ଷର |',
-            'step.4': 'ପ୍ରଦାନ', 'step.4.desc': 'ତୁରନ୍ତ ଆପଣଙ୍କର ଡିଜିଟାଲ୍ ପ୍ରମାଣପତ୍ର ପାଆନ୍ତୁ |'
+            'home': 'ମୂଳ ପୃଷ୍ଠା',
+            'services': 'ସେବା',
+            'contact': 'ଯୋଗାଯୋଗ',
+            'dashboard': 'ମୋର ଡ୍ୟାସବୋର୍ଡ',
+            'officer_console': 'ଅଧିକାରୀ କନସୋଲ',
+            'analytics': 'ବିଶ୍ଳେଷଣ',
+            'login': 'ଲଗ୍ ଇନ୍',
+            'logout': 'ଲଗ୍ ଆଉଟ୍',
+            'profile': 'ମୋର ପ୍ରୋଫାଇଲ୍',
+            'search': 'ସନ୍ଧାନ',
+            'notifications': 'ବିଜ୍ଞପ୍ତି',
+            'accessibility': 'ସୁଗମତା',
+            'text_size': 'ପାଠ୍ୟ ଆକାର',
+            'theme': 'ଥିମ୍',
+            'language': 'ଭାଷା',
+            'reset': 'ରିସେଟ୍',
+            'welcome': 'ସ୍ୱାଗତ'
         }
     },
 
@@ -86,13 +80,10 @@ const AccessibilityManager = {
     loadSettings() {
         const saved = localStorage.getItem('accessibility_settings');
         if (saved) {
-            try {
-                this.settings = { ...this.settings, ...JSON.parse(saved) };
-            } catch (e) { console.error("Error parsing settings", e); }
+            this.settings = { ...this.settings, ...JSON.parse(saved) };
         } else {
-            // Legacy fallbacks
-            if (localStorage.getItem('data-theme') === 'dark' ||
-                (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            // Check system preference for dark mode
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                 this.settings.darkMode = true;
             }
         }
@@ -100,8 +91,6 @@ const AccessibilityManager = {
 
     saveSettings() {
         localStorage.setItem('accessibility_settings', JSON.stringify(this.settings));
-        // Sync with legacy key just in case
-        localStorage.setItem('data-theme', this.settings.darkMode ? 'dark' : 'light');
     },
 
     applySettings() {
@@ -112,6 +101,7 @@ const AccessibilityManager = {
 
     applyFontSize() {
         document.documentElement.style.fontSize = `${this.settings.fontSize}%`;
+        // Update displays
         document.querySelectorAll('#text-size-display, #text-size-display-mobile').forEach(el => {
             el.textContent = `${this.settings.fontSize}%`;
         });
@@ -135,21 +125,16 @@ const AccessibilityManager = {
         } else {
             html.classList.remove('high-contrast');
         }
-
-        // Sync all toggles on page
-        document.querySelectorAll('#cb-dark-mode, #cb-dark-mode-mobile').forEach(el => el.checked = this.settings.darkMode);
-        document.querySelectorAll('#cb-high-contrast, #cb-high-contrast-mobile').forEach(el => el.checked = this.settings.highContrast);
-
-        // Update theme icon if using separate button
-        const themeIcon = document.getElementById('themeIcon');
-        if (themeIcon) themeIcon.textContent = this.settings.darkMode ? 'light_mode' : 'dark_mode';
     },
 
     applyLanguage() {
+        // Simple data-i18n replacement
+        const elements = document.querySelectorAll('[data-i18n]');
         const langData = this.translations[this.settings.language];
+
         if (!langData) return;
 
-        document.querySelectorAll('[data-i18n]').forEach(el => {
+        elements.forEach(el => {
             const key = el.getAttribute('data-i18n');
             if (langData[key]) {
                 if (el.tagName === 'INPUT' && el.type === 'placeholder') {
@@ -160,77 +145,125 @@ const AccessibilityManager = {
             }
         });
 
-        document.querySelectorAll('#language-select, #language-select-mobile').forEach(el => {
-            el.value = this.settings.language;
-        });
+        // Update select value
+        const langSelect = document.getElementById('language-select');
+        if (langSelect) langSelect.value = this.settings.language;
+    },
+
+    // Actions
+    increaseFont() {
+        if (this.settings.fontSize < 150) {
+            this.settings.fontSize += 10;
+            this.saveSettings();
+            this.applyFontSize();
+        }
+    },
+
+    decreaseFont() {
+        if (this.settings.fontSize > 70) {
+            this.settings.fontSize -= 10;
+            this.saveSettings();
+            this.applyFontSize();
+        }
+    },
+
+    resetFont() {
+        this.settings.fontSize = 100;
+        this.saveSettings();
+        this.applyFontSize();
+    },
+
+    toggleHighContrast() {
+        this.settings.highContrast = !this.settings.highContrast;
+        // High contrast forces light mode usually, unless specific high-contrast-dark exists
+        // if (this.settings.highContrast) this.settings.darkMode = false; 
+        this.saveSettings();
+        this.applyTheme();
+    },
+
+    toggleDarkMode() {
+        this.settings.darkMode = !this.settings.darkMode;
+        this.saveSettings();
+        this.applyTheme();
+    },
+
+    setLanguage(lang) {
+        if (this.translations[lang]) {
+            this.settings.language = lang;
+            this.saveSettings();
+            this.applyLanguage();
+
+            // Optional: If backend language support exists, trigger it here too
+            // document.cookie = `django_language=${lang}; path=/`;
+        }
     },
 
     bindEvents() {
-        // Text Size
-        document.querySelectorAll('#btn-increase-text, #btn-increase-text-mobile').forEach(btn => {
-            btn.addEventListener('click', () => {
-                if (this.settings.fontSize < 150) {
-                    this.settings.fontSize += 10;
+        // Text Size (Desktop)
+        document.getElementById('btn-increase-text')?.addEventListener('click', () => this.increaseFont());
+        document.getElementById('btn-decrease-text')?.addEventListener('click', () => this.decreaseFont());
+        document.getElementById('btn-reset-text')?.addEventListener('click', () => this.resetFont());
+
+        // Text Size (Mobile)
+        document.getElementById('btn-increase-text-mobile')?.addEventListener('click', () => this.increaseFont());
+        document.getElementById('btn-decrease-text-mobile')?.addEventListener('click', () => this.decreaseFont());
+
+        // High Contrast
+        const bindHighContrast = (id) => {
+            const toggle = document.getElementById(id);
+            if (toggle) {
+                toggle.checked = this.settings.highContrast;
+                toggle.addEventListener('change', (e) => {
+                    this.settings.highContrast = e.target.checked;
                     this.saveSettings();
-                    this.applyFontSize();
-                }
-            });
-        });
+                    this.applyTheme();
+                    // Sync
+                    const otherId = id === 'cb-high-contrast' ? 'cb-high-contrast-mobile' : 'cb-high-contrast';
+                    const other = document.getElementById(otherId);
+                    if (other) other.checked = e.target.checked;
+                });
+            }
+        };
+        bindHighContrast('cb-high-contrast');
+        bindHighContrast('cb-high-contrast-mobile');
 
-        document.querySelectorAll('#btn-decrease-text, #btn-decrease-text-mobile').forEach(btn => {
-            btn.addEventListener('click', () => {
-                if (this.settings.fontSize > 70) {
-                    this.settings.fontSize -= 10;
+        // Dark Mode
+        const bindDarkMode = (id) => {
+            const toggle = document.getElementById(id);
+            if (toggle) {
+                toggle.checked = this.settings.darkMode;
+                toggle.addEventListener('change', (e) => {
+                    this.settings.darkMode = e.target.checked;
                     this.saveSettings();
-                    this.applyFontSize();
-                }
-            });
-        });
-
-        document.querySelectorAll('#btn-reset-text').forEach(btn => {
-            btn.addEventListener('click', () => {
-                this.settings.fontSize = 100;
-                this.settings.highContrast = false;
-                this.settings.darkMode = false; // Reset to light
-                this.saveSettings();
-                this.applySettings();
-            });
-        });
-
-        // Toggles
-        document.querySelectorAll('#cb-dark-mode, #cb-dark-mode-mobile, #themeToggle').forEach(el => {
-            el.addEventListener('click', (e) => {
-                // If it's a checkbox, use its checked state. If it's a button (themeToggle), toggle current state.
-                if (el.tagName === 'INPUT') {
-                    this.settings.darkMode = el.checked;
-                } else {
-                    this.settings.darkMode = !this.settings.darkMode;
-                }
-                this.saveSettings();
-                this.applyTheme();
-            });
-        });
-
-        document.querySelectorAll('#cb-high-contrast, #cb-high-contrast-mobile').forEach(el => {
-            el.addEventListener('change', (e) => {
-                this.settings.highContrast = e.target.checked;
-                this.saveSettings();
-                this.applyTheme();
-            });
-        });
+                    this.applyTheme();
+                    // Sync other toggles
+                    const otherId = id === 'cb-dark-mode' ? 'cb-dark-mode-mobile' : 'cb-dark-mode';
+                    const other = document.getElementById(otherId);
+                    if (other) other.checked = e.target.checked;
+                });
+            }
+        };
+        bindDarkMode('cb-dark-mode');
+        bindDarkMode('cb-dark-mode-mobile');
 
         // Language
-        document.querySelectorAll('#language-select, #language-select-mobile').forEach(el => {
-            el.addEventListener('change', (e) => {
-                this.settings.language = e.target.value;
-                this.saveSettings();
-                this.applyLanguage();
-            });
-        });
+        const bindLanguage = (id) => {
+            const select = document.getElementById(id);
+            if (select) {
+                select.value = this.settings.language;
+                select.addEventListener('change', (e) => {
+                    this.setLanguage(e.target.value);
+                    // Sync other
+                    const otherId = id === 'language-select' ? 'language-select-mobile' : 'language-select';
+                    const other = document.getElementById(otherId);
+                    if (other) other.value = e.target.value;
+                });
+            }
+        };
+        bindLanguage('language-select');
+        bindLanguage('language-select-mobile');
     }
 };
-
-document.addEventListener('DOMContentLoaded', () => AccessibilityManager.init());
 
 // Initialize on load
 document.addEventListener('DOMContentLoaded', () => {

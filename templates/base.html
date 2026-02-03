@@ -100,8 +100,6 @@
 
 <body
     class="bg-background-light dark:bg-background-dark text-[#111318] dark:text-white font-display flex flex-col min-h-screen overflow-x-hidden">
-    <!-- Skip to Content Link -->
-    <a href="#main-content" class="skip-to-main">Skip to main content</a>
     <!-- Navbar -->
     <header
         class="sticky top-0 z-50 bg-white/90 dark:bg-[#1a202c]/90 backdrop-blur-md border-b border-[#e5e7eb] dark:border-[#2d3748] shadow-sm transition-all duration-300"
@@ -500,7 +498,7 @@
     </div>
 
     <!-- Main Content -->
-    <main id="main-content" class="flex-grow page-load-animation">
+    <main class="flex-grow page-load-animation">
         {% if messages %}
         <div class="max-w-[1280px] mx-auto px-4 mt-4">
             {% for message in messages %}
@@ -587,8 +585,39 @@
     </footer>
 
     <!-- Accessibility Scripts -->
+    <!-- Accessibility Scripts -->
     <script src="{% static 'js/accessibility.js' %}"></script>
+
     <script>
+        // Existing Theme initialization
+        const html = document.documentElement;
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+
+        function updateThemeUI() {
+            if (themeIcon) {
+                themeIcon.textContent = html.classList.contains('dark') ? 'light_mode' : 'dark_mode';
+            }
+        }
+
+        // Sync accessibility.js theme changes back to UI if needed
+        const themeObserver = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === "class") {
+                    updateThemeUI();
+                }
+            });
+        });
+        themeObserver.observe(html, { attributes: true });
+
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const isDark = html.classList.toggle('dark');
+                localStorage.setItem('data-theme', isDark ? 'dark' : 'light');
+                updateThemeUI();
+            });
+        }
+
         // Accessibility dropdown toggle
         const accessibilityToggle = document.getElementById('accessibilityToggle');
         const accessibilityDropdown = document.getElementById('accessibilityDropdown');

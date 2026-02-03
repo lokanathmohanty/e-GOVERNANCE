@@ -283,7 +283,7 @@ html.high-contrast textarea {
     color: white;
     padding: 0.5rem 1rem;
     text-decoration: none;
-    z-index: 1100;
+    z-index: 100;
 }
 
 .skip-to-main:focus {
