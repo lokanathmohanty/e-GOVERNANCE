@@ -68,15 +68,16 @@
                                 to see updates.</p>
                         </div>
                         <div class="col-lg-7">
-                            <form action="{% url 'citizen:public_track' %}" method="GET" class="d-flex gap-2">
-                                <div class="input-group input-group-lg shadow-sm rounded-3 overflow-hidden">
-                                    <span class="input-group-text bg-white border-end-0">
+                            <form action="{% url 'citizen:public_track' %}" method="GET"
+                                class="d-flex flex-column flex-sm-row gap-2">
+                                <div class="input-group input-group-lg shadow-sm rounded-3 overflow-hidden flex-grow-1">
+                                    <span class="input-group-text bg-white border-end-0 d-none d-sm-flex">
                                         <i class="bi bi-hash text-warning"></i>
                                     </span>
-                                    <input type="text" name="app_number" class="form-control border-0 bg-white"
-                                        placeholder="Enter Application ID (e.g., APP-2024-XXXX)" required>
-                                    <button type="submit" class="btn btn-warning px-4 fw-bold">Track Status</button>
+                                    <input type="text" name="app_number" class="form-control border-sm-0 bg-white fs-6"
+                                        placeholder="Application ID (e.g. APP-2024-...)" required>
                                 </div>
+                                <button type="submit" class="btn btn-warning px-4 fw-bold btn-lg">Track Status</button>
                             </form>
                         </div>
                     </div>
@@ -209,36 +210,38 @@
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
-                            <table class="table table-hover mb-0">
+                            <table class="table table-hover mb-0 table-mobile-cards">
                                 <thead class="table-light">
-                                    <tr>
-                                        <th>Officer Name</th>
+                                    <tr class="text-uppercase small fw-black tracking-wider text-muted">
+                                        <th class="ps-4">Officer Name</th>
                                         <th class="text-center">Assigned</th>
                                         <th class="text-center">Completed</th>
                                         <th class="text-center">Pending</th>
-                                        <th class="text-center">Avg. Time</th>
+                                        <th class="text-center pe-4">Avg. Time</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for off_stat in officer_stats %}
                                     <tr class="align-middle">
-                                        <td>
-                                            <i class="bi bi-person-circle text-primary me-2"></i>
-                                            <strong>{{ off_stat.name }}</strong>
+                                        <td class="ps-4" data-label="Officer">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <i class="bi bi-person-circle text-primary fs-5"></i>
+                                                <strong>{{ off_stat.name }}</strong>
+                                            </div>
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-center" data-label="Assigned">
                                             <span class="badge bg-primary px-3 rounded-pill">{{ off_stat.assigned
                                                 }}</span>
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-center" data-label="Completed">
                                             <span class="badge bg-success px-3 rounded-pill">{{ off_stat.completed
                                                 }}</span>
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-center" data-label="Pending">
                                             <span class="badge bg-warning text-dark px-3 rounded-pill">{{
                                                 off_stat.pending }}</span>
                                         </td>
-                                        <td class="text-center fw-bold text-muted">
+                                        <td class="text-center fw-bold text-muted pe-4" data-label="Avg. Time">
                                             {{ off_stat.avg_days|default:"0.0" }} days
                                         </td>
                                     </tr>

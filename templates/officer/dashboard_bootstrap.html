@@ -5,10 +5,22 @@
 {% block content %}
 <div class="container-fluid bg-light min-vh-100">
     <div class="row">
-        <!-- Sidebar -->
-        <nav class="col-lg-2 d-none d-lg-block bg-white sidebar border-end shadow-sm">
-            <div class="position-sticky pt-3">
-                <div class="text-center mb-4 px-3">
+        <!-- Sidebar Navigation (Offcanvas for mobile, Sidebar for desktop) -->
+        <button class="btn btn-primary d-lg-none position-fixed bottom-0 start-0 m-3 rounded-pill shadow-lg z-3"
+            type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu">
+            <i class="bi bi-list-task me-2"></i> Menu
+        </button>
+
+        <nav class="col-lg-2 offcanvas-lg offcanvas-start bg-white sidebar border-end shadow-sm" tabindex="-1"
+            id="sidebarMenu">
+            <div class="offcanvas-header d-lg-none border-bottom">
+                <h5 class="offcanvas-title fw-black"><i class="bi bi-shield-lock text-primary me-2"></i> Officer Menu
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                    data-bs-target="#sidebarMenu"></button>
+            </div>
+            <div class="position-sticky pt-3 offcanvas-body flex-column">
+                <div class="text-center mb-4 px-3 d-none d-lg-block">
                     <div class="avatar bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow-md"
                         style="width: 70px; height: 70px;">
                         <i class="bi bi-person-badge fs-2"></i>
@@ -21,7 +33,7 @@
                     <small class="text-muted text-uppercase fw-bold opacity-50 tracking-wider"
                         style="font-size: 0.65rem;">Navigation</small>
                 </div>
-                <ul class="nav flex-column gap-1">
+                <ul class="nav flex-column gap-1 w-100">
                     <li class="nav-item">
                         <a class="nav-link {% if filter_type == 'all' %}active{% endif %}"
                             href="{% url 'officer:dashboard' %}">
@@ -51,25 +63,23 @@
         </nav>
 
         <!-- Main Content -->
-        <main class="col-md-10 ms-sm-auto px-md-4 py-4">
+        <main class="col-lg-10 ms-sm-auto px-md-4 py-4">
             <!-- Header -->
-            <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-4 stagger-container active">
                 <div>
-                    <h2>Officer Dashboard</h2>
+                    <h2 class="fw-black">Officer Dashboard</h2>
                     <p class="text-muted">Review and process assigned applications</p>
                 </div>
-                <div class="d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center gap-2">
                     <form class="d-flex" action="." method="GET">
                         <input type="hidden" name="filter" value="{{ filter_type }}">
                         <div class="input-group">
-                            <input class="form-control" type="search" name="q" placeholder="Search Application ID..."
+                            <input class="form-control" type="search" name="q" placeholder="Search ID..."
                                 aria-label="Search" value="{{ request.GET.q }}">
-                            <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i></button>
+                            <button class="btn btn-outline-primary px-3" type="submit"><i
+                                    class="bi bi-search"></i></button>
                         </div>
                     </form>
-                    <span class="badge bg-primary p-2">
-                        <i class="bi bi-person-badge"></i> {{ user.role|upper }}
-                    </span>
                 </div>
             </div>
 
@@ -85,20 +95,21 @@
                             <div class="col-lg-5 mb-3 mb-lg-0">
                                 <h5 class="fw-black mb-1 text-dark"><i
                                         class="bi bi-shield-check text-warning me-2"></i>Track Application Status</h5>
-                                <p class="text-muted small mb-0 font-medium">Enter your Application Number or
-                                    Certificate ID
-                                    to see updates.</p>
+                                <p class="text-muted small mb-0 font-medium">Enter Application ID or Certificate ID</p>
                             </div>
                             <div class="col-lg-7">
-                                <form action="{% url 'citizen:public_track' %}" method="GET" class="d-flex gap-2">
-                                    <div class="input-group input-group-lg shadow-sm rounded-3 overflow-hidden">
-                                        <span class="input-group-text bg-white border-end-0">
+                                <form action="{% url 'citizen:public_track' %}" method="GET"
+                                    class="d-flex flex-column flex-sm-row gap-2">
+                                    <div
+                                        class="input-group input-group-lg shadow-sm rounded-3 overflow-hidden flex-grow-1">
+                                        <span class="input-group-text bg-white border-end-0 d-none d-sm-flex">
                                             <i class="bi bi-hash text-warning"></i>
                                         </span>
-                                        <input type="text" name="app_number" class="form-control border-0 bg-white"
-                                            placeholder="Enter Application ID (e.g., APP-2024-XXXX)" required>
-                                        <button type="submit" class="btn btn-warning px-4 fw-bold">Track Status</button>
+                                        <input type="text" name="app_number" class="form-control border-0 bg-white fs-6"
+                                            placeholder="App ID (e.g. APP-2024-...)" required>
                                     </div>
+                                    <button type="submit" class="btn btn-warning px-4 fw-bold btn-lg">Track
+                                        Status</button>
                                 </form>
                             </div>
                         </div>
@@ -107,60 +118,65 @@
             </div>
 
             <!-- Stats Cards -->
-            <div class="row g-3 mb-4">
-                <div class="col-md-3">
-                    <div class="card border-start border-warning border-3">
-                        <div class="card-body">
+            <div class="row g-3 mb-4 stagger-container active">
+                <div class="col-6 col-md-3 stagger-item"
+                    style="transition-delay: 0ms; opacity: 1; transform: translateY(0px);">
+                    <div class="card border-start border-warning border-3 h-100 shadow-sm">
+                        <div class="card-body p-3 p-md-4">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <p class="text-muted small mb-1">Assigned to Me</p>
-                                    <h3 class="mb-0">{{ stats.assigned }}</h3>
+                                    <p class="text-muted small mb-1">Assigned</p>
+                                    <h3 class="mb-0 fw-black">{{ stats.assigned }}</h3>
                                 </div>
-                                <i class="bi bi-inbox text-warning fs-2"></i>
+                                <i class="bi bi-inbox text-warning fs-3 d-none d-sm-block"></i>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="card border-start border-info border-3">
-                        <div class="card-body">
+                <div class="col-6 col-md-3 stagger-item"
+                    style="transition-delay: 80ms; opacity: 1; transform: translateY(0px);">
+                    <div class="card border-start border-info border-3 h-100 shadow-sm">
+                        <div class="card-body p-3 p-md-4">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <p class="text-muted small mb-1">In Progress</p>
-                                    <h3 class="mb-0">{{ stats.in_progress }}</h3>
+                                    <h3 class="mb-0 fw-black">{{ stats.in_progress }}</h3>
                                 </div>
-                                <i class="bi bi-hourglass-split text-info fs-2"></i>
+                                <i class="bi bi-hourglass-split text-info fs-3 d-none d-sm-block"></i>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="card border-start border-success border-3">
-                        <div class="card-body">
+                <div class="col-6 col-md-3 stagger-item"
+                    style="transition-delay: 160ms; opacity: 1; transform: translateY(0px);">
+                    <div class="card border-start border-success border-3 h-100 shadow-sm">
+                        <div class="card-body p-3 p-md-4">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <p class="text-muted small mb-1">Approved Today</p>
-                                    <h3 class="mb-0">{{ stats.approved_today }}</h3>
+                                    <p class="text-muted small mb-1">Approved</p>
+                                    <h3 class="mb-0 fw-black">{{ stats.approved_today }}</h3>
                                 </div>
-                                <i class="bi bi-check-circle text-success fs-2"></i>
+                                <i class="bi bi-check-circle text-success fs-3 d-none d-sm-block"></i>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="card border-start border-danger border-3">
-                        <div class="card-body">
+                <div class="col-6 col-md-3 stagger-item"
+                    style="transition-delay: 240ms; opacity: 1; transform: translateY(0px);">
+                    <div class="card border-start border-danger border-3 h-100 shadow-sm">
+                        <div class="card-body p-3 p-md-4">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <p class="text-muted small mb-1">Pending Review</p>
-                                    <h3 class="mb-0">{{ stats.pending }}</h3>
+                                    <p class="text-muted small mb-1">Pending</p>
+                                    <h3 class="mb-0 fw-black">{{ stats.pending }}</h3>
                                 </div>
-                                <i class="bi bi-exclamation-triangle text-danger fs-2"></i>
+                                <i class="bi bi-exclamation-triangle text-danger fs-3 d-none d-sm-block"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
 
             <!-- Applications Table -->
             <div class="card card-premium overflow-hidden">
@@ -255,12 +271,13 @@
                                         <span class="badge rounded-pill bg-danger">Rejected</span>
                                         {% endif %}
                                     </td>
-                                    <td class="pe-4 text-end">
+                                    <td class="pe-4 text-end" data-label="Action">
                                         <a href="{% url 'officer:review' app.id %}"
                                             class="btn btn-premium btn-premium-primary btn-sm rounded-pill py-2 px-4 shadow-sm">
                                             Review Case
                                         </a>
                                     </td>
+
                                 </tr>
                                 {% endwith %}
                                 {% empty %}

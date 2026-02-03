@@ -147,7 +147,7 @@ def contact_inbox(request):
 
     context = {
         'messages_list': msgs,
-
+        'messages': msgs, # Duplicate for count in template
         'unread_count': msgs.filter(is_resolved=False).count(),
         'resolved_count': msgs.filter(is_resolved=True).count()
     }

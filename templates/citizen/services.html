@@ -10,34 +10,34 @@
             <p class="text-lg text-gray-500 dark:text-gray-400">Apply online for certificates, licenses, and social
                 welfare schemes from various departments.</p>
         </div>
-        <div class="w-full md:w-auto min-w-[320px]">
+        <div class="w-full lg:w-auto lg:min-w-[400px]">
             <div class="relative group">
                 <span
                     class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400 group-focus-within:text-primary transition-colors">
                     <span class="material-symbols-outlined">search</span>
                 </span>
-                <input type="text" placeholder="Search by service or keyword..."
-                    class="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-white dark:bg-surface-dark pl-10 pr-4 py-3.5 text-sm font-medium text-gray-900 dark:text-white shadow-sm focus:ring-4 focus:ring-primary/10 transition-all outline-none">
+                <input type="text" placeholder="Search for certificates, licenses..."
+                    class="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-white dark:bg-surface-dark pl-10 pr-4 py-3.5 text-sm font-medium text-gray-900 dark:text-white shadow-sm focus:ring-4 focus:ring-primary/10 transition-all outline-none border">
             </div>
         </div>
     </div>
 
-    <!-- Stats Bar (Optional, for visual impact) -->
+    <!-- Stats Bar -->
     <div
-        class="flex flex-wrap gap-8 py-6 px-8 bg-primary rounded-2xl text-white shadow-xl shadow-blue-100 dark:shadow-none">
+        class="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-8 py-6 px-8 bg-primary rounded-2xl text-white shadow-xl shadow-blue-100 dark:shadow-none">
         <div class="flex flex-col">
-            <span class="text-xs font-bold text-white/70 uppercase tracking-widest">Available Services</span>
-            <span class="text-2xl font-black">{{ services.count }}</span>
+            <span class="text-[10px] md:text-xs font-bold text-white/70 uppercase tracking-widest">Available</span>
+            <span class="text-xl md:text-2xl font-black">{{ services.count }} Services</span>
         </div>
         <div class="w-px bg-white/20 hidden md:block"></div>
         <div class="flex flex-col">
-            <span class="text-xs font-bold text-white/70 uppercase tracking-widest">Active Departments</span>
-            <span class="text-2xl font-black">12</span>
+            <span class="text-[10px] md:text-xs font-bold text-white/70 uppercase tracking-widest">Active</span>
+            <span class="text-xl md:text-2xl font-black">12 Depts</span>
         </div>
         <div class="w-px bg-white/20 hidden md:block"></div>
-        <div class="flex flex-col">
-            <span class="text-xs font-bold text-white/70 uppercase tracking-widest">Average SLA</span>
-            <span class="text-2xl font-black">7 Days</span>
+        <div class="flex flex-col col-span-2 md:col-span-1">
+            <span class="text-[10px] md:text-xs font-bold text-white/70 uppercase tracking-widest">Average SLA</span>
+            <span class="text-xl md:text-2xl font-black">7 Days</span>
         </div>
     </div>
 
@@ -58,7 +58,8 @@
                             class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-50 text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-400 uppercase tracking-wider mb-1">
                             {{ service.processing_days }} Days SLA
                         </span>
-                        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">{{ service.department.department_name }}</span>
+                        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">{{
+                            service.department.department_name }}</span>
                     </div>
                 </div>
 

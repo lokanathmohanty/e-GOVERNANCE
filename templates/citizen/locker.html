@@ -19,29 +19,33 @@
 
     <!-- Storage Info Banner -->
     <div
-        class="bg-primary rounded-3xl p-8 text-white relative overflow-hidden shadow-2xl shadow-blue-100 dark:shadow-none">
-        <div class="absolute right-[-20px] top-[-20px] size-60 bg-white/10 rounded-full blur-3xl"></div>
-        <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-            <div class="flex items-center gap-6">
+        class="bg-primary rounded-3xl p-6 md:p-10 text-white relative overflow-hidden shadow-2xl shadow-blue-100 dark:shadow-none">
+        <!-- Decoration -->
+        <div class="absolute right-[-20px] top-[-20px] size-40 md:size-60 bg-white/10 rounded-full blur-3xl"></div>
+
+        <div
+            class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
+            <div class="flex flex-col md:flex-row items-center gap-6">
                 <div
-                    class="size-16 rounded-2xl bg-white/20 flex items-center justify-center backdrop-blur-md border border-white/20">
-                    <span class="material-symbols-outlined text-[40px]">security</span>
+                    class="size-16 rounded-2xl bg-white/20 flex items-center justify-center backdrop-blur-md border border-white/20 shrink-0">
+                    <span class="material-symbols-outlined text-[36px]">security</span>
                 </div>
                 <div>
-                    <h2 class="text-xl font-bold mb-1">Your Personal Secure Space</h2>
-                    <p class="text-white/70 text-sm max-w-xl">All documents are stored with military-grade encryption.
-                        You can directly attach these to any government application across the portal.</p>
+                    <h2 class="text-xl md:text-2xl font-black mb-1">Secure Digital Vault</h2>
+                    <p class="text-white/80 text-sm max-w-xl">Your documents are encrypted and safe. Use them to apply
+                        for services instantly across the portal.</p>
                 </div>
             </div>
-            <div class="flex items-center gap-8">
+
+            <div class="flex items-center gap-6 md:gap-10 bg-white/10 p-4 md:p-6 rounded-2xl backdrop-blur-sm">
                 <div class="text-center">
-                    <div class="text-3xl font-black">{{ docs.count }}</div>
-                    <div class="text-[10px] font-black uppercase tracking-widest text-white/60">Documents Stored</div>
+                    <div class="text-2xl md:text-3xl font-black">{{ docs.count }}</div>
+                    <div class="text-[10px] font-black uppercase tracking-widest text-white/60">Documents</div>
                 </div>
-                <div class="w-px h-12 bg-white/20"></div>
+                <div class="w-px h-10 bg-white/20"></div>
                 <div class="text-center">
-                    <div class="text-3xl font-black">∞</div>
-                    <div class="text-[10px] font-black uppercase tracking-widest text-white/60">Limit</div>
+                    <div class="text-2xl md:text-3xl font-black">UNLIMITED</div>
+                    <div class="text-[10px] font-black uppercase tracking-widest text-white/60">Storage Space</div>
                 </div>
             </div>
         </div>

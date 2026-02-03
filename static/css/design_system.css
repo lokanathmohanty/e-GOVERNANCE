@@ -46,20 +46,20 @@ html {
 }
 
 h1 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 800;
+    font-size: clamp(1.75rem, 6vw, 3.5rem);
+    font-weight: 900;
     line-height: 1.1;
     letter-spacing: -0.025em;
 }
 
 h2 {
-    font-size: clamp(1.5rem, 4vw, 2.5em);
-    font-weight: 700;
+    font-size: clamp(1.4rem, 5vw, 2.5rem);
+    font-weight: 800;
     line-height: 1.2;
 }
 
 h3 {
-    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-size: clamp(1.1rem, 4vw, 1.75rem);
     font-weight: 700;
 }
 
@@ -76,6 +76,12 @@ h3 {
     transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
     border-color: var(--primary-soft);
+}
+
+@media (max-width: 640px) {
+    .card-premium {
+        padding: 1.25rem !important;
+    }
 }
 
 .btn-premium {
@@ -234,6 +240,19 @@ h3 {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+@media (max-width: 640px) {
+    .stat-widget-premium {
+        padding: 1rem;
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
+    }
+
+    .stat-icon-container {
+        padding: 0.75rem;
+    }
 }
 
 /* Animations */

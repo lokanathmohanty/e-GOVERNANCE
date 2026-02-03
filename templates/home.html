@@ -93,7 +93,7 @@
                         <span class="size-2 rounded-full bg-primary animate-pulse"></span>
                         <span class="text-xs font-bold text-primary uppercase tracking-wide">Official Govt Portal</span>
                     </div>
-                    <h1 class="text-[#111318] dark:text-white text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] tracking-[-0.033em]"
+                    <h1 class="text-[#111318] dark:text-white text-3xl md:text-5xl lg:text-6xl font-black leading-[1.1] tracking-[-0.033em]"
                         data-i18n="hero.title">
                         e-Governance Service Management System
                     </h1>
@@ -103,14 +103,14 @@
                         all administrative needs.
                     </h2>
                 </div>
-                <div class="flex flex-wrap gap-4 mt-6">
+                <div class="flex flex-col sm:flex-row gap-4 mt-6">
                     <a href="{% url 'accounts:login' %}"
-                        class="btn-premium btn-premium-primary text-lg !px-10 h-16 no-underline">
+                        class="btn-premium btn-premium-primary text-base md:text-lg !px-10 h-14 md:h-16 no-underline w-full sm:w-auto">
                         <span class="material-symbols-outlined">person</span>
                         <span data-i18n="nav.login">Citizen Login</span>
                     </a>
                     <a href="{% url 'accounts:login' %}"
-                        class="btn-premium bg-white dark:bg-gray-800 border-2 border-primary/20 text-primary text-lg !px-10 h-16 hover:bg-primary/5 hover:border-primary transition-all no-underline">
+                        class="btn-premium bg-white dark:bg-gray-800 border-2 border-primary/20 text-primary text-base md:text-lg !px-10 h-14 md:h-16 hover:bg-primary/5 hover:border-primary transition-all no-underline w-full sm:w-auto">
                         <span class="material-symbols-outlined">menu_book</span>
                         <span data-i18n="hero.cta">Apply for Services</span>
                     </a>
@@ -238,8 +238,11 @@
 
         <!-- Step-wise Visualization -->
         <div class="relative">
-            <!-- Connecting Line -->
-            <div class="hidden lg:block absolute top-[40px] left-0 w-full h-1 bg-gray-200 dark:bg-gray-700 z-0">
+            <!-- Connecting Line (Desktop) -->
+            <div class="hidden lg:block absolute top-[40px] left-0 w-full h-1 bg-gray-200 dark:bg-gray-700 z-0"></div>
+            <!-- Connecting Line (Mobile) -->
+            <div
+                class="lg:hidden absolute left-[50%] top-0 bottom-0 w-1 bg-gray-200 dark:bg-gray-700 translate-x-[-50%] z-0 h-full">
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10 stagger-container">
@@ -291,7 +294,8 @@
                 </div>
 
                 <!-- Step 4 -->
-                <div class="card-premium p-8 text-center stagger-item">
+                <div
+                    class="card-premium p-8 text-center stagger-item bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-800">
                     <div
                         class="size-20 mx-auto bg-green-50 text-green-600 rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-green-100">
                         <span class="material-symbols-outlined text-4xl">download_done</span>
@@ -309,10 +313,10 @@
         </div>
 
         <!-- Accountability & Rights Info -->
-        <div class="grid md:grid-cols-2 gap-8 mt-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
             <!-- Service Charter -->
-            <div class="bg-blue-600 rounded-3xl p-8 text-white relative overflow-hidden">
-                <div class="absolute top-0 right-0 p-8 opacity-10">
+            <div class="bg-blue-600 rounded-3xl p-6 md:p-10 text-white relative overflow-hidden shadow-xl">
+                <div class="absolute top-0 right-0 p-8 opacity-10 hidden md:block">
                     <span class="material-symbols-outlined text-9xl">policy</span>
                 </div>
                 <h3 class="text-2xl font-bold mb-4 relative z-10 flex items-center gap-2">
@@ -375,13 +379,15 @@
     <div class="max-w-[1280px] mx-auto px-4 relative z-10">
         <div class="text-center mb-16">
             <span
-                class="px-3 py-1 rounded-full bg-white/10 text-blue-200 text-xs font-bold uppercase tracking-wider mb-4 inline-block backdrop-blur-sm border border-white/10">Transparency
+                class="px-3 py-1 rounded-full bg-white/10 text-blue-200 text-[10px] md:text-xs font-bold uppercase tracking-wider mb-4 inline-block backdrop-blur-sm border border-white/10">Transparency
                 Report</span>
-            <h2 class="text-3xl md:text-5xl font-black mb-4 tracking-tight" data-i18n="impact.title">Live Impact
+            <h2 class="text-3xl md:text-5xl font-black mb-4 tracking-tight leading-tight" data-i18n="impact.title">Live
+                Impact
                 Dashboard</h2>
-            <p class="text-blue-200 text-lg max-w-2xl mx-auto" data-i18n="impact.subtitle">Real-time metrics
+            <p class="text-blue-200 text-base md:text-lg max-w-2xl mx-auto" data-i18n="impact.subtitle">Real-time
+                metrics
                 demonstrating our commitment to
-                efficiency and transparency in public administration.</p>
+                efficiency and transparency.</p>
         </div>
 
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
@@ -516,14 +522,14 @@
                     circulars, and check deadlines.
                 </p>
             </div>
-            <div class="flex gap-2">
+            <div class="flex flex-wrap gap-2">
                 <!-- Tabs Controller -->
                 <button onclick="filterAnnouncements('news')" id="btn-news"
-                    class="tab-btn active-tab px-4 py-2 rounded-full font-bold text-sm bg-primary text-white transition-all"
+                    class="tab-btn active-tab flex-1 md:flex-none px-6 py-2.5 rounded-full font-bold text-sm bg-primary text-white transition-all shadow-lg"
                     data-i18n="tab.news">Latest
                     News</button>
                 <button onclick="filterAnnouncements('notices')" id="btn-notices"
-                    class="tab-btn px-4 py-2 rounded-full font-bold text-sm bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
+                    class="tab-btn flex-1 md:flex-none px-6 py-2.5 rounded-full font-bold text-sm bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
                     data-i18n="tab.notices">Circulars
                     & Notices</button>
             </div>

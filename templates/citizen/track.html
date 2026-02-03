@@ -41,46 +41,86 @@
             </div>
 
             <div class="card-body p-5">
-                <!-- Premium Timeline -->
+                <!-- Responsive Timeline -->
                 <div class="position-relative mb-5 pt-4">
-                    <div class="progress position-absolute top-0 start-0 w-100"
-                        style="height: 4px; margin-top: 23px; z-index: 1;">
-                        {% if app.status == 'pending' %}
-                        <div class="progress-bar bg-primary" style="width: 25%"></div>
-                        {% elif app.status == 'under_review' %}
-                        <div class="progress-bar bg-primary" style="width: 75%"></div>
-                        {% else %}
-                        <div class="progress-bar bg-{% if app.status == 'approved' %}success{% else %}danger{% endif %}"
-                            style="width: 100%"></div>
-                        {% endif %}
+                    <!-- Desktop Horizontal Timeline -->
+                    <div class="d-none d-md-block">
+                        <div class="progress position-absolute top-0 start-0 w-100"
+                            style="height: 4px; margin-top: 23px; z-index: 1;">
+                            {% if app.status == 'pending' %}
+                            <div class="progress-bar bg-primary" style="width: 25%"></div>
+                            {% elif app.status == 'under_review' %}
+                            <div class="progress-bar bg-primary" style="width: 75%"></div>
+                            {% else %}
+                            <div class="progress-bar bg-{% if app.status == 'approved' %}success{% else %}danger{% endif %}"
+                                style="width: 100%"></div>
+                            {% endif %}
+                        </div>
+
+                        <div class="row position-relative z-10 text-center">
+                            <div class="col">
+                                <div
+                                    class="size-12 rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto mb-3 shadow-lg border-4 border-white">
+                                    <i class="bi bi-file-earmark-check fs-5"></i>
+                                </div>
+                                <div class="fw-black text-dark small uppercase">Submitted</div>
+                                <div class="text-muted small">{{ app.applied_date|date:'M d' }}</div>
+                            </div>
+                            <div class="col">
+                                <div
+                                    class="size-12 rounded-circle {% if app.status != 'pending' %}bg-primary text-white shadow-lg{% else %}bg-light text-muted border border-2{% endif %} d-flex align-items-center justify-content-center mx-auto mb-3 border-4 border-white">
+                                    <i class="bi bi-cpu fs-5"></i>
+                                </div>
+                                <div class="fw-black text-dark small uppercase">Verification</div>
+                                <div class="text-muted small">{% if app.status != 'pending' %}In Progress{% else
+                                    %}Waiting{% endif %}</div>
+                            </div>
+                            <div class="col">
+                                <div
+                                    class="size-12 rounded-circle {% if app.status == 'approved' %}bg-success text-white shadow-lg{% elif app.status == 'rejected' %}bg-danger text-white shadow-lg{% else %}bg-light text-muted border border-2{% endif %} d-flex align-items-center justify-content-center mx-auto mb-3 border-4 border-white">
+                                    <i class="bi bi-flag-fill fs-5"></i>
+                                </div>
+                                <div class="fw-black text-dark small uppercase">Final State</div>
+                                <div class="text-muted small">
+                                    {% if app.status == 'approved' or app.status == 'rejected' %}{{
+                                    app.approved_date|date:'M d' }}{% else %}Scheduled{% endif %}
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="row position-relative z-10 text-center">
-                        <div class="col">
+                    <!-- Mobile Vertical Timeline -->
+                    <div class="d-md-none space-y-4">
+                        <div class="d-flex align-items-center gap-3">
                             <div
-                                class="size-12 rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto mb-3 shadow-lg border-4 border-white">
-                                <i class="bi bi-file-earmark-check fs-5"></i>
+                                class="size-10 rounded-circle bg-primary text-white d-flex align-items-center justify-content-center shrink-0">
+                                <i class="bi bi-file-earmark-check"></i>
                             </div>
-                            <div class="fw-black text-dark small uppercase">Submitted</div>
-                            <div class="text-muted small">{{ app.applied_date|date:'M d' }}</div>
+                            <div class="flex-grow-1 border-bottom pb-2">
+                                <div class="fw-black text-dark small uppercase">Submitted</div>
+                                <div class="text-muted small">Filed on {{ app.applied_date|date:'M d' }}</div>
+                            </div>
                         </div>
-                        <div class="col">
+                        <div class="d-flex align-items-center gap-3">
                             <div
-                                class="size-12 rounded-circle {% if app.status != 'pending' %}bg-primary text-white shadow-lg{% else %}bg-light text-muted border border-2{% endif %} d-flex align-items-center justify-content-center mx-auto mb-3 border-4 border-white">
-                                <i class="bi bi-cpu fs-5"></i>
+                                class="size-10 rounded-circle {% if app.status != 'pending' %}bg-primary text-white{% else %}bg-light text-muted{% endif %} d-flex align-items-center justify-content-center shrink-0">
+                                <i class="bi bi-cpu"></i>
                             </div>
-                            <div class="fw-black text-dark small uppercase">Verification</div>
-                            <div class="text-muted small">{% if app.status != 'pending' %}In Progress{% else %}Waiting{% endif %}</div>
+                            <div class="flex-grow-1 border-bottom pb-2">
+                                <div class="fw-black text-dark small uppercase">Verification</div>
+                                <div class="text-muted small">{% if app.status != 'pending' %}In Progress{% else
+                                    %}Pending Queue{% endif %}</div>
+                            </div>
                         </div>
-                        <div class="col">
+                        <div class="d-flex align-items-center gap-3">
                             <div
-                                class="size-12 rounded-circle {% if app.status == 'approved' %}bg-success text-white shadow-lg{% elif app.status == 'rejected' %}bg-danger text-white shadow-lg{% else %}bg-light text-muted border border-2{% endif %} d-flex align-items-center justify-content-center mx-auto mb-3 border-4 border-white">
-                                <i class="bi bi-flag-fill fs-5"></i>
+                                class="size-10 rounded-circle {% if app.status == 'approved' %}bg-success text-white{% elif app.status == 'rejected' %}bg-danger text-white{% else %}bg-light text-muted{% endif %} d-flex align-items-center justify-content-center shrink-0">
+                                <i class="bi bi-flag-fill"></i>
                             </div>
-                            <div class="fw-black text-dark small uppercase">Final State</div>
-                            <div class="text-muted small">
-                                {% if app.status == 'approved' or app.status == 'rejected' %}{{
-                                app.approved_date|date:'M d' }}{% else %}Scheduled{% endif %}
+                            <div class="flex-grow-1">
+                                <div class="fw-black text-dark small uppercase">Final Decision</div>
+                                <div class="text-muted small">{% if app.status == 'approved' or app.status == 'rejected'
+                                    %}Completed{% else %}Awaiting Approval{% endif %}</div>
                             </div>
                         </div>
                     </div>

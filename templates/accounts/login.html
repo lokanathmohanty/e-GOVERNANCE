@@ -8,11 +8,11 @@
         class="w-full lg:w-3/5 flex flex-col justify-center px-6 lg:px-20 py-12 relative z-10 border-r dark:border-gray-800 reveal">
         <div class="max-w-md w-full mx-auto">
             <!-- Headings -->
-            <div class="mb-10 space-y-2">
-                <h1 class="text-3xl lg:text-4xl font-black tracking-tight text-gray-900 dark:text-white">Secure Login
-                </h1>
-                <p class="text-gray-500 dark:text-gray-400 text-base">Select your role to access the service management
-                    system.</p>
+            <div class="mb-8 md:mb-10 space-y-2">
+                <h1 class="text-3xl lg:text-4xl font-black tracking-tight text-gray-900 dark:text-white leading-tight">
+                    Secure Login</h1>
+                <p class="text-gray-500 dark:text-gray-400 text-sm md:text-base">Select your role to access the service
+                    management system.</p>
             </div>
 
             <!-- Actual Django Form -->
@@ -21,25 +21,25 @@
 
                 <!-- Role Selection -->
                 <div
-                    class="mb-8 p-1 bg-gray-100 dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-700 flex flex-wrap gap-1">
-                    <label class="flex-1 cursor-pointer">
+                    class="mb-8 p-1 bg-gray-100 dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-700 flex gap-1">
+                    <label class="flex-1 min-w-[80px] cursor-pointer">
                         <input type="radio" name="role_select" value="citizen" checked class="peer sr-only">
                         <div
-                            class="flex items-center justify-center py-2.5 px-3 rounded-lg text-sm font-medium text-gray-500 transition-all peer-checked:bg-white dark:peer-checked:bg-background-dark peer-checked:text-primary peer-checked:shadow-sm">
+                            class="flex items-center justify-center py-3 px-2 rounded-lg text-xs md:text-sm font-bold text-gray-500 transition-all peer-checked:bg-white dark:peer-checked:bg-background-dark peer-checked:text-primary peer-checked:shadow-md">
                             Citizen
                         </div>
                     </label>
-                    <label class="flex-1 cursor-pointer">
+                    <label class="flex-1 min-w-[80px] cursor-pointer">
                         <input type="radio" name="role_select" value="officer" class="peer sr-only">
                         <div
-                            class="flex items-center justify-center py-2.5 px-3 rounded-lg text-sm font-medium text-gray-500 transition-all peer-checked:bg-white dark:peer-checked:bg-background-dark peer-checked:text-primary peer-checked:shadow-sm">
+                            class="flex items-center justify-center py-3 px-2 rounded-lg text-xs md:text-sm font-bold text-gray-500 transition-all peer-checked:bg-white dark:peer-checked:bg-background-dark peer-checked:text-primary peer-checked:shadow-md">
                             Officer
                         </div>
                     </label>
-                    <label class="flex-1 cursor-pointer">
+                    <label class="flex-1 min-w-[80px] cursor-pointer">
                         <input type="radio" name="role_select" value="admin" class="peer sr-only">
                         <div
-                            class="flex items-center justify-center py-2.5 px-3 rounded-lg text-sm font-medium text-gray-500 transition-all peer-checked:bg-white dark:peer-checked:bg-background-dark peer-checked:text-primary peer-checked:shadow-sm">
+                            class="flex items-center justify-center py-3 px-2 rounded-lg text-xs md:text-sm font-bold text-gray-500 transition-all peer-checked:bg-white dark:peer-checked:bg-background-dark peer-checked:text-primary peer-checked:shadow-md">
                             Admin
                         </div>
                     </label>

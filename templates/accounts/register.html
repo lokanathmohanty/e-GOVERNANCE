@@ -64,11 +64,11 @@
     <div
         class="w-full lg:w-3/5 flex flex-col justify-center px-6 lg:px-20 py-12 relative z-10 border-l dark:border-gray-800">
         <div class="max-w-md w-full mx-auto">
-            <div class="mb-10 space-y-2">
-                <h1 class="text-3xl lg:text-4xl font-black tracking-tight text-gray-900 dark:text-white">Create Account
-                </h1>
-                <p class="text-gray-500 dark:text-gray-400 text-base">Enter your details to create a secure citizen
-                    account.</p>
+            <div class="mb-8 md:mb-10 space-y-2">
+                <h1 class="text-3xl lg:text-4xl font-black tracking-tight text-gray-900 dark:text-white leading-tight">
+                    Create Account</h1>
+                <p class="text-gray-500 dark:text-gray-400 text-sm md:text-base">Enter your details to create a secure
+                    citizen account.</p>
             </div>
 
             <form method="POST" class="space-y-5">
@@ -100,7 +100,7 @@
                     <div class="space-y-1.5">
                         <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200">Username</label>
                         <input type="text" name="username" placeholder="john_doe" required
-                            class="block w-full rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-surface-dark px-3 py-2.5 text-gray-900 dark:text-white placeholder-gray-400 focus:border-primary focus:ring-primary transition-all outline-none">
+                            class="block w-full rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-surface-dark px-3 py-3 text-gray-900 dark:text-white placeholder-gray-400 focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all outline-none">
                         {% if form.username.errors %}
                         <p
                             class="text-sm text-red-600 bg-red-50 p-2 rounded border border-red-200 mt-1 font-medium flex items-center gap-1">
