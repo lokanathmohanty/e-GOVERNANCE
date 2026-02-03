@@ -246,18 +246,25 @@
     </div>
 </div>
 
+{{ monthly_labels|json_script:"monthly-labels-data" }}
+{{ monthly_data|json_script:"monthly-chart-data" }}
+
 <script>
     // Trend Chart Initialization
     const ctxTrend = document.getElementById('trendChart').getContext('2d');
     const isDark = document.documentElement.classList.contains('dark');
 
+    // Safety handling for data
+    const labelsData = JSON.parse(document.getElementById('monthly-labels-data').textContent);
+    const chartData = JSON.parse(document.getElementById('monthly-chart-data').textContent);
+
     new Chart(ctxTrend, {
         type: 'line',
         data: {
-            labels: JSON.parse('{{ monthly_labels|safe|escapejs }}'),
+            labels: labelsData,
             datasets: [{
                 label: 'Applications Filed',
-                data: JSON.parse('{{ monthly_data|safe|escapejs }}'),
+                data: chartData,
                 borderColor: '#185fec',
                 backgroundColor: 'rgba(24, 95, 236, 0.05)',
                 borderWidth: 4,

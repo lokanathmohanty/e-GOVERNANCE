@@ -287,3 +287,60 @@ html.high-contrast textarea {
 .skip-to-main:focus {
     top: 0;
 }
+
+/* Enhanced High Contrast Overrides */
+html.high-contrast .bg-light,
+html.high-contrast .bg-white,
+html.high-contrast .card,
+html.high-contrast .navbar,
+html.high-contrast .modal-content,
+html.high-contrast .dropdown-menu,
+html.high-contrast .offcanvas {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #000000 !important;
+    box-shadow: none !important;
+}
+
+html.high-contrast .text-muted,
+html.high-contrast .text-secondary {
+    color: #000000 !important;
+}
+
+html.high-contrast .text-primary,
+html.high-contrast .text-success,
+html.high-contrast .text-danger,
+html.high-contrast .text-warning {
+    color: #000000 !important;
+    background-color: #ffff00 !important;
+    /* Yellow highlight for emphasis */
+    padding: 0 2px;
+}
+
+html.high-contrast .btn-primary,
+html.high-contrast .btn-success,
+html.high-contrast .btn-danger,
+html.high-contrast .bg-primary {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+}
+
+html.high-contrast a {
+    text-decoration: underline !important;
+    font-weight: bold !important;
+}
+
+html.high-contrast input,
+html.high-contrast select {
+    border: 2px solid #000000 !important;
+    color: #000000 !important;
+    background-color: #ffffff !important;
+}
+
+/* Ensure focus states are very visible */
+html.high-contrast *:focus {
+    outline: 3px solid #ffff00 !important;
+    outline-offset: 2px;
+}

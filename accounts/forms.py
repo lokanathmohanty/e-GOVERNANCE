@@ -80,21 +80,12 @@ class CustomLoginForm(AuthenticationForm):
     remember_me = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}))
 
 class UserProfileForm(forms.ModelForm):
-    phone_validator = RegexValidator(
-        regex=r'^\d{10}$',
-        message="Phone number must be exactly 10 digits."
-    )
-    aadhaar_validator = RegexValidator(
-        regex=r'^\d{12}$',
-        message="Aadhaar number must be exactly 12 digits."
-    )
-
     phone = forms.CharField(
-        validators=[phone_validator],
+        required=False,
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '10-digit mobile number'})
     )
     aadhaar_number = forms.CharField(
-        validators=[aadhaar_validator],
+        required=False,
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '12-digit Aadhaar number'})
     )
 
@@ -108,3 +99,37 @@ class UserProfileForm(forms.ModelForm):
             'address': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Enter your residential address'}),
             'profile_picture': forms.FileInput(attrs={'class': 'form-control', 'id': 'profile_picture_input'}),
         }
+
+    def clean_phone(self):
+        phone = self.cleaned_data.get('phone')
+        if not phone:
+            return None
+        # Normalize: strip spaces
+        phone = phone.replace(" ", "")
+        if not phone.isdigit() or len(phone) != 10:
+            raise forms.ValidationError("Phone number must be exactly 10 digits.")
+        return phone
+
+    def clean_aadhaar_number(self):
+        aadhaar = self.cleaned_data.get('aadhaar_number')
+        if not aadhaar:
+            return None
+        # Normalize: strip spaces
+        aadhaar = aadhaar.replace(" ", "")
+        
+        if not aadhaar.isdigit() or len(aadhaar) != 12:
+            raise forms.ValidationError("Aadhaar number must be exactly 12 digits.")
+            
+        # Uniqueness check (exclude current user)
+        if User.objects.filter(aadhaar_number=aadhaar).exclude(pk=self.instance.pk).exists():
+            raise forms.ValidationError("This Aadhaar number is already registered.")
+            
+        return aadhaar
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if email:
+            # Check uniqueness excluding self
+            if User.objects.filter(email=email).exclude(pk=self.instance.pk).exists():
+                raise forms.ValidationError("This email is already in use by another account.")
+        return email

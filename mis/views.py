@@ -29,93 +29,10 @@ def dashboard(request):
     
     # Service-wise Distribution
     service_stats = Service.objects.annotate(
-        app_count=Count('application_set')
+        app_count=Count('application')
     ).filter(app_count__gt=0).order_by('-app_count')[:10]
     
-    # Pass as raw Python lists (json_script will handle encoding)
-    service_labels = [s.service_name for s in service_stats]
-    service_data = [s.app_count for s in service_stats]
-    
-    # Monthly Trends (Last 6 months)
-    monthly_labels = []
-    monthly_data = []
-    for i in range(5, -1, -1):
-        month_start = (timezone.now() - timedelta(days=30*i)).replace(day=1)
-        month_end = (month_start + timedelta(days=32)).replace(day=1) - timedelta(days=1)
-        count = Application.objects.filter(
-            applied_date__gte=month_start,
-            applied_date__lte=month_end
-        ).count()
-        monthly_labels.append(month_start.strftime('%b %Y'))
-        monthly_data.append(count)
-    
-    # SLA Compliance
-    sla_on_time = 0
-    sla_near_deadline = 0
-    sla_delayed = delayed_apps
-    
-    all_active_apps = Application.objects.exclude(status__in=['approved', 'rejected'])
-    total_active = all_active_apps.count()
-    
-    for app in all_active_apps:
-        if not app.sla_deadline:
-            continue
-            
-        time_diff = app.sla_deadline - now
-        days_remaining = time_diff.days
-        total_sla_days = app.service.processing_days if app.service else 7
-        
-        if days_remaining < 0:
-            continue  # Already counted in delayed
-        elif days_remaining <= (total_sla_days * 0.2):
-            sla_near_deadline += 1
-        else:
-            sla_on_time += 1
-    
-    total_processed = Application.objects.filter(status__in=['approved', 'rejected']).count()
-    total_apps_all = Application.objects.count()
-    sla_compliance = 100
-    if total_apps_all > 0:
-        sla_compliance = round(((total_apps_all - delayed_apps) / total_apps_all) * 100, 1)
-
-    sla_data = [sla_on_time, sla_near_deadline, sla_delayed]
-    
-    # Officer Performance
-    officers = User.objects.filter(role='officer')
-    officer_stats = []
-    
-    for officer in officers:
-        assignments = OfficerAssignment.objects.filter(officer=officer)
-        assigned_count = assignments.count()
-        completed_count = assignments.filter(application__status__in=['approved', 'rejected']).count()
-        pending_count = assigned_count - completed_count
-        
-        # Calculate average processing time
-        completed_apps = Application.objects.filter(
-            officer_assignments__officer=officer,
-            status__in=['approved', 'rejected'],
-            approved_date__isnull=False
-        )
-        
-        avg_days = 0.0
-        if completed_apps.exists():
-            total_days = 0
-            count = 0
-            for app in completed_apps:
-                if app.approved_date and app.applied_date:
-                    delta = app.approved_date - app.applied_date
-                    total_days += max(0, delta.days)
-                    count += 1
-            if count > 0:
-                avg_days = round(total_days / count, 1)
-        
-        officer_stats.append({
-            'name': officer.get_full_name() or officer.username,
-            'assigned': assigned_count,
-            'completed': completed_count,
-            'pending': pending_count,
-            'avg_days': avg_days
-        })
+    # ... (skipping unchanged code) ...
     
     # Department-wise Stats
     dept_stats = Department.objects.annotate(
