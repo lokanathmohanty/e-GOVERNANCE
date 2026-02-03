@@ -103,6 +103,15 @@
             background-color: var(--navbar-bg) !important;
             transition: background-color 0.3s ease !important;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+            z-index: 1050;
+        }
+
+        /* Ensure navbar-collapse is visible on large screens */
+        @media (min-width: 992px) {
+            .navbar-collapse {
+                display: flex !important;
+                flex-basis: auto;
+            }
         }
 
         .dark .navbar {
@@ -310,37 +319,15 @@
                 <span class="material-symbols-outlined fs-2 text-dark">menu</span>
             </button>
 
-            <!-- Desktop Menu (Hidden on Mobile) -->
-            <div class="navbar-collapse d-none d-lg-flex" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center gap-1 gap-xl-2">
+            <!-- Desktop Menu -->
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center gap-1 gap-xl-2">
                     <li class="nav-item"><a class="nav-link px-3" href="{% url 'core:home' %}" data-i18n="home">Home</a>
                     </li>
                     <li class="nav-item"><a class="nav-link px-3" href="{% url 'citizen:services' %}"
                             data-i18n="services">Services</a></li>
                     <li class="nav-item"><a class="nav-link px-3" href="{% url 'core:contact' %}"
                             data-i18n="contact">Contact Us</a></li>
-
-                    {% if user.is_authenticated %}
-                    <!-- Dashboard Link -->
-                    <li class="nav-item">
-                        {% if user.role == 'citizen' %}
-                        <a class="nav-link px-3" href="{% url 'citizen:dashboard' %}">My Dashboard</a>
-                        {% elif user.role == 'officer' %}
-                        <a class="nav-link px-3" href="{% url 'officer:dashboard' %}">Officer Console</a>
-                        {% elif user.role == 'department_head' %}
-                        <a class="nav-link px-3" href="{% url 'mis:dashboard' %}">Analytics</a>
-                        {% endif %}
-                    <li class="nav-item">
-                        {% if user.role == 'citizen' %}
-                        <a class="nav-link px-3" href="{% url 'citizen:dashboard' %}" data-i18n="dashboard">My
-                            Dashboard</a>
-                        {% elif user.role == 'officer' %}
-                        <a class="nav-link px-3" href="{% url 'officer:dashboard' %}"
-                            data-i18n="officer_console">Officer Console</a>
-                        {% elif user.role == 'department_head' %}
-                        <a class="nav-link px-3" href="{% url 'mis:dashboard' %}" data-i18n="analytics">Analytics</a>
-                        {% endif %}
-                    </li>
 
                     <!-- Accessibility Menu -->
                     <li class="nav-item dropdown px-2">
@@ -391,6 +378,26 @@
                             </div>
                         </ul>
                     </li>
+
+
+                    {% if user.is_authenticated %}
+                    <!-- Dashboard Link -->
+                    <li class="nav-item">
+                        {% if user.role == 'citizen' %}
+                        <a class="nav-link px-3" href="{% url 'citizen:dashboard' %}" data-i18n="dashboard">My
+                            Dashboard</a>
+                        {% elif user.role == 'officer' %}
+                        <a class="nav-link px-3" href="{% url 'officer:dashboard' %}"
+                            data-i18n="officer_console">Officer Console</a>
+                        {% elif user.role == 'department_head' %}
+                        <a class="nav-link px-3" href="{% url 'mis:dashboard' %}" data-i18n="analytics">Analytics</a>
+                        {% elif user.role == 'admin' %}
+                        <a class="nav-link px-3" href="{% url 'admin_panel:dashboard' %}" data-i18n="dashboard">Admin
+                            Console</a>
+                        {% endif %}
+                    </li>
+
+
 
                     <!-- Notifications -->
                     <li class="nav-item dropdown px-2">

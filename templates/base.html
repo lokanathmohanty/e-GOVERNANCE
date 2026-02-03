@@ -100,6 +100,8 @@
 
 <body
     class="bg-background-light dark:bg-background-dark text-[#111318] dark:text-white font-display flex flex-col min-h-screen overflow-x-hidden">
+    <!-- Skip to Content Link -->
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>
     <!-- Navbar -->
     <header
         class="sticky top-0 z-50 bg-white/90 dark:bg-[#1a202c]/90 backdrop-blur-md border-b border-[#e5e7eb] dark:border-[#2d3748] shadow-sm transition-all duration-300"
@@ -138,37 +140,82 @@
                 <div class="flex items-center gap-3 pl-4 border-l border-gray-200 dark:border-gray-700">
                     <!-- Accessibility Menu -->
                     <div class="relative" id="accessibilityMenu">
-                        <button class="accessibility-btn hover:scale-105 transition-transform" id="accessibilityToggle"
-                            aria-label="Accessibility Options">
-                            <span class="material-symbols-outlined text-[20px]">accessibility_new</span>
+                        <button
+                            class="flex items-center justify-center size-9 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 hover:text-primary transition-all"
+                            id="accessibilityToggle" aria-label="Accessibility Options">
+                            <span class="material-symbols-outlined text-[22px]">universal_accessibility</span>
                         </button>
 
-                        <div class="accessibility-dropdown" id="accessibilityDropdown">
-                            <!-- Accessibility content remains same -->
-                            <div class="accessibility-section">
-                                <label class="accessibility-label" data-i18n="accessibility.language">Language</label>
-                                <select class="language-select" id="languageSelect">
-                                    <option value="en">English (English)</option>
-                                    <option value="hi">हिन्दी (Hindi)</option>
-                                    <option value="or">ଓଡିଆ (Odia)</option>
-                                </select>
+                        <div class="absolute right-0 top-full mt-4 w-72 bg-white dark:bg-[#1a202c] rounded-2xl shadow-premium border border-gray-100 dark:border-gray-800 opacity-0 invisible transition-all duration-200 transform origin-top-right z-[100] overflow-hidden"
+                            id="accessibilityDropdown" onclick="event.stopPropagation()">
+                            <div
+                                class="p-4 border-b border-gray-50 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50">
+                                <h3 class="text-xs font-black text-gray-400 uppercase tracking-widest">Accessibility
+                                </h3>
                             </div>
-                            <div class="accessibility-section">
-                                <label class="accessibility-label" data-i18n="accessibility.font_size">Font Size</label>
-                                <div class="font-size-controls">
-                                    <button class="font-size-btn" data-font-size="small">A</button>
-                                    <button class="font-size-btn active" data-font-size="normal">A</button>
-                                    <button class="font-size-btn" data-font-size="large">A</button>
-                                    <button class="font-size-btn" data-font-size="xlarge">A</button>
+
+                            <div class="p-4 space-y-6">
+                                <!-- Text Size -->
+                                <div>
+                                    <label
+                                        class="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-2"
+                                        data-i18n="text_size">Text Size</label>
+                                    <div class="flex items-center gap-2">
+                                        <button
+                                            class="size-8 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-primary/10 transition-colors"
+                                            id="btn-decrease-text">A-</button>
+                                        <div class="flex-1 text-center font-bold text-sm" id="text-size-display">100%
+                                        </div>
+                                        <button
+                                            class="size-8 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-primary/10 transition-colors"
+                                            id="btn-increase-text">A+</button>
+                                    </div>
+                                </div>
+
+                                <!-- Language Picker -->
+                                <div>
+                                    <label
+                                        class="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-2"
+                                        data-i18n="language">Language</label>
+                                    <select
+                                        class="w-full bg-gray-50 dark:bg-gray-800 border-none rounded-xl text-sm font-bold p-2.5 focus:ring-2 focus:ring-primary/20 cursor-pointer"
+                                        id="language-select">
+                                        <option value="en">English (English)</option>
+                                        <option value="hi">हिन्दी (Hindi)</option>
+                                        <option value="or">ଓଡିଆ (Odia)</option>
+                                    </select>
+                                </div>
+
+                                <!-- Toggles -->
+                                <div class="space-y-4 pt-2">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm font-bold text-gray-700 dark:text-gray-300">High
+                                            Contrast</span>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" id="cb-high-contrast" class="sr-only peer">
+                                            <div
+                                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm font-bold text-gray-700 dark:text-gray-300">Dark
+                                            Mode</span>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" id="cb-dark-mode" class="sr-only peer">
+                                            <div
+                                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
+                                            </div>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="accessibility-section">
-                                <label class="accessibility-label" data-i18n="accessibility.contrast">Display</label>
-                                <button class="contrast-toggle" id="contrastToggle">
-                                    <span class="contrast-toggle-label">High Contrast</span>
-                                    <span class="material-symbols-outlined contrast-toggle-icon"
-                                        id="contrastIcon">contrast</span>
-                                </button>
+
+                            <div
+                                class="p-3 bg-gray-50 dark:bg-gray-800/50 text-center border-t border-gray-100 dark:border-gray-800">
+                                <button
+                                    class="text-[10px] font-black text-gray-400 uppercase tracking-widest hover:text-primary transition-colors"
+                                    id="btn-reset-text" data-i18n="reset">Reset Settings</button>
                             </div>
                         </div>
                     </div>
@@ -386,6 +433,63 @@
                     Login / Register
                 </a>
                 {% endif %}
+
+                <!-- Mobile Accessibility Section -->
+                <div class="mt-6 border-t border-gray-100 dark:border-gray-800 pt-6">
+                    <h3 class="text-[10px] font-black text-gray-400 uppercase tracking-widest px-4 mb-4">Accessibility
+                        Settings</h3>
+
+                    <div class="px-4 space-y-6">
+                        <!-- Text Size -->
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-bold text-gray-700 dark:text-gray-300">Text Size</span>
+                            <div class="flex items-center gap-2">
+                                <button
+                                    class="size-8 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center"
+                                    id="btn-decrease-text-mobile">A-</button>
+                                <span class="font-bold text-sm w-12 text-center"
+                                    id="text-size-display-mobile">100%</span>
+                                <button
+                                    class="size-8 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center"
+                                    id="btn-increase-text-mobile">A+</button>
+                            </div>
+                        </div>
+
+                        <!-- Language -->
+                        <div class="flex flex-col gap-2">
+                            <span class="text-sm font-bold text-gray-700 dark:text-gray-300">Preferred Language</span>
+                            <select
+                                class="w-full bg-gray-50 dark:bg-gray-800 border-none rounded-xl text-sm font-bold p-3"
+                                id="language-select-mobile">
+                                <option value="en">English (English)</option>
+                                <option value="hi">हिन्दी (Hindi)</option>
+                                <option value="or">ଓଡିଆ (Odia)</option>
+                            </select>
+                        </div>
+
+                        <!-- Contrast / Theme toggles -->
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-bold text-gray-700 dark:text-gray-300">High Contrast</span>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="cb-high-contrast-mobile" class="sr-only peer">
+                                    <div
+                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-bold text-gray-700 dark:text-gray-300">Dark Mode</span>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="cb-dark-mode-mobile" class="sr-only peer">
+                                    <div
+                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Mobile Footer Info -->
@@ -396,7 +500,7 @@
     </div>
 
     <!-- Main Content -->
-    <main class="flex-grow page-load-animation">
+    <main id="main-content" class="flex-grow page-load-animation">
         {% if messages %}
         <div class="max-w-[1280px] mx-auto px-4 mt-4">
             {% for message in messages %}
@@ -483,47 +587,30 @@
     </footer>
 
     <!-- Accessibility Scripts -->
-    <!-- Accessibility Scripts -->
     <script src="{% static 'js/accessibility.js' %}"></script>
-
     <script>
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        const html = document.documentElement;
-
-        // Theme initialization
-        if (localStorage.getItem('data-theme') === 'dark' || (!localStorage.getItem('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            html.classList.add('dark');
-            themeIcon.textContent = 'light_mode';
-        }
-
-        themeToggle.addEventListener('click', () => {
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                themeIcon.textContent = 'dark_mode';
-                localStorage.setItem('data-theme', 'light');
-            } else {
-                html.classList.add('dark');
-                themeIcon.textContent = 'light_mode';
-                localStorage.setItem('data-theme', 'dark');
-            }
-        });
-
         // Accessibility dropdown toggle
         const accessibilityToggle = document.getElementById('accessibilityToggle');
         const accessibilityDropdown = document.getElementById('accessibilityDropdown');
 
-        accessibilityToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            accessibilityDropdown.classList.toggle('show');
-        });
+        if (accessibilityToggle && accessibilityDropdown) {
+            accessibilityToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isVisible = !accessibilityDropdown.classList.contains('invisible');
+                if (isVisible) {
+                    accessibilityDropdown.classList.add('invisible', 'opacity-0');
+                } else {
+                    accessibilityDropdown.classList.remove('invisible', 'opacity-0');
+                }
+            });
 
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!document.getElementById('accessibilityMenu').contains(e.target)) {
-                accessibilityDropdown.classList.remove('show');
-            }
-        });
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!document.getElementById('accessibilityMenu').contains(e.target)) {
+                    accessibilityDropdown.classList.add('invisible', 'opacity-0');
+                }
+            });
+        }
     </script>
 
     <div id="offline-banner"
