@@ -29,16 +29,16 @@ def dashboard(request):
     
     # Service-wise Distribution
     service_stats = Service.objects.annotate(
-        app_count=Count('application')
+        app_count=Count('application_set')
     ).filter(app_count__gt=0).order_by('-app_count')[:10]
     
     # ... (skipping unchanged code) ...
     
     # Department-wise Stats
     dept_stats = Department.objects.annotate(
-        app_count=Count('services__application'),
-        approved_count=Count('services__application', filter=Q(services__application__status='approved')),
-        pending_count=Count('services__application', filter=Q(services__application__status='pending'))
+        app_count=Count('services__application_set'),
+        approved_count=Count('services__application_set', filter=Q(services__application__status='approved')),
+        pending_count=Count('services__application_set', filter=Q(services__application__status='pending'))
     ).filter(app_count__gt=0)
     
     stats = {

@@ -32,6 +32,8 @@
 /* High Contrast Mode */
 html.high-contrast {
     --primary: #0066ff;
+    --primary-color: #0066ff;
+    /* Match base_bootstrap.html variable */
     --text-color: #000000;
     --bg-color: #ffffff;
     --border-color: #000000;

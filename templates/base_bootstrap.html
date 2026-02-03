@@ -74,15 +74,23 @@
             --danger-color: #dc3545;
             --dark-bg: #101622;
             --accent-gold: #D97706;
+            --navbar-bg: #ffffff;
+            --body-bg: #f8fafc;
+        }
+
+        html.dark {
+            --navbar-bg: #1a202c;
+            --body-bg: #0f172a;
         }
 
         body {
-            background-color: #f8fafc !important;
+            background-color: var(--body-bg) !important;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             font-family: 'Public Sans', 'Inter', sans-serif;
             overflow-x: hidden;
+            transition: background-color 0.3s ease;
         }
 
         .material-symbols-outlined {
@@ -92,9 +100,14 @@
 
         .navbar {
             padding: 0.75rem 0;
-            background-color: white !important;
-            transition: none !important;
+            background-color: var(--navbar-bg) !important;
+            transition: background-color 0.3s ease !important;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+        }
+
+        .dark .navbar {
+            border-color: #2d3748 !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
         }
 
         .navbar-brand {
@@ -129,7 +142,15 @@
             transition: all 0.2s ease;
         }
 
+        .dark .nav-link {
+            color: #e5e7eb !important;
+        }
+
         .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+
+        .dark .nav-link:hover {
             color: var(--primary-color) !important;
         }
 
@@ -180,9 +201,7 @@
     </style>
 
     <!-- Custom, Design System & Animation CSS -->
-    <link rel="stylesheet" href="{% static 'css/design_system.css' %}">
-    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
-    <link rel="stylesheet" href="{% static 'css/animations.css' %}">
+    <!-- Removed duplicate CSS imports -->
 
     {% block extra_css %}{% endblock %}
     <style>
@@ -210,6 +229,14 @@
                 margin-top: 0 !important;
                 z-index: 1039;
                 pointer-events: none !important;
+            }
+
+            /* Ensure visible when clicked (Bootstrap .show class) */
+            .navbar .dropdown-menu.show {
+                opacity: 1 !important;
+                visibility: visible !important;
+                transform: translateY(0) !important;
+                pointer-events: auto !important;
             }
 
             /* The "Bridge" - prevents closing when moving mouse over gap */
@@ -323,7 +350,7 @@
                             <i class="bi bi-universal-access-circle text-primary fs-5"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow-premium border-0 mt-3 p-0 overflow-hidden accessibility-dropdown"
-                            style="width: 300px; border-radius: 16px;">
+                            style="width: 300px; border-radius: 16px;" onclick="event.stopPropagation()">
                             <div class="accessibility-section">
                                 <span class="accessibility-label" data-i18n="text_size">Text Size</span>
                                 <div class="font-size-controls">
@@ -368,7 +395,8 @@
                     <!-- Notifications -->
                     <li class="nav-item dropdown px-2">
                         <a class="nav-link position-relative d-flex align-items-center justify-content-center bg-light rounded-circle"
-                            href="#" role="button" data-bs-toggle="dropdown" style="width: 40px; height: 40px;">
+                            href="#" role="button" data-bs-toggle="dropdown" style="width: 40px; height: 40px;"
+                            title="Notifications">
                             <i class="bi bi-bell-fill text-muted"></i>
                             {% if unread_notification_count > 0 %}
                             <span
@@ -380,7 +408,7 @@
                         <ul class="dropdown-menu dropdown-menu-end shadow-premium border-0 mt-3 p-0 overflow-hidden"
                             style="width: 320px; border-radius: 16px;">
                             <div class="p-3 bg-white border-bottom d-flex justify-content-between align-items-center">
-                                <span class="fw-black text-dark small">Recent Alerts</span>
+                                <span class="fw-black text-dark small" data-i18n="notifications">Recent Alerts</span>
                                 <a href="{% url 'core:notifications' %}"
                                     class="text-xs text-primary fw-bold text-decoration-none">View All</a>
                             </div>
@@ -409,20 +437,20 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow-premium border-0 mt-3 p-2"
                             style="border-radius: 12px; min-width: 200px;">
-                            <li><a class="dropdown-item rounded-2 py-2" href="{% url 'accounts:profile' %}"><i
-                                        class="bi bi-person me-2"></i> My Profile</a></li>
+                            <li><a class="dropdown-item rounded-2 py-2" href="{% url 'accounts:profile' %}"
+                                    data-i18n="profile"><i class="bi bi-person me-2"></i> My Profile</a></li>
                             <li>
                                 <hr class="dropdown-divider opacity-50">
                             </li>
-                            <li><a class="dropdown-item rounded-2 py-2 text-danger"
-                                    href="{% url 'accounts:logout' %}"><i class="bi bi-box-arrow-right me-2"></i>
+                            <li><a class="dropdown-item rounded-2 py-2 text-danger" href="{% url 'accounts:logout' %}"
+                                    data-i18n="logout"><i class="bi bi-box-arrow-right me-2"></i>
                                     Logout</a></li>
                         </ul>
                     </li>
                     {% else %}
                     <li class="nav-item ms-3">
-                        <a class="btn btn-primary rounded-pill px-4 shadow-sm fw-bold"
-                            href="{% url 'accounts:login' %}">Login</a>
+                        <a class="btn btn-primary rounded-pill px-4 shadow-sm fw-bold" href="{% url 'accounts:login' %}"
+                            data-i18n="login">Login</a>
                     </li>
                     {% endif %}
                 </ul>

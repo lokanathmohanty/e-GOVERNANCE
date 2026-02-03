@@ -53,12 +53,12 @@ def dashboard(request):
     }
     
     # Service Analytics
-    top_services = Service.objects.annotate(num_apps=Count('application')).order_by('-num_apps')[:3]
+    top_services = Service.objects.annotate(num_apps=Count('application_set')).order_by('-num_apps')[:3]
     
     # Department Performance & Onboarding Metrics
     dept_performance = Department.objects.annotate(
         avg_processing=Avg('services__processing_days'),
-        total_load=Count('services__application')
+        total_load=Count('services__application_set')
     ).order_by('-total_load')[:5]
     
     onboarding_completion = {
