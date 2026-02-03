@@ -209,8 +209,7 @@
                                             <span>{{ app.user.get_full_name|default:app.user.username }}</span>
                                         </div>
                                     </td>
-                                    <td data-label="Service"><span class="fw-medium">{{ app.service.service_name
-                                            }}</span></td>
+                                    <td data-label="Service"><span class="fw-medium">{{ app.service.service_name }}</span></td>
                                     <td data-label="Priority">
                                         {% if app.priority == 'disaster' %}
                                         <span class="badge bg-danger rounded-pill px-3"><i
