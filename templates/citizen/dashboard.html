@@ -1,4 +1,21 @@
-{% extends 'base.html' %}
+{% extends 'base_bootstrap.html' %}
+{% block sidebar_mobile %}
+<div class="mb-4">
+    <div class="text-uppercase text-muted fw-black mb-2 tracking-widest" style="font-size: 10px;">Citizen Account</div>
+    <nav class="nav flex-column gap-1">
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3 active" href="{% url 'citizen:dashboard' %}">
+            <i class="bi bi-speedometer2"></i> <span>My Dashboard</span>
+        </a>
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'citizen:services' %}">
+            <i class="bi bi-plus-circle"></i> <span>Apply New</span>
+        </a>
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'citizen:locker' %}">
+            <i class="bi bi-folder-check"></i> <span>Document Locker</span>
+        </a>
+    </nav>
+</div>
+<div class="border-top my-3"></div>
+{% endblock %}
 {% block title %}Citizen Dashboard | e-Gov Portal{% endblock %}
 
 {% block content %}

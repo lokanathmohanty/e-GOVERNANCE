@@ -6,6 +6,28 @@
 {% block content %}
 <div class="container-fluid bg-body min-vh-100 py-3 py-md-5 reveal">
     <div class="container">
+        <!-- Messages Section -->
+        {% if messages %}
+        <div class="row justify-content-center mb-4">
+            <div class="col-lg-10">
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show rounded-4 shadow-sm"
+                    role="alert">
+                    <div class="d-flex align-items-center">
+                        {% if message.tags == 'success' %}
+                        <i class="bi bi-check-circle-fill fs-4 me-3"></i>
+                        {% else %}
+                        <i class="bi bi-exclamation-triangle-fill fs-4 me-3"></i>
+                        {% endif %}
+                        <div>{{ message }}</div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="card card-premium overflow-hidden border-0 shadow-premium">
@@ -35,8 +57,9 @@
                                     <i class="bi bi-person-fill display-2"></i>
                                 </div>
                                 {% endif %}
-                                <button
+                                <button type="button"
                                     class="btn btn-sm btn-light rounded-circle position-absolute bottom-0 end-0 shadow-lg p-2 hover-scale transition-all"
+                                    onclick="document.getElementById('profile_picture_input').click()"
                                     title="Change Picture">
                                     <i class="bi bi-camera-fill text-primary"></i>
                                 </button>
@@ -108,30 +131,51 @@
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold text-muted">First Name</label>
                                         {{ form.first_name }}
+                                        {% if form.first_name.errors %}
+                                        <div class="text-danger x-small mt-1">{{ form.first_name.errors }}</div>
+                                        {% endif %}
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold text-muted">Last Name</label>
                                         {{ form.last_name }}
+                                        {% if form.last_name.errors %}
+                                        <div class="text-danger x-small mt-1">{{ form.last_name.errors }}</div>
+                                        {% endif %}
                                     </div>
                                     <div class="col-md-12">
                                         <label class="form-label small fw-bold text-muted">Email Address</label>
                                         {{ form.email }}
+                                        {% if form.email.errors %}
+                                        <div class="text-danger x-small mt-1">{{ form.email.errors }}</div>
+                                        {% endif %}
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold text-muted">Phone Number</label>
                                         {{ form.phone }}
+                                        {% if form.phone.errors %}
+                                        <div class="text-danger x-small mt-1">{{ form.phone.errors }}</div>
+                                        {% endif %}
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold text-muted">Aadhaar Number</label>
                                         {{ form.aadhaar_number }}
+                                        {% if form.aadhaar_number.errors %}
+                                        <div class="text-danger x-small mt-1">{{ form.aadhaar_number.errors }}</div>
+                                        {% endif %}
                                     </div>
                                     <div class="col-md-12">
                                         <label class="form-label small fw-bold text-muted">Address</label>
                                         {{ form.address }}
+                                        {% if form.address.errors %}
+                                        <div class="text-danger x-small mt-1">{{ form.address.errors }}</div>
+                                        {% endif %}
                                     </div>
                                     <div class="col-md-12">
                                         <label class="form-label small fw-bold text-muted">Profile Picture</label>
                                         {{ form.profile_picture }}
+                                        {% if form.profile_picture.errors %}
+                                        <div class="text-danger x-small mt-1">{{ form.profile_picture.errors }}</div>
+                                        {% endif %}
                                     </div>
                                 </div>
 

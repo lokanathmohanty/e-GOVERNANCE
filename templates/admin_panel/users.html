@@ -1,4 +1,24 @@
-{% extends 'base.html' %}
+{% extends 'base_bootstrap.html' %}
+{% block sidebar_mobile %}
+<div class="mb-4">
+    <div class="text-uppercase text-muted fw-black mb-2 tracking-widest" style="font-size: 10px;">Control Center</div>
+    <nav class="nav flex-column gap-1">
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'admin_panel:dashboard' %}">
+            <i class="bi bi-shield-lock"></i> <span>Security Console</span>
+        </a>
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3 active" href="{% url 'admin_panel:users' %}">
+            <i class="bi bi-people"></i> <span>User Governance</span>
+        </a>
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'admin_panel:services' %}">
+            <i class="bi bi-box-seam"></i> <span>Catalog Ops</span>
+        </a>
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'admin_panel:audit_logs' %}">
+            <i class="bi bi-journal-text"></i> <span>Audit Trail</span>
+        </a>
+    </nav>
+</div>
+<div class="border-top my-3"></div>
+{% endblock %}
 {% block title %}Manage Users | Admin Panel{% endblock %}
 
 {% block content %}

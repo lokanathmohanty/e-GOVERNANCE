@@ -3,8 +3,10 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from .forms import CitizenRegistrationForm, CustomLoginForm
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import ensure_csrf_cookie
 from core.models import AuditLog
 
+@ensure_csrf_cookie
 def register_view(request):
     if request.method == 'POST':
         form = CitizenRegistrationForm(request.POST)
@@ -30,6 +32,7 @@ def register_view(request):
         form = CitizenRegistrationForm()
     return render(request, 'accounts/register.html', {'form': form})
 
+@ensure_csrf_cookie
 def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')

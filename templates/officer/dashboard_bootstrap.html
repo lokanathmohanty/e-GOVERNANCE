@@ -6,10 +6,31 @@
 <div class="container-fluid bg-light min-vh-100">
     <div class="row">
         <!-- Sidebar Navigation (Offcanvas for mobile, Sidebar for desktop) -->
-        <button class="btn btn-primary d-lg-none position-fixed bottom-0 start-0 m-3 rounded-pill shadow-lg z-3"
-            type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu">
-            <i class="bi bi-list-task me-2"></i> Menu
-        </button>
+        {% block sidebar_mobile %}
+        <div class="mb-4">
+            <div class="text-uppercase text-muted fw-black mb-2 tracking-widest" style="font-size: 10px;">Officer
+                Console</div>
+            <nav class="nav flex-column gap-1">
+                <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3 {% if filter_type == 'all' %}bg-primary text-white shadow-sm{% endif %}"
+                    href="{% url 'officer:dashboard' %}">
+                    <i class="bi bi-grid-fill"></i> <span>All Assignments</span>
+                </a>
+                <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3 {% if filter_type == 'pending' %}active{% endif %}"
+                    href="{% url 'officer:dashboard' %}?filter=pending">
+                    <i class="bi bi-hourglass-top"></i> <span>Pending Review</span>
+                </a>
+                <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3 {% if filter_type == 'in_progress' %}active{% endif %}"
+                    href="{% url 'officer:dashboard' %}?filter=in_progress">
+                    <i class="bi bi-play-circle"></i> <span>In Progress</span>
+                </a>
+                <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3 {% if filter_type == 'history' %}active{% endif %}"
+                    href="{% url 'officer:dashboard' %}?filter=history">
+                    <i class="bi bi-clock-history"></i> <span>History</span>
+                </a>
+            </nav>
+        </div>
+        <div class="border-top my-3"></div>
+        {% endblock %}
 
         <nav class="col-lg-2 offcanvas-lg offcanvas-start bg-white sidebar border-end shadow-sm" tabindex="-1"
             id="sidebarMenu">

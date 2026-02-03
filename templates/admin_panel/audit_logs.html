@@ -1,4 +1,25 @@
-{% extends 'base.html' %}
+{% extends 'base_bootstrap.html' %}
+{% block sidebar_mobile %}
+<div class="mb-4">
+    <div class="text-uppercase text-muted fw-black mb-2 tracking-widest" style="font-size: 10px;">Control Center</div>
+    <nav class="nav flex-column gap-1">
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'admin_panel:dashboard' %}">
+            <i class="bi bi-shield-lock"></i> <span>Security Console</span>
+        </a>
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'admin_panel:users' %}">
+            <i class="bi bi-people"></i> <span>User Governance</span>
+        </a>
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'admin_panel:services' %}">
+            <i class="bi bi-box-seam"></i> <span>Catalog Ops</span>
+        </a>
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3 active"
+            href="{% url 'admin_panel:audit_logs' %}">
+            <i class="bi bi-journal-text"></i> <span>Audit Trail</span>
+        </a>
+    </nav>
+</div>
+<div class="border-top my-3"></div>
+{% endblock %}
 {% block title %}Audit Logs | Security | e-Gov Portal{% endblock %}
 
 {% block content %}
@@ -68,7 +89,8 @@
                     {% for log in logs %}
                     <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/20 transition-colors">
                         <td class="px-8 py-6">
-                            <div class="text-xs font-bold text-gray-900 dark:text-white">{{ log.timestamp|date:"M d, Y" }}</div>
+                            <div class="text-xs font-bold text-gray-900 dark:text-white">{{ log.timestamp|date:"M d, Y"
+                                }}</div>
                             <div class="text-[10px] text-gray-400 font-medium">{{ log.timestamp|date:"H:i:s.u" }}</div>
                         </td>
                         <td class="px-6 py-6">
@@ -81,7 +103,8 @@
                                     <div
                                         class="text-xs font-black text-gray-700 dark:text-gray-300 uppercase underline decoration-primary/20 underline-offset-4">
                                         {{ log.user.username|default:"System" }}</div>
-                                    <div class="text-[9px] font-bold text-gray-400 uppercase tracking-tighter mt-0.5">{{ log.user.role|default:"daemon" }}</div>
+                                    <div class="text-[9px] font-bold text-gray-400 uppercase tracking-tighter mt-0.5">{{
+                                        log.user.role|default:"daemon" }}</div>
                                 </div>
                             </div>
                         </td>
@@ -95,13 +118,15 @@
                             {{ log.entity_type }}#{{ log.entity_id }}
                         </td>
                         <td class="px-6 py-6">
-                            <p class="text-xs text-gray-600 dark:text-gray-400 max-w-sm line-clamp-1 italic">"{{ log.description }}"</p>
+                            <p class="text-xs text-gray-600 dark:text-gray-400 max-w-sm line-clamp-1 italic">"{{
+                                log.description }}"</p>
                         </td>
                         <td class="px-8 py-6 text-right">
                             <div
                                 class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-50 dark:bg-gray-800 rounded-xl">
                                 <span class="size-1.5 rounded-full bg-emerald-500"></span>
-                                <span class="text-[10px] font-mono font-bold text-gray-500 uppercase">{{ log.ip_address }}</span>
+                                <span class="text-[10px] font-mono font-bold text-gray-500 uppercase">{{ log.ip_address
+                                    }}</span>
                             </div>
                         </td>
                     </tr>

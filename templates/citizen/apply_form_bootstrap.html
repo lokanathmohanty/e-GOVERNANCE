@@ -1,4 +1,27 @@
 {% extends 'base_bootstrap.html' %}
+{% block sidebar_mobile %}
+<div class="mb-4">
+    <div class="text-uppercase text-muted fw-black mb-2 tracking-widest" style="font-size: 10px;">Citizen Hub</div>
+    <nav class="nav flex-column gap-1">
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'citizen:dashboard' %}">
+            <i class="bi bi-speedometer2 text-primary"></i> <span>Dashboard</span>
+        </a>
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3 active" href="{% url 'citizen:services' %}">
+            <i class="bi bi-grid-fill text-primary"></i> <span>Service Portal</span>
+        </a>
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'citizen:locker' %}">
+            <i class="bi bi-safe2 text-primary"></i> <span>Digital Locker</span>
+        </a>
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'citizen:grievances' %}">
+            <i class="bi bi-megaphone text-primary"></i> <span>Grievance Box</span>
+        </a>
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'citizen:appointments' %}">
+            <i class="bi bi-calendar-event text-primary"></i> <span>My Visits</span>
+        </a>
+    </nav>
+</div>
+<div class="border-top my-3"></div>
+{% endblock %}
 
 {% block title %}Apply for {{ service.service_name }} | e-Gov Portal{% endblock %}
 
@@ -41,7 +64,8 @@
                                     <div class="col-md-4">
                                         <div class="form-check card p-3 h-100">
                                             <input class="form-check-input" type="radio" name="priority" value="normal"
-                                                id="priorityNormal" {% if not existing_app or existing_app.priority == "normal" %}checked{% endif %}>
+                                                id="priorityNormal" {% if not existing_app or
+                                                existing_app.priority=="normal" %}checked{% endif %}>
                                             <label class="form-check-label w-100" for="priorityNormal">
                                                 <div class="d-flex align-items-center">
                                                     <i class="bi bi-circle-fill text-secondary fs-4 me-2"></i>
@@ -56,7 +80,8 @@
                                     <div class="col-md-4">
                                         <div class="form-check card p-3 h-100 border-warning">
                                             <input class="form-check-input" type="radio" name="priority"
-                                                value="emergency" id="priorityEmergency" {% if existing_app.priority == "emergency" %}checked{% endif %}>
+                                                value="emergency" id="priorityEmergency" {% if
+                                                existing_app.priority=="emergency" %}checked{% endif %}>
                                             <label class="form-check-label w-100" for="priorityEmergency">
                                                 <div class="d-flex align-items-center">
                                                     <i
@@ -72,7 +97,8 @@
                                     <div class="col-md-4">
                                         <div class="form-check card p-3 h-100 border-danger">
                                             <input class="form-check-input" type="radio" name="priority"
-                                                value="disaster" id="priorityDisaster" {% if existing_app.priority == "disaster" %}checked{% endif %}>
+                                                value="disaster" id="priorityDisaster" {% if
+                                                existing_app.priority=="disaster" %}checked{% endif %}>
                                             <label class="form-check-label w-100" for="priorityDisaster">
                                                 <div class="d-flex align-items-center">
                                                     <i class="bi bi-lightning-fill text-danger fs-4 me-2"></i>
@@ -144,7 +170,8 @@
                                 <a href="{% url 'citizen:services' %}" class="btn btn-outline-secondary">
                                     Cancel
                                 </a>
-                                <button type="submit" name="action" value="draft" class="btn btn-outline-primary" formnovalidate>
+                                <button type="submit" name="action" value="draft" class="btn btn-outline-primary"
+                                    formnovalidate>
                                     <i class="bi bi-save"></i> Save as Draft
                                 </button>
                                 <button type="submit" name="action" value="submit" class="btn btn-primary btn-lg">

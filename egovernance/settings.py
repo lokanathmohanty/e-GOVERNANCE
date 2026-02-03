@@ -230,9 +230,10 @@ LOGGING = {
 
 # Session Configuration
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
-SESSION_COOKIE_AGE = 1800  # 30 minutes
-SESSION_SAVE_EVERY_REQUEST = True
+SESSION_COOKIE_AGE = 3600  # Increased to 1 hour
+SESSION_SAVE_EVERY_REQUEST = False  # Disabled to prevent CSRF issues
 SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = False if DEBUG else True
 
 # Bootstrap 5 Integration
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'

@@ -80,15 +80,31 @@ class CustomLoginForm(AuthenticationForm):
     remember_me = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}))
 
 class UserProfileForm(forms.ModelForm):
+    phone_validator = RegexValidator(
+        regex=r'^\d{10}$',
+        message="Phone number must be exactly 10 digits."
+    )
+    aadhaar_validator = RegexValidator(
+        regex=r'^\d{12}$',
+        message="Aadhaar number must be exactly 12 digits."
+    )
+
+    phone = forms.CharField(
+        validators=[phone_validator],
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '10-digit mobile number'})
+    )
+    aadhaar_number = forms.CharField(
+        validators=[aadhaar_validator],
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '12-digit Aadhaar number'})
+    )
+
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email', 'phone', 'address', 'aadhaar_number', 'profile_picture']
         widgets = {
-            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'phone': forms.TextInput(attrs={'class': 'form-control'}),
-            'address': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
-            'aadhaar_number': forms.TextInput(attrs={'class': 'form-control'}),
-            'profile_picture': forms.FileInput(attrs={'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter first name'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter last name'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter email address'}),
+            'address': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Enter your residential address'}),
+            'profile_picture': forms.FileInput(attrs={'class': 'form-control', 'id': 'profile_picture_input'}),
         }

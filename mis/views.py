@@ -105,6 +105,13 @@ def dashboard(request):
             'avg_days': avg_days
         })
     
+    # Department-wise Stats
+    dept_stats = Department.objects.annotate(
+        app_count=Count('service__application'),
+        approved_count=Count('service__application', filter=Q(service__application__status='approved')),
+        pending_count=Count('service__application', filter=Q(service__application__status='pending'))
+    ).filter(app_count__gt=0)
+    
     stats = {
         'total': total_apps,
         'pending': pending_apps,
@@ -123,9 +130,10 @@ def dashboard(request):
         'monthly_data': monthly_data,
         'sla_data': sla_data,
         'officer_stats': officer_stats,
+        'dept_stats': dept_stats,
     }
     
-    return render(request, 'mis/dashboard_bootstrap.html', context)
+    return render(request, 'mis/dashboard.html', context)
 
 @login_required
 @role_required(['department_head', 'admin'])

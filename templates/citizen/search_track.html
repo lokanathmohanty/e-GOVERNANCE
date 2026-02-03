@@ -1,4 +1,29 @@
 {% extends 'base_bootstrap.html' %}
+{% block sidebar_mobile %}
+{% if user.is_authenticated and user.role == 'citizen' %}
+<div class="mb-4">
+    <div class="text-uppercase text-muted fw-black mb-2 tracking-widest" style="font-size: 10px;">Citizen Hub</div>
+    <nav class="nav flex-column gap-1">
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'citizen:dashboard' %}">
+            <i class="bi bi-speedometer2 text-primary"></i> <span>Dashboard</span>
+        </a>
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'citizen:services' %}">
+            <i class="bi bi-grid-fill text-primary"></i> <span>Service Portal</span>
+        </a>
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'citizen:locker' %}">
+            <i class="bi bi-safe2 text-primary"></i> <span>Digital Locker</span>
+        </a>
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'citizen:grievances' %}">
+            <i class="bi bi-megaphone text-primary"></i> <span>Grievance Box</span>
+        </a>
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'citizen:appointments' %}">
+            <i class="bi bi-calendar-event text-primary"></i> <span>My Visits</span>
+        </a>
+    </nav>
+</div>
+<div class="border-top my-3"></div>
+{% endif %}
+{% endblock %}
 {% load static %}
 
 {% block title %}Track Application | e-Gov Portal{% endblock %}

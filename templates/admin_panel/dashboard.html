@@ -1,10 +1,32 @@
-{% extends 'base.html' %}
+{% extends 'base_bootstrap.html' %}
+{% block sidebar_mobile %}
+<div class="mb-4">
+    <div class="text-uppercase text-muted fw-black mb-2 tracking-widest" style="font-size: 10px;">Control Center</div>
+    <nav class="nav flex-column gap-1">
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3 active"
+            href="{% url 'admin_panel:dashboard' %}">
+            <i class="bi bi-shield-lock"></i> <span>Security Console</span>
+        </a>
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'admin_panel:users' %}">
+            <i class="bi bi-people"></i> <span>User Governance</span>
+        </a>
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'admin_panel:services' %}">
+            <i class="bi bi-box-seam"></i> <span>Catalog Ops</span>
+        </a>
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'admin_panel:audit_logs' %}">
+            <i class="bi bi-journal-text"></i> <span>Audit Trail</span>
+        </a>
+    </nav>
+</div>
+<div class="border-top my-3"></div>
+{% endblock %}
 {% block title %}Admin Control Center | e-Gov Portal{% endblock %}
 
 {% block content %}
 <div class="bg-gray-50 dark:bg-[#0a0f18] min-h-screen pb-20">
     <!-- Top Bar / Navigation -->
-    <div class="bg-white dark:bg-surface-dark border-b border-gray-200 dark:border-gray-800 px-4 md:px-10 py-4 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-40 shadow-sm backdrop-blur-md bg-white/80 dark:bg-surface-dark/80">
+    <div
+        class="bg-white dark:bg-surface-dark border-b border-gray-200 dark:border-gray-800 px-4 md:px-10 py-4 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-40 shadow-sm backdrop-blur-md bg-white/80 dark:bg-surface-dark/80">
         <div class="flex items-center gap-3">
             <div class="bg-primary p-2 rounded-xl text-white shadow-lg shadow-blue-500/30">
                 <span class="material-symbols-outlined text-2xl">admin_panel_settings</span>
@@ -13,7 +35,8 @@
                 <h1 class="text-xl font-bold text-gray-900 dark:text-white leading-tight">Admin Control Center</h1>
                 <div class="flex items-center gap-2">
                     <span class="size-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">{{ config.get_environment_display }} Mode</span>
+                    <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">{{
+                        config.get_environment_display }} Mode</span>
                 </div>
             </div>
         </div>
@@ -26,28 +49,35 @@
             <button class="bg-blue-50 dark:bg-blue-900/20 text-primary p-2 rounded-xl hover:scale-105 transition-all">
                 <span class="material-symbols-outlined">refresh</span>
             </button>
-            <a href="{% url 'admin:index' %}" class="bg-gray-900 dark:bg-primary text-white font-bold py-2.5 px-5 rounded-xl hover:opacity-90 transition-all text-sm no-underline shadow-md">
+            <a href="{% url 'admin:index' %}"
+                class="bg-gray-900 dark:bg-primary text-white font-bold py-2.5 px-5 rounded-xl hover:opacity-90 transition-all text-sm no-underline shadow-md">
                 Backend Panel
             </a>
         </div>
     </div>
 
     <div class="max-w-[1600px] mx-auto px-4 md:px-10 py-8 space-y-8">
-        
+
         <!-- Quick Actions & Global Overrides -->
         <div class="flex flex-wrap gap-4 items-center justify-between">
-            <div class="flex gap-2 p-1 bg-white dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm">
-                <button class="px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-xs font-bold text-gray-900 dark:text-white transition-all">Overview</button>
-                <button class="px-4 py-2 rounded-lg text-xs font-bold text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all">Operations</button>
-                <button class="px-4 py-2 rounded-lg text-xs font-bold text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all">Security</button>
+            <div
+                class="flex gap-2 p-1 bg-white dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm">
+                <button
+                    class="px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-xs font-bold text-gray-900 dark:text-white transition-all">Overview</button>
+                <button
+                    class="px-4 py-2 rounded-lg text-xs font-bold text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all">Operations</button>
+                <button
+                    class="px-4 py-2 rounded-lg text-xs font-bold text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all">Security</button>
             </div>
             <div class="flex gap-3">
                 {% if config.maintenance_mode %}
-                <span class="bg-amber-100 dark:bg-amber-900/20 text-amber-600 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 border border-amber-200 dark:border-amber-800/30">
+                <span
+                    class="bg-amber-100 dark:bg-amber-900/20 text-amber-600 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 border border-amber-200 dark:border-amber-800/30">
                     <span class="material-symbols-outlined text-sm">construction</span> Maintenance Mode Active
                 </span>
                 {% endif %}
-                <button class="bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-800 p-2.5 rounded-xl shadow-sm hover:border-primary transition-all group">
+                <button
+                    class="bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-800 p-2.5 rounded-xl shadow-sm hover:border-primary transition-all group">
                     <span class="material-symbols-outlined text-gray-400 group-hover:text-primary">settings</span>
                 </button>
             </div>
@@ -55,11 +85,14 @@
 
         <!-- Tier 1: System Health & Uptime (Heatmap style) -->
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            <div class="lg:col-span-3 bg-white dark:bg-surface-dark p-6 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden relative">
+            <div
+                class="lg:col-span-3 bg-white dark:bg-surface-dark p-6 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden relative">
                 <div class="flex items-center justify-between mb-6">
                     <div>
-                        <h3 class="text-sm font-black text-gray-900 dark:text-white uppercase tracking-widest">Service Load & Performance</h3>
-                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Real-time workload heatmap</p>
+                        <h3 class="text-sm font-black text-gray-900 dark:text-white uppercase tracking-widest">Service
+                            Load & Performance</h3>
+                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Real-time workload
+                            heatmap</p>
                     </div>
                     <div class="flex gap-2">
                         <span class="size-2 rounded-sm bg-emerald-500"></span>
@@ -70,8 +103,11 @@
                 </div>
                 <div class="grid grid-cols-12 gap-1 h-24">
                     {% for i in "123456789012345678901234"|make_list %}
-                    <div class="bg-emerald-500/20 rounded-sm hover:bg-emerald-500 transition-all cursor-pointer relative group">
-                        <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-gray-900 text-white text-[8px] px-2 py-1 rounded hidden group-hover:block whitespace-nowrap">Load: 2%</div>
+                    <div
+                        class="bg-emerald-500/20 rounded-sm hover:bg-emerald-500 transition-all cursor-pointer relative group">
+                        <div
+                            class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-gray-900 text-white text-[8px] px-2 py-1 rounded hidden group-hover:block whitespace-nowrap">
+                            Load: 2%</div>
                     </div>
                     {% endfor %}
                     <div class="bg-indigo-500/40 rounded-sm"></div>
@@ -81,7 +117,8 @@
                     <div class="bg-emerald-500/20 rounded-sm"></div>
                     {% endfor %}
                 </div>
-                <div class="flex justify-between mt-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-t border-gray-50 dark:border-gray-800 pt-4">
+                <div
+                    class="flex justify-between mt-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-t border-gray-50 dark:border-gray-800 pt-4">
                     <span>Revenue</span>
                     <span>Medical</span>
                     <span>Education</span>
@@ -116,7 +153,8 @@
                     <div class="flex items-center justify-between pt-2">
                         <div class="flex items-center gap-2">
                             <span class="size-2 rounded-full bg-white animate-ping"></span>
-                            <span class="text-xs font-bold uppercase tracking-wider">Database {{ health.database }}</span>
+                            <span class="text-xs font-bold uppercase tracking-wider">Database {{ health.database
+                                }}</span>
                         </div>
                         <span class="text-xs font-mono opacity-80">{{ health.api_latency }}</span>
                     </div>
@@ -127,9 +165,11 @@
         <!-- Tier 2: Main Operational Modules -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <!-- Global Config -->
-            <div class="bg-white dark:bg-surface-dark p-6 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm group hover:border-primary/50 transition-all">
+            <div
+                class="bg-white dark:bg-surface-dark p-6 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm group hover:border-primary/50 transition-all">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="size-10 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <div
+                        class="size-10 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 flex items-center justify-center group-hover:scale-110 transition-transform">
                         <span class="material-symbols-outlined">settings_suggest</span>
                     </div>
                     <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Global Config</span>
@@ -145,13 +185,16 @@
                         <span>{{ config.max_upload_size_mb }}MB</span>
                     </div>
                 </div>
-                <button class="w-full py-2.5 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-primary hover:text-white transition-all">Configure</button>
+                <button
+                    class="w-full py-2.5 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-primary hover:text-white transition-all">Configure</button>
             </div>
 
             <!-- User Governance -->
-            <div class="bg-white dark:bg-surface-dark p-6 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm group hover:border-purple-500/50 transition-all">
+            <div
+                class="bg-white dark:bg-surface-dark p-6 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm group hover:border-purple-500/50 transition-all">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="size-10 rounded-xl bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <div
+                        class="size-10 rounded-xl bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 flex items-center justify-center group-hover:scale-110 transition-transform">
                         <span class="material-symbols-outlined">manage_accounts</span>
                     </div>
                     <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">User Governance</span>
@@ -167,13 +210,17 @@
                         <span>{{ inactive_users }}</span>
                     </div>
                 </div>
-                <a href="{% url 'admin_panel:users' %}" class="block w-full text-center py-2.5 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-purple-600 hover:text-white transition-all no-underline">Manage Users</a>
+                <a href="{% url 'admin_panel:users' %}"
+                    class="block w-full text-center py-2.5 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-purple-600 hover:text-white transition-all no-underline">Manage
+                    Users</a>
             </div>
 
             <!-- Service Inventory -->
-            <div class="bg-white dark:bg-surface-dark p-6 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm group hover:border-emerald-500/50 transition-all">
+            <div
+                class="bg-white dark:bg-surface-dark p-6 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm group hover:border-emerald-500/50 transition-all">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="size-10 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <div
+                        class="size-10 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
                         <span class="material-symbols-outlined">inventory_2</span>
                     </div>
                     <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Inventory</span>
@@ -189,13 +236,17 @@
                         <span>{{ config.global_sla_days }} Days</span>
                     </div>
                 </div>
-                <a href="{% url 'admin_panel:services' %}" class="block w-full text-center py-2.5 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-emerald-600 hover:text-white transition-all no-underline">View Catalog</a>
+                <a href="{% url 'admin_panel:services' %}"
+                    class="block w-full text-center py-2.5 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-emerald-600 hover:text-white transition-all no-underline">View
+                    Catalog</a>
             </div>
 
             <!-- Audit & Compliance -->
-            <div class="bg-white dark:bg-surface-dark p-6 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm group hover:border-rose-500/50 transition-all">
+            <div
+                class="bg-white dark:bg-surface-dark p-6 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm group hover:border-rose-500/50 transition-all">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="size-10 rounded-xl bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <div
+                        class="size-10 rounded-xl bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 flex items-center justify-center group-hover:scale-110 transition-transform">
                         <span class="material-symbols-outlined">security_update_good</span>
                     </div>
                     <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Security Audit</span>
@@ -211,16 +262,20 @@
                         <span>{{ failed_logins }}</span>
                     </div>
                 </div>
-                <a href="{% url 'admin_panel:audit_logs' %}" class="block w-full text-center py-2.5 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-rose-600 hover:text-white transition-all no-underline">Audit Trail</a>
+                <a href="{% url 'admin_panel:audit_logs' %}"
+                    class="block w-full text-center py-2.5 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-rose-600 hover:text-white transition-all no-underline">Audit
+                    Trail</a>
             </div>
         </div>
 
         <!-- Tier 3: Communication & Hierarchy -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Org Structure Visualization (Placeholder) -->
-            <div class="lg:col-span-1 bg-white dark:bg-surface-dark rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col">
+            <div
+                class="lg:col-span-1 bg-white dark:bg-surface-dark rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col">
                 <div class="p-6 border-b border-gray-50 dark:border-gray-800">
-                    <h3 class="text-sm font-black text-gray-900 dark:text-white uppercase tracking-widest">Organization Hierarchy</h3>
+                    <h3 class="text-sm font-black text-gray-900 dark:text-white uppercase tracking-widest">Organization
+                        Hierarchy</h3>
                 </div>
                 <div class="flex-1 p-6 flex flex-col items-center justify-center gap-4">
                     <div class="bg-primary/20 p-3 rounded-full border border-primary/30">
@@ -230,14 +285,17 @@
                         <div class="text-sm font-bold text-gray-900 dark:text-white">Drag-and-Drop Editor</div>
                         <p class="text-xs text-gray-500">Map officers to departments efficiently</p>
                     </div>
-                    <button class="px-6 py-2 bg-gray-900 dark:bg-gray-800 text-white rounded-xl text-xs font-bold hover:scale-105 transition-all">Open Hierarchy Builder</button>
-                    
+                    <button
+                        class="px-6 py-2 bg-gray-900 dark:bg-gray-800 text-white rounded-xl text-xs font-bold hover:scale-105 transition-all">Open
+                        Hierarchy Builder</button>
+
                     <!-- Minified Tree View Mock -->
                     <div class="w-full mt-6 space-y-2">
                         <div class="flex items-center gap-3 p-2 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
                             <span class="material-symbols-outlined text-sm">corporate_fare</span>
                             <span class="text-[10px] font-bold">Revenue Dept</span>
-                            <span class="ml-auto text-[10px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded">8 Officers</span>
+                            <span class="ml-auto text-[10px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded">8
+                                Officers</span>
                         </div>
                         <div class="ml-4 flex items-center gap-3 p-2 border-l border-gray-100 dark:border-gray-800">
                             <span class="material-symbols-outlined text-sm">subdirectory_arrow_right</span>
@@ -246,65 +304,88 @@
                         <div class="flex items-center gap-3 p-2 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
                             <span class="material-symbols-outlined text-sm">health_and_safety</span>
                             <span class="text-[10px] font-bold">Health Dept</span>
-                            <span class="ml-auto text-[10px] bg-teal-100 text-teal-600 px-2 py-0.5 rounded">12 Officers</span>
+                            <span class="ml-auto text-[10px] bg-teal-100 text-teal-600 px-2 py-0.5 rounded">12
+                                Officers</span>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Targeted Announcements -->
-            <div class="lg:col-span-2 bg-white dark:bg-surface-dark rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col">
+            <div
+                class="lg:col-span-2 bg-white dark:bg-surface-dark rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col">
                 <div class="p-6 border-b border-gray-50 dark:border-gray-800 flex items-center justify-between">
                     <div>
-                        <h3 class="text-sm font-black text-gray-900 dark:text-white uppercase tracking-widest">Command & Communication</h3>
-                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Multi-channel targeted alerts</p>
+                        <h3 class="text-sm font-black text-gray-900 dark:text-white uppercase tracking-widest">Command &
+                            Communication</h3>
+                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Multi-channel targeted
+                            alerts</p>
                     </div>
-                    <a href="{% url 'admin_panel:create_announcement' %}" class="flex items-center gap-2 bg-primary text-white text-xs font-bold px-4 py-2 rounded-xl hover:scale-105 transition-all no-underline">
+                    <a href="{% url 'admin_panel:create_announcement' %}"
+                        class="flex items-center gap-2 bg-primary text-white text-xs font-bold px-4 py-2 rounded-xl hover:scale-105 transition-all no-underline">
                         <span class="material-symbols-outlined text-sm">add</span> New Broadcast
                     </a>
                 </div>
                 <div class="p-6 space-y-4 flex-1">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="p-4 bg-rose-50 dark:bg-rose-900/10 border border-rose-100 dark:border-rose-900/20 rounded-2xl">
+                        <div
+                            class="p-4 bg-rose-50 dark:bg-rose-900/10 border border-rose-100 dark:border-rose-900/20 rounded-2xl">
                             <div class="flex items-center justify-between mb-2">
-                                <span class="bg-rose-600 text-white text-[8px] font-black uppercase px-2 py-0.5 rounded">Emergency</span>
+                                <span
+                                    class="bg-rose-600 text-white text-[8px] font-black uppercase px-2 py-0.5 rounded">Emergency</span>
                                 <span class="text-[10px] font-bold text-rose-400">Scheduled: None</span>
                             </div>
-                            <h5 class="text-xs font-bold text-rose-900 dark:text-rose-400">Critical System Maintenance</h5>
-                            <p class="text-[10px] text-rose-700/70 mt-1 line-clamp-2">Scheduled maintenance for backup sync on Sunday 2AM.</p>
+                            <h5 class="text-xs font-bold text-rose-900 dark:text-rose-400">Critical System Maintenance
+                            </h5>
+                            <p class="text-[10px] text-rose-700/70 mt-1 line-clamp-2">Scheduled maintenance for backup
+                                sync on Sunday 2AM.</p>
                             <div class="flex items-center gap-3 mt-3 text-[10px] font-bold text-rose-600">
-                                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">mail</span> 4.2k</span>
-                                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">sms</span> 1.1k</span>
+                                <span class="flex items-center gap-1"><span
+                                        class="material-symbols-outlined text-[12px]">mail</span> 4.2k</span>
+                                <span class="flex items-center gap-1"><span
+                                        class="material-symbols-outlined text-[12px]">sms</span> 1.1k</span>
                             </div>
                         </div>
-                        <div class="p-4 bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/20 rounded-2xl">
-                             <div class="flex items-center justify-between mb-2">
-                                <span class="bg-blue-600 text-white text-[8px] font-black uppercase px-2 py-0.5 rounded">Policy</span>
+                        <div
+                            class="p-4 bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/20 rounded-2xl">
+                            <div class="flex items-center justify-between mb-2">
+                                <span
+                                    class="bg-blue-600 text-white text-[8px] font-black uppercase px-2 py-0.5 rounded">Policy</span>
                                 <span class="text-[10px] font-bold text-blue-400">Expires in 2 days</span>
                             </div>
-                            <h5 class="text-xs font-bold text-blue-900 dark:text-blue-400">New Document Locker Rules</h5>
-                            <p class="text-[10px] text-blue-700/70 mt-1 line-clamp-2">Guidelines for self-attested documents updated in portal.</p>
+                            <h5 class="text-xs font-bold text-blue-900 dark:text-blue-400">New Document Locker Rules
+                            </h5>
+                            <p class="text-[10px] text-blue-700/70 mt-1 line-clamp-2">Guidelines for self-attested
+                                documents updated in portal.</p>
                             <div class="flex items-center gap-3 mt-3 text-[10px] font-bold text-blue-600">
-                                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">visibility</span> 12.8k</span>
-                                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">ads_click</span> 842</span>
+                                <span class="flex items-center gap-1"><span
+                                        class="material-symbols-outlined text-[12px]">visibility</span> 12.8k</span>
+                                <span class="flex items-center gap-1"><span
+                                        class="material-symbols-outlined text-[12px]">ads_click</span> 842</span>
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Advanced Communication Controls -->
-                    <div class="bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-4 border border-gray-100 dark:border-gray-800">
-                        <h5 class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Targeted Segmenting</h5>
+                    <div
+                        class="bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-4 border border-gray-100 dark:border-gray-800">
+                        <h5 class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Targeted
+                            Segmenting</h5>
                         <div class="flex flex-wrap gap-2">
-                            <button class="px-3 py-1.5 rounded-lg bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-[10px] font-bold flex items-center gap-1">
+                            <button
+                                class="px-3 py-1.5 rounded-lg bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-[10px] font-bold flex items-center gap-1">
                                 <span class="material-symbols-outlined text-[14px]">person</span> Only Citizens
                             </button>
-                            <button class="px-3 py-1.5 rounded-lg bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-[10px] font-bold flex items-center gap-1">
+                            <button
+                                class="px-3 py-1.5 rounded-lg bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-[10px] font-bold flex items-center gap-1">
                                 <span class="material-symbols-outlined text-[14px]">shield_person</span> Only Officers
                             </button>
-                            <button class="px-3 py-1.5 rounded-lg bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-[10px] font-bold flex items-center gap-1">
+                            <button
+                                class="px-3 py-1.5 rounded-lg bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-[10px] font-bold flex items-center gap-1">
                                 <span class="material-symbols-outlined text-[14px]">location_on</span> By Region
                             </button>
-                            <button class="px-3 py-1.5 rounded-lg border-2 border-dashed border-gray-200 dark:border-gray-600 text-[10px] font-bold text-gray-400 flex items-center gap-1">
+                            <button
+                                class="px-3 py-1.5 rounded-lg border-2 border-dashed border-gray-200 dark:border-gray-600 text-[10px] font-bold text-gray-400 flex items-center gap-1">
                                 <span class="material-symbols-outlined text-[14px]">add</span> Custom Segment
                             </button>
                         </div>
@@ -316,13 +397,17 @@
         <!-- Tier 4: Detailed Tables & Logs -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <!-- User Growth & Activity Monitoring -->
-            <div class="bg-white dark:bg-surface-dark rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden h-fit">
+            <div
+                class="bg-white dark:bg-surface-dark rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden h-fit">
                 <div class="px-8 py-6 border-b border-gray-50 dark:border-gray-800 flex items-center justify-between">
                     <div>
-                        <h3 class="text-sm font-black text-gray-900 dark:text-white uppercase tracking-widest">Personnel Engagement</h3>
-                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Recent user lifecycle</p>
+                        <h3 class="text-sm font-black text-gray-900 dark:text-white uppercase tracking-widest">Personnel
+                            Engagement</h3>
+                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Recent user lifecycle
+                        </p>
                     </div>
-                    <button class="text-primary text-[10px] font-black uppercase tracking-widest hover:underline">Export CSV</button>
+                    <button class="text-primary text-[10px] font-black uppercase tracking-widest hover:underline">Export
+                        CSV</button>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left">
@@ -331,13 +416,16 @@
                             <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/20 transition-all group">
                                 <td class="px-8 py-4">
                                     <div class="flex items-center gap-4">
-                                        <div class="size-10 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-400 flex items-center justify-center font-bold text-xs group-hover:bg-primary group-hover:text-white transition-all">
+                                        <div
+                                            class="size-10 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-400 flex items-center justify-center font-bold text-xs group-hover:bg-primary group-hover:text-white transition-all">
                                             {{ user.username|first|upper }}
                                         </div>
                                         <div>
-                                            <div class="text-sm font-bold text-gray-900 dark:text-white">{{ user.username }}</div>
+                                            <div class="text-sm font-bold text-gray-900 dark:text-white">{{
+                                                user.username }}</div>
                                             <div class="flex items-center gap-2">
-                                                <span class="text-[10px] text-gray-400 font-bold uppercase">{{ user.role }}</span>
+                                                <span class="text-[10px] text-gray-400 font-bold uppercase">{{ user.role
+                                                    }}</span>
                                                 <span class="size-1 rounded-full bg-gray-300"></span>
                                                 <span class="text-[10px] text-gray-400 font-bold">Trust: 85%</span>
                                             </div>
@@ -345,15 +433,19 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
-                                     <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Status</div>
-                                     {% if user.is_verified %}
-                                     <span class="bg-emerald-50 text-emerald-600 text-[8px] font-black uppercase px-2 py-0.5 rounded">Verified</span>
-                                     {% else %}
-                                     <span class="bg-amber-50 text-amber-600 text-[8px] font-black uppercase px-2 py-0.5 rounded">Pending</span>
-                                     {% endif %}
+                                    <div class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
+                                        Status</div>
+                                    {% if user.is_verified %}
+                                    <span
+                                        class="bg-emerald-50 text-emerald-600 text-[8px] font-black uppercase px-2 py-0.5 rounded">Verified</span>
+                                    {% else %}
+                                    <span
+                                        class="bg-amber-50 text-amber-600 text-[8px] font-black uppercase px-2 py-0.5 rounded">Pending</span>
+                                    {% endif %}
                                 </td>
                                 <td class="px-8 py-4 text-right">
-                                    <button class="size-8 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-400 hover:text-primary transition-colors">
+                                    <button
+                                        class="size-8 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-400 hover:text-primary transition-colors">
                                         <span class="material-symbols-outlined text-sm">visibility</span>
                                     </button>
                                 </td>
@@ -365,44 +457,56 @@
             </div>
 
             <!-- Audit Replay & Security Anomalies -->
-             <div class="bg-white dark:bg-surface-dark rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden h-fit">
+            <div
+                class="bg-white dark:bg-surface-dark rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden h-fit">
                 <div class="px-8 py-6 border-b border-gray-50 dark:border-gray-800 flex items-center justify-between">
                     <div>
-                        <h3 class="text-sm font-black text-gray-900 dark:text-white uppercase tracking-widest">Security Anomalies</h3>
-                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Real-time threat monitoring</p>
+                        <h3 class="text-sm font-black text-gray-900 dark:text-white uppercase tracking-widest">Security
+                            Anomalies</h3>
+                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Real-time threat
+                            monitoring</p>
                     </div>
-                     <div class="flex items-center gap-2 px-3 py-1 bg-emerald-50 text-emerald-600 rounded-lg">
+                    <div class="flex items-center gap-2 px-3 py-1 bg-emerald-50 text-emerald-600 rounded-lg">
                         <span class="size-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                         <span class="text-[10px] font-black uppercase tracking-widest">Shield Active</span>
                     </div>
                 </div>
                 <div class="p-6 space-y-4">
                     {% for log in recent_logs %}
-                    <div class="flex gap-4 items-start p-3 bg-gray-50 dark:bg-gray-800/30 rounded-2xl border-l-[4px] {% if 'fail' in log.description|lower %}border-rose-500{% else %}border-emerald-500{% endif %}">
+                    <div
+                        class="flex gap-4 items-start p-3 bg-gray-50 dark:bg-gray-800/30 rounded-2xl border-l-[4px] {% if 'fail' in log.description|lower %}border-rose-500{% else %}border-emerald-500{% endif %}">
                         <div class="mt-1">
-                            <span class="material-symbols-outlined text-[20px] {% if 'fail' in log.description|lower %}text-rose-500{% else %}text-emerald-500{% endif %}">
-                                {% if 'LOGIN' in log.action %}lock{% elif 'APP' in log.action %}description{% else %}history{% endif %}
+                            <span
+                                class="material-symbols-outlined text-[20px] {% if 'fail' in log.description|lower %}text-rose-500{% else %}text-emerald-500{% endif %}">
+                                {% if 'LOGIN' in log.action %}lock{% elif 'APP' in log.action %}description{% else
+                                %}history{% endif %}
                             </span>
                         </div>
                         <div class="flex-1 min-w-0">
                             <div class="flex justify-between items-start mb-0.5">
-                                <span class="text-xs font-bold text-gray-900 dark:text-white">{{ log.get_action_display }}</span>
-                                <span class="text-[8px] font-black text-gray-400 uppercase font-mono">{{ log.timestamp|timesince }} ago</span>
+                                <span class="text-xs font-bold text-gray-900 dark:text-white">{{ log.get_action_display
+                                    }}</span>
+                                <span class="text-[8px] font-black text-gray-400 uppercase font-mono">{{
+                                    log.timestamp|timesince }} ago</span>
                             </div>
                             <p class="text-[10px] text-gray-500 line-clamp-1 italic">{{ log.description }}</p>
                             <div class="flex items-center gap-2 mt-1">
-                                <span class="text-[8px] font-black text-primary uppercase">Risk: {% if 'fail' in log.description|lower %}High{% else %}Low{% endif %}</span>
+                                <span class="text-[8px] font-black text-primary uppercase">Risk: {% if 'fail' in
+                                    log.description|lower %}High{% else %}Low{% endif %}</span>
                                 <span class="size-0.5 rounded-full bg-gray-300"></span>
                                 <span class="text-[8px] font-mono text-gray-400">{{ log.ip_address }}</span>
                             </div>
                         </div>
                     </div>
                     {% empty %}
-                    <div class="text-center py-10 text-gray-400 text-xs font-bold uppercase tracking-widest">No anomalies detected. System is secure.</div>
+                    <div class="text-center py-10 text-gray-400 text-xs font-bold uppercase tracking-widest">No
+                        anomalies detected. System is secure.</div>
                     {% endfor %}
                 </div>
                 <div class="p-4 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-100 dark:border-gray-800">
-                    <button class="w-full py-2 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-xl text-[10px] font-black text-gray-400 uppercase tracking-widest hover:border-primary hover:text-primary transition-all">View All Audit Replays</button>
+                    <button
+                        class="w-full py-2 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-xl text-[10px] font-black text-gray-400 uppercase tracking-widest hover:border-primary hover:text-primary transition-all">View
+                        All Audit Replays</button>
                 </div>
             </div>
         </div>
@@ -427,15 +531,17 @@
     .material-symbols-outlined {
         font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
     }
-    
+
     /* Custom scrollbar for subtle dashboard feel */
     ::-webkit-scrollbar {
         width: 6px;
     }
+
     ::-webkit-scrollbar-thumb {
         background: rgba(156, 163, 175, 0.2);
         border-radius: 10px;
     }
+
     ::-webkit-scrollbar-thumb:hover {
         background: rgba(156, 163, 175, 0.4);
     }
