@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from core.models import Application, Department, User, Service, OfficerAssignment
-from django.db.models import Count, Q, Avg, F
+from django.db.models import Count, Q, Avg
 from django.utils import timezone
 from datetime import timedelta
 from core.decorators import role_required
@@ -32,65 +32,13 @@ def dashboard(request):
         app_count=Count('application_set')
     ).filter(app_count__gt=0).order_by('-app_count')[:10]
     
-    service_labels = [s.service_name for s in service_stats]
-    service_data = [s.app_count for s in service_stats]
-
-    # Submission Trends (Last 7 Days)
-    monthly_labels = []
-    monthly_data = []
-    for i in range(6, -1, -1):
-        day = now - timedelta(days=i)
-        monthly_labels.append(day.strftime('%b %d'))
-        monthly_data.append(Application.objects.filter(applied_date__date=day.date()).count())
-
-    # SLA Compliance & Data
-    total_completed = approved_apps + rejected_apps
-    sla_compliance = 0
-    sla_data = [0, 0] # [On-time, Delayed]
-    
-    if total_completed > 0:
-        on_time = Application.objects.filter(
-            status__in=['approved', 'rejected'],
-            approved_date__lte=F('sla_deadline')
-        ).count()
-        sla_compliance = int((on_time / total_completed) * 100)
-        sla_data = [on_time, total_completed - on_time]
-    else:
-        sla_compliance = 100
-
-    # Officer Performance
-    officer_stats = []
-    officers = User.objects.filter(role='officer')[:5]
-    for off in officers:
-        assigned = OfficerAssignment.objects.filter(officer=off).count()
-        completed = OfficerAssignment.objects.filter(officer=off, application__status__in=['approved', 'rejected']).count()
-        
-        # Avg processing time
-        avg_days = 0
-        apps_done = Application.objects.filter(
-            officer_assignments__officer=off,
-            status__in=['approved', 'rejected'],
-            approved_date__isnull=False
-        ).annotate(
-            duration=F('approved_date') - F('applied_date')
-        ).aggregate(avg_time=Avg('duration'))['avg_time']
-        
-        if apps_done:
-            avg_days = apps_done.days
-            
-        officer_stats.append({
-            'name': off.get_full_name() or off.username,
-            'assigned': assigned,
-            'completed': completed,
-            'pending': assigned - completed,
-            'avg_days': avg_days
-        })
+    # ... (skipping unchanged code) ...
     
     # Department-wise Stats
     dept_stats = Department.objects.annotate(
         app_count=Count('services__application_set'),
-        approved_count=Count('services__application_set', filter=Q(services__application_set__status='approved')),
-        pending_count=Count('services__application_set', filter=Q(services__application_set__status='pending'))
+        approved_count=Count('services__application_set', filter=Q(services__application__status='approved')),
+        pending_count=Count('services__application_set', filter=Q(services__application__status='pending'))
     ).filter(app_count__gt=0)
     
     stats = {
