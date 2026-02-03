@@ -251,39 +251,6 @@
 </head>
 
 <body>
-    <!-- 1. Emergency Helpline Bar (Global) -->
-    <div class="bg-dark text-white py-2 px-3 px-md-4 px-lg-5 small relative z-[1060] d-none d-md-block"
-        style="font-size: 0.75rem;">
-        <div class="container-fluid d-flex justify-content-between align-items-center">
-            <div class="d-flex align-items-center gap-4">
-                <span class="d-flex align-items-center gap-2">
-                    <i class="bi bi-shield-fill-check text-warning"></i>
-                    <span class="fw-bold" data-i18n="em.police">Police</span>: <span class="fw-black">100</span>
-                </span>
-                <span class="d-flex align-items-center gap-2">
-                    <i class="bi bi-heart-pulse-fill text-danger text-opacity-75"></i>
-                    <span class="fw-bold" data-i18n="em.ambulance">Ambulance</span>: <span class="fw-black">108</span>
-                </span>
-                <span class="d-flex align-items-center gap-2">
-                    <i class="bi bi-fire text-orange"></i>
-                    <span class="fw-bold" data-i18n="em.fire">Fire</span>: <span class="fw-black">101</span>
-                </span>
-                <span class="d-flex align-items-center gap-2">
-                    <i class="bi bi-gender-female text-info"></i>
-                    <span class="fw-bold" data-i18n="em.women">Women Helpline</span>: <span class="fw-black">1091</span>
-                </span>
-            </div>
-            <div class="d-flex align-items-center gap-3">
-                <a href="{% url 'core:contact' %}" class="text-white text-decoration-none hover-opacity fw-bold"
-                    data-i18n="nav.contact">
-                    Contact Us
-                </a>
-                <div class="vr bg-white opacity-25" style="height: 15px;"></div>
-                <div id="top-bar-clock" class="fw-black text-warning"></div>
-            </div>
-        </div>
-    </div>
-
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg border-bottom sticky-top shadow-sm bg-white">
         <div class="container-fluid px-3 px-md-4 px-lg-5">
@@ -320,62 +287,52 @@
                 <ul class="navbar-nav ms-auto align-items-center gap-1 gap-xl-2">
                     <li class="nav-item"><a class="nav-link px-3" href="{% url 'core:home' %}">Home</a></li>
                     <li class="nav-item"><a class="nav-link px-3" href="{% url 'citizen:services' %}">Services</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="{% url 'core:contact' %}">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="{% url 'core:contact' %}">Contact Us</a></li>
 
-                    <!-- Accessibility Menu -->
-                    <li class="nav-item dropdown px-2">
-                        <a class="nav-link d-flex align-items-center justify-content-center bg-light rounded-circle"
-                            href="#" id="accessibilityToggle" role="button" data-bs-toggle="dropdown"
-                            style="width: 40px; height: 40px;">
-                            <i class="bi bi-universal-access-circle text-muted" style="font-size: 1.2rem;"></i>
+                    <!-- Accessibility Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link px-3 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="bi bi-universal-access"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end shadow-premium border-0 mt-3 p-4"
-                            id="accessibilityDropdown" style="width: 280px; border-radius: 16px;">
-                            <div class="mb-4">
-                                <label class="form-label small fw-black text-muted text-uppercase tracking-widest mb-3"
-                                    data-i18n="accessibility.language">Language</label>
-                                <select class="form-select form-select-sm rounded-3 border-light-subtle"
-                                    id="languageSelect">
-                                    <option value="en">English (English)</option>
-                                    <option value="hi">हिन्दी (Hindi)</option>
-                                    <option value="or">ଓଡିଆ (Odia)</option>
-                                </select>
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label small fw-black text-muted text-uppercase tracking-widest mb-3"
-                                    data-i18n="accessibility.font_size">Font Size</label>
-                                <div class="d-flex gap-2">
-                                    <button class="btn btn-outline-secondary btn-sm flex-grow-1 font-size-btn"
-                                        data-font-size="small">A-</button>
-                                    <button class="btn btn-outline-secondary btn-sm flex-grow-1 font-size-btn"
-                                        data-font-size="normal">A</button>
-                                    <button class="btn btn-outline-secondary btn-sm flex-grow-1 font-size-btn"
-                                        data-font-size="large">A+</button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-premium border-0 p-3"
+                            style="min-width: 250px;">
+                            <li>
+                                <h6 class="dropdown-header text-uppercase fw-bold small text-muted">Accessibility</h6>
+                            </li>
+                            <li>
+                                <div class="d-flex justify-content-between align-items-center mb-2 px-3">
+                                    <span class="small fw-bold">Font Size</span>
+                                    <div class="btn-group btn-group-sm">
+                                        <button class="btn btn-outline-secondary"
+                                            onclick="document.body.style.fontSize='14px'">A-</button>
+                                        <button class="btn btn-outline-secondary"
+                                            onclick="document.body.style.fontSize='16px'">A</button>
+                                        <button class="btn btn-outline-secondary"
+                                            onclick="document.body.style.fontSize='18px'">A+</button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mb-0">
-                                <label class="form-label small fw-black text-muted text-uppercase tracking-widest mb-3"
-                                    data-i18n="accessibility.contrast">Display Mode</label>
-                                <button
-                                    class="btn btn-outline-dark w-100 d-flex justify-content-between align-items-center rounded-3 px-3 py-2"
-                                    id="contrastToggle">
-                                    <span class="small font-medium">High Contrast</span>
-                                    <i class="bi bi-circle-half" id="contrastIcon"></i>
-                                </button>
-                            </div>
-                        </div>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <div class="d-flex justify-content-between align-items-center px-3">
+                                    <span class="small fw-bold">Contrast</span>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="contrastToggle">
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </li>
 
-                    <!-- Theme Toggle -->
-                    <li class="nav-item px-2">
-                        <button
-                            class="nav-link d-flex align-items-center justify-content-center bg-light rounded-circle"
-                            id="themeToggle" style="width: 40px; height: 40px;">
-                            <i class="bi bi-moon-stars-fill text-muted" id="themeIcon"></i>
+                    <!-- Dark Mode Toggle -->
+                    <li class="nav-item">
+                        <button class="btn btn-link nav-link px-3" id="themeToggleDesktop" title="Toggle Dark Mode">
+                            <i class="bi bi-moon-stars" id="themeIconDesktop"></i>
                         </button>
                     </li>
-
-                    <div class="vr bg-light mx-2 d-none d-xl-block" style="height: 24px;"></div>
 
                     {% if user.is_authenticated %}
                     <!-- Dashboard Link -->
@@ -388,11 +345,6 @@
                         <a class="nav-link px-3" href="{% url 'mis:dashboard' %}">Analytics</a>
                         {% endif %}
                     </li>
-
-
-
-                    <!-- Theme Toggle -->
-
 
                     <!-- Notifications -->
                     <li class="nav-item dropdown px-2">
@@ -492,49 +444,24 @@
                 <!-- Dashboard Specific Links (Injected by child templates) -->
                 {% block sidebar_mobile %}{% endblock %}
 
-                <div class="text-uppercase text-muted fw-black mb-3 mt-4 tracking-widest" style="font-size: 10px;">
-                    Preferences</div>
-                <div class="bg-light rounded-4 p-3 mb-4">
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold text-muted mb-2">Language</label>
-                        <select class="form-select form-select-sm rounded-3 border-0 shadow-sm"
-                            id="languageSelectMobile"
-                            onchange="document.getElementById('languageSelect').value = this.value; document.getElementById('languageSelect').dispatchEvent(new Event('change'))">
-                            <option value="en">English</option>
-                            <option value="hi">हिन्दी</option>
-                            <option value="or">ଓଡିଆ</option>
-                        </select>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="small fw-bold text-muted">Dark Mode</span>
-                        <div class="form-check form-switch p-0 m-0">
-                            <input class="form-check-input ms-0 shadow-none" type="checkbox" id="themeToggleMobile"
-                                style="width: 2.5rem; height: 1.25rem;">
-                        </div>
-                    </div>
-                </div>
-
                 <div class="text-uppercase text-muted fw-black mb-2 tracking-widest" style="font-size: 10px;">General
                     Menu</div>
-                <nav class="nav flex-column gap-1">
-                    <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-2.5 px-3 hover-bg-light"
-                        href="{% url 'core:home' %}">
-                        <i class="bi bi-house-door fs-5 text-primary"></i> <span class="fw-bold small">Home</span>
+                <nav class="nav flex-column gap-2">
+                    <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'core:home' %}">
+                        <i class="bi bi-house-door fs-5"></i> <span>Home</span>
                     </a>
-                    <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-2.5 px-3 hover-bg-light"
+                    <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3"
                         href="{% url 'citizen:services' %}">
-                        <i class="bi bi-grid fs-5 text-primary"></i> <span class="fw-bold small">All Services</span>
+                        <i class="bi bi-grid fs-5"></i> <span>All Services</span>
                     </a>
-                    <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-2.5 px-3 hover-bg-light"
-                        href="{% url 'core:contact' %}">
-                        <i class="bi bi-chat-dots fs-5 text-primary"></i> <span class="fw-bold small">Help &
-                            Support</span>
+                    <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'core:contact' %}">
+                        <i class="bi bi-chat-dots fs-5"></i> <span>Help & Support</span>
                     </a>
                     {% if user.is_authenticated %}
                     <div class="border-top my-3"></div>
-                    <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-2.5 px-3 text-danger hover-bg-danger-soft"
+                    <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3 text-danger"
                         href="{% url 'accounts:logout' %}">
-                        <i class="bi bi-box-arrow-right fs-5"></i> <span class="fw-bold small">Sign Out</span>
+                        <i class="bi bi-box-arrow-right fs-5"></i> <span>Sign Out</span>
                     </a>
                     {% else %}
                     <a class="btn btn-primary w-100 rounded-pill py-3 fw-black shadow-sm mt-3"
@@ -692,53 +619,7 @@
     {% block modals %}{% endblock %}
 
     {% block extra_js %}{% endblock %}
-    <!-- Accessibility Options -->
-    <script src="{% static 'js/accessibility.js' %}"></script>
-
     <script>
-        // Update Clock
-        function updateClock() {
-            const clockEl = document.getElementById('top-bar-clock');
-            if (clockEl) {
-                const now = new Date();
-                clockEl.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            }
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-
-        // Theme Toggle Logic
-        const themeToggle = document.getElementById('themeToggle');
-        const themeToggleMobile = document.getElementById('themeToggleMobile');
-        const themeIcon = document.getElementById('themeIcon');
-        const html = document.documentElement;
-
-        const updateAllToggles = () => {
-            const isDark = html.classList.contains('dark');
-            if (themeIcon) themeIcon.className = isDark ? 'bi bi-sun-fill text-warning' : 'bi bi-moon-stars-fill text-muted';
-            if (themeToggleMobile) themeToggleMobile.checked = isDark;
-        };
-
-        if (localStorage.getItem('data-theme') === 'dark' || (!localStorage.getItem('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            html.classList.add('dark');
-            updateAllToggles();
-        }
-
-        const handleThemeChange = () => {
-            const isDark = html.classList.toggle('dark');
-            localStorage.setItem('data-theme', isDark ? 'dark' : 'light');
-            updateAllToggles();
-        };
-
-        if (themeToggle) themeToggle.addEventListener('click', handleThemeChange);
-        if (themeToggleMobile) themeToggleMobile.addEventListener('change', handleThemeChange);
-
-
-
-
-
-
-
         async function markRead(id) {
             try {
                 await fetch(`/notifications/read/${id}/`, {
@@ -799,6 +680,50 @@
         document.querySelectorAll('.stagger-container').forEach(container => {
             observer.observe(container);
         });
+
+        // --- Theme Toggle Logic ---
+        const themeToggleBtn = document.getElementById('themeToggleDesktop');
+        const themeIcon = document.getElementById('themeIconDesktop');
+        const html = document.documentElement;
+
+        // Initialize Theme
+        const storedTheme = localStorage.getItem('data-theme');
+        if (storedTheme === 'dark' || (!storedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+            html.setAttribute('data-bs-theme', 'dark'); // Bootstrap 5.3 Dark Mode
+            if (themeIcon) themeIcon.className = 'bi bi-sun-fill';
+        } else {
+            html.setAttribute('data-bs-theme', 'light');
+            if (themeIcon) themeIcon.className = 'bi bi-moon-stars';
+        }
+
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                if (html.classList.contains('dark')) {
+                    html.classList.remove('dark');
+                    html.setAttribute('data-bs-theme', 'light');
+                    themeIcon.className = 'bi bi-moon-stars';
+                    localStorage.setItem('data-theme', 'light');
+                } else {
+                    html.classList.add('dark');
+                    html.setAttribute('data-bs-theme', 'dark');
+                    themeIcon.className = 'bi bi-sun-fill';
+                    localStorage.setItem('data-theme', 'dark');
+                }
+            });
+        }
+
+        // --- Accessibility Contrast Logic ---
+        const contrastToggle = document.getElementById('contrastToggle');
+        if (contrastToggle) {
+            contrastToggle.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    document.body.classList.add('high-contrast');
+                } else {
+                    document.body.classList.remove('high-contrast');
+                }
+            });
+        }
     </script>
 </body>
 

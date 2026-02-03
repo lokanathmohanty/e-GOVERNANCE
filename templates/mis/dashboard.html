@@ -7,10 +7,10 @@
         <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3 active" href="{% url 'mis:dashboard' %}">
             <i class="bi bi-graph-up"></i> <span>Analytics Overview</span>
         </a>
-        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'mis:services' %}">
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'mis:service_list' %}">
             <i class="bi bi-gear-wide-connected"></i> <span>Manage Services</span>
         </a>
-        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'mis:inbox' %}">
+        <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'mis:contact_inbox' %}">
             <i class="bi bi-inbox"></i> <span>Contact Inbox</span>
         </a>
     </nav>
@@ -39,10 +39,10 @@
                 <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Next Refresh</span>
                 <span class="text-sm font-bold text-primary"><strong id="timer">60</strong> Seconds</span>
             </div>
-            <button
+            <a href="{% url 'mis:export_reports' %}"
                 class="flex items-center gap-2 py-3 px-6 bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 transition-all shadow-sm">
                 <span class="material-symbols-outlined text-[20px]">download</span> Export Reports
-            </button>
+            </a>
         </div>
     </div>
 

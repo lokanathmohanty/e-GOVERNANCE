@@ -42,6 +42,9 @@ def dashboard(request):
     elif filter_type == 'in_progress':
         assignments = assignments.filter(application__status='under_review')
     
+    # Convert to list to persist attributes added effectively
+    assignments = list(assignments)
+    
     # Calculate SLA status for each assignment
     now = timezone.now()
     for assignment in assignments:

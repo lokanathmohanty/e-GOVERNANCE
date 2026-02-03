@@ -29,7 +29,7 @@ def dashboard(request):
     
     # Service-wise Distribution
     service_stats = Service.objects.annotate(
-        app_count=Count('application')
+        app_count=Count('application_set')
     ).filter(app_count__gt=0).order_by('-app_count')[:10]
     
     # Pass as raw Python lists (json_script will handle encoding)
@@ -54,10 +54,16 @@ def dashboard(request):
     sla_near_deadline = 0
     sla_delayed = delayed_apps
     
-    for app in Application.objects.exclude(status__in=['approved', 'rejected']):
+    all_active_apps = Application.objects.exclude(status__in=['approved', 'rejected'])
+    total_active = all_active_apps.count()
+    
+    for app in all_active_apps:
+        if not app.sla_deadline:
+            continue
+            
         time_diff = app.sla_deadline - now
         days_remaining = time_diff.days
-        total_sla_days = app.service.processing_days
+        total_sla_days = app.service.processing_days if app.service else 7
         
         if days_remaining < 0:
             continue  # Already counted in delayed
@@ -66,6 +72,12 @@ def dashboard(request):
         else:
             sla_on_time += 1
     
+    total_processed = Application.objects.filter(status__in=['approved', 'rejected']).count()
+    total_apps_all = Application.objects.count()
+    sla_compliance = 100
+    if total_apps_all > 0:
+        sla_compliance = round(((total_apps_all - delayed_apps) / total_apps_all) * 100, 1)
+
     sla_data = [sla_on_time, sla_near_deadline, sla_delayed]
     
     # Officer Performance
@@ -107,9 +119,9 @@ def dashboard(request):
     
     # Department-wise Stats
     dept_stats = Department.objects.annotate(
-        app_count=Count('service__application'),
-        approved_count=Count('service__application', filter=Q(service__application__status='approved')),
-        pending_count=Count('service__application', filter=Q(service__application__status='pending'))
+        app_count=Count('services__application'),
+        approved_count=Count('services__application', filter=Q(services__application__status='approved')),
+        pending_count=Count('services__application', filter=Q(services__application__status='pending'))
     ).filter(app_count__gt=0)
     
     stats = {
@@ -129,6 +141,7 @@ def dashboard(request):
         'monthly_labels': monthly_labels,
         'monthly_data': monthly_data,
         'sla_data': sla_data,
+        'sla_compliance': sla_compliance,
         'officer_stats': officer_stats,
         'dept_stats': dept_stats,
     }
