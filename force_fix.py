@@ -1,4 +1,9 @@
-{% extends 'base_bootstrap.html' %}
+
+import os
+
+path = r"c:\Users\lokan\OneDrive\Desktop\mejor Project -Render\templates\citizen\apply_form_bootstrap.html"
+
+content = """{% extends 'base_bootstrap.html' %}
 {% block sidebar_mobile %}
 <div class="mb-4">
     <div class="text-uppercase text-muted fw-black mb-2 tracking-widest" style="font-size: 10px;">Citizen Hub</div>
@@ -254,4 +259,11 @@
         font-weight: bold;
     }
 </style>
-{% endblock %}
+{% endblock %}"""
+
+try:
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(content)
+    print("Successfully wrote full content.")
+except Exception as e:
+    print(f"Error: {e}")

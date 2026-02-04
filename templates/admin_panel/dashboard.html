@@ -479,8 +479,7 @@
                         <div class="mt-1">
                             <span
                                 class="material-symbols-outlined text-[20px] {% if 'fail' in log.description|lower %}text-rose-500{% else %}text-emerald-500{% endif %}">
-                                {% if 'LOGIN' in log.action %}lock{% elif 'APP' in log.action %}description{% else
-                                %}history{% endif %}
+                                {% if 'LOGIN' in log.action %}lock{% elif 'APP' in log.action %}description{% else %}history{% endif %}
                             </span>
                         </div>
                         <div class="flex-1 min-w-0">
@@ -492,8 +491,7 @@
                             </div>
                             <p class="text-[10px] text-gray-500 line-clamp-1 italic">{{ log.description }}</p>
                             <div class="flex items-center gap-2 mt-1">
-                                <span class="text-[8px] font-black text-primary uppercase">Risk: {% if 'fail' in
-                                    log.description|lower %}High{% else %}Low{% endif %}</span>
+                                <span class="text-[8px] font-black text-primary uppercase">Risk: {% if 'fail' in log.description|lower %}High{% else %}Low{% endif %}</span>
                                 <span class="size-0.5 rounded-full bg-gray-300"></span>
                                 <span class="text-[8px] font-mono text-gray-400">{{ log.ip_address }}</span>
                             </div>
