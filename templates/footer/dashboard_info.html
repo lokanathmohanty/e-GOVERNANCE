@@ -1,94 +1,71 @@
-{% extends 'base.html' %}
+{% extends 'base_bootstrap.html' %}
 {% load static %}
 
-{% block title %}Dashboard Overview - e-Governance Portal{% endblock %}
+{% block title %}Dashboard Overview | e-Governance Portal{% endblock %}
 
 {% block content %}
-<div class="bg-gray-50 dark:bg-background-dark min-h-screen py-12">
-    <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-
+<div class="container-fluid bg-light py-5 min-vh-100">
+    <div class="container container-premium">
         <!-- Hero Section -->
-        <div class="text-center mb-16 space-y-4">
+        <div class="text-center mb-5 reveal">
             <span
-                class="inline-block px-4 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs font-bold uppercase tracking-widest">Citizen
+                class="badge bg-primary-subtle text-primary border border-primary px-3 py-2 rounded-pill mb-3 fw-bold text-uppercase tracking-widest">Citizen
                 Central</span>
-            <h1 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white max-w-4xl mx-auto leading-tight">
-                Your Personal Governance Hub</h1>
-            <p class="text-xl text-gray-500 max-w-2xl mx-auto">Manage applications, documents, and interactions with the
-                government in one secure place.</p>
-            <div class="pt-4">
-                <a href="{% url 'citizen:dashboard' %}"
-                    class="btn-premium btn-premium-primary text-lg px-8 py-4 no-underline inline-flex items-center gap-2">
-                    <span class="material-symbols-outlined">login</span>
-                    Go to My Dashboard
+            <h1 class="display-4 fw-black text-dark mb-3">Your Personal Governance Hub</h1>
+            <p class="lead text-muted mx-auto" style="max-width: 700px;">Manage applications, documents, and
+                interactions with the government in one secure, unified place.</p>
+            <div class="mt-4">
+                <a href="{% url 'accounts:login' %}"
+                    class="btn btn-primary btn-lg rounded-pill px-5 shadow-premium py-3 fw-bold">
+                    Go to My Dashboard <i class="bi bi-arrow-right ms-2"></i>
                 </a>
             </div>
         </div>
 
-        <!-- Features Grid -->
-        <div class="grid md:grid-cols-2 gap-8 mb-20">
-            <!-- Feature 1 -->
-            <div
-                class="bg-white dark:bg-surface-dark rounded-3xl p-8 shadow-premium border border-gray-100 dark:border-gray-800 relative overflow-hidden group">
-                <div
-                    class="absolute -right-10 -top-10 size-40 bg-blue-50 dark:bg-blue-900/10 rounded-full blur-3xl group-hover:bg-blue-100 dark:group-hover:bg-blue-900/20 transition-all">
-                </div>
-                <div class="relative z-10">
+        <div class="row g-4 mb-5">
+            <!-- Tracking Feature -->
+            <div class="col-md-6 reveal">
+                <div class="card border-0 shadow-sm rounded-4 p-5 h-100 overflow-hidden position-relative">
                     <div
-                        class="size-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-blue-500/20">
-                        <span class="material-symbols-outlined text-3xl">timeline</span>
+                        class="bg-primary text-white size-64 rounded-4 d-flex align-items-center justify-content-center mb-4 shadow">
+                        <i class="bi bi-activity fs-2"></i>
                     </div>
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Real-time Application Tracking
-                    </h2>
-                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                        No more visiting government offices to check status. See exactly where your application is, who
-                        is processing it, and the estimated completion time.
-                    </p>
-                    <ul class="space-y-2">
-                        <li class="flex items-center gap-3 text-sm font-bold text-gray-700 dark:text-gray-200">
-                            <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Status
-                            Timeline
+                    <h3 class="fw-bold mb-3">Real-time Tracking</h3>
+                    <p class="text-secondary leading-relaxed mb-4">No more visiting government offices. See exactly
+                        where your application is, who is processing it, and the estimated completion time.</p>
+                    <ul class="list-unstyled d-grid gap-2">
+                        <li class="d-flex align-items-center gap-2 small fw-bold text-dark">
+                            <i class="bi bi-check-circle-fill text-success"></i> Status Timeline
                         </li>
-                        <li class="flex items-center gap-3 text-sm font-bold text-gray-700 dark:text-gray-200">
-                            <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Officer
-                            Details
+                        <li class="d-flex align-items-center gap-2 small fw-bold text-dark">
+                            <i class="bi bi-check-circle-fill text-success"></i> Officer Details
                         </li>
-                        <li class="flex items-center gap-3 text-sm font-bold text-gray-700 dark:text-gray-200">
-                            <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> SMS/Email
-                            Alerts
+                        <li class="d-flex align-items-center gap-2 small fw-bold text-dark">
+                            <i class="bi bi-check-circle-fill text-success"></i> SMS/Email Alerts
                         </li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Feature 2 -->
-            <div
-                class="bg-white dark:bg-surface-dark rounded-3xl p-8 shadow-premium border border-gray-100 dark:border-gray-800 relative overflow-hidden group">
-                <div
-                    class="absolute -right-10 -top-10 size-40 bg-purple-50 dark:bg-purple-900/10 rounded-full blur-3xl group-hover:bg-purple-100 dark:group-hover:bg-purple-900/20 transition-all">
-                </div>
-                <div class="relative z-10">
+            <!-- Locker Feature -->
+            <div class="col-md-6 reveal" style="transition-delay: 100ms;">
+                <div class="card border-0 shadow-sm rounded-4 p-5 h-100 overflow-hidden position-relative">
                     <div
-                        class="size-14 bg-purple-600 text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-purple-500/20">
-                        <span class="material-symbols-outlined text-3xl">folder_shared</span>
+                        class="bg-primary text-white size-64 rounded-4 d-flex align-items-center justify-content-center mb-4 shadow">
+                        <i class="bi bi-safe2-fill fs-2"></i>
                     </div>
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Integrated DigiLocker</h2>
-                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                        Store your verified documents securely. Access your certificates, licenses, and ID proofs
-                        anytime, anywhere without carrying physical copies.
-                    </p>
-                    <ul class="space-y-2">
-                        <li class="flex items-center gap-3 text-sm font-bold text-gray-700 dark:text-gray-200">
-                            <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> 1GB
-                            Secure Storage
+                    <h3 class="fw-bold mb-3">Integrated Locker</h3>
+                    <p class="text-secondary leading-relaxed mb-4">Store your verified documents securely. Access your
+                        certificates, licenses, and ID proofs anytime, anywhere without physical copies.</p>
+                    <ul class="list-unstyled d-grid gap-2">
+                        <li class="d-flex align-items-center gap-2 small fw-bold text-dark">
+                            <i class="bi bi-check-circle-fill text-success"></i> 1GB Secure Storage
                         </li>
-                        <li class="flex items-center gap-3 text-sm font-bold text-gray-700 dark:text-gray-200">
-                            <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Auto-save
-                            Certificates
+                        <li class="d-flex align-items-center gap-2 small fw-bold text-dark">
+                            <i class="bi bi-check-circle-fill text-success"></i> Auto-save Certificates
                         </li>
-                        <li class="flex items-center gap-3 text-sm font-bold text-gray-700 dark:text-gray-200">
-                            <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Easy
-                            Sharing
+                        <li class="d-flex align-items-center gap-2 small fw-bold text-dark">
+                            <i class="bi bi-check-circle-fill text-success"></i> Easy Sharing
                         </li>
                     </ul>
                 </div>
@@ -96,47 +73,72 @@
         </div>
 
         <!-- How to Access -->
-        <div class="bg-gray-900 rounded-3xl p-8 md:p-12 text-white overflow-hidden relative">
-            <div
-                class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-gray-800 to-transparent opacity-50 pointer-events-none">
-            </div>
-            <div class="relative z-10 max-w-2xl">
-                <h2 class="text-3xl font-bold mb-6">How to Access?</h2>
-                <div class="space-y-8">
-                    <div class="flex gap-4">
-                        <div
-                            class="size-8 rounded-full bg-blue-600 flex items-center justify-center font-bold shrink-0">
-                            1</div>
-                        <div>
-                            <h3 class="font-bold text-lg mb-1">Login with Credentials</h3>
-                            <p class="text-gray-400">Use your registered Mobile Number or Email ID along with your
-                                password to log in.</p>
+        <div class="card border-0 shadow-premium rounded-5 overflow-hidden bg-dark text-white p-5 reveal">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="fw-black mb-5">How to Access?</h2>
+                    <div class="d-grid gap-4">
+                        <div class="d-flex gap-3">
+                            <div
+                                class="bg-primary size-40 rounded-circle d-flex align-items-center justify-content-center fw-bold flex-shrink-0">
+                                1</div>
+                            <div>
+                                <h5 class="fw-bold mb-1">Login with Credentials</h5>
+                                <p class="small text-muted mb-0">Use your registered Mobile or Email along with your
+                                    secure password.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex gap-4">
-                        <div
-                            class="size-8 rounded-full bg-blue-600 flex items-center justify-center font-bold shrink-0">
-                            2</div>
-                        <div>
-                            <h3 class="font-bold text-lg mb-1">Verify OTP</h3>
-                            <p class="text-gray-400">For security, you may be asked to verify an OTP sent to your
-                                registered mobile.</p>
+                        <div class="d-flex gap-3">
+                            <div
+                                class="bg-primary size-40 rounded-circle d-flex align-items-center justify-content-center fw-bold flex-shrink-0">
+                                2</div>
+                            <div>
+                                <h5 class="fw-bold mb-1">Identity Verification</h5>
+                                <p class="small text-muted mb-0">For added security, verify the OTP sent to your linked
+                                    mobile number.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex gap-4">
-                        <div
-                            class="size-8 rounded-full bg-blue-600 flex items-center justify-center font-bold shrink-0">
-                            3</div>
-                        <div>
-                            <h3 class="font-bold text-lg mb-1">Access Dashboard</h3>
-                            <p class="text-gray-400">Once logged in, you will be redirected to your dashboard
-                                automatically.</p>
+                        <div class="d-flex gap-3">
+                            <div
+                                class="bg-primary size-40 rounded-circle d-flex align-items-center justify-content-center fw-bold flex-shrink-0">
+                                3</div>
+                            <div>
+                                <h5 class="fw-bold mb-1">Enjoy Full Access</h5>
+                                <p class="small text-muted mb-0">Once logged in, manage all your government interactions
+                                    seamlessly.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-6 text-center d-none d-lg-block">
+                    <i class="bi bi-shield-lock-fill opacity-25 text-primary" style="font-size: 200px;"></i>
+                </div>
             </div>
         </div>
-
     </div>
 </div>
+
+<style>
+    .fw-black {
+        font-weight: 900;
+    }
+
+    .size-64 {
+        width: 64px;
+        height: 64px;
+    }
+
+    .size-40 {
+        width: 40px;
+        height: 40px;
+    }
+
+    .shadow-premium {
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, .3) !important;
+    }
+
+    .leading-relaxed {
+        line-height: 1.7;
+    }
+</style>
 {% endblock %}

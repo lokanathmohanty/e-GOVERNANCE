@@ -1,239 +1,166 @@
-{% extends 'base.html' %}
+{% extends 'base_bootstrap.html' %}
 {% load static %}
 
-{% block title %}Services List - e-Governance Portal{% endblock %}
+{% block title %}Government Services List | e-Governance Portal{% endblock %}
 
 {% block content %}
-<div class="bg-gray-50 dark:bg-background-dark min-h-screen py-12">
-    <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-
-        <div class="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
+<div class="container-fluid bg-light py-5 min-vh-100">
+    <div class="container container-premium">
+        <!-- Header -->
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-5 gap-4 reveal">
             <div>
-                <h1 class="text-3xl font-black text-gray-900 dark:text-white mb-2">Government Services</h1>
-                <p class="text-gray-500">Comprehensive list of all citizen services available online.</p>
+                <h1 class="display-5 fw-black text-dark mb-2">Government Services</h1>
+                <p class="lead text-muted mb-0">Comprehensive list of all citizen services available online.</p>
             </div>
-            <div class="flex gap-2">
-                <button
-                    class="px-4 py-2 bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-bold shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                    <span class="material-symbols-outlined text-lg align-bottom mr-1">tune</span> Filter
+            <div class="d-flex gap-2">
+                <button class="btn btn-white border shadow-sm px-4 py-2 fw-bold">
+                    <i class="bi bi-filter me-2"></i> Filter
                 </button>
-                <button
-                    class="px-4 py-2 bg-primary text-white border border-primary rounded-lg text-sm font-bold shadow-sm hover:bg-primary-dark transition-colors">
-                    <span class="material-symbols-outlined text-lg align-bottom mr-1">download</span> Download List
+                <button class="btn btn-primary shadow-sm px-4 py-2 fw-bold">
+                    <i class="bi bi-download me-2"></i> Download PDF
                 </button>
             </div>
         </div>
 
-        <!-- Categories Grid -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-
+        <div class="row g-4 mb-5">
             <!-- Category 1 -->
-            <div
-                class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 hover:border-primary/50 transition-colors group">
-                <div class="flex items-center gap-4 mb-6">
-                    <div
-                        class="size-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                        <span class="material-symbols-outlined text-2xl">badge</span>
+            <div class="col-md-6 col-lg-4 reveal">
+                <div
+                    class="card border-0 shadow-sm rounded-4 h-100 p-4 hover-shadow border-start border-primary border-4">
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div
+                            class="bg-primary text-white rounded-4 size-56 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-person-badge fs-3"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-0">Certificates</h5>
+                            <span class="badge bg-primary-subtle text-primary rounded-pill">5 Services</span>
+                        </div>
                     </div>
-                    <div>
-                        <h2 class="font-bold text-lg text-gray-900 dark:text-white">Certificates</h2>
-                        <span
-                            class="text-xs text-blue-600 dark:text-blue-400 font-bold bg-blue-50 dark:bg-blue-900/20 px-2 py-0.5 rounded-full">5
-                            Services</span>
-                    </div>
+                    <ul class="list-unstyled mb-0 d-grid gap-3">
+                        <li class="d-flex align-items-center gap-2 text-secondary">
+                            <i class="bi bi-check2-circle text-success"></i> Income Certificate
+                        </li>
+                        <li class="d-flex align-items-center gap-2 text-secondary">
+                            <i class="bi bi-check2-circle text-success"></i> Caste Certificate
+                        </li>
+                        <li class="d-flex align-items-center gap-2 text-secondary">
+                            <i class="bi bi-check2-circle text-success"></i> Residence Certificate
+                        </li>
+                        <li class="d-flex align-items-center gap-2 text-secondary">
+                            <i class="bi bi-check2-circle text-success"></i> Birth Certificate
+                        </li>
+                    </ul>
                 </div>
-                <ul class="space-y-3">
-                    <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Income
-                        Certificate
-                    </li>
-                    <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Caste
-                        Certificate
-                    </li>
-                    <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Residence
-                        Certificate
-                    </li>
-                    <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Birth
-                        Certificate
-                    </li>
-                    <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Death
-                        Certificate
-                    </li>
-                </ul>
             </div>
 
             <!-- Category 2 -->
-            <div
-                class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 hover:border-primary/50 transition-colors group">
-                <div class="flex items-center gap-4 mb-6">
-                    <div
-                        class="size-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center group-hover:bg-purple-600 group-hover:text-white transition-colors">
-                        <span class="material-symbols-outlined text-2xl">family_restroom</span>
+            <div class="col-md-6 col-lg-4 reveal" style="transition-delay: 100ms;">
+                <div class="card border-0 shadow-sm rounded-4 h-100 p-4 hover-shadow border-start border-info border-4">
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div
+                            class="bg-info text-white rounded-4 size-56 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-heart-fill fs-3"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-0">Social Welfare</h5>
+                            <span class="badge bg-info-subtle text-info rounded-pill">3 Services</span>
+                        </div>
                     </div>
-                    <div>
-                        <h2 class="font-bold text-lg text-gray-900 dark:text-white">Social Welfare</h2>
-                        <span
-                            class="text-xs text-purple-600 dark:text-purple-400 font-bold bg-purple-50 dark:bg-purple-900/20 px-2 py-0.5 rounded-full">3
-                            Services</span>
-                    </div>
+                    <ul class="list-unstyled mb-0 d-grid gap-3">
+                        <li class="d-flex align-items-center gap-2 text-secondary">
+                            <i class="bi bi-check2-circle text-success"></i> Old Age Pension
+                        </li>
+                        <li class="d-flex align-items-center gap-2 text-secondary">
+                            <i class="bi bi-check2-circle text-success"></i> Widow Pension
+                        </li>
+                        <li class="d-flex align-items-center gap-2 text-secondary">
+                            <i class="bi bi-check2-circle text-success"></i> Disability Grant
+                        </li>
+                    </ul>
                 </div>
-                <ul class="space-y-3">
-                    <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Old Age
-                        Pension
-                    </li>
-                    <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Widow Pension
-                    </li>
-                    <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Disability
-                        Scholarship
-                    </li>
-                </ul>
             </div>
 
             <!-- Category 3 -->
-            <div
-                class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 hover:border-primary/50 transition-colors group">
-                <div class="flex items-center gap-4 mb-6">
-                    <div
-                        class="size-12 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center group-hover:bg-orange-600 group-hover:text-white transition-colors">
-                        <span class="material-symbols-outlined text-2xl">home_work</span>
+            <div class="col-md-6 col-lg-4 reveal" style="transition-delay: 200ms;">
+                <div
+                    class="card border-0 shadow-sm rounded-4 h-100 p-4 hover-shadow border-start border-warning border-4">
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div
+                            class="bg-warning text-white rounded-4 size-56 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-house-door-fill fs-3"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-0">Land Records</h5>
+                            <span class="badge bg-warning-subtle text-warning rounded-pill">4 Services</span>
+                        </div>
                     </div>
-                    <div>
-                        <h2 class="font-bold text-lg text-gray-900 dark:text-white">Land & Revenue</h2>
-                        <span
-                            class="text-xs text-orange-600 dark:text-orange-400 font-bold bg-orange-50 dark:bg-orange-900/20 px-2 py-0.5 rounded-full">4
-                            Services</span>
-                    </div>
+                    <ul class="list-unstyled mb-0 d-grid gap-3">
+                        <li class="d-flex align-items-center gap-2 text-secondary">
+                            <i class="bi bi-check2-circle text-success"></i> View RoR/Khatiyan
+                        </li>
+                        <li class="d-flex align-items-center gap-2 text-secondary">
+                            <i class="bi bi-check2-circle text-success"></i> Mutation Case
+                        </li>
+                        <li class="d-flex align-items-center gap-2 text-secondary">
+                            <i class="bi bi-check2-circle text-success"></i> Property Tax
+                        </li>
+                    </ul>
                 </div>
-                <ul class="space-y-3">
-                    <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Land Record
-                        View (RoR)
-                    </li>
-                    <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Mutation
-                        Application
-                    </li>
-                    <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Property Tax
-                        Payment
-                    </li>
-                    <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Encumbrance
-                        Certificate
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Category 4 -->
-            <div
-                class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 hover:border-primary/50 transition-colors group">
-                <div class="flex items-center gap-4 mb-6">
-                    <div
-                        class="size-12 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center group-hover:bg-teal-600 group-hover:text-white transition-colors">
-                        <span class="material-symbols-outlined text-2xl">drive_eta</span>
-                    </div>
-                    <div>
-                        <h2 class="font-bold text-lg text-gray-900 dark:text-white">Transport</h2>
-                        <span
-                            class="text-xs text-teal-600 dark:text-teal-400 font-bold bg-teal-50 dark:bg-teal-900/20 px-2 py-0.5 rounded-full">3
-                            Services</span>
-                    </div>
-                </div>
-                <ul class="space-y-3">
-                    <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Driving
-                        License
-                    </li>
-                    <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Vehicle
-                        Registration
-                    </li>
-                    <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Challan
-                        Payment
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Category 5 -->
-            <div
-                class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 hover:border-primary/50 transition-colors group">
-                <div class="flex items-center gap-4 mb-6">
-                    <div
-                        class="size-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center group-hover:bg-red-600 group-hover:text-white transition-colors">
-                        <span class="material-symbols-outlined text-2xl">health_and_safety</span>
-                    </div>
-                    <div>
-                        <h2 class="font-bold text-lg text-gray-900 dark:text-white">Health</h2>
-                        <span
-                            class="text-xs text-red-600 dark:text-red-400 font-bold bg-red-50 dark:bg-red-900/20 px-2 py-0.5 rounded-full">2
-                            Services</span>
-                    </div>
-                </div>
-                <ul class="space-y-3">
-                    <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> OPD Booking
-                    </li>
-                    <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Vaccine
-                        Certificate
-                    </li>
-                </ul>
-            </div>
-            <!-- Category 6 -->
-            <div
-                class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 hover:border-primary/50 transition-colors group">
-                <div class="flex items-center gap-4 mb-6">
-                    <div
-                        class="size-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                        <span class="material-symbols-outlined text-2xl">gavel</span>
-                    </div>
-                    <div>
-                        <h2 class="font-bold text-lg text-gray-900 dark:text-white">Grievance</h2>
-                        <span
-                            class="text-xs text-indigo-600 dark:text-indigo-400 font-bold bg-indigo-50 dark:bg-indigo-900/20 px-2 py-0.5 rounded-full">2
-                            Services</span>
-                    </div>
-                </div>
-                <ul class="space-y-3">
-                    <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> File
-                        Complaint
-                    </li>
-                    <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span> Track
-                        Grievance
-                    </li>
-                </ul>
             </div>
         </div>
 
-        <div class="bg-blue-600 rounded-3xl p-8 md:p-12 text-center text-white relative overflow-hidden">
-            <div class="absolute top-0 right-0 p-12 opacity-10 pointer-events-none">
-                <span class="material-symbols-outlined text-9xl">rocket_launch</span>
-            </div>
-            <h2 class="text-3xl font-black mb-4 relative z-10">Cannot find what you are looking for?</h2>
-            <p class="text-blue-100 mb-8 max-w-xl mx-auto relative z-10">Use our smart search or contact the helpline.
-                We are constantly adding new services to the portal.</p>
-            <div class="relative z-10 flex justify-center gap-4">
+        <!-- CTA Section -->
+        <div
+            class="card border-0 shadow-premium rounded-5 overflow-hidden bg-primary p-5 text-white text-center reveal">
+            <h2 class="fw-black mb-3">Cannot find what you need?</h2>
+            <p class="lead opacity-75 mb-4 max-w-700 mx-auto">Our portal is constantly updated with new services. If you
+                can't find a specific service, visit our help center or search using keywords.</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{% url 'citizen:services' %}" class="btn btn-white btn-lg rounded-pill px-5 fw-bold">Browse All
+                    Services</a>
                 <a href="{% url 'core:help' %}"
-                    class="px-6 py-3 bg-white text-blue-600 font-bold rounded-xl hover:bg-gray-100 transition-colors no-underline">
-                    Visit Help Center
-                </a>
-                <a href="{% url 'citizen:dashboard' %}"
-                    class="px-6 py-3 bg-blue-700 text-white font-bold rounded-xl hover:bg-blue-800 transition-colors no-underline">
-                    Go to Dashboard
-                </a>
+                    class="btn btn-outline-light btn-lg rounded-pill px-5 fw-bold border-2">Visit Help Center</a>
             </div>
         </div>
-
     </div>
 </div>
+
+<style>
+    .fw-black {
+        font-weight: 900;
+    }
+
+    .size-56 {
+        width: 56px;
+        height: 56px;
+    }
+
+    .hover-shadow {
+        transition: all 0.3s;
+    }
+
+    .hover-shadow:hover {
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, .12) !important;
+        transform: translateY(-5px);
+    }
+
+    .btn-white {
+        background: white;
+        color: var(--bs-primary);
+        border: none;
+    }
+
+    .btn-white:hover {
+        background: #f8f9fa;
+    }
+
+    .max-w-700 {
+        max-width: 700px;
+    }
+
+    .shadow-premium {
+        box-shadow: 0 2rem 5rem rgba(var(--bs-primary-rgb), .3) !important;
+    }
+</style>
 {% endblock %}

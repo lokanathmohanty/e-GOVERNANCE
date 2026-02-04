@@ -29,7 +29,7 @@ def dashboard(request):
     
     # Service-wise Distribution
     service_stats = Service.objects.annotate(
-        app_count=Count('application_set')
+        app_count=Count('application')
     ).filter(app_count__gt=0).order_by('-app_count')[:10]
     service_labels = [s.service_name for s in service_stats]
     service_data = [s.app_count for s in service_stats]
@@ -76,9 +76,9 @@ def dashboard(request):
     
     # Department-wise Stats
     dept_stats = Department.objects.annotate(
-        app_count=Count('services__application_set'),
-        approved_count=Count('services__application_set', filter=Q(services__application_set__status='approved')),
-        pending_count=Count('services__application_set', filter=Q(services__application_set__status='pending'))
+        app_count=Count('services__application'),
+        approved_count=Count('services__application', filter=Q(services__application__status='approved')),
+        pending_count=Count('services__application', filter=Q(services__application__status='pending'))
     ).filter(app_count__gt=0)
     
     stats = {
