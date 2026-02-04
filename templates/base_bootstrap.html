@@ -384,10 +384,10 @@
                     </li>
                     <li class="nav-item"><a class="nav-link px-3" href="{% url 'citizen:services' %}"
                             data-i18n="services">Services</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="{% url 'citizen:grievances' %}"
-                            data-i18n="grievance">Grievance</a></li>
                     <li class="nav-item"><a class="nav-link px-3" href="{% url 'core:contact' %}"
                             data-i18n="contact">Contact Us</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="{% url 'citizen:grievances' %}"
+                            data-i18n="grievance">Grievance</a></li>
 
                     <!-- Accessibility Menu -->
                     <li class="nav-item dropdown px-2">
@@ -463,14 +463,6 @@
 
 
 
-                    <!-- Theme Toggle -->
-                    <li class="nav-item">
-                        <button type="button"
-                            class="nav-link d-flex align-items-center justify-content-center bg-light rounded-circle theme-toggle"
-                            id="theme-toggle" style="width: 40px; height: 40px;" title="Toggle Theme">
-                            <span class="material-symbols-outlined fs-5 theme-icon">dark_mode</span>
-                        </button>
-                    </li>
 
                     <!-- Notifications -->
                     <li class="nav-item dropdown px-2">
@@ -635,12 +627,12 @@
                         href="{% url 'citizen:services' %}">
                         <i class="bi bi-grid fs-5"></i> <span>All Services</span>
                     </a>
+                    <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'core:contact' %}">
+                        <i class="bi bi-chat-dots fs-5"></i> <span>Help & Support</span>
+                    </a>
                     <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3"
                         href="{% url 'citizen:grievances' %}">
                         <i class="bi bi-exclamation-triangle fs-5"></i> <span>Grievances</span>
-                    </a>
-                    <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'core:contact' %}">
-                        <i class="bi bi-chat-dots fs-5"></i> <span>Help & Support</span>
                     </a>
                     {% if user.is_authenticated %}
                     <div class="border-top my-3"></div>

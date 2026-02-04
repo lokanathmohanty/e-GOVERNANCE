@@ -130,18 +130,12 @@
                     <a class="px-4 py-1.5 rounded-full text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white hover:shadow-sm transition-all no-underline"
                         href="{% url 'citizen:services' %}" data-i18n="services">Services</a>
                     <a class="px-4 py-1.5 rounded-full text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white hover:shadow-sm transition-all no-underline"
-                        href="{% url 'citizen:grievances' %}" data-i18n="grievance">Grievance</a>
+                        href="{% url 'core:contact' %}" data-i18n="contact">Contact Us</a>
                     <a class="px-4 py-1.5 rounded-full text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white hover:shadow-sm transition-all no-underline"
-                        href="{% url 'core:contact' %}" data-i18n="contact">Contact</a>
+                        href="{% url 'citizen:grievances' %}" data-i18n="grievance">Grievance</a>
                 </nav>
 
-                <div class="flex items-center gap-3 pl-4 border-l border-gray-200 dark:border-gray-700">
-                    <!-- Theme Toggle -->
-                    <button type="button"
-                        class="flex items-center justify-center size-9 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 hover:text-primary transition-all theme-toggle"
-                        id="theme-toggle" aria-label="Toggle Theme">
-                        <span class="material-symbols-outlined text-[22px] theme-icon">dark_mode</span>
-                    </button>
+                <div class="flex items-center gap-2 pl-4 border-l border-gray-200 dark:border-gray-700">
 
                     <!-- Accessibility Menu -->
                     <div class="relative" id="accessibilityMenu">
@@ -228,6 +222,15 @@
 
                     <!-- Notification Bell -->
                     {% if user.is_authenticated %}
+                    <a href="{% if user.role == 'citizen' %}{% url 'citizen:dashboard' %}{% elif user.role == 'officer' or user.role == 'department_head' or user.role == 'admin' %}{% if user.role == 'officer' %}{% url 'officer:dashboard' %}{% elif user.role == 'department_head' %}{% url 'mis:dashboard' %}{% else %}{% url 'admin_panel:dashboard' %}{% endif %}{% else %}#{% endif %}"
+                        class="px-4 py-1.5 rounded-full text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white hover:shadow-sm transition-all no-underline"
+                        {% if user.role=='citizen' %}data-i18n="dashboard" {% elif user.role=='officer'
+                        %}data-i18n="officer_console" {% elif user.role=='department_head' %}data-i18n="analytics" {%
+                        else %}data-i18n="dashboard" {% endif %}>
+                        {% if user.role == 'citizen' %}Dashboard{% elif user.role == 'officer' %}Officer Console{% elif
+                        user.role == 'department_head' %}Analytics{% else %}Admin Console{% endif %}
+                    </a>
+
                     <div class="relative group">
                         <button
                             class="flex items-center justify-center size-9 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 hover:text-primary transition-all relative">
@@ -303,13 +306,6 @@
                     </div>
                     {% endif %}
 
-                    <button
-                        class="flex items-center justify-center size-9 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 hover:text-primary transition-all"
-                        id="themeToggle">
-                        <span class="material-symbols-outlined text-[20px]" id="themeIcon">dark_mode</span>
-                    </button>
-
-                    <div class="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2"></div>
 
                     {% if user.is_authenticated %}
                     <div class="relative group">
@@ -334,10 +330,6 @@
                         <div
                             class="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-[#1a202c] rounded-xl shadow-premium border border-gray-100 dark:border-gray-800 hidden group-hover:block p-2 z-50">
                             {% if user.role == 'citizen' %}
-                            <a href="{% url 'citizen:dashboard' %}"
-                                class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg transition-colors no-underline">
-                                <span class="material-symbols-outlined text-lg">dashboard</span> Dashboard
-                            </a>
                             <a href="{% url 'accounts:profile' %}"
                                 class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg transition-colors no-underline">
                                 <span class="material-symbols-outlined text-lg">person</span> Profile
@@ -347,10 +339,6 @@
                                 <span class="material-symbols-outlined text-lg">folder_shared</span> Locker
                             </a>
                             {% elif user.role == 'officer' or user.role == 'department_head' %}
-                            <a href="{% url 'officer:dashboard' %}"
-                                class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg transition-colors no-underline">
-                                <span class="material-symbols-outlined text-lg">dashboard</span> Officer Dash
-                            </a>
                             {% endif %}
                             <div class="h-px bg-gray-100 dark:bg-gray-700 my-1"></div>
                             <a href="{% url 'accounts:logout' %}"
@@ -403,13 +391,13 @@
                     class="flex items-center gap-4 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-200 hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20 transition-all font-medium no-underline">
                     <span class="material-symbols-outlined">grid_view</span> Services
                 </a>
-                <a href="{% url 'citizen:grievances' %}"
-                    class="flex items-center gap-4 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-200 hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20 transition-all font-medium no-underline">
-                    <span class="material-symbols-outlined">report_problem</span> Grievances
-                </a>
                 <a href="{% url 'core:contact' %}"
                     class="flex items-center gap-4 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-200 hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20 transition-all font-medium no-underline">
                     <span class="material-symbols-outlined">perm_phone_msg</span> Contact Us
+                </a>
+                <a href="{% url 'citizen:grievances' %}"
+                    class="flex items-center gap-4 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-200 hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20 transition-all font-medium no-underline">
+                    <span class="material-symbols-outlined">report_problem</span> Grievances
                 </a>
 
                 <div class="border-t border-gray-100 dark:border-gray-800 my-2"></div>
