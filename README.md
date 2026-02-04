@@ -261,3 +261,23 @@ If you want next:
 - 🌐 **GitHub profile README**
 
 Just tell me 👍
+
+
+
+
+
+# 📸 Screenshots
+🏠 Home Page
+<img width="1920" height="1080" alt="Screenshot 2026-02-04 130401" src="https://github.com/user-attachments/assets/65ddec3d-7177-42fb-99a1-6d4b943dcb5f" />
+
+
+👤 Citizen Dashboard
+<img width="1920" height="1080" alt="Screenshot 2026-02-04 130519" src="https://github.com/user-attachments/assets/c3c61029-33d2-41c2-b51f-a935dc18a22c" />
+
+
+🧑‍💼 Officer Panel
+<img width="1920" height="1080" alt="Screenshot 2026-02-04 130635" src="https://github.com/user-attachments/assets/0bc2ace3-a4c4-46b5-a826-3c02f9e46f02" />
+
+
+🗣️ head panel
+<img width="1920" height="1080" alt="Screenshot 2026-02-04 130804" src="https://github.com/user-attachments/assets/88a6f50e-23dd-40f2-b98e-ec14bd3ea157" />
