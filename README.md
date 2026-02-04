@@ -100,7 +100,6 @@ The system enables citizens to apply for government services, track application 
 
 ## 📂 Project Structure
 
-```text
 Smart-Odisha/
 │
 ├── accounts/
