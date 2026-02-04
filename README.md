@@ -139,42 +139,42 @@ Git
 Steps
 1️⃣ Clone the repository
 bash
-Copy code
+ 
 git clone <repository_url>
 cd smart-odisha
 2️⃣ Create virtual environment
 bash
-Copy code
+ 
 python -m venv venv
 Activate virtual environment
 
 Windows
 
 bash
-Copy code
+ 
 venv\Scripts\activate
 Linux / macOS
 
 bash
-Copy code
+ 
 source venv/bin/activate
 3️⃣ Install dependencies
 bash
-Copy code
+ 
 pip install -r requirements.txt
 4️⃣ Database setup
 bash
-Copy code
+ 
 python manage.py migrate
 python manage.py createsuperuser
 5️⃣ Run server
 bash
-Copy code
+ 
 python manage.py runserver
 Access the application at:
 
 cpp
-Copy code
+ 
 http://127.0.0.1:8000/
 🌐 Deployment
 The application is deployed on Render.
@@ -253,14 +253,14 @@ Multi-language support
 👨‍💻 Developer
 Lokanath Mohanty
 📍 India
-💻 Full Stack Developer (Django)
+💻 Full Stack Developer 
 
 📜 License
 © 2025 Smart Odisha e-Governance Initiative
 All Rights Reserved.
 
 markdown
-Copy code
+
 
 ---
 
@@ -279,5 +279,5 @@ If you want next:
 
 Just tell me 👍
 
-
+thank you ...
 
