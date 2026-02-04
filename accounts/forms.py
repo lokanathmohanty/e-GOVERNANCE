@@ -37,7 +37,7 @@ class CitizenRegistrationForm(UserCreationForm):
         required=True, 
         validators=[phone_validator],
         help_text="10-digit mobile number",
-        widget=forms.TextInput(attrs={'placeholder': '9876543210', 'pattern': '\d{10}'})
+        widget=forms.TextInput(attrs={'placeholder': '9876543210', 'pattern': r'\d{10}'})
     )
     aadhaar_number = forms.CharField(
         max_length=12, 
@@ -45,7 +45,7 @@ class CitizenRegistrationForm(UserCreationForm):
         validators=[aadhaar_validator],
         label="Aadhaar Number",
         help_text="12-digit unique identification number",
-        widget=forms.TextInput(attrs={'placeholder': '1234 5678 9012', 'pattern': '\d{12}'})
+        widget=forms.TextInput(attrs={'placeholder': '1234 5678 9012', 'pattern': r'\d{12}'})
     )
     address = forms.CharField(
         widget=forms.Textarea(attrs={'rows': 3, 'placeholder': 'Enter your full address'}), 
