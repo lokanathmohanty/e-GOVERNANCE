@@ -35,55 +35,6 @@
                 performance</p>
         </div>
         <div class="flex items-center gap-4">
-            <!-- Accessibility Menu (MIS specific) -->
-            <div class="relative group">
-                <button
-                    class="size-11 flex items-center justify-center rounded-xl bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-800 text-gray-500 hover:text-primary transition-all shadow-sm"
-                    title="Accessibility">
-                    <span class="material-symbols-outlined text-xl">universal_accessibility</span>
-                </button>
-                <div class="absolute right-0 top-full mt-2 w-72 bg-white dark:bg-surface-dark rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[100] p-4"
-                    onclick="event.stopPropagation()">
-                    <h6 class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">Accessibility
-                        Settings</h6>
-
-                    <!-- Font Size -->
-                    <div
-                        class="flex items-center justify-between mb-4 pb-4 border-b border-gray-50 dark:border-gray-800">
-                        <span class="text-xs font-bold text-gray-700 dark:text-gray-300">Text Size</span>
-                        <div class="flex items-center gap-2">
-                            <button
-                                class="size-8 rounded-lg bg-gray-50 dark:bg-gray-700 flex items-center justify-center btn-decrease-text">A-</button>
-                            <span class="text-xs font-bold w-10 text-center text-size-display">100%</span>
-                            <button
-                                class="size-8 rounded-lg bg-gray-50 dark:bg-gray-700 flex items-center justify-center btn-increase-text">A+</button>
-                        </div>
-                    </div>
-
-                    <!-- Dark Mode -->
-                    <div
-                        class="flex items-center justify-between mb-4 pb-4 border-b border-gray-50 dark:border-gray-800">
-                        <span class="text-xs font-bold text-gray-700 dark:text-gray-300">Dark Mode</span>
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" class="sr-only peer cb-dark-mode">
-                            <div
-                                class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary">
-                            </div>
-                        </label>
-                    </div>
-
-                    <!-- Language -->
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-bold text-gray-700 dark:text-gray-300">Language</span>
-                        <select
-                            class="text-xs font-bold bg-transparent text-primary outline-none cursor-pointer language-select">
-                            <option value="en">English</option>
-                            <option value="hi">Hindi</option>
-                            <option value="or">Odia</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
 
             <div class="hidden md:flex flex-col items-end">
                 <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Next Refresh</span>
@@ -150,7 +101,7 @@
         </div>
 
         <!-- Overall Efficiency Card -->
-        <div
+        <div---85-85
             class="lg:col-span-4 bg-white dark:bg-surface-dark rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col">
             <div class="px-8 py-6 border-b border-gray-50 dark:border-gray-800">
                 <h3 class="text-lg font-bold text-gray-900 dark:text-white">Platform Efficiency</h3>
@@ -178,122 +129,116 @@
                         service delivery.</p>
                 </div>
             </div>
-        </div>
     </div>
+</div>
 
-    <!-- Officer Performance Table -->
-    <div class="card-premium overflow-hidden">
-        <div class="px-8 py-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50">
-            <h3 class="text-lg font-black text-[#1E293B] dark:text-white tracking-tight">Officer Performance Matrix
-            </h3>
-        </div>
-        <div class="table-responsive-premium">
-            <table class="w-full text-left table-mobile-cards">
-                <thead class="bg-gray-50/80 dark:bg-gray-800/50">
-                    <tr>
-                        <th class="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest">Officer
-                            Name
-                        </th>
-                        <th
-                            class="px-6 py-4 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">
-                            Assigned</th>
-                        <th
-                            class="px-6 py-4 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">
-                            Completed</th>
-                        <th
-                            class="px-6 py-4 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">
-                            Pending</th>
-                        <th class="px-6 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest">Avg Time
-                        </th>
-                        <th class="px-8 py-4 text-right text-[10px] font-black text-gray-400 uppercase tracking-widest">
-                            Status</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
-                    {% for off in officer_stats %}
-                    <tr class="hover:bg-primary/[0.02] transition-colors">
-                        <td class="px-8 py-6" data-label="Officer">
-                            <div class="text-sm font-black text-[#1E293B] dark:text-white">{{ off.name }}
-                            </div>
-                            <div class="text-[10px] font-bold text-gray-400 uppercase tracking-tight">Assigned Officer
-                            </div>
-                        </td>
-                        <td class="px-6 py-6 text-center text-sm font-bold text-[#1E293B] dark:text-white"
-                            data-label="Assigned">{{ off.assigned }}</td>
-                        <td class="px-6 py-6 text-center text-sm font-bold text-emerald-600 dark:text-emerald-400"
-                            data-label="Completed">{{ off.completed }}</td>
-                        <td class="px-6 py-6 text-center text-sm font-bold text-amber-600 dark:text-amber-400"
-                            data-label="Pending">{{ off.pending }}</td>
-                        <td class="px-6 py-6 min-w-[150px]" data-label="Avg Time">
-                            <div class="text-sm font-bold text-gray-700 dark:text-gray-300">{{ off.avg_days }} Days
-                            </div>
-                        </td>
-                        <td class="px-8 py-6 text-right" data-label="Status">
-                            <span
-                                class="px-3 py-1 bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 text-[10px] font-black uppercase tracking-widest rounded-full border border-blue-100">
-                                {% if off.pending == 0 %}Active{% else %}Busy{% endif %}
-                            </span>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+<!-- Officer Performance Table -->
+<div class="card-premium overflow-hidden">
+    <div class="px-8 py-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50">
+        <h3 class="text-lg font-black text-[#1E293B] dark:text-white tracking-tight">Officer Performance Matrix
+        </h3>
     </div>
+    <div class="table-responsive-premium">
+        <table class="w-full text-left table-mobile-cards">
+            <thead class="bg-gray-50/80 dark:bg-gray-800/50">
+                <tr>
+                    <th class="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest">Officer
+                        Name
+                    </th>
+                    <th class="px-6 py-4 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                        Assigned</th>
+                    <th class="px-6 py-4 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                        Completed</th>
+                    <th class="px-6 py-4 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                        Pending</th>
+                    <th class="px-6 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest">Avg Time
+                    </th>
+                    <th class="px-8 py-4 text-right text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                        Status</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+                {% for off in officer_stats %}
+                <tr class="hover:bg-primary/[0.02] transition-colors">
+                    <td class="px-8 py-6" data-label="Officer">
+                        <div class="text-sm font-black text-[#1E293B] dark:text-white">{{ off.name }}
+                        </div>
+                        <div class="text-[10px] font-bold text-gray-400 uppercase tracking-tight">Assigned Officer
+                        </div>
+                    </td>
+                    <td class="px-6 py-6 text-center text-sm font-bold text-[#1E293B] dark:text-white"
+                        data-label="Assigned">{{ off.assigned }}</td>
+                    <td class="px-6 py-6 text-center text-sm font-bold text-emerald-600 dark:text-emerald-400"
+                        data-label="Completed">{{ off.completed }}</td>
+                    <td class="px-6 py-6 text-center text-sm font-bold text-amber-600 dark:text-amber-400"
+                        data-label="Pending">{{ off.pending }}</td>
+                    <td class="px-6 py-6 min-w-[150px]" data-label="Avg Time">
+                        <div class="text-sm font-bold text-gray-700 dark:text-gray-300">{{ off.avg_days }} Days
+                        </div>
+                    </td>
+                    <td class="px-8 py-6 text-right" data-label="Status">
+                        <span
+                            class="px-3 py-1 bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 text-[10px] font-black uppercase tracking-widest rounded-full border border-blue-100">
+                            {% if off.pending == 0 %}Active{% else %}Busy{% endif %}
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 
-    <!-- Department Performance Table -->
-    <div class="card-premium overflow-hidden mt-10">
-        <div class="px-8 py-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50">
-            <h3 class="text-lg font-black text-[#1E293B] dark:text-white tracking-tight">Departmental Performance Matrix
-            </h3>
-        </div>
-        <div class="table-responsive-premium">
-            <table class="w-full text-left table-mobile-cards">
-                <thead class="bg-gray-50/80 dark:bg-gray-800/50">
-                    <tr>
-                        <th class="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest">Department
-                        </th>
-                        <th
-                            class="px-6 py-4 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">
-                            Total Apps</th>
-                        <th
-                            class="px-6 py-4 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">
-                            Approved</th>
-                        <th
-                            class="px-6 py-4 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">
-                            Pending</th>
-                        <th class="px-8 py-4 text-right text-[10px] font-black text-gray-400 uppercase tracking-widest">
-                            Status</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
-                    {% for dept in dept_stats %}
-                    <tr class="hover:bg-primary/[0.02] transition-colors">
-                        <td class="px-8 py-6" data-label="Department">
-                            <div class="text-sm font-black text-[#1E293B] dark:text-white">{{ dept.department_name }}
-                            </div>
-                        </td>
-                        <td class="px-6 py-6 text-center text-sm font-bold text-[#1E293B] dark:text-white"
-                            data-label="Total">{{ dept.app_count }}</td>
-                        <td class="px-6 py-6 text-center text-sm font-bold text-emerald-600 dark:text-emerald-400"
-                            data-label="Approved">{{ dept.approved_count }}</td>
-                        <td class="px-6 py-6 text-center text-sm font-bold text-amber-600 dark:text-amber-400"
-                            data-label="Pending">{{ dept.pending_count }}</td>
-                        <td class="px-8 py-6 text-right" data-label="Status">
-                            <span
-                                class="px-3 py-1 bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full border border-emerald-100">Healthy</span>
-                        </td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="5" class="px-8 py-6 text-center text-gray-400 italic">No departmental data
-                            available</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+<!-- Department Performance Table -->
+<div class="card-premium overflow-hidden mt-10">
+    <div class="px-8 py-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50">
+        <h3 class="text-lg font-black text-[#1E293B] dark:text-white tracking-tight">Departmental Performance Matrix
+        </h3>
     </div>
+    <div class="table-responsive-premium">
+        <table class="w-full text-left table-mobile-cards">
+            <thead class="bg-gray-50/80 dark:bg-gray-800/50">
+                <tr>
+                    <th class="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest">Department
+                    </th>
+                    <th class="px-6 py-4 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                        Total Apps</th>
+                    <th class="px-6 py-4 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                        Approved</th>
+                    <th class="px-6 py-4 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                        Pending</th>
+                    <th class="px-8 py-4 text-right text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                        Status</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+                {% for dept in dept_stats %}
+                <tr class="hover:bg-primary/[0.02] transition-colors">
+                    <td class="px-8 py-6" data-label="Department">
+                        <div class="text-sm font-black text-[#1E293B] dark:text-white">{{ dept.department_name }}
+                        </div>
+                    </td>
+                    <td class="px-6 py-6 text-center text-sm font-bold text-[#1E293B] dark:text-white"
+                        data-label="Total">{{ dept.app_count }}</td>
+                    <td class="px-6 py-6 text-center text-sm font-bold text-emerald-600 dark:text-emerald-400"
+                        data-label="Approved">{{ dept.approved_count }}</td>
+                    <td class="px-6 py-6 text-center text-sm font-bold text-amber-600 dark:text-amber-400"
+                        data-label="Pending">{{ dept.pending_count }}</td>
+                    <td class="px-8 py-6 text-right" data-label="Status">
+                        <span
+                            class="px-3 py-1 bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full border border-emerald-100">Healthy</span>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="px-8 py-6 text-center text-gray-400 italic">No departmental data
+                        available</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 </div>
 
 {{ monthly_labels|json_script:"monthly-labels-data" }}

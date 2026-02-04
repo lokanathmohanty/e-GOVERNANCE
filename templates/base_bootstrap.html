@@ -160,9 +160,17 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
         }
 
-        /* Ensure navbar-collapse is visible on large screens */
+        /* Ensure navbar-collapse is visible on large screens (Laptop 1024px+) */
         @media (min-width: 992px) {
             .navbar-collapse {
+                display: flex !important;
+                flex-basis: auto;
+            }
+        }
+
+        /* Specific fix for 1024px exactly if Bootstrap lg is 992px */
+        @media (min-width: 1024px) {
+            .navbar-expand-lg .navbar-collapse {
                 display: flex !important;
                 flex-basis: auto;
             }
@@ -376,6 +384,8 @@
                     </li>
                     <li class="nav-item"><a class="nav-link px-3" href="{% url 'citizen:services' %}"
                             data-i18n="services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="{% url 'citizen:grievances' %}"
+                            data-i18n="grievance">Grievance</a></li>
                     <li class="nav-item"><a class="nav-link px-3" href="{% url 'core:contact' %}"
                             data-i18n="contact">Contact Us</a></li>
 
@@ -383,7 +393,8 @@
                     <li class="nav-item dropdown px-2">
                         <a class="nav-link d-flex align-items-center justify-content-center bg-light rounded-circle"
                             href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-                            style="width: 40px; height: 40px;" title="Accessibility Settings">
+                            data-bs-auto-close="outside" style="width: 40px; height: 40px;"
+                            title="Accessibility Settings">
                             <i class="bi bi-universal-access-circle text-primary fs-5"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow-premium border-0 mt-3 p-0 overflow-hidden accessibility-dropdown"
@@ -391,14 +402,16 @@
                             <div class="accessibility-section">
                                 <span class="accessibility-label" data-i18n="text_size">Text Size</span>
                                 <div class="font-size-controls">
-                                    <button class="font-size-btn" id="btn-decrease-text">A-</button>
+                                    <button type="button" class="font-size-btn" id="btn-decrease-text"
+                                        onclick="event.stopPropagation()">A-</button>
                                     <div class="font-size-btn" id="text-size-display">100%</div>
-                                    <button class="font-size-btn" id="btn-increase-text">A+</button>
+                                    <button type="button" class="font-size-btn" id="btn-increase-text"
+                                        onclick="event.stopPropagation()">A+</button>
                                 </div>
                             </div>
                             <div class="accessibility-section">
                                 <span class="accessibility-label" data-i18n="language">Language</span>
-                                <select class="language-select" id="language-select">
+                                <select class="language-select" id="language-select" onclick="event.stopPropagation()">
                                     <option value="en">English</option>
                                     <option value="hi">Hindi (हिंदी)</option>
                                     <option value="or">Odia (ଓଡ଼ିଆ)</option>
@@ -423,8 +436,9 @@
                                 </div>
                             </div>
                             <div class="p-2 text-center bg-light">
-                                <button class="btn btn-sm btn-link text-muted text-decoration-none" id="btn-reset-text"
-                                    data-i18n="reset">Reset Settings</button>
+                                <button type="button" class="btn btn-sm btn-link text-muted text-decoration-none"
+                                    id="btn-reset-text" data-i18n="reset" onclick="event.stopPropagation()">Reset
+                                    Settings</button>
                             </div>
                         </ul>
                     </li>
@@ -451,9 +465,9 @@
 
                     <!-- Theme Toggle -->
                     <li class="nav-item">
-                        <button
+                        <button type="button"
                             class="nav-link d-flex align-items-center justify-content-center bg-light rounded-circle theme-toggle"
-                            id="theme-toggle" role="button" style="width: 40px; height: 40px;" title="Toggle Theme">
+                            id="theme-toggle" style="width: 40px; height: 40px;" title="Toggle Theme">
                             <span class="material-symbols-outlined fs-5 theme-icon">dark_mode</span>
                         </button>
                     </li>
@@ -620,6 +634,10 @@
                     <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3"
                         href="{% url 'citizen:services' %}">
                         <i class="bi bi-grid fs-5"></i> <span>All Services</span>
+                    </a>
+                    <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3"
+                        href="{% url 'citizen:grievances' %}">
+                        <i class="bi bi-exclamation-triangle fs-5"></i> <span>Grievances</span>
                     </a>
                     <a class="nav-link rounded-3 d-flex align-items-center gap-3 py-3" href="{% url 'core:contact' %}">
                         <i class="bi bi-chat-dots fs-5"></i> <span>Help & Support</span>

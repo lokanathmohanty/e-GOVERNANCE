@@ -1,238 +1,335 @@
 /**
- * Accessibility Manager
- * Handles font size, contrast, and language preferences
+ * Accessibility & Localization Manager
+ * Handles text sizing, high contrast, dark mode, and client-side translations.
  */
 
-class AccessibilityManager {
-    constructor() {
-        this.fontSizes = {
-            small: 0.875,
-            normal: 1,
-            large: 1.125,
-            xlarge: 1.25
-        };
-        this.currentFontSize = 'normal';
-        this.highContrast = false;
-        this.currentLanguage = 'en';
+const AccessibilityManager = {
+    settings: {
+        fontSize: 100, // percentage
+        highContrast: false,
+        darkMode: false,
+        language: 'en'
+    },
 
-        this.init();
-    }
+    translations: {
+        'en': {
+            'home': 'Home',
+            'services': 'Services',
+            'contact': 'Contact Us',
+            'dashboard': 'My Dashboard',
+            'officer_console': 'Officer Console',
+            'analytics': 'Analytics',
+            'login': 'Login',
+            'logout': 'Logout',
+            'profile': 'My Profile',
+            'search': 'Search',
+            'notifications': 'Notifications',
+            'accessibility': 'Accessibility',
+            'text_size': 'Text Size',
+            'theme': 'Theme',
+            'dark_mode': 'Dark Mode',
+            'high_contrast': 'High Contrast',
+            'language': 'Language',
+            'reset': 'Reset',
+            'welcome': 'Welcome'
+        },
+        'hi': {
+            'home': 'मुखपृष्ठ',
+            'services': 'सेवाएं',
+            'contact': 'संपर्क करें',
+            'dashboard': 'मेरा डैशबोर्ड',
+            'officer_console': 'अधिकारी कंसोल',
+            'analytics': 'विश्लेषण',
+            'login': 'लॉगिन',
+            'logout': 'लॉग आउट',
+            'profile': 'मेरी प्रोफाइल',
+            'search': 'खोजें',
+            'notifications': 'सूचनाएं',
+            'accessibility': 'पहुंच-योग्यता',
+            'text_size': 'लेखा का आकार',
+            'theme': 'प्रसंग',
+            'dark_mode': 'डार्क मोड',
+            'high_contrast': 'उच्च कंट्रास्ट',
+            'language': 'भाषा',
+            'reset': 'रीसेट',
+            'welcome': 'स्वागत'
+        },
+        'or': {
+            'home': 'ମୂଳ ପୃଷ୍ଠା',
+            'services': 'ସେବା',
+            'contact': 'ଯୋଗାଯୋଗ',
+            'dashboard': 'ମୋର ଡ୍ୟାସବୋର୍ଡ',
+            'officer_console': 'ଅଧିକାରୀ କନସୋଲ',
+            'analytics': 'ବିଶ୍ଳେଷଣ',
+            'login': 'ଲଗ୍ ଇନ୍',
+            'logout': 'ଲଗ୍ ଆଉଟ୍',
+            'profile': 'ମୋର ପ୍ରୋଫାଇଲ୍',
+            'search': 'ସନ୍ଧାନ',
+            'notifications': 'ବିଜ୍ଞପ୍ତି',
+            'accessibility': 'ସୁଗମତା',
+            'text_size': 'ପାଠ୍ୟ ଆକାର',
+            'theme': 'ଥିମ୍',
+            'dark_mode': 'ଡାର୍କ ମୋଡ୍',
+            'high_contrast': 'ଉଚ୍ଚ କଣ୍ଟ୍ରାଷ୍ଟ',
+            'language': 'ଭାଷା',
+            'reset': 'ରିସେଟ୍',
+            'welcome': 'ସ୍ୱାଗତ'
+        }
+    },
 
     init() {
-        // Load saved preferences
-        this.loadPreferences();
+        this.loadSettings();
+        this.applySettings();
+        this.bindEvents();
+    },
 
-        // Apply saved settings
+    loadSettings() {
+        const saved = localStorage.getItem('accessibility_settings');
+        if (saved) {
+            this.settings = { ...this.settings, ...JSON.parse(saved) };
+        } else {
+            // Check system preference for dark mode
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                this.settings.darkMode = true;
+            }
+        }
+    },
+
+    saveSettings() {
+        localStorage.setItem('accessibility_settings', JSON.stringify(this.settings));
+    },
+
+    applySettings() {
         this.applyFontSize();
-        this.applyContrast();
+        this.applyTheme();
         this.applyLanguage();
-
-        // Setup event listeners
-        this.setupEventListeners();
-    }
-
-    loadPreferences() {
-        this.currentFontSize = localStorage.getItem('fontSize') || 'normal';
-        this.highContrast = localStorage.getItem('highContrast') === 'true';
-        this.currentLanguage = localStorage.getItem('language') || 'en';
-    }
-
-    setupEventListeners() {
-        // Font size controls
-        const fontSizeButtons = document.querySelectorAll('[data-font-size]');
-        fontSizeButtons.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const size = e.currentTarget.dataset.fontSize;
-                this.setFontSize(size);
-            });
-        });
-
-        // Contrast toggle
-        const contrastToggle = document.getElementById('contrastToggle');
-        if (contrastToggle) {
-            contrastToggle.addEventListener('click', () => {
-                this.toggleContrast();
-            });
-        }
-
-        // Language selector
-        const languageSelect = document.getElementById('languageSelect');
-        if (languageSelect) {
-            languageSelect.addEventListener('change', (e) => {
-                this.setLanguage(e.target.value);
-            });
-        }
-    }
-
-    setFontSize(size) {
-        if (!this.fontSizes[size]) return;
-
-        this.currentFontSize = size;
-        localStorage.setItem('fontSize', size);
-        this.applyFontSize();
-
-        // Update active state
-        document.querySelectorAll('[data-font-size]').forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.fontSize === size);
-        });
-    }
+    },
 
     applyFontSize() {
-        const multiplier = this.fontSizes[this.currentFontSize];
-        document.documentElement.style.fontSize = `${multiplier * 16}px`;
-
-        // Update active button state
-        document.querySelectorAll('[data-font-size]').forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.fontSize === this.currentFontSize);
+        document.documentElement.style.fontSize = `${this.settings.fontSize}%`;
+        // Update displays
+        document.querySelectorAll('#text-size-display, #text-size-display-mobile, .text-size-display').forEach(el => {
+            el.textContent = `${this.settings.fontSize}%`;
         });
-    }
+    },
 
-    toggleContrast() {
-        this.highContrast = !this.highContrast;
-        localStorage.setItem('highContrast', this.highContrast);
-        this.applyContrast();
-    }
+    applyTheme() {
+        const html = document.documentElement;
 
-    applyContrast() {
-        if (this.highContrast) {
-            document.documentElement.classList.add('high-contrast');
+        // Dark Mode
+        if (this.settings.darkMode) {
+            html.classList.add('dark');
+            html.setAttribute('data-bs-theme', 'dark');
         } else {
-            document.documentElement.classList.remove('high-contrast');
+            html.classList.remove('dark');
+            html.setAttribute('data-bs-theme', 'light');
         }
 
-        // Update button icon
-        const contrastIcon = document.getElementById('contrastIcon');
-        if (contrastIcon) {
-            contrastIcon.textContent = this.highContrast ? 'contrast' : 'contrast';
+        // High Contrast
+        if (this.settings.highContrast) {
+            html.classList.add('high-contrast');
+        } else {
+            html.classList.remove('high-contrast');
         }
-    }
 
-    setLanguage(lang) {
-        this.currentLanguage = lang;
-        localStorage.setItem('language', lang);
-        this.applyLanguage();
-    }
+        // Update Theme Icons if they exist
+        const themeIcons = document.querySelectorAll('#themeIcon, #theme-icon, .theme-icon');
+        themeIcons.forEach(icon => {
+            if (icon.classList.contains('material-symbols-outlined')) {
+                icon.textContent = this.settings.darkMode ? 'light_mode' : 'dark_mode';
+            } else if (icon.tagName === 'I') { // Bootstrap Icons
+                icon.className = this.settings.darkMode ? 'bi bi-sun-fill' : 'bi bi-moon-fill';
+            }
+        });
+    },
 
     applyLanguage() {
-        // Update language selector
-        const languageSelect = document.getElementById('languageSelect');
-        if (languageSelect) {
-            languageSelect.value = this.currentLanguage;
-        }
-
-        // Translate page content
-        this.translatePage();
-    }
-
-    translatePage() {
+        // Simple data-i18n replacement
         const elements = document.querySelectorAll('[data-i18n]');
-        elements.forEach(element => {
-            const key = element.dataset.i18n;
-            const translation = this.getTranslation(key);
-            if (translation) {
-                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                    element.placeholder = translation;
+        const langData = this.translations[this.settings.language];
+
+        if (!langData) return;
+
+        elements.forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (langData[key]) {
+                if (el.tagName === 'INPUT' && el.type === 'placeholder') {
+                    el.placeholder = langData[key];
                 } else {
-                    element.textContent = translation;
+                    el.textContent = langData[key];
                 }
             }
         });
-    }
 
-    getTranslation(key) {
-        const translations = {
-            en: {
-                'nav.home': 'Home',
-                'nav.services': 'Services',
-                'nav.grievance': 'Grievance',
-                'nav.contact': 'Contact Us',
-                'nav.dashboard': 'Dashboard',
-                'nav.locker': 'Locker',
-                'nav.login': 'Citizen Login',
-                'nav.logout': 'Logout',
-                'footer.about': 'About Portal',
-                'footer.services': 'Services List',
-                'footer.help': 'Help & PDF',
-                'footer.manuals': 'User Manuals',
-                'footer.contact': 'Contact Support',
-                'footer.privacy': 'Privacy Policy',
-                'footer.terms': 'Terms of Use',
-                'footer.accessibility': 'Accessibility',
-                'accessibility.font_size': 'Font Size',
-                'accessibility.contrast': 'High Contrast',
-                'accessibility.language': 'Language',
-                'notifications.title': 'Notifications',
-                'notifications.mark_all': 'Mark all read',
-                'notifications.view_all': 'View All History',
-                'notifications.no_new': 'No new notifications'
-            },
-            hi: {
-                'nav.home': 'होम',
-                'nav.services': 'सेवाएं',
-                'nav.grievance': 'शिकायत',
-                'nav.contact': 'संपर्क करें',
-                'nav.dashboard': 'डैशबोर्ड',
-                'nav.locker': 'लॉकर',
-                'nav.login': 'नागरिक लॉगिन',
-                'nav.logout': 'लॉगआउट',
-                'footer.about': 'पोर्टल के बारे में',
-                'footer.services': 'सेवाओं की सूची',
-                'footer.help': 'सहायता और PDF',
-                'footer.manuals': 'उपयोगकर्ता मैनुअल',
-                'footer.contact': 'संपर्क सहायता',
-                'footer.privacy': 'गोपनीयता नीति',
-                'footer.terms': 'उपयोग की शर्तें',
-                'footer.accessibility': 'पहुंच',
-                'accessibility.font_size': 'फ़ॉन्ट आकार',
-                'accessibility.contrast': 'उच्च कंट्रास्ट',
-                'accessibility.language': 'भाषा',
-                'notifications.title': 'सूचनाएं',
-                'notifications.mark_all': 'सभी को पढ़ा हुआ चिह्नित करें',
-                'notifications.view_all': 'सभी इतिहास देखें',
-                'notifications.no_new': 'कोई नई सूचना नहीं'
-            },
-            es: {
-                'nav.home': 'Inicio',
-                'nav.services': 'Servicios',
-                'nav.grievance': 'Queja',
-                'nav.contact': 'Contáctenos',
-                'nav.dashboard': 'Panel',
-                'nav.locker': 'Casillero',
-                'nav.login': 'Inicio de sesión ciudadano',
-                'nav.logout': 'Cerrar sesión',
-                'footer.about': 'Acerca del portal',
-                'footer.services': 'Lista de servicios',
-                'footer.help': 'Ayuda y PDF',
-                'footer.manuals': 'Manuales de usuario',
-                'footer.contact': 'Contactar soporte',
-                'footer.privacy': 'Política de privacidad',
-                'footer.terms': 'Términos de uso',
-                'footer.accessibility': 'Accesibilidad',
-                'accessibility.font_size': 'Tamaño de fuente',
-                'accessibility.contrast': 'Alto contraste',
-                'accessibility.language': 'Idioma',
-                'notifications.title': 'Notificaciones',
-                'notifications.mark_all': 'Marcar todo como leído',
-                'notifications.view_all': 'Ver todo el historial',
-                'notifications.no_new': 'No hay nuevas notificaciones'
-            }
+        // Update select value
+        const langSelect = document.getElementById('language-select');
+        if (langSelect) langSelect.value = this.settings.language;
+    },
+
+    // Actions
+    increaseFont() {
+        if (this.settings.fontSize < 150) {
+            this.settings.fontSize += 10;
+            this.saveSettings();
+            this.applyFontSize();
+        }
+    },
+
+    decreaseFont() {
+        if (this.settings.fontSize > 70) {
+            this.settings.fontSize -= 10;
+            this.saveSettings();
+            this.applyFontSize();
+        }
+    },
+
+    resetFont() {
+        this.settings.fontSize = 100;
+        this.saveSettings();
+        this.applyFontSize();
+    },
+
+    toggleHighContrast() {
+        this.settings.highContrast = !this.settings.highContrast;
+        // High contrast forces light mode usually, unless specific high-contrast-dark exists
+        // if (this.settings.highContrast) this.settings.darkMode = false; 
+        this.saveSettings();
+        this.applyTheme();
+    },
+
+    toggleDarkMode() {
+        this.settings.darkMode = !this.settings.darkMode;
+        this.saveSettings();
+        this.applyTheme();
+    },
+
+    setLanguage(lang) {
+        if (this.translations[lang]) {
+            this.settings.language = lang;
+            this.saveSettings();
+            this.applyLanguage();
+
+            // Optional: If backend language support exists, trigger it here too
+            // document.cookie = `django_language=${lang}; path=/`;
+        }
+    },
+
+    bindEvents() {
+        // Font Size controls (Supports IDs and Classes for multiple instances)
+        const fontActions = [
+            { id: 'btn-increase-text', class: 'btn-increase-text', action: () => this.increaseFont() },
+            { id: 'btn-decrease-text', class: 'btn-decrease-text', action: () => this.decreaseFont() },
+            { id: 'btn-reset-text', class: 'btn-reset-text', action: () => this.resetFont() },
+            { id: 'btn-increase-text-mobile', class: 'btn-increase-text-mobile', action: () => this.increaseFont() },
+            { id: 'btn-decrease-text-mobile', class: 'btn-decrease-text-mobile', action: () => this.decreaseFont() }
+        ];
+
+        fontActions.forEach(item => {
+            const el = document.getElementById(item.id);
+            if (el) el.addEventListener('click', (e) => {
+                e.stopPropagation();
+                item.action();
+            });
+            document.querySelectorAll(`.${item.class}`).forEach(btn => {
+                if (btn !== el) btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    item.action();
+                });
+            });
+        });
+
+        // Toggle Sync Helper
+        const bindToggles = (type, idArr, classArr, stateKey, onApply) => {
+            const elements = new Set();
+            idArr.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) elements.add(el);
+            });
+            classArr.forEach(cls => {
+                document.querySelectorAll(`.${cls}`).forEach(el => elements.add(el));
+            });
+
+            elements.forEach(toggle => {
+                toggle.checked = this.settings[stateKey];
+                toggle.addEventListener('change', (e) => {
+                    e.stopPropagation();
+                    this.settings[stateKey] = e.target.checked;
+                    this.saveSettings();
+                    onApply();
+                    // Sync all other toggles of the same type
+                    elements.forEach(other => {
+                        if (other !== e.target) other.checked = e.target.checked;
+                    });
+                });
+                // Also stop click propagation for the parent label/div
+                toggle.addEventListener('click', (e) => e.stopPropagation());
+            });
         };
 
-        return translations[this.currentLanguage]?.[key] || null;
-    }
+        // High Contrast
+        bindToggles(
+            'high-contrast',
+            ['cb-high-contrast', 'cb-high-contrast-mobile'],
+            ['cb-high-contrast'],
+            'highContrast',
+            () => this.applyTheme()
+        );
 
-    // Public method to get current settings
-    getSettings() {
-        return {
-            fontSize: this.currentFontSize,
-            highContrast: this.highContrast,
-            language: this.currentLanguage
-        };
-    }
-}
+        // Dark Mode
+        bindToggles(
+            'dark-mode',
+            ['cb-dark-mode', 'cb-dark-mode-mobile'],
+            ['cb-dark-mode', 'theme-toggle-cb'],
+            'darkMode',
+            () => this.applyTheme()
+        );
 
-// Initialize on page load
-let accessibilityManager;
+        // Language Select Sync
+        const langSelectors = new Set();
+        ['language-select', 'language-select-mobile'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) langSelectors.add(el);
+        });
+        document.querySelectorAll('.language-select').forEach(el => langSelectors.add(el));
+
+        langSelectors.forEach(select => {
+            select.value = this.settings.language;
+            select.addEventListener('change', (e) => {
+                e.stopPropagation();
+                const lang = e.target.value;
+                this.setLanguage(lang);
+                // Sync others
+                langSelectors.forEach(other => {
+                    if (other !== e.target) other.value = lang;
+                });
+            });
+            select.addEventListener('click', (e) => e.stopPropagation());
+        });
+    }
+};
+
+// Global initialization
 document.addEventListener('DOMContentLoaded', () => {
-    accessibilityManager = new AccessibilityManager();
+    // Initialize the manager
+    AccessibilityManager.init();
+
+    // Assign to window for global access
+    window.accessibilityManager = AccessibilityManager;
+
+    // Quick theme toggle helper for specific simple buttons if needed
+    const themeBtns = document.querySelectorAll('#theme-toggle, #themeToggle, .theme-toggle');
+    themeBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isDark = document.documentElement.classList.contains('dark');
+            AccessibilityManager.settings.darkMode = !isDark;
+            AccessibilityManager.saveSettings();
+            AccessibilityManager.applyTheme();
+
+            // Sync all related toggle switches
+            document.querySelectorAll('#cb-dark-mode, #cb-dark-mode-mobile, .cb-dark-mode').forEach(cb => {
+                cb.checked = !isDark;
+            });
+        });
+    });
 });

@@ -32,6 +32,8 @@
 /* High Contrast Mode */
 html.high-contrast {
     --primary: #0066ff;
+    --primary-color: #0066ff;
+    /* Match base_bootstrap.html variable */
     --text-color: #000000;
     --bg-color: #ffffff;
     --border-color: #000000;
@@ -73,23 +75,28 @@ html.high-contrast textarea {
     position: absolute;
     right: 0;
     top: 100%;
-    margin-top: 0.5rem;
-    background: white;
-    border-radius: 0.75rem;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-    border: 1px solid #e5e7eb;
-    min-width: 280px;
+    margin-top: 1rem;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border-radius: 1.25rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    min-width: 300px;
     z-index: 1000;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.2s ease;
+    transform: translateY(15px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
 }
 
 .dark .accessibility-dropdown {
-    background: #1a202c;
-    border-color: #2d3748;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    background: rgba(26, 32, 44, 0.85);
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .accessibility-dropdown.show {
@@ -267,9 +274,17 @@ html.high-contrast textarea {
     color: #185fec;
 }
 
-/* Smooth transitions for font size changes */
+/* Smooth transitions for font size changes and theme */
 * {
-    transition: font-size 0.3s ease;
+    transition: font-size 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
+}
+
+.shadow-premium {
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15) !important;
+}
+
+.dark .shadow-premium {
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4) !important;
 }
 
 /* Skip to main content link for screen readers */
@@ -286,4 +301,61 @@ html.high-contrast textarea {
 
 .skip-to-main:focus {
     top: 0;
+}
+
+/* Enhanced High Contrast Overrides */
+html.high-contrast .bg-light,
+html.high-contrast .bg-white,
+html.high-contrast .card,
+html.high-contrast .navbar,
+html.high-contrast .modal-content,
+html.high-contrast .dropdown-menu,
+html.high-contrast .offcanvas {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #000000 !important;
+    box-shadow: none !important;
+}
+
+html.high-contrast .text-muted,
+html.high-contrast .text-secondary {
+    color: #000000 !important;
+}
+
+html.high-contrast .text-primary,
+html.high-contrast .text-success,
+html.high-contrast .text-danger,
+html.high-contrast .text-warning {
+    color: #000000 !important;
+    background-color: #ffff00 !important;
+    /* Yellow highlight for emphasis */
+    padding: 0 2px;
+}
+
+html.high-contrast .btn-primary,
+html.high-contrast .btn-success,
+html.high-contrast .btn-danger,
+html.high-contrast .bg-primary {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+}
+
+html.high-contrast a {
+    text-decoration: underline !important;
+    font-weight: bold !important;
+}
+
+html.high-contrast input,
+html.high-contrast select {
+    border: 2px solid #000000 !important;
+    color: #000000 !important;
+    background-color: #ffffff !important;
+}
+
+/* Ensure focus states are very visible */
+html.high-contrast *:focus {
+    outline: 3px solid #ffff00 !important;
+    outline-offset: 2px;
 }

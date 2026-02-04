@@ -226,9 +226,15 @@ const AccessibilityManager = {
 
         fontActions.forEach(item => {
             const el = document.getElementById(item.id);
-            if (el) el.addEventListener('click', item.action);
+            if (el) el.addEventListener('click', (e) => {
+                e.stopPropagation();
+                item.action();
+            });
             document.querySelectorAll(`.${item.class}`).forEach(btn => {
-                if (btn !== el) btn.addEventListener('click', item.action);
+                if (btn !== el) btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    item.action();
+                });
             });
         });
 
@@ -246,6 +252,7 @@ const AccessibilityManager = {
             elements.forEach(toggle => {
                 toggle.checked = this.settings[stateKey];
                 toggle.addEventListener('change', (e) => {
+                    e.stopPropagation();
                     this.settings[stateKey] = e.target.checked;
                     this.saveSettings();
                     onApply();
@@ -254,6 +261,8 @@ const AccessibilityManager = {
                         if (other !== e.target) other.checked = e.target.checked;
                     });
                 });
+                // Also stop click propagation for the parent label/div
+                toggle.addEventListener('click', (e) => e.stopPropagation());
             });
         };
 
@@ -286,6 +295,7 @@ const AccessibilityManager = {
         langSelectors.forEach(select => {
             select.value = this.settings.language;
             select.addEventListener('change', (e) => {
+                e.stopPropagation();
                 const lang = e.target.value;
                 this.setLanguage(lang);
                 // Sync others
@@ -293,6 +303,7 @@ const AccessibilityManager = {
                     if (other !== e.target) other.value = lang;
                 });
             });
+            select.addEventListener('click', (e) => e.stopPropagation());
         });
     }
 };
@@ -306,9 +317,10 @@ document.addEventListener('DOMContentLoaded', () => {
     window.accessibilityManager = AccessibilityManager;
 
     // Quick theme toggle helper for specific simple buttons if needed
-    const themeBtn = document.getElementById('theme-toggle') || document.getElementById('themeToggle');
-    if (themeBtn) {
-        themeBtn.addEventListener('click', () => {
+    const themeBtns = document.querySelectorAll('#theme-toggle, #themeToggle, .theme-toggle');
+    themeBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
             const isDark = document.documentElement.classList.contains('dark');
             AccessibilityManager.settings.darkMode = !isDark;
             AccessibilityManager.saveSettings();
@@ -319,5 +331,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 cb.checked = !isDark;
             });
         });
-    }
+    });
 });

@@ -121,7 +121,7 @@
                 </div>
             </a>
 
-            <!-- Desktop Navigation -->
+            <!-- Desktop Navigation (Visible on MD 768px and up, explicitly good for 1024px) -->
             <div class="hidden md:flex flex-1 justify-end gap-8 items-center">
                 <nav
                     class="flex items-center gap-1 bg-gray-50 dark:bg-gray-800/50 p-1.5 rounded-full border border-gray-100 dark:border-gray-700/50">
@@ -137,7 +137,7 @@
 
                 <div class="flex items-center gap-3 pl-4 border-l border-gray-200 dark:border-gray-700">
                     <!-- Theme Toggle -->
-                    <button
+                    <button type="button"
                         class="flex items-center justify-center size-9 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 hover:text-primary transition-all theme-toggle"
                         id="theme-toggle" aria-label="Toggle Theme">
                         <span class="material-symbols-outlined text-[22px] theme-icon">dark_mode</span>
@@ -145,7 +145,7 @@
 
                     <!-- Accessibility Menu -->
                     <div class="relative" id="accessibilityMenu">
-                        <button
+                        <button type="button"
                             class="flex items-center justify-center size-9 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 hover:text-primary transition-all"
                             id="accessibilityToggle" aria-label="Accessibility Options">
                             <span class="material-symbols-outlined text-[22px]">universal_accessibility</span>
@@ -166,14 +166,14 @@
                                         class="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-2"
                                         data-i18n="text_size">Text Size</label>
                                     <div class="flex items-center gap-2">
-                                        <button
+                                        <button type="button"
                                             class="size-8 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-primary/10 transition-colors"
-                                            id="btn-decrease-text">A-</button>
+                                            id="btn-decrease-text" onclick="event.stopPropagation()">A-</button>
                                         <div class="flex-1 text-center font-bold text-sm" id="text-size-display">100%
                                         </div>
-                                        <button
+                                        <button type="button"
                                             class="size-8 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-primary/10 transition-colors"
-                                            id="btn-increase-text">A+</button>
+                                            id="btn-increase-text" onclick="event.stopPropagation()">A+</button>
                                     </div>
                                 </div>
 
@@ -184,7 +184,7 @@
                                         data-i18n="language">Language</label>
                                     <select
                                         class="w-full bg-gray-50 dark:bg-gray-800 border-none rounded-xl text-sm font-bold p-2.5 focus:ring-2 focus:ring-primary/20 cursor-pointer"
-                                        id="language-select">
+                                        id="language-select" onclick="event.stopPropagation()">
                                         <option value="en">English (English)</option>
                                         <option value="hi">हिन्दी (Hindi)</option>
                                         <option value="or">ଓଡିଆ (Odia)</option>
@@ -450,14 +450,14 @@
                         <div class="flex items-center justify-between">
                             <span class="text-sm font-bold text-gray-700 dark:text-gray-300">Text Size</span>
                             <div class="flex items-center gap-2">
-                                <button
+                                <button type="button"
                                     class="size-8 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center"
-                                    id="btn-decrease-text-mobile">A-</button>
+                                    id="btn-decrease-text-mobile" onclick="event.stopPropagation()">A-</button>
                                 <span class="font-bold text-sm w-12 text-center"
                                     id="text-size-display-mobile">100%</span>
-                                <button
+                                <button type="button"
                                     class="size-8 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center"
-                                    id="btn-increase-text-mobile">A+</button>
+                                    id="btn-increase-text-mobile" onclick="event.stopPropagation()">A+</button>
                             </div>
                         </div>
 
