@@ -30,10 +30,10 @@
                         "primary": "#D97706",
                         "primary-dark": "#B45309",
                         "primary-light": "#FCD34D",
-                        "background-light": "#fff5e6",
-                        "background-dark": "#101622",
+                        "background-light": "#F8FAFC",
+                        "background-dark": "#0F172A",
                         "surface-light": "#ffffff",
-                        "surface-dark": "#1a202c",
+                        "surface-dark": "#1E293B",
                         "success": "#059669",
                         "error": "#d32f2f",
                         "warning": "#d97706",
@@ -100,9 +100,12 @@
 
 <body
     class="bg-background-light dark:bg-background-dark text-[#111318] dark:text-white font-display flex flex-col min-h-screen overflow-x-hidden">
+    <a href="#main-content"
+        class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-[100] px-4 py-2 bg-primary text-white font-bold rounded-lg shadow-lg">Skip
+        to main content</a>
     <!-- Navbar -->
     <header
-        class="sticky top-0 z-50 bg-white/90 dark:bg-[#1a202c]/90 backdrop-blur-md border-b border-[#e5e7eb] dark:border-[#2d3748] shadow-sm transition-all duration-300"
+        class="sticky top-0 z-50 bg-surface-light/90 dark:bg-surface-dark/90 backdrop-blur-md border-b border-[#e5e7eb] dark:border-[#2d3748] shadow-sm transition-all duration-300"
         id="mainHeader">
         <div class="max-w-[1280px] mx-auto px-4 md:px-8 py-3 flex items-center justify-between">
             <a href="{% url 'core:home' %}"
@@ -224,8 +227,8 @@
                     {% if user.is_authenticated %}
                     <a href="{% if user.role == 'citizen' %}{% url 'citizen:dashboard' %}{% elif user.role == 'officer' or user.role == 'department_head' or user.role == 'admin' %}{% if user.role == 'officer' %}{% url 'officer:dashboard' %}{% elif user.role == 'department_head' %}{% url 'mis:dashboard' %}{% else %}{% url 'admin_panel:dashboard' %}{% endif %}{% else %}#{% endif %}"
                         class="px-4 py-1.5 rounded-full text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white hover:shadow-sm transition-all no-underline"
-                        {% if user.role == 'citizen' %}data-i18n="dashboard" {% elif user.role == 'officer'
-                        %}data-i18n="officer_console" {% elif user.role == 'department_head' %}data-i18n="analytics" {%
+                        {% if user.role=='citizen' %}data-i18n="dashboard" {% elif user.role=='officer'
+                        %}data-i18n="officer_console" {% elif user.role=='department_head' %}data-i18n="analytics" {%
                         else %}data-i18n="dashboard" {% endif %}>
                         {% if user.role == 'citizen' %}Dashboard{% elif user.role == 'officer' %}Officer Console{% elif
                         user.role == 'department_head' %}Analytics{% else %}Admin Console{% endif %}
@@ -498,7 +501,7 @@
     </div>
 
     <!-- Main Content -->
-    <main class="flex-grow page-load-animation">
+    <main class="flex-grow page-load-animation" id="main-content">
         {% if messages %}
         <div class="max-w-[1280px] mx-auto px-4 mt-4">
             {% for message in messages %}

@@ -1,6 +1,6 @@
 ﻿{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 
 <head>
     <meta charset="UTF-8">
@@ -39,10 +39,10 @@
                         "primary": "#D97706",
                         "primary-dark": "#B45309",
                         "primary-light": "#FCD34D",
-                        "background-light": "#fff5e6",
-                        "background-dark": "#101622",
+                        "background-light": "#F8FAFC",
+                        "background-dark": "#0F172A",
                         "surface-light": "#ffffff",
-                        "surface-dark": "#1a202c",
+                        "surface-dark": "#1E293B",
                         "success": "#059669",
                         "error": "#d32f2f",
                         "warning": "#d97706",
@@ -67,20 +67,23 @@
     <!-- Custom CSS -->
     <style>
         :root {
-            --primary-color: #D97706;
-            --primary-gold: #D97706;
-            --success-color: #059669;
-            --warning-color: #d97706;
-            --danger-color: #dc3545;
-            --dark-bg: #101622;
-            --accent-gold: #D97706;
-            --navbar-bg: #ffffff;
-            --body-bg: #f8fafc;
+            --primary-color: var(--primary-main);
+            --primary-gold: var(--primary-main);
+            --success-color: var(--success-main);
+            --warning-color: var(--warning-main);
+            --danger-color: var(--danger-main);
+            --dark-bg: var(--bg-dark);
+            --accent-gold: var(--primary-main);
+            --navbar-bg: var(--bg-surface);
+            --body-bg: var(--bg-body);
+            --text-dark: var(--text-primary);
+            --bg-light: var(--bg-surface);
+            --border-color: #e2e8f0;
         }
 
+        /* Dark mode variables update automatically via design_system.css variable changes */
         html.dark {
-            --navbar-bg: #1a202c;
-            --body-bg: #0f172a;
+            --border-color: rgba(255, 255, 255, 0.1);
         }
 
         body {
@@ -104,12 +107,8 @@
             }
         }
 
-        .dark {
-            --navbar-bg: #111827;
-            --text-dark: #f9fafb;
-            --bg-light: #1f2937;
-            --border-color: #374151;
-        }
+        /* Bootstrap specific overrides that rely on mapped variables */
+        /* design_system.css handles the .dark overrides for .card, .navbar, etc. */
 
         .navbar {
             padding: 0.75rem 0;
@@ -119,46 +118,6 @@
             z-index: 1050;
         }
 
-        .dark .navbar {
-            border-bottom-color: var(--border-color) !important;
-        }
-
-        .dark .bg-white,
-        .dark .card,
-        .dark .dropdown-menu,
-        .dark .offcanvas-header,
-        .dark .offcanvas-body {
-            background-color: var(--navbar-bg) !important;
-            color: var(--text-dark) !important;
-        }
-
-        .dark .bg-light {
-            background-color: var(--bg-light) !important;
-            color: var(--text-dark) !important;
-        }
-
-        .dark .text-dark,
-        .dark .navbar-brand h2,
-        .dark .nav-link,
-        .dark .dropdown-item {
-            color: var(--text-dark) !important;
-        }
-
-        .dark .dropdown-item:hover {
-            background-color: var(--bg-light) !important;
-        }
-
-        .dark .border-bottom,
-        .dark .border-start,
-        .dark .border-end,
-        .dark .border {
-            border-color: var(--border-color) !important;
-        }
-
-        .dark .navbar {
-            border-color: #2d3748 !important;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
-        }
 
         /* Ensure navbar-collapse is visible on large screens (Laptop 1024px+) */
         @media (min-width: 992px) {
