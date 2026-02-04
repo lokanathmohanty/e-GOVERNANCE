@@ -100,6 +100,7 @@ The system enables citizens to apply for government services, track application 
 
 ## 📂 Project Structure
 
+
 Smart-Odisha/
 │
 ├── accounts/
@@ -110,6 +111,7 @@ Smart-Odisha/
 ├── manage.py
 ├── requirements.txt
 └── README.md
+
 
 yaml
 Copy code
