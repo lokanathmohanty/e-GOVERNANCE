@@ -122,7 +122,7 @@
             </a>
 
             <!-- Desktop Navigation -->
-            <div class="hidden lg:flex flex-1 justify-end gap-8 items-center">
+            <div class="hidden md:flex flex-1 justify-end gap-8 items-center">
                 <nav
                     class="flex items-center gap-1 bg-gray-50 dark:bg-gray-800/50 p-1.5 rounded-full border border-gray-100 dark:border-gray-700/50">
                     <a class="px-4 py-1.5 rounded-full text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white hover:shadow-sm transition-all no-underline"
@@ -136,6 +136,13 @@
                 </nav>
 
                 <div class="flex items-center gap-3 pl-4 border-l border-gray-200 dark:border-gray-700">
+                    <!-- Theme Toggle -->
+                    <button
+                        class="flex items-center justify-center size-9 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 hover:text-primary transition-all theme-toggle"
+                        id="theme-toggle" aria-label="Toggle Theme">
+                        <span class="material-symbols-outlined text-[22px] theme-icon">dark_mode</span>
+                    </button>
+
                     <!-- Accessibility Menu -->
                     <div class="relative" id="accessibilityMenu">
                         <button
@@ -363,7 +370,7 @@
 
             <!-- Mobile Menu Button -->
             <button
-                class="lg:hidden p-2 ml-4 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors z-50 relative"
+                class="md:hidden p-2 ml-4 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors z-50 relative"
                 onclick="toggleMobileMenu()" aria-label="Toggle Menu">
                 <span class="material-symbols-outlined text-2xl">menu</span>
             </button>
@@ -371,7 +378,7 @@
     </header>
 
     <!-- Mobile Navigation Drawer -->
-    <div id="mobileMenu" class="fixed inset-0 z-[60] opacity-0 invisible transition-all duration-300 lg:hidden">
+    <div id="mobileMenu" class="fixed inset-0 z-[60] opacity-0 invisible transition-all duration-300 md:hidden">
         <!-- Backdrop -->
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300"
             onclick="toggleMobileMenu()"></div>

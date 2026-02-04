@@ -160,6 +160,14 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
         }
 
+        /* Ensure navbar-collapse is visible on large screens */
+        @media (min-width: 992px) {
+            .navbar-collapse {
+                display: flex !important;
+                flex-basis: auto;
+            }
+        }
+
         .navbar-brand {
             padding: 0;
             display: flex;
