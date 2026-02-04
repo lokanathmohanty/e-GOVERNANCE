@@ -98,8 +98,11 @@ The system enables citizens to apply for government services, track application 
 
 ---
 
+---
+
 ## 📂 Project Structure
 
+```text
 Smart-Odisha/
 │
 ├── accounts/
@@ -170,24 +173,6 @@ Production-ready Django settings
 
 Secure database connection
 
-📸 Screenshots
-🏠 Home Page
-<img width="1920" height="1080" alt="Screenshot 2026-02-04 130401" src="https://github.com/user-attachments/assets/65ddec3d-7177-42fb-99a1-6d4b943dcb5f" />
-
-
-👤 Citizen Dashboard
-<img width="1920" height="1080" alt="Screenshot 2026-02-04 130519" src="https://github.com/user-attachments/assets/c3c61029-33d2-41c2-b51f-a935dc18a22c" />
-
-
-🧑‍💼 Officer Panel
-<img width="1920" height="1080" alt="Screenshot 2026-02-04 130635" src="https://github.com/user-attachments/assets/0bc2ace3-a4c4-46b5-a826-3c02f9e46f02" />
-
-
-🗣️ head panel
-<img width="1920" height="1080" alt="Screenshot 2026-02-04 130804" src="https://github.com/user-attachments/assets/88a6f50e-23dd-40f2-b98e-ec14bd3ea157" />
-
-
-🛠 Admin Panel
 
 🛡 Security Features
 Role-Based Access Control (RBAC)
@@ -262,17 +247,17 @@ Copy code
 
 ---
 
-## ✅ Why this version looks better
-- ✔ Clean Markdown (renders perfectly on GitHub)
-- ✔ Proper code blocks & headings
-- ✔ Screenshots display correctly
-- ✔ Very strong for **recruiters & professors**
-- ✔ Looks like a **real government-grade project**
+## ✅ Why THIS version works on GitHub
+- ✔ No broken Markdown
+- ✔ No mixed `bash / cpp / yaml` labels
+- ✔ Screenshots render correctly
+- ✔ Headings appear in GitHub TOC
+- ✔ Looks **professional & recruiter-ready**
 
 If you want next:
-- 🔥 **Resume bullets from this project**
-- 🎓 **Final year project report (PDF/Word)**
-- 🎤 **Viva explanation (Q&A)**
-- 💼 **LinkedIn project post**
+- 🔥 **Auto-generate Project Report (DOC/PDF)**
+- 🎤 **Viva Q&A (exam ready)**
+- 💼 **Resume bullets**
+- 🌐 **GitHub profile README**
 
-Just say the word 👍
+Just tell me 👍
