@@ -102,7 +102,7 @@ const AccessibilityManager = {
     applyFontSize() {
         document.documentElement.style.fontSize = `${this.settings.fontSize}%`;
         // Update displays
-        document.querySelectorAll('#text-size-display, #text-size-display-mobile').forEach(el => {
+        document.querySelectorAll('#text-size-display, #text-size-display-mobile, .text-size-display').forEach(el => {
             el.textContent = `${this.settings.fontSize}%`;
         });
     },
@@ -199,73 +199,109 @@ const AccessibilityManager = {
     },
 
     bindEvents() {
-        // Text Size (Desktop)
-        document.getElementById('btn-increase-text')?.addEventListener('click', () => this.increaseFont());
-        document.getElementById('btn-decrease-text')?.addEventListener('click', () => this.decreaseFont());
-        document.getElementById('btn-reset-text')?.addEventListener('click', () => this.resetFont());
+        // Font Size controls (Supports IDs and Classes for multiple instances)
+        const fontActions = [
+            { id: 'btn-increase-text', class: 'btn-increase-text', action: () => this.increaseFont() },
+            { id: 'btn-decrease-text', class: 'btn-decrease-text', action: () => this.decreaseFont() },
+            { id: 'btn-reset-text', class: 'btn-reset-text', action: () => this.resetFont() },
+            { id: 'btn-increase-text-mobile', class: 'btn-increase-text-mobile', action: () => this.increaseFont() },
+            { id: 'btn-decrease-text-mobile', class: 'btn-decrease-text-mobile', action: () => this.decreaseFont() }
+        ];
 
-        // Text Size (Mobile)
-        document.getElementById('btn-increase-text-mobile')?.addEventListener('click', () => this.increaseFont());
-        document.getElementById('btn-decrease-text-mobile')?.addEventListener('click', () => this.decreaseFont());
+        fontActions.forEach(item => {
+            const el = document.getElementById(item.id);
+            if (el) el.addEventListener('click', item.action);
+            document.querySelectorAll(`.${item.class}`).forEach(btn => {
+                if (btn !== el) btn.addEventListener('click', item.action);
+            });
+        });
+
+        // Toggle Sync Helper
+        const bindToggles = (type, idArr, classArr, stateKey, onApply) => {
+            const elements = new Set();
+            idArr.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) elements.add(el);
+            });
+            classArr.forEach(cls => {
+                document.querySelectorAll(`.${cls}`).forEach(el => elements.add(el));
+            });
+
+            elements.forEach(toggle => {
+                toggle.checked = this.settings[stateKey];
+                toggle.addEventListener('change', (e) => {
+                    this.settings[stateKey] = e.target.checked;
+                    this.saveSettings();
+                    onApply();
+                    // Sync all other toggles of the same type
+                    elements.forEach(other => {
+                        if (other !== e.target) other.checked = e.target.checked;
+                    });
+                });
+            });
+        };
 
         // High Contrast
-        const bindHighContrast = (id) => {
-            const toggle = document.getElementById(id);
-            if (toggle) {
-                toggle.checked = this.settings.highContrast;
-                toggle.addEventListener('change', (e) => {
-                    this.settings.highContrast = e.target.checked;
-                    this.saveSettings();
-                    this.applyTheme();
-                    // Sync
-                    const otherId = id === 'cb-high-contrast' ? 'cb-high-contrast-mobile' : 'cb-high-contrast';
-                    const other = document.getElementById(otherId);
-                    if (other) other.checked = e.target.checked;
-                });
-            }
-        };
-        bindHighContrast('cb-high-contrast');
-        bindHighContrast('cb-high-contrast-mobile');
+        bindToggles(
+            'high-contrast',
+            ['cb-high-contrast', 'cb-high-contrast-mobile'],
+            ['cb-high-contrast'],
+            'highContrast',
+            () => this.applyTheme()
+        );
 
         // Dark Mode
-        const bindDarkMode = (id) => {
-            const toggle = document.getElementById(id);
-            if (toggle) {
-                toggle.checked = this.settings.darkMode;
-                toggle.addEventListener('change', (e) => {
-                    this.settings.darkMode = e.target.checked;
-                    this.saveSettings();
-                    this.applyTheme();
-                    // Sync other toggles
-                    const otherId = id === 'cb-dark-mode' ? 'cb-dark-mode-mobile' : 'cb-dark-mode';
-                    const other = document.getElementById(otherId);
-                    if (other) other.checked = e.target.checked;
-                });
-            }
-        };
-        bindDarkMode('cb-dark-mode');
-        bindDarkMode('cb-dark-mode-mobile');
+        bindToggles(
+            'dark-mode',
+            ['cb-dark-mode', 'cb-dark-mode-mobile'],
+            ['cb-dark-mode', 'theme-toggle-cb'],
+            'darkMode',
+            () => this.applyTheme()
+        );
 
-        // Language
-        const bindLanguage = (id) => {
-            const select = document.getElementById(id);
-            if (select) {
-                select.value = this.settings.language;
-                select.addEventListener('change', (e) => {
-                    this.setLanguage(e.target.value);
-                    // Sync other
-                    const otherId = id === 'language-select' ? 'language-select-mobile' : 'language-select';
-                    const other = document.getElementById(otherId);
-                    if (other) other.value = e.target.value;
+        // Language Select Sync
+        const langSelectors = new Set();
+        ['language-select', 'language-select-mobile'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) langSelectors.add(el);
+        });
+        document.querySelectorAll('.language-select').forEach(el => langSelectors.add(el));
+
+        langSelectors.forEach(select => {
+            select.value = this.settings.language;
+            select.addEventListener('change', (e) => {
+                const lang = e.target.value;
+                this.setLanguage(lang);
+                // Sync others
+                langSelectors.forEach(other => {
+                    if (other !== e.target) other.value = lang;
                 });
-            }
-        };
-        bindLanguage('language-select');
-        bindLanguage('language-select-mobile');
+            });
+        });
     }
 };
 
-// Initialize on load
+// Global initialization
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize the manager
     AccessibilityManager.init();
+
+    // Assign to window for global access
+    window.accessibilityManager = AccessibilityManager;
+
+    // Quick theme toggle helper for specific simple buttons if needed
+    const themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            AccessibilityManager.settings.darkMode = !isDark;
+            AccessibilityManager.saveSettings();
+            AccessibilityManager.applyTheme();
+
+            // Sync all related toggle switches
+            document.querySelectorAll('#cb-dark-mode, #cb-dark-mode-mobile, .cb-dark-mode').forEach(cb => {
+                cb.checked = !isDark;
+            });
+        });
+    }
 });

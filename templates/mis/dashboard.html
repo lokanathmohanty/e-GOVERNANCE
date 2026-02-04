@@ -35,6 +35,56 @@
                 performance</p>
         </div>
         <div class="flex items-center gap-4">
+            <!-- Accessibility Menu (MIS specific) -->
+            <div class="relative group">
+                <button
+                    class="size-11 flex items-center justify-center rounded-xl bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-800 text-gray-500 hover:text-primary transition-all shadow-sm"
+                    title="Accessibility">
+                    <span class="material-symbols-outlined text-xl">universal_accessibility</span>
+                </button>
+                <div class="absolute right-0 top-full mt-2 w-72 bg-white dark:bg-surface-dark rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[100] p-4"
+                    onclick="event.stopPropagation()">
+                    <h6 class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">Accessibility
+                        Settings</h6>
+
+                    <!-- Font Size -->
+                    <div
+                        class="flex items-center justify-between mb-4 pb-4 border-b border-gray-50 dark:border-gray-800">
+                        <span class="text-xs font-bold text-gray-700 dark:text-gray-300">Text Size</span>
+                        <div class="flex items-center gap-2">
+                            <button
+                                class="size-8 rounded-lg bg-gray-50 dark:bg-gray-700 flex items-center justify-center btn-decrease-text">A-</button>
+                            <span class="text-xs font-bold w-10 text-center text-size-display">100%</span>
+                            <button
+                                class="size-8 rounded-lg bg-gray-50 dark:bg-gray-700 flex items-center justify-center btn-increase-text">A+</button>
+                        </div>
+                    </div>
+
+                    <!-- Dark Mode -->
+                    <div
+                        class="flex items-center justify-between mb-4 pb-4 border-b border-gray-50 dark:border-gray-800">
+                        <span class="text-xs font-bold text-gray-700 dark:text-gray-300">Dark Mode</span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer cb-dark-mode">
+                            <div
+                                class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary">
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Language -->
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-gray-700 dark:text-gray-300">Language</span>
+                        <select
+                            class="text-xs font-bold bg-transparent text-primary outline-none cursor-pointer language-select">
+                            <option value="en">English</option>
+                            <option value="hi">Hindi</option>
+                            <option value="or">Odia</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
             <div class="hidden md:flex flex-col items-end">
                 <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Next Refresh</span>
                 <span class="text-sm font-bold text-primary"><strong id="timer">60</strong> Seconds</span>

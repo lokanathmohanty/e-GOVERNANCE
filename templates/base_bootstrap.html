@@ -98,20 +98,61 @@
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
 
+        @media (max-width: 991.98px) {
+            .navbar {
+                background-color: var(--navbar-bg) !important;
+            }
+        }
+
+        .dark {
+            --navbar-bg: #111827;
+            --text-dark: #f9fafb;
+            --bg-light: #1f2937;
+            --border-color: #374151;
+        }
+
         .navbar {
             padding: 0.75rem 0;
             background-color: var(--navbar-bg) !important;
-            transition: background-color 0.3s ease !important;
+            transition: background-color 0.3s ease, border-color 0.3s ease !important;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
             z-index: 1050;
         }
 
-        /* Ensure navbar-collapse is visible on large screens */
-        @media (min-width: 992px) {
-            .navbar-collapse {
-                display: flex !important;
-                flex-basis: auto;
-            }
+        .dark .navbar {
+            border-bottom-color: var(--border-color) !important;
+        }
+
+        .dark .bg-white,
+        .dark .card,
+        .dark .dropdown-menu,
+        .dark .offcanvas-header,
+        .dark .offcanvas-body {
+            background-color: var(--navbar-bg) !important;
+            color: var(--text-dark) !important;
+        }
+
+        .dark .bg-light {
+            background-color: var(--bg-light) !important;
+            color: var(--text-dark) !important;
+        }
+
+        .dark .text-dark,
+        .dark .navbar-brand h2,
+        .dark .nav-link,
+        .dark .dropdown-item {
+            color: var(--text-dark) !important;
+        }
+
+        .dark .dropdown-item:hover {
+            background-color: var(--bg-light) !important;
+        }
+
+        .dark .border-bottom,
+        .dark .border-start,
+        .dark .border-end,
+        .dark .border {
+            border-color: var(--border-color) !important;
         }
 
         .dark .navbar {
@@ -289,15 +330,16 @@
 <body>
     <a href="#main-content" class="skip-to-main">Skip to main content</a>
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg border-bottom sticky-top shadow-sm bg-white">
+    <nav class="navbar navbar-expand-lg border-bottom sticky-top shadow-sm">
         <div class="container-fluid px-3 px-md-4 px-lg-5">
             <!-- Brand -->
             <a class="navbar-brand text-decoration-none d-flex align-items-center" href="{% url 'core:home' %}">
                 <div class="logo-box me-2 me-md-3">
-                    <span class="material-symbols-outlined text-[24px] md:text-[28px]">account_balance</span>
+                    <span
+                        class="material-symbols-outlined text-[24px] md:text-[28px] text-primary">account_balance</span>
                 </div>
                 <div class="d-flex flex-column justify-content-center">
-                    <h2 class="fs-6 fw-black text-dark mb-0 lh-1 d-inline-block text-truncate"
+                    <h2 class="fs-6 fw-black text-dark dark:text-white mb-0 lh-1 d-inline-block text-truncate"
                         style="max-width: 150px; font-size: 0.9rem !important;">e-Governance Portal</h2>
                     <span class="text-muted fw-bold mt-1 d-none d-sm-block"
                         style="font-size: 0.6rem; letter-spacing: 0.5px;">Smart Services</span>
@@ -466,16 +508,16 @@
     </nav>
 
     <!-- Offcanvas Mobile Navigation -->
-    <div class="offcanvas offcanvas-end border-0 shadow-lg" tabindex="-1" id="mobileNavbar"
-        aria-labelledby="mobileNavbarLabel" style="width: 85%; max-width: 320px;">
-        <div class="offcanvas-header bg-white border-bottom p-4">
+    <div class="offcanvas offcanvas-end border-0 shadow-lg dark:bg-background-dark" tabindex="-1" id="mobileNavbar"
+        style="width: 320px; border-radius: 24px 0 0 24px;">
+        <div class="offcanvas-header p-4 border-bottom dark:border-gray-800">
             <div class="d-flex align-items-center gap-3">
-                <div class="logo-box">
-                    <span class="material-symbols-outlined">account_balance</span>
+                <div class="size-10 rounded-3 bg-primary text-white d-flex align-items-center justify-content-center">
+                    <i class="bi bi-shield-lock-fill"></i>
                 </div>
-                <h5 class="offcanvas-title fw-black m-0" id="mobileNavbarLabel">e-Governance</h5>
+                <h5 class="offcanvas-title fw-black dark:text-white" id="mobileNavbarLabel">e-Gov Mobile</h5>
             </div>
-            <button type="button" class="btn-close text-reset shadow-none" data-bs-dismiss="offcanvas"
+            <button type="button" class="btn-close dark:btn-close-white" data-bs-dismiss="offcanvas"
                 aria-label="Close"></button>
         </div>
         <div class="offcanvas-body p-0">
@@ -505,18 +547,22 @@
 
                     <!-- Text Size -->
                     <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-3">
-                        <span class="small fw-bold text-dark" data-i18n="text_size">Text</span>
-                        <div class="btn-group btn-group-sm">
-                            <button class="btn btn-outline-secondary bg-white" id="btn-decrease-text-mobile"
-                                aria-label="Decrease Text Size">A-</button>
-                            <button class="btn btn-outline-secondary bg-white" id="btn-increase-text-mobile"
-                                aria-label="Increase Text Size">A+</button>
+                        <span class="small fw-bold text-dark dark:text-white" data-i18n="text_size">Text</span>
+                        <div class="d-flex align-items-center gap-2">
+                            <button
+                                class="btn btn-sm btn-outline-secondary bg-white dark:bg-gray-800 dark:text-white border-0"
+                                id="btn-decrease-text-mobile" aria-label="Decrease Text Size">A-</button>
+                            <span class="font-bold text-sm w-12 text-center dark:text-white"
+                                id="text-size-display-mobile">100%</span>
+                            <button
+                                class="btn btn-sm btn-outline-secondary bg-white dark:bg-gray-800 dark:text-white border-0"
+                                id="btn-increase-text-mobile" aria-label="Increase Text Size">A+</button>
                         </div>
                     </div>
 
                     <!-- Theme -->
                     <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-3">
-                        <span class="small fw-bold text-dark" data-i18n="theme">Dark Mode</span>
+                        <span class="small fw-bold text-dark dark:text-white" data-i18n="theme">Dark Mode</span>
                         <div class="form-check form-switch m-0">
                             <input class="form-check-input" type="checkbox" id="cb-dark-mode-mobile">
                             <label class="form-check-label visually-hidden" for="cb-dark-mode-mobile">Toggle Dark
@@ -526,7 +572,7 @@
 
                     <!-- High Contrast -->
                     <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-3">
-                        <span class="small fw-bold text-dark">High Contrast</span>
+                        <span class="small fw-bold text-dark dark:text-white">High Contrast</span>
                         <div class="form-check form-switch m-0">
                             <input class="form-check-input" type="checkbox" id="cb-high-contrast-mobile">
                             <label class="form-check-label visually-hidden" for="cb-high-contrast-mobile">Toggle High
@@ -536,7 +582,7 @@
 
                     <!-- Language -->
                     <div class="d-flex align-items-center justify-content-between">
-                        <span class="small fw-bold text-dark" data-i18n="language">Language</span>
+                        <span class="small fw-bold text-dark dark:text-white" data-i18n="language">Language</span>
                         <select class="form-select form-select-sm w-auto border-0 bg-transparent fw-bold text-primary"
                             id="language-select-mobile" aria-label="Language">
                             <option value="en">English</option>
