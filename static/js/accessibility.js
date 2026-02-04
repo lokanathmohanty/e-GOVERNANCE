@@ -27,6 +27,8 @@ const AccessibilityManager = {
             'accessibility': 'Accessibility',
             'text_size': 'Text Size',
             'theme': 'Theme',
+            'dark_mode': 'Dark Mode',
+            'high_contrast': 'High Contrast',
             'language': 'Language',
             'reset': 'Reset',
             'welcome': 'Welcome'
@@ -46,6 +48,8 @@ const AccessibilityManager = {
             'accessibility': 'पहुंच-योग्यता',
             'text_size': 'लेखा का आकार',
             'theme': 'प्रसंग',
+            'dark_mode': 'डार्क मोड',
+            'high_contrast': 'उच्च कंट्रास्ट',
             'language': 'भाषा',
             'reset': 'रीसेट',
             'welcome': 'स्वागत'
@@ -65,6 +69,8 @@ const AccessibilityManager = {
             'accessibility': 'ସୁଗମତା',
             'text_size': 'ପାଠ୍ୟ ଆକାର',
             'theme': 'ଥିମ୍',
+            'dark_mode': 'ଡାର୍କ ମୋଡ୍',
+            'high_contrast': 'ଉଚ୍ଚ କଣ୍ଟ୍ରାଷ୍ଟ',
             'language': 'ଭାଷା',
             'reset': 'ରିସେଟ୍',
             'welcome': 'ସ୍ୱାଗତ'
@@ -125,6 +131,16 @@ const AccessibilityManager = {
         } else {
             html.classList.remove('high-contrast');
         }
+
+        // Update Theme Icons if they exist
+        const themeIcons = document.querySelectorAll('#themeIcon, #theme-icon, .theme-icon');
+        themeIcons.forEach(icon => {
+            if (icon.classList.contains('material-symbols-outlined')) {
+                icon.textContent = this.settings.darkMode ? 'light_mode' : 'dark_mode';
+            } else if (icon.tagName === 'I') { // Bootstrap Icons
+                icon.className = this.settings.darkMode ? 'bi bi-sun-fill' : 'bi bi-moon-fill';
+            }
+        });
     },
 
     applyLanguage() {
@@ -290,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.accessibilityManager = AccessibilityManager;
 
     // Quick theme toggle helper for specific simple buttons if needed
-    const themeBtn = document.getElementById('theme-toggle');
+    const themeBtn = document.getElementById('theme-toggle') || document.getElementById('themeToggle');
     if (themeBtn) {
         themeBtn.addEventListener('click', () => {
             const isDark = document.documentElement.classList.contains('dark');

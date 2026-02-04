@@ -400,17 +400,17 @@
                                 <div
                                     class="contrast-toggle form-check form-switch p-0 m-0 d-flex justify-content-between align-items-center w-100">
                                     <label class="form-check-label m-0 fw-500" for="cb-high-contrast"
-                                        style="cursor: pointer;">High Contrast</label>
-                                    <input class="form-check-input ms-0" type="checkbox" id="cb-high-contrast"
-                                        style="float: none; cursor: pointer;">
+                                        style="cursor: pointer;" data-i18n="high_contrast">High Contrast</label>
+                                    <input class="form-check-input ms-0 cb-high-contrast" type="checkbox"
+                                        id="cb-high-contrast" style="float: none; cursor: pointer;">
                                 </div>
                             </div>
                             <div class="accessibility-section">
                                 <div
                                     class="contrast-toggle form-check form-switch p-0 m-0 d-flex justify-content-between align-items-center w-100">
                                     <label class="form-check-label m-0 fw-500" for="cb-dark-mode"
-                                        style="cursor: pointer;">Dark Mode</label>
-                                    <input class="form-check-input ms-0" type="checkbox" id="cb-dark-mode"
+                                        style="cursor: pointer;" data-i18n="dark_mode">Dark Mode</label>
+                                    <input class="form-check-input ms-0 cb-dark-mode" type="checkbox" id="cb-dark-mode"
                                         style="float: none; cursor: pointer;">
                                 </div>
                             </div>
@@ -440,6 +440,15 @@
                     </li>
 
 
+
+                    <!-- Theme Toggle -->
+                    <li class="nav-item">
+                        <button
+                            class="nav-link d-flex align-items-center justify-content-center bg-light rounded-circle theme-toggle"
+                            id="theme-toggle" role="button" style="width: 40px; height: 40px;" title="Toggle Theme">
+                            <span class="material-symbols-outlined fs-5 theme-icon">dark_mode</span>
+                        </button>
+                    </li>
 
                     <!-- Notifications -->
                     <li class="nav-item dropdown px-2">
@@ -562,9 +571,9 @@
 
                     <!-- Theme -->
                     <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-3">
-                        <span class="small fw-bold text-dark dark:text-white" data-i18n="theme">Dark Mode</span>
+                        <span class="small fw-bold text-dark dark:text-white" data-i18n="dark_mode">Dark Mode</span>
                         <div class="form-check form-switch m-0">
-                            <input class="form-check-input" type="checkbox" id="cb-dark-mode-mobile">
+                            <input class="form-check-input cb-dark-mode" type="checkbox" id="cb-dark-mode-mobile">
                             <label class="form-check-label visually-hidden" for="cb-dark-mode-mobile">Toggle Dark
                                 Mode</label>
                         </div>
@@ -572,9 +581,11 @@
 
                     <!-- High Contrast -->
                     <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-3">
-                        <span class="small fw-bold text-dark dark:text-white">High Contrast</span>
+                        <span class="small fw-bold text-dark dark:text-white" data-i18n="high_contrast">High
+                            Contrast</span>
                         <div class="form-check form-switch m-0">
-                            <input class="form-check-input" type="checkbox" id="cb-high-contrast-mobile">
+                            <input class="form-check-input cb-high-contrast" type="checkbox"
+                                id="cb-high-contrast-mobile">
                             <label class="form-check-label visually-hidden" for="cb-high-contrast-mobile">Toggle High
                                 Contrast</label>
                         </div>

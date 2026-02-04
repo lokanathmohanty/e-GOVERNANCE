@@ -75,23 +75,28 @@ html.high-contrast textarea {
     position: absolute;
     right: 0;
     top: 100%;
-    margin-top: 0.5rem;
-    background: white;
-    border-radius: 0.75rem;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-    border: 1px solid #e5e7eb;
-    min-width: 280px;
+    margin-top: 1rem;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border-radius: 1.25rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    min-width: 300px;
     z-index: 1000;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.2s ease;
+    transform: translateY(15px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
 }
 
 .dark .accessibility-dropdown {
-    background: #1a202c;
-    border-color: #2d3748;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    background: rgba(26, 32, 44, 0.85);
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .accessibility-dropdown.show {
@@ -269,9 +274,17 @@ html.high-contrast textarea {
     color: #185fec;
 }
 
-/* Smooth transitions for font size changes */
+/* Smooth transitions for font size changes and theme */
 * {
-    transition: font-size 0.3s ease;
+    transition: font-size 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
+}
+
+.shadow-premium {
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15) !important;
+}
+
+.dark .shadow-premium {
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4) !important;
 }
 
 /* Skip to main content link for screen readers */

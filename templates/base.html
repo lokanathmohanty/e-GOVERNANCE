@@ -126,13 +126,13 @@
                 <nav
                     class="flex items-center gap-1 bg-gray-50 dark:bg-gray-800/50 p-1.5 rounded-full border border-gray-100 dark:border-gray-700/50">
                     <a class="px-4 py-1.5 rounded-full text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white hover:shadow-sm transition-all no-underline"
-                        href="{% url 'core:home' %}" data-i18n="nav.home">Home</a>
+                        href="{% url 'core:home' %}" data-i18n="home">Home</a>
                     <a class="px-4 py-1.5 rounded-full text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white hover:shadow-sm transition-all no-underline"
-                        href="{% url 'citizen:services' %}" data-i18n="nav.services">Services</a>
+                        href="{% url 'citizen:services' %}" data-i18n="services">Services</a>
                     <a class="px-4 py-1.5 rounded-full text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white hover:shadow-sm transition-all no-underline"
-                        href="{% url 'citizen:grievances' %}" data-i18n="nav.grievance">Grievance</a>
+                        href="{% url 'citizen:grievances' %}" data-i18n="grievance">Grievance</a>
                     <a class="px-4 py-1.5 rounded-full text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white hover:shadow-sm transition-all no-underline"
-                        href="{% url 'core:contact' %}" data-i18n="nav.contact">Contact</a>
+                        href="{% url 'core:contact' %}" data-i18n="contact">Contact</a>
                 </nav>
 
                 <div class="flex items-center gap-3 pl-4 border-l border-gray-200 dark:border-gray-700">
@@ -187,20 +187,21 @@
                                 <!-- Toggles -->
                                 <div class="space-y-4 pt-2">
                                     <div class="flex items-center justify-between">
-                                        <span class="text-sm font-bold text-gray-700 dark:text-gray-300">High
-                                            Contrast</span>
+                                        <span class="text-sm font-bold text-gray-700 dark:text-gray-300"
+                                            data-i18n="high_contrast">High Contrast</span>
                                         <label class="relative inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" id="cb-high-contrast" class="sr-only peer">
+                                            <input type="checkbox" id="cb-high-contrast"
+                                                class="sr-only peer cb-high-contrast">
                                             <div
                                                 class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
                                             </div>
                                         </label>
                                     </div>
                                     <div class="flex items-center justify-between">
-                                        <span class="text-sm font-bold text-gray-700 dark:text-gray-300">Dark
-                                            Mode</span>
+                                        <span class="text-sm font-bold text-gray-700 dark:text-gray-300"
+                                            data-i18n="dark_mode">Dark Mode</span>
                                         <label class="relative inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" id="cb-dark-mode" class="sr-only peer">
+                                            <input type="checkbox" id="cb-dark-mode" class="sr-only peer cb-dark-mode">
                                             <div
                                                 class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
                                             </div>
@@ -468,18 +469,22 @@
                         <!-- Contrast / Theme toggles -->
                         <div class="space-y-4">
                             <div class="flex items-center justify-between">
-                                <span class="text-sm font-bold text-gray-700 dark:text-gray-300">High Contrast</span>
+                                <span class="text-sm font-bold text-gray-700 dark:text-gray-300"
+                                    data-i18n="high_contrast">High Contrast</span>
                                 <label class="relative inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" id="cb-high-contrast-mobile" class="sr-only peer">
+                                    <input type="checkbox" id="cb-high-contrast-mobile"
+                                        class="sr-only peer cb-high-contrast">
                                     <div
                                         class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
                                     </div>
                                 </label>
                             </div>
                             <div class="flex items-center justify-between">
-                                <span class="text-sm font-bold text-gray-700 dark:text-gray-300">Dark Mode</span>
+                                <span class="text-sm font-bold text-gray-700 dark:text-gray-300"
+                                    data-i18n="dark_mode">Dark
+                                    Mode</span>
                                 <label class="relative inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" id="cb-dark-mode-mobile" class="sr-only peer">
+                                    <input type="checkbox" id="cb-dark-mode-mobile" class="sr-only peer cb-dark-mode">
                                     <div
                                         class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
                                     </div>
@@ -589,35 +594,6 @@
     <script src="{% static 'js/accessibility.js' %}"></script>
 
     <script>
-        // Existing Theme initialization
-        const html = document.documentElement;
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-
-        function updateThemeUI() {
-            if (themeIcon) {
-                themeIcon.textContent = html.classList.contains('dark') ? 'light_mode' : 'dark_mode';
-            }
-        }
-
-        // Sync accessibility.js theme changes back to UI if needed
-        const themeObserver = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                if (mutation.attributeName === "class") {
-                    updateThemeUI();
-                }
-            });
-        });
-        themeObserver.observe(html, { attributes: true });
-
-        if (themeToggle) {
-            themeToggle.addEventListener('click', () => {
-                const isDark = html.classList.toggle('dark');
-                localStorage.setItem('data-theme', isDark ? 'dark' : 'light');
-                updateThemeUI();
-            });
-        }
-
         // Accessibility dropdown toggle
         const accessibilityToggle = document.getElementById('accessibilityToggle');
         const accessibilityDropdown = document.getElementById('accessibilityDropdown');
@@ -635,7 +611,8 @@
 
             // Close dropdown when clicking outside
             document.addEventListener('click', (e) => {
-                if (!document.getElementById('accessibilityMenu').contains(e.target)) {
+                const accMenu = document.getElementById('accessibilityMenu');
+                if (accMenu && !accMenu.contains(e.target)) {
                     accessibilityDropdown.classList.add('invisible', 'opacity-0');
                 }
             });
