@@ -114,7 +114,7 @@ Smart-Odisha/
 
 
 yaml
-Copy code
+
 
 ---
 
@@ -135,33 +135,33 @@ Activate virtual environment:
 Windows
 
 bash
-Copy code
+
 venv\Scripts\activate
 Linux / Mac
 
 bash
-Copy code
+
 source venv/bin/activate
 Install dependencies:
 
 bash
-Copy code
+
 pip install -r requirements.txt
 Database setup:
 
 bash
-Copy code
+
 python manage.py migrate
 python manage.py createsuperuser
 Run server:
 
 bash
-Copy code
+
 python manage.py runserver
 Access:
 
 cpp
-Copy code
+
 http://127.0.0.1:8000/
 🌐 Deployment
 The application is deployed on Render.
@@ -181,11 +181,15 @@ Secure database connection
 (Add screenshots here for better recruiter impact)
 
 md
-Copy code
-![Home Page](screenshots/home.png)
-![Citizen Dashboard](screenshots/citizen-dashboard.png)
-![Officer Panel](screenshots/officer-panel.png)
-![Admin Panel](screenshots/admin-panel.png)
+
+![Home Page](<img width="1920" height="1080" alt="Screenshot 2026-02-04 130401" src="https://github.com/user-attachments/assets/f8addeed-e9d2-4d6d-911a-3948755a616a" />
+)
+![Citizen Dashboard](<img width="1920" height="1080" alt="Screenshot 2026-02-04 130519" src="https://github.com/user-attachments/assets/6f1543f2-1f88-4261-9ed4-fd2d26b5b45b" />
+)
+![Officer Panel](<img width="1920" height="1080" alt="Screenshot 2026-02-04 130635" src="https://github.com/user-attachments/assets/662ba508-ede9-4d23-8a7c-4d41e1e7172e" />
+)
+![Admin Panel](<img width="1920" height="1080" alt="Screenshot 2026-02-04 130804" src="https://github.com/user-attachments/assets/d69923c9-52db-440b-b8d2-f60e0f4b4911" />
+)
 🛡 Security Features
 Role-Based Access Control (RBAC)
 
