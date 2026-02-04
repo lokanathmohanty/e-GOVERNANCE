@@ -354,45 +354,195 @@ h3 {
     }
 }
 
-/* High Contrast Mode Overrides */
-html.high-contrast {
-    filter: contrast(1.5);
-    background-color: black !important;
+/* ========================================
+   PREMIUM DARK THEME
+   ======================================== */
+html.dark {
+    --bg-body: #0F172A;
+    --bg-surface: #1E293B;
+    --text-primary: #F8FAFC;
+    --text-secondary: #CBD5E1;
+    --text-muted: #64748B;
+    --primary-soft: rgba(217, 119, 6, 0.2);
+    color-scheme: dark;
+}
+
+html.dark body {
+    background-color: var(--bg-body) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Global Dark Mode Overrides */
+html.dark .card,
+html.dark .card-premium,
+html.dark .modal-content,
+html.dark .dropdown-menu,
+html.dark .offcanvas {
+    background-color: var(--bg-surface) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    color: var(--text-primary) !important;
+}
+
+html.dark .bg-white {
+    background-color: var(--bg-surface) !important;
+}
+
+html.dark .bg-light {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+html.dark .text-dark {
+    color: var(--text-primary) !important;
+}
+
+html.dark .text-muted {
+    color: var(--text-muted) !important;
+}
+
+html.dark .text-secondary {
+    color: var(--text-secondary) !important;
+}
+
+html.dark .border,
+html.dark .border-bottom,
+html.dark .border-top,
+html.dark .border-start,
+html.dark .border-end {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Form Elements in Dark Mode */
+html.dark input,
+html.dark select,
+html.dark textarea {
+    background-color: #0F172A !important;
+    border-color: #334155 !important;
+    color: #F8FAFC !important;
+}
+
+html.dark input::placeholder {
+    color: #475569 !important;
+}
+
+html.dark .form-control:focus,
+html.dark .form-select:focus {
+    background-color: #1E293B !important;
+    border-color: var(--primary-main) !important;
+    box-shadow: 0 0 0 0.25rem rgba(217, 119, 6, 0.25) !important;
+}
+
+/* Table Dark Mode */
+html.dark .table {
+    color: var(--text-primary) !important;
+}
+
+html.dark .table td,
+html.dark .table th {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html.dark .table-hover tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Navbar specific for dark mode */
+html.dark .navbar {
+    background-color: rgba(15, 23, 42, 0.9) !important;
+    backdrop-filter: blur(12px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Premium Page Elements Dark Mode */
+html.dark .hero-section {
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%) !important;
+}
+
+html.dark .branding-sub,
+html.dark .tagline {
+    color: #CBD5E1 !important;
+}
+
+html.dark .premium-search-container {
+    background: #1E293B !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html.dark .premium-search-input {
+    background: transparent !important;
     color: white !important;
+}
+
+html.dark .category-card {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.8) 100%) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html.dark .category-card:hover {
+    background: linear-gradient(135deg, #334155 0%, #1e293b 100%) !important;
+}
+
+html.dark .category-title {
+    color: #F8FAFC !important;
+}
+
+html.dark .service-premium-card {
+    background: #1E293B !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* ========================================
+   HIGH CONTRAST MODE
+   ======================================== */
+html.high-contrast body,
+html.high-contrast .bg-white,
+html.high-contrast .bg-light,
+html.high-contrast .card,
+html.high-contrast .modal-content,
+html.high-contrast .dropdown-menu {
+    background-color: #000000 !important;
+    background: #000000 !important;
+    color: #FFFFFF !important;
+    border: 2px solid #FFFFFF !important;
 }
 
 html.high-contrast * {
-    background-color: black !important;
-    color: #ffff00 !important;
-    border-color: white !important;
+    color: #FFFF00 !important;
+    background-color: #000000 !important;
+    border-color: #FFFFFF !important;
     box-shadow: none !important;
-    text-shadow: none !important;
 }
 
 html.high-contrast a {
-    color: #00ffff !important;
+    color: #00FFFF !important;
     text-decoration: underline !important;
+    font-weight: bold !important;
 }
 
-html.high-contrast button,
 html.high-contrast .btn,
-html.high-contrast input,
-html.high-contrast select {
+html.high-contrast button {
     background-color: #000000 !important;
-    color: #ffffff !important;
-    border: 2px solid #ffffff !important;
+    color: #FFFFFF !important;
+    border: 3px solid #FFFFFF !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
 }
 
-html.high-contrast img {
-    filter: invert(1);
+html.high-contrast .btn:hover {
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
 }
 
-html.high-contrast .bg-primary,
-html.high-contrast .text-primary,
-html.high-contrast .bg-white,
-html.high-contrast .bg-light {
-    background-color: transparent !important;
-    color: white !important;
+html.high-contrast input,
+html.high-contrast select,
+html.high-contrast textarea {
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+    border: 2px solid #FFFF00 !important;
+}
+
+/* Animations & Transitions */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
 }
 
 .stagger-1 {

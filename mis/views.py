@@ -31,14 +31,54 @@ def dashboard(request):
     service_stats = Service.objects.annotate(
         app_count=Count('application_set')
     ).filter(app_count__gt=0).order_by('-app_count')[:10]
+    service_labels = [s.service_name for s in service_stats]
+    service_data = [s.app_count for s in service_stats]
+
+    # Trends (Last 7 Days)
+    seven_days_ago = timezone.now() - timedelta(days=7)
+    daily_stats = Application.objects.filter(
+        applied_date__gte=seven_days_ago
+    ).values('applied_date__date').annotate(count=Count('id')).order_by('applied_date__date')
     
-    # ... (skipping unchanged code) ...
+    monthly_labels = []
+    monthly_data = []
+    for i in range(7):
+        day = (timezone.now() - timedelta(days=6-i)).date()
+        monthly_labels.append(day.strftime('%b %d'))
+        count = 0
+        for entry in daily_stats:
+            if entry['applied_date__date'] == day:
+                count = entry['count']
+                break
+        monthly_data.append(count)
+
+    # SLA and Officers
+    total_completed = approved_apps + rejected_apps
+    sla_data = [approved_apps, pending_apps + in_progress_apps, rejected_apps]
+    sla_compliance = 100 if total_apps == 0 else round((total_completed / total_apps) * 100, 1)
+
+    # Officer Stats
+    officers = User.objects.filter(role='officer').annotate(
+        assigned_count=Count('assigned_tasks'),
+        completed_count=Count('assigned_tasks', filter=Q(assigned_tasks__application__status__in=['approved', 'rejected'])),
+        pending_count=Count('assigned_tasks', filter=Q(assigned_tasks__application__status__in=['pending', 'under_review']))
+    )
+    
+    officer_stats = []
+    for off in officers:
+        officer_stats.append({
+            'name': off.username,
+            'assigned': off.assigned_count,
+            'completed': off.completed_count,
+            'pending': off.pending_count,
+            'avg_days': 5  # Placeholder or implement avg calculation
+        })
     
     # Department-wise Stats
     dept_stats = Department.objects.annotate(
         app_count=Count('services__application_set'),
-        approved_count=Count('services__application_set', filter=Q(services__application__status='approved')),
-        pending_count=Count('services__application_set', filter=Q(services__application__status='pending'))
+        approved_count=Count('services__application_set', filter=Q(services__application_set__status='approved')),
+        pending_count=Count('services__application_set', filter=Q(services__application_set__status='pending'))
     ).filter(app_count__gt=0)
     
     stats = {

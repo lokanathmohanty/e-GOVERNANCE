@@ -26,48 +26,10 @@
 }
 
 /* ========================================
-   ACCESSIBILITY FEATURES
+   ACCESSIBILITY TRANSITIONS
    ======================================== */
-
-/* High Contrast Mode */
-html.high-contrast {
-    --primary: #0066ff;
-    --primary-color: #0066ff;
-    /* Match base_bootstrap.html variable */
-    --text-color: #000000;
-    --bg-color: #ffffff;
-    --border-color: #000000;
-}
-
-html.high-contrast.dark {
-    --primary: #66b3ff;
-    --text-color: #ffffff;
-    --bg-color: #000000;
-    --border-color: #ffffff;
-}
-
-html.high-contrast body {
-    background-color: var(--bg-color) !important;
-    color: var(--text-color) !important;
-}
-
-html.high-contrast a {
-    color: var(--primary) !important;
-    text-decoration: underline !important;
-}
-
-html.high-contrast button,
-html.high-contrast .btn {
-    border: 2px solid var(--border-color) !important;
-    font-weight: 600 !important;
-}
-
-html.high-contrast input,
-html.high-contrast select,
-html.high-contrast textarea {
-    border: 2px solid var(--border-color) !important;
-    background-color: var(--bg-color) !important;
-    color: var(--text-color) !important;
+* {
+    transition: font-size 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
 }
 
 /* Accessibility Dropdown */

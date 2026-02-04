@@ -106,8 +106,11 @@ class UserProfileForm(forms.ModelForm):
             return None
         # Normalize: strip spaces
         phone = phone.replace(" ", "")
-        if not phone.isdigit() or len(phone) != 10:
-            raise forms.ValidationError("Phone number must be exactly 10 digits.")
+        if phone:
+            if not phone.isdigit() or len(phone) != 10:
+                raise forms.ValidationError("Phone number must be exactly 10 digits.")
+        else:
+            return None
         return phone
 
     def clean_aadhaar_number(self):
@@ -117,12 +120,15 @@ class UserProfileForm(forms.ModelForm):
         # Normalize: strip spaces
         aadhaar = aadhaar.replace(" ", "")
         
-        if not aadhaar.isdigit() or len(aadhaar) != 12:
-            raise forms.ValidationError("Aadhaar number must be exactly 12 digits.")
-            
-        # Uniqueness check (exclude current user)
-        if User.objects.filter(aadhaar_number=aadhaar).exclude(pk=self.instance.pk).exists():
-            raise forms.ValidationError("This Aadhaar number is already registered.")
+        if aadhaar:
+            if not aadhaar.isdigit() or len(aadhaar) != 12:
+                raise forms.ValidationError("Aadhaar number must be exactly 12 digits.")
+                
+            # Uniqueness check (exclude current user)
+            if User.objects.filter(aadhaar_number=aadhaar).exclude(pk=self.instance.pk).exists():
+                raise forms.ValidationError("This Aadhaar number is already registered.")
+        else:
+            return None
             
         return aadhaar
 

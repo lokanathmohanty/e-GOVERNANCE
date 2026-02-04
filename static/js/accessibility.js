@@ -16,6 +16,7 @@ const AccessibilityManager = {
             'home': 'Home',
             'services': 'Services',
             'contact': 'Contact Us',
+            'grievance': 'Grievance',
             'dashboard': 'My Dashboard',
             'officer_console': 'Officer Console',
             'analytics': 'Analytics',
@@ -31,12 +32,19 @@ const AccessibilityManager = {
             'high_contrast': 'High Contrast',
             'language': 'Language',
             'reset': 'Reset',
-            'welcome': 'Welcome'
+            'welcome': 'Welcome',
+            'apply_now': 'Apply Now',
+            'view_details': 'View Details',
+            'status': 'Status',
+            'pending': 'Pending',
+            'approved': 'Approved',
+            'rejected': 'Rejected'
         },
         'hi': {
             'home': 'मुखपृष्ठ',
             'services': 'सेवाएं',
             'contact': 'संपर्क करें',
+            'grievance': 'शिकायत',
             'dashboard': 'मेरा डैशबोर्ड',
             'officer_console': 'अधिकारी कंसोल',
             'analytics': 'विश्लेषण',
@@ -46,18 +54,25 @@ const AccessibilityManager = {
             'search': 'खोजें',
             'notifications': 'सूचनाएं',
             'accessibility': 'पहुंच-योग्यता',
-            'text_size': 'लेखा का आकार',
+            'text_size': 'लेख का आकार',
             'theme': 'प्रसंग',
             'dark_mode': 'डार्क मोड',
             'high_contrast': 'उच्च कंट्रास्ट',
             'language': 'भाषा',
             'reset': 'रीसेट',
-            'welcome': 'स्वागत'
+            'welcome': 'स्वागत',
+            'apply_now': 'अभी आवेदन करें',
+            'view_details': 'विवरण देखें',
+            'status': 'स्थिति',
+            'pending': 'लंबित',
+            'approved': 'स्वीकृत',
+            'rejected': 'अस्वीकृत'
         },
         'or': {
             'home': 'ମୂଳ ପୃଷ୍ଠା',
             'services': 'ସେବା',
             'contact': 'ଯୋଗାଯୋଗ',
+            'grievance': 'ଅଭିଯୋଗ',
             'dashboard': 'ମୋର ଡ୍ୟାସବୋର୍ଡ',
             'officer_console': 'ଅଧିକାରୀ କନସୋଲ',
             'analytics': 'ବିଶ୍ଳେଷଣ',
@@ -73,7 +88,13 @@ const AccessibilityManager = {
             'high_contrast': 'ଉଚ୍ଚ କଣ୍ଟ୍ରାଷ୍ଟ',
             'language': 'ଭାଷା',
             'reset': 'ରିସେଟ୍',
-            'welcome': 'ସ୍ୱାଗତ'
+            'welcome': 'ସ୍ୱାଗତ',
+            'apply_now': 'ଏବେ ଆବେଦନ କରନ୍ତୁ',
+            'view_details': 'ବିବରଣୀ ଦେଖନ୍ତୁ',
+            'status': 'ସ୍ଥିତି',
+            'pending': 'ପେଣ୍ଡିଂ',
+            'approved': 'ଅନୁମୋଦିତ',
+            'rejected': 'ପ୍ରତ୍ୟାଖ୍ୟାତ'
         }
     },
 

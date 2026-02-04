@@ -22,8 +22,13 @@ def dashboard(request):
     from django.utils import timezone
     from datetime import timedelta
 
-    # Ensure config exists
-    config, _ = SystemConfiguration.objects.get_or_create(id=1)
+    # Ensure config exists with fallback
+    try:
+        config = SystemConfiguration.objects.first()
+        if not config:
+            config = SystemConfiguration.objects.create(id=1)
+    except:
+        config = SystemConfiguration.objects.create(id=1)
     
     dept_count = Department.objects.count()
     service_count = Service.objects.count()
@@ -42,7 +47,7 @@ def dashboard(request):
     rejected_apps = Application.objects.filter(status='rejected').count()
     app_surge = Application.objects.filter(applied_date__gte=timezone.now() - timedelta(days=1)).count() > 50
     
-    # Audit & Security Metrics
+    # Audit & Security Metrics (Fix: description check can be case-sensitive depending on DB)
     failed_logins = AuditLog.objects.filter(action='LOGIN', description__icontains='fail').count()
     recent_logs = AuditLog.objects.order_by('-timestamp')[:10]
     
@@ -64,7 +69,7 @@ def dashboard(request):
     onboarding_completion = {
         'total': user_count,
         'completed': User.objects.filter(is_active=True).count(),
-        'pending_verification': User.objects.filter(is_verified=False).count() if hasattr(User, 'is_verified') else 0
+        'pending_verification': User.objects.filter(is_verified=False).count()
     }
     
     context = {
