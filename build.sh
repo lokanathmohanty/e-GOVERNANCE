@@ -12,13 +12,7 @@ mkdir -p media/profiles
 mkdir -p media/announcements/images
 mkdir -p media/announcements/docs
 
-echo "--- Collecting Static Files ---"
+# --- Collecting Static Files ---
 python manage.py collectstatic --no-input
-
-echo "--- Running Migrations ---"
-python manage.py migrate --no-input
-
-echo "--- Seeding Database ---"
-python manage.py setup_test_data
 
 echo "--- Build Finished Successfully ---"
