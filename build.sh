@@ -12,7 +12,7 @@ mkdir -p media/profiles
 mkdir -p media/announcements/images
 mkdir -p media/announcements/docs
 
-# --- Collecting Static Files ---
+echo "--- Collecting Static Files ---"
 python manage.py collectstatic --no-input
 
 echo "--- Build Finished Successfully ---"

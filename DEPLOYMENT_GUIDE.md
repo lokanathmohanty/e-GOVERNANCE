@@ -44,7 +44,6 @@ Ensure these files are present in your repository root:
 *   **Branch:** `main`
 *   **Runtime:** Python 3
 *   **Build Command:** `./build.sh`
-*   **Pre-deploy Command (Release Command):** `python manage.py migrate --no-input && python manage.py setup_test_data`
 *   **Start Command:** `gunicorn egovernance.wsgi:application`
 
 ### Step 3: Environment Variables
@@ -56,17 +55,13 @@ Add the following key-value pairs in the **Environment** tab:
 | `SECRET_KEY` | `(Generate a long random string)` | Django Security Key |
 | `DEBUG` | `False` | **CRITICAL for Production** |
 | `ALLOWED_HOSTS` | `.onrender.com` | Allow Render domains |
-| `DATABASE_URL` | `(Internal/External connection string)` | *See Step 4 below* |
-
-> [!IMPORTANT]
-> **Internal vs External URL:** 
-> *   Use the **Internal Database URL** if you are using the **Pre-deploy Command**.
-> *   If you keep migrations in `build.sh` (not recommended), you must use the **External Database URL** because the build environment cannot resolve internal Render hostnames.
+| `DATABASE_URL` | `(Internal connection string)` | *See Step 4 below* |
 
 ### Step 4: Add Database (PostgreSQL)
 1.  Go to Render Dashboard -> **New +** -> **PostgreSQL**.
 2.  Name it `smart-odisha-db`.
 3.  Once created, copy the **Internal Database URL**.
+    *   *Note: If you face a deploy error during build (`Name or service not known`), use the **External Database URL** instead.*
 4.  Go back to your Web Service -> **Environment**.
 5.  Add `DATABASE_URL` and paste the connection string.
 
